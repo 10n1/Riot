@@ -149,9 +149,15 @@ class Engine
     Audio*          audio;
     TaskManager*    task_manager;
     UISystem*       ui_system;
+    EntityManager*  entity_manager;
     
     void EngineInit(void);
-    void EngineFrame(void);
+    void EngineFrame(void)
+    {
+        
+        renderer.SortCommands();
+        renderer.Render();
+    }
     void EngineShutdown(void);
     void EngineMouseMoveInput( int mouse_delta_x, int mouse_delta_y );
     void EngineMouseButtonInput( int mouse_button_state[8] );
@@ -194,4 +200,29 @@ class Audio
     void PlayTrack( int sound_id );
     void StopSound( int sound_id );
     void StopTrack( int sound_id );
+}
+
+class EntityManager
+{
+    Entity  entities;
+    
+    Entity* GetNewEntity( void );
+    void DeleteEntity( Entity* entity );
+    void UpdateEntities( void )
+    {        
+        foreach( Entity e in entities )
+        {
+            foreach( Component c in e )
+            {
+                c.Update();
+            }
+        }
+    }
+}
+
+void UISystem
+{
+    void CreateButton( Position position, VoidFunc func, char label[] );
+    void CreateToggle( Position position, bool* variable, char label[] );
+    void CreateTextField( Position position, void* variable, Type variable_type, char label[] );
 }
