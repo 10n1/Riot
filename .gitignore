@@ -1,0 +1,16 @@
+*.opensdf
+*.sdf
+*.user
+bin
+ipch
+obj
+*.suo
+*.DS_Store
+*.exe
+*.xcbkptlist
+*.xcuserstate
+*.lik
+*.pdb
+*.app
+*.idb
+*.log
