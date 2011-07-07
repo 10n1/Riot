@@ -64,8 +64,8 @@ class ExampleMeshRenderComponent
     
     void ProcessComponent( void )
     {
-        Renderer->SetTransform( owner_entity->GetTransform() );
-        Renderer->RenderMesh( mesh_to_render );
+        RenderCommand command( owner_entity->GetTransform(), mesh_to_render, other_render_properties );
+        Renderer->AddRenderCommand( command );
     }
 }
 
@@ -125,6 +125,9 @@ Can be a component:
     Debug visualizations
     Inventory system
     Camera
+    Light
+    Animation
+    Apply fullscreen effect (when you enter a volume in the world, maybe the sky goes red or something)
  
 Not component based:
     Renderer
@@ -136,6 +139,24 @@ Not component based:
     UI system
     Picking
 */
+
+/*    Engine
+*/
+
+class Engine
+{
+    Renderer*       renderer;
+    Audio*          audio;
+    TaskManager*    task_manager;
+    UISystem*       ui_system;
+    
+    void EngineInit(void);
+    void EngineFrame(void);
+    void EngineShutdown(void);
+    void EngineMouseMoveInput( int mouse_delta_x, int mouse_delta_y );
+    void EngineMouseButtonInput( int mouse_button_state[8] );
+    void EngineKeyboardInput( int key_state[256] );
+}
 
 /*    Subsystems
 */
@@ -155,4 +176,22 @@ class Renderer
     void AddRenderCommand( RenderCommand command );
     void SortCommands( void );
     void Render( void );
+    void LoadMesh( char mesh_name[] );
+    void LoadTexture( char texture_name[] );
+    
+    // The renderer should have a system where you can overwrite the default
+    // rendering and substitute your own callback or something. That way the
+    // terrain can render itself however it wants
+}
+
+class Audio
+{
+    void*   audio_device; // OpenAL, FMod, etc
+    
+    void LoadSound( char sound_name[] );
+    void LoadTrackForStreaming( char track_name[] );
+    void PlaySound( int sound_id );
+    void PlayTrack( int sound_id );
+    void StopSound( int sound_id );
+    void StopTrack( int sound_id );
 }
