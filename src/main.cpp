@@ -72,6 +72,8 @@ class ExampleMeshRenderComponent
 class ExampleCollidableComponent
 {
     Shape   collision_shape;
+    
+    void OnEvent( Event event );
 }
 
 class ExampleRigidBody
@@ -217,6 +219,11 @@ class EntityManager
                 c.Update();
             }
         }
+        
+        if( is_server )
+            network->SendData( updated_data );
+        else
+            network->ReceiveData( updated_data );
     }
 }
 
@@ -227,6 +234,10 @@ void UISystem
     void CreateTextField( Position position, void* variable, Type variable_type, char label[] );
     void CreateMenu( Position position, char label[] );
     void CreateMenuItem( Menu parent_menu, VoidFunc func, char label[] );
+    void CreateLabel( Position position, char label[] );
+    void CreateValueLabel( Position, void* variable, Type variable_type, char label[] );
+    void CreateGroup( void ); // Used to group things together, so a checkbox can be inserted
+                              // with a button in a group, and it can move together
 }
 
 void Network
@@ -236,8 +247,47 @@ void Network
     void ReceiveData( void* data );
 }
 
+void File
+{
+    char    filename[];
+    FILE*   file;
+    
+    void LoadFileSync( char filename[] );
+    void LoadFileAsync( char filename[] );
+    void SaveFileSync( char filename[] );
+    void SaveFileAsync( char filename[] );
+}
+
+void Scene
+{
+    Terrain*    terrain;
+    Entity*     entities[];
+    
+    void LoadScene( char scene_file[] );
+    void SaveScene( char scene_file[] );
+    void ClearScene( void );
+    void NewScene( void );
+}
+
 void Terrain
 {
-    int seed;
+    int             seed;
+    VertexBuffer    vertex_buffers[];
+    IntexBuffer     index_buffers[];
     
+    void UpdateTerrain( Position position );
+    void Render( void );
+}
+
+void Input
+{
+    int mouse_button_state[8];
+    int mouse_position[2];
+    Key key_state[256];
+    
+    int GetKeyState( int key );
+    int GetMouseState( int button );
+    int GetMousePosition( void );
+    int SetKeyState( int key_state[] );
+    int SetMouseState( int button[8] );
 }
