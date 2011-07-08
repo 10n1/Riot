@@ -150,11 +150,11 @@ class Engine
     TaskManager*    task_manager;
     UISystem*       ui_system;
     EntityManager*  entity_manager;
+    Network*        network;
     
     void EngineInit(void);
     void EngineFrame(void)
-    {
-        
+    {        
         renderer.SortCommands();
         renderer.Render();
     }
@@ -225,4 +225,19 @@ void UISystem
     void CreateButton( Position position, VoidFunc func, char label[] );
     void CreateToggle( Position position, bool* variable, char label[] );
     void CreateTextField( Position position, void* variable, Type variable_type, char label[] );
+    void CreateMenu( Position position, char label[] );
+    void CreateMenuItem( Menu parent_menu, VoidFunc func, char label[] );
+}
+
+void Network
+{
+    Socket  tcp_socket;
+    void SendData( NetworkAddress address, void* data );
+    void ReceiveData( void* data );
+}
+
+void Terrain
+{
+    int seed;
+    
 }
