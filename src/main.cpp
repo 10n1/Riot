@@ -153,6 +153,7 @@ class Engine
     UISystem*       ui_system;
     EntityManager*  entity_manager;
     Network*        network;
+    Event           events[];
     
     void EngineInit(void);
     void EngineFrame(void)
