@@ -154,6 +154,7 @@ class Engine
     EntityManager*  entity_manager;
     Network*        network;
     Event           events[];
+    GameState       game_state_stack[];
     
     void EngineInit(void);
     void EngineFrame(void)
@@ -191,6 +192,12 @@ class Renderer
     // The renderer should have a system where you can overwrite the default
     // rendering and substitute your own callback or something. That way the
     // terrain can render itself however it wants
+}
+
+class GameState
+{
+    void Update( void );
+    void Render( void );
 }
 
 class Audio
@@ -275,9 +282,12 @@ void Terrain
     int             seed;
     VertexBuffer    vertex_buffers[];
     IntexBuffer     index_buffers[];
+    Diff            diffs[];
     
     void UpdateTerrain( Position position );
     void Render( void );
+    void CreateDiff( void );
+    void CheckCollisions( void );
 }
 
 void Input
