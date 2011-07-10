@@ -15,7 +15,8 @@ int ApplicationMain( int argc, const char** argv )
     
     // Load the main class from the plist file
     NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    Class principalClass = NSClassFromString([infoDictionary objectForKey:@"NSPrincipalClass"]);
+    NSString* className = [infoDictionary objectForKey:@"NSPrincipalClass"];
+    Class principalClass = NSClassFromString(className);
     NSApplication* applicationObject = [principalClass sharedApplication];
     
     // Now load the nib file

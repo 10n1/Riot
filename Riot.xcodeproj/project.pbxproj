@@ -261,6 +261,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "src/Riot-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OBJROOT = obj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = bin;
@@ -275,6 +276,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "src/Riot-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OBJROOT = obj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = bin;
