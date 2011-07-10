@@ -14,18 +14,17 @@
 // Replacement for NSApplicationMain
 int ApplicationMain( int argc, const char** argv );
 
+@class OSXDefaultView;
 @interface OSXApplication : NSApplication
 {
 @private
-    NSWindow*   _system_window;    
-    NSView*     _main_view;
+    NSWindow*       _system_window;    
+    OSXDefaultView* _main_view;
 }
 
 -(void*) CreateWindowWithWidth:(int)width 
                         Height:(int)height 
                     Fullscreen:(bool)fullscreen;
-
-
 -(void) keyDown:(NSEvent *)theEvent;
 -(void) keyUp:(NSEvent *)theEvent;
 -(void) mouseDown:(NSEvent *)theEvent;
@@ -38,9 +37,10 @@ int ApplicationMain( int argc, const char** argv );
 @interface OSXDefaultView : NSView 
 {
 @private
-    NSApplication*  _parent_application;
+    NSApplication*      _parent_application;
+    NSOpenGLContext*    _opengl_context;
 }
-
 @property (retain) NSApplication* parent_application;
+@property (retain) NSOpenGLContext* opengl_context;
 
 @end

@@ -78,7 +78,7 @@ Application interface
                         Height:(int)height 
                     Fullscreen:(bool)fullscreen
 {
-    ASSERT(_system_window);
+    ASSERT(_system_window == nullptr);
     
     NSAutoreleasePool* autorelease_pool = [[NSAutoreleasePool alloc] init];;
     
@@ -106,6 +106,10 @@ Application interface
                                                      defer:YES];
     
     [_system_window setAcceptsMouseMovedEvents:TRUE];
+    _main_view = [[OSXDefaultView alloc] initWithFrame:NSMakeRect(0, 0, width, height)];
+    [_main_view setParent_application:self];
+    [_system_window setContentView:_main_view];
+    [_system_window makeKeyAndOrderFront:self];
     
     [autorelease_pool release];
     
@@ -115,6 +119,7 @@ Application interface
 -(void) run
 {
     NSAutoreleasePool* autorelease_pool = [[NSAutoreleasePool alloc] init];
+    [self CreateWindowWithWidth:1280 Height:720 Fullscreen:false];
     [self finishLaunching];
     
     do 
@@ -171,5 +176,116 @@ Application interface
 @implementation OSXDefaultView
 
 @synthesize parent_application = _parent_application;
+@synthesize opengl_context = _opengl_context;
+
+-(id) init
+{    
+    NSAutoreleasePool* autorelease_pool = [[NSAutoreleasePool alloc] init];
+    
+    self = [super init];
+    if( self )
+    {
+        _parent_application = nullptr;
+        _opengl_context     = nullptr;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(reshape) 
+                                                     name:NSViewGlobalFrameDidChangeNotification 
+                                                   object:self];
+    }
+    
+    [autorelease_pool release];
+    
+    return self;
+}
+
+-(id) initWithFrame:(NSRect)frameRect
+{    
+    NSAutoreleasePool* autorelease_pool = [[NSAutoreleasePool alloc] init];
+    
+    self = [super initWithFrame:frameRect];
+    
+    if( self )
+    {
+        _parent_application = nullptr;
+        _opengl_context     = nullptr;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(reshape) 
+                                                     name:NSViewGlobalFrameDidChangeNotification 
+                                                   object:self];
+    }
+    
+    [autorelease_pool release];
+    
+    return self;
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSViewGlobalFrameDidChangeNotification 
+                                                  object:self];
+    
+    [super dealloc];
+}
+
+-(void) lockFocus
+{
+    [super lockFocus];
+    
+    if( [_opengl_context view] != self )
+    {
+        [_opengl_context setView:self];
+    }
+}
+
+-(void) reshape
+{    
+    NSAutoreleasePool* autorelease_pool = [[NSAutoreleasePool alloc] init];
+    
+    NSRect bounds = [self bounds];
+    // TODO: Something with the bounds
+    
+    [autorelease_pool release];
+}
+
+-(void) drawRect:(NSRect)dirtyRect
+{
+    
+}
+
+-(BOOL) acceptsFirstResponder
+{
+    return YES;
+}
+
+-(BOOL) setAcceptsMouseMovedEvents
+{
+    return YES;
+}
+
+-(void) keyDown:(NSEvent *)theEvent
+{
+    [_parent_application keyDown:theEvent];
+}
+
+-(void) keyUp:(NSEvent *)theEvent
+{
+    [_parent_application keyUp:theEvent];
+}
+
+-(void) mouseDown:(NSEvent *)theEvent
+{
+    [_parent_application mouseDown:theEvent ];   
+}
+-(void) mouseUp:(NSEvent *)theEvent
+{
+    [_parent_application mouseUp:theEvent];   
+}
+-(void) mouseMoved:(NSEvent *)theEvent
+{
+    [_parent_application mouseMoved:theEvent];
+}
 
 @end
