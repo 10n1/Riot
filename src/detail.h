@@ -1,4 +1,21 @@
 /*
+Tasks to complete (in order)
+*/
+Main engine functions (init, frame, shutdown, etc)
+FileIO
+Error logging functions
+TaskManager
+OpenGLRenderer
+UISystem
+Terrain
+EntityManager
+ComponentSystem
+    RenderMeshComponent
+    CollidableComponent
+Editor UI
+
+
+/*
 Pseudo-call stacks for events that happen in game mode
 */
 

@@ -123,6 +123,9 @@ Application interface
     [self CreateWindowWithWidth:1280 Height:720 Fullscreen:false];
     [self finishLaunching];
     
+    _engine = new Engine;
+    _engine->Init();
+    
     do 
     {
         [autorelease_pool drain];
@@ -144,6 +147,9 @@ Application interface
             if( !_running )
                 break;
         }
+        
+        _engine->Frame();
+        
     } while (_running);
     
     [autorelease_pool release];

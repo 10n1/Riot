@@ -14,6 +14,7 @@
 		3694FE7913C6B75E0000ABBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694FE7113C6B75E0000ABBC /* main.m */; };
 		3694FE7A13C6B75E0000ABBC /* Riot-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3694FE7213C6B75E0000ABBC /* Riot-Info.plist */; };
 		3694FE7B13C6B75E0000ABBC /* osx_application.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694FE7513C6B75E0000ABBC /* osx_application.m */; };
+		36BD18B413C98DED00732273 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36BD18B313C98DED00732273 /* engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,11 +23,11 @@
 		3607F17913C6B736009C8C9C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3607F17A13C6B736009C8C9C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3607F17B13C6B736009C8C9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3694FE6913C6B75E0000ABBC /* detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detail.h; sourceTree = "<group>"; };
+		3694FE6913C6B75E0000ABBC /* detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = detail.h; path = src/detail.h; sourceTree = "<group>"; };
 		3694FE6B13C6B75E0000ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3694FE6D13C6B75E0000ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3694FE6F13C6B75E0000ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		3694FE7013C6B75E0000ABBC /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		3694FE7013C6B75E0000ABBC /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = src/main.h; sourceTree = "<group>"; };
 		3694FE7113C6B75E0000ABBC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3694FE7213C6B75E0000ABBC /* Riot-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Riot-Info.plist"; sourceTree = "<group>"; };
 		3694FE7413C6B75E0000ABBC /* osx_application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osx_application.h; sourceTree = "<group>"; };
@@ -35,6 +36,9 @@
 		3694FE8113C6B8B00000ABBC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		3694FE8213C6B8B00000ABBC /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		3694FE8313C6B8B00000ABBC /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		36AD5A7B13C9912B0024A0EB /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		36BD18B213C98CF600732273 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		36BD18B313C98DED00732273 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,7 @@
 		3607F16713C6B736009C8C9C = {
 			isa = PBXGroup;
 			children = (
+				36BD18B013C9718800732273 /* design */,
 				3694FE6813C6B75E0000ABBC /* src */,
 				3607F17513C6B736009C8C9C /* Frameworks */,
 				3607F17313C6B736009C8C9C /* Products */,
@@ -92,17 +97,27 @@
 				3694FE8113C6B8B00000ABBC /* config.h */,
 				3694FE8213C6B8B00000ABBC /* global.h */,
 				3694FE8313C6B8B00000ABBC /* types.h */,
-				3694FE6913C6B75E0000ABBC /* detail.h */,
 				3694FE6A13C6B75E0000ABBC /* Credits.rtf */,
 				3694FE6C13C6B75E0000ABBC /* InfoPlist.strings */,
 				3694FE6E13C6B75E0000ABBC /* MainMenu.xib */,
-				3694FE7013C6B75E0000ABBC /* main.h */,
 				3694FE7113C6B75E0000ABBC /* main.m */,
 				3694FE7213C6B75E0000ABBC /* Riot-Info.plist */,
 				3694FE7413C6B75E0000ABBC /* osx_application.h */,
 				3694FE7513C6B75E0000ABBC /* osx_application.m */,
+				36BD18B213C98CF600732273 /* engine.h */,
+				36BD18B313C98DED00732273 /* engine.cpp */,
+				36AD5A7B13C9912B0024A0EB /* error.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		36BD18B013C9718800732273 /* design */ = {
+			isa = PBXGroup;
+			children = (
+				3694FE6913C6B75E0000ABBC /* detail.h */,
+				3694FE7013C6B75E0000ABBC /* main.h */,
+			);
+			name = design;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +183,7 @@
 			files = (
 				3694FE7913C6B75E0000ABBC /* main.m in Sources */,
 				3694FE7B13C6B75E0000ABBC /* osx_application.m in Sources */,
+				36BD18B413C98DED00732273 /* engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
