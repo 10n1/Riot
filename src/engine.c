@@ -7,29 +7,40 @@
 //
 
 #include <stdio.h>
+#include <memory.h>
+#include <stdlib.h>
+#include <immintrin.h>
+#include <fstream.h>
 
 #include "engine.h"
 #include "error.h"
+#include "utility.h"
 
-Engine::Engine()
+typedef struct Engine
 {
+    FILE*   _log_file;
+    int     _initialized;
+} Engine;
+
+static Engine* g_engine;
+
+void EngineInit(void)
+{
+    g_engine = (Engine*)malloc(sizeof(Engine));
     
-}
-
-Engine::~Engine()
-{
+    g_engine->_initialized = 1;
+    fopen("log.txt", "a");
     
+    PRINT_ERROR("Engine Initialized");
 }
 
-void Engine::Init()
+void EngineShutdown(void)
 {
-    PRINT_ERROR("Engine Init!");
+    PRINT_ERROR("Engine Shutdown!");
+    free(g_engine);
 }
 
-void Engine::Shutdown()
-{
-}
-
-void Engine::Frame()
+void EngineFrame(void)
 {   
+    ASSERT( g_engine->_initialized == 1 );
 }
