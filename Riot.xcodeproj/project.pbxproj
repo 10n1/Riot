@@ -14,7 +14,7 @@
 		3694FE7913C6B75E0000ABBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694FE7113C6B75E0000ABBC /* main.m */; };
 		3694FE7A13C6B75E0000ABBC /* Riot-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3694FE7213C6B75E0000ABBC /* Riot-Info.plist */; };
 		3694FE7B13C6B75E0000ABBC /* osx_application.m in Sources */ = {isa = PBXBuildFile; fileRef = 3694FE7513C6B75E0000ABBC /* osx_application.m */; };
-		36BD18B413C98DED00732273 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36BD18B313C98DED00732273 /* engine.cpp */; };
+		36BD18B413C98DED00732273 /* engine.c in Sources */ = {isa = PBXBuildFile; fileRef = 36BD18B313C98DED00732273 /* engine.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,17 +28,18 @@
 		3694FE6D13C6B75E0000ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3694FE6F13C6B75E0000ABBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3694FE7013C6B75E0000ABBC /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = src/main.h; sourceTree = "<group>"; };
-		3694FE7113C6B75E0000ABBC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3694FE7113C6B75E0000ABBC /* main.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.m; sourceTree = "<group>"; };
 		3694FE7213C6B75E0000ABBC /* Riot-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Riot-Info.plist"; sourceTree = "<group>"; };
 		3694FE7413C6B75E0000ABBC /* osx_application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osx_application.h; sourceTree = "<group>"; };
-		3694FE7513C6B75E0000ABBC /* osx_application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = osx_application.m; sourceTree = "<group>"; };
+		3694FE7513C6B75E0000ABBC /* osx_application.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = osx_application.m; sourceTree = "<group>"; };
 		3694FE8013C6B8B00000ABBC /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
 		3694FE8113C6B8B00000ABBC /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		3694FE8213C6B8B00000ABBC /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		3694FE8313C6B8B00000ABBC /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		36AD5A7B13C9912B0024A0EB /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		36BD18B213C98CF600732273 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
-		36BD18B313C98DED00732273 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
+		36BD18B313C98DED00732273 /* engine.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = engine.c; sourceTree = "<group>"; };
+		CD55D61C13CD08C2009CC446 /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +106,9 @@
 				3694FE7413C6B75E0000ABBC /* osx_application.h */,
 				3694FE7513C6B75E0000ABBC /* osx_application.m */,
 				36BD18B213C98CF600732273 /* engine.h */,
-				36BD18B313C98DED00732273 /* engine.cpp */,
+				36BD18B313C98DED00732273 /* engine.c */,
 				36AD5A7B13C9912B0024A0EB /* error.h */,
+				CD55D61C13CD08C2009CC446 /* utility.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -183,7 +185,7 @@
 			files = (
 				3694FE7913C6B75E0000ABBC /* main.m in Sources */,
 				3694FE7B13C6B75E0000ABBC /* osx_application.m in Sources */,
-				36BD18B413C98DED00732273 /* engine.cpp in Sources */,
+				36BD18B413C98DED00732273 /* engine.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +276,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_TEMP_DIR = obj/Debug;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "src/Riot-Info.plist";
@@ -289,6 +293,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_TEMP_DIR = obj/Release;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "src/Riot-Info.plist";

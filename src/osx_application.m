@@ -111,10 +111,18 @@ Application interface
     [_main_view setParent_application:self];
     [_system_window setContentView:_main_view];
     [_system_window makeKeyAndOrderFront:self];
+    [_system_window makeMainWindow];
+    [_system_window makeKeyWindow];
+    
     
     [autorelease_pool release];
     
     return _system_window;
+}
+
+-(void) applicationWillFinishLaunching
+{
+    debugBreak();
 }
 
 -(void) run
@@ -123,8 +131,11 @@ Application interface
     [self CreateWindowWithWidth:1280 Height:720 Fullscreen:false];
     [self finishLaunching];
     
-    _engine = new Engine;
-    _engine->Init();
+    EngineInit();
+    
+    BOOL main = [_system_window isMainWindow];
+    NSWindow* key_window = [self keyWindow];
+    NSWindow* main_window = [self mainWindow];
     
     do 
     {
@@ -148,11 +159,18 @@ Application interface
                 break;
         }
         
-        _engine->Frame();
+        EngineFrame();
         
     } while (_running);
     
     [autorelease_pool release];
+}
+
+-(void) terminate:(id)sender
+{
+    EngineShutdown();
+    
+    [super terminate:sender];
 }
 
 -(void) keyDown:(NSEvent *)theEvent

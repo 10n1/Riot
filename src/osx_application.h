@@ -22,7 +22,6 @@ int ApplicationMain( int argc, const char** argv );
 @private
     NSWindow*       _system_window;    
     OSXDefaultView* _main_view;
-    Engine*         _engine;
 }
 
 -(void*) CreateWindowWithWidth:(int)width 

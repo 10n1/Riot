@@ -13,4 +13,5 @@ int main(int argc, char *argv[])
 {
     wprintf( L"%ls, %ls, %ls\n", g_kPlatformName, g_kArchName, g_kISAName );
     return ApplicationMain(argc, (const char **)argv);
+    //return NSApplicationMain(argc, (const char **)argv);
 }

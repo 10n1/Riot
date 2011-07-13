@@ -12,16 +12,6 @@
 #include "config.h"
 #include "assert.h"
 
-class Engine
-{
-public:
-    Engine();
-    ~Engine();
-    
-    void Init(void);
-    void Frame(void);
-    void Shutdown(void);
-    
-private:
-    
-};
+void EngineInit(void);
+void EngineFrame(void);
+void EngineShutdown(void);
