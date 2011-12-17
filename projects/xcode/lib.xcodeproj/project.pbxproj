@@ -229,6 +229,8 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/lib;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -261,8 +263,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/lib;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
 			};
 			name = Debug;
 		};
@@ -276,6 +280,8 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/lib;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = ansi;
@@ -302,7 +308,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/lib;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
 			};
 			name = Release;
 		};

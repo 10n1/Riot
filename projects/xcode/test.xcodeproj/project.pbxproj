@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27B03179149D29AF00BBA349 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B03178149D29AF00BBA349 /* libgtest.a */; };
+		27B0317B149D29B300BBA349 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0317A149D29B300BBA349 /* liblib.a */; };
 		27FFCDFC149D22A100D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDF9149D22A100D22F31 /* main.cpp */; };
 		27FFCDFD149D22A100D22F31 /* atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDFB149D22A100D22F31 /* atomic.cpp */; };
-		27FFCE02149D22DB00D22F31 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCE01149D22DB00D22F31 /* liblib.a */; };
-		27FFCE0B149D243E00D22F31 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCE0A149D243E00D22F31 /* libgtest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +26,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27B03178149D29AF00BBA349 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug/libgtest.a"; sourceTree = "<group>"; };
+		27B0317A149D29B300BBA349 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = ../../build/bin/liblib.a; sourceTree = "<group>"; };
 		27FFCDB4149D224F00D22F31 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFCDF9149D22A100D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		27FFCDFB149D22A100D22F31 /* atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atomic.cpp; sourceTree = "<group>"; };
-		27FFCE01149D22DB00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
-		27FFCE0A149D243E00D22F31 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libgtest.a; path = "../../external/gtest-1.6.0/xcode/build/Release/libgtest.a"; sourceTree = "<group>"; };
+		27FFCE01149D22DB00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
+		27FFCE0A149D243E00D22F31 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../external/gtest-1.6.0/xcode/build/Release/libgtest.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,8 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27FFCE0B149D243E00D22F31 /* libgtest.a in Frameworks */,
-				27FFCE02149D22DB00D22F31 /* liblib.a in Frameworks */,
+				27B0317B149D29B300BBA349 /* liblib.a in Frameworks */,
+				27B03179149D29AF00BBA349 /* libgtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,9 +51,11 @@
 		27FFCDA9149D224F00D22F31 = {
 			isa = PBXGroup;
 			children = (
-				27FFCE0A149D243E00D22F31 /* libgtest.a */,
+				27B0317A149D29B300BBA349 /* liblib.a */,
+				27B03178149D29AF00BBA349 /* libgtest.a */,
 				27FFCDF8149D22A100D22F31 /* test */,
 				27FFCDB5149D224F00D22F31 /* Products */,
+				27FFCE0A149D243E00D22F31 /* libgtest.a */,
 				27FFCE01149D22DB00D22F31 /* liblib.a */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +96,7 @@
 				27FFCDB0149D224F00D22F31 /* Sources */,
 				27FFCDB1149D224F00D22F31 /* Frameworks */,
 				27FFCDB2149D224F00D22F31 /* CopyFiles */,
+				27B29E5A149D2D78001C1928 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -128,6 +133,22 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		27B29E5A149D2D78001C1928 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = $TARGET_BUILD_DIR/test;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		27FFCDB0149D224F00D22F31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -146,6 +167,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/test;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -163,8 +186,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/test;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
+				USER_HEADER_SEARCH_PATHS = "../../lib/include ../../external/gtest-1.6.0/include";
 			};
 			name = Debug;
 		};
@@ -173,6 +199,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/test;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -184,13 +212,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/test;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
+				USER_HEADER_SEARCH_PATHS = "../../lib/include ../../external/gtest-1.6.0/include";
 			};
 			name = Release;
 		};
 		27FFCDBF149D224F00D22F31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../build/bin\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -198,6 +234,11 @@
 		27FFCDC0149D224F00D22F31 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../build/bin\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

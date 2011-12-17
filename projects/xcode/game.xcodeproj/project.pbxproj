@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27B0317D149D29C300BBA349 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0317C149D29C300BBA349 /* liblib.a */; };
 		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
-		27FFCE00149D22CA00D22F31 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCDFF149D22CA00D22F31 /* liblib.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27B0317C149D29C300BBA349 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = ../../build/bin/liblib.a; sourceTree = "<group>"; };
 		27FFCD88149D222A00D22F31 /* game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFCD8C149D222A00D22F31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27FFCD8F149D222A00D22F31 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		27FFCD90149D222A00D22F31 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		27FFCD91149D222A00D22F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFCDCD149D229400D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		27FFCDFF149D22CA00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
+		27FFCDFF149D22CA00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27FFCE00149D22CA00D22F31 /* liblib.a in Frameworks */,
+				27B0317D149D29C300BBA349 /* liblib.a in Frameworks */,
 				27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,6 +39,7 @@
 		27FFCD7D149D222A00D22F31 = {
 			isa = PBXGroup;
 			children = (
+				27B0317C149D29C300BBA349 /* liblib.a */,
 				27FFCDCC149D229400D22F31 /* game */,
 				27FFCD8B149D222A00D22F31 /* Frameworks */,
 				27FFCD89149D222A00D22F31 /* Products */,
@@ -160,6 +162,8 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/game;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -193,8 +197,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/game;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
 			};
 			name = Debug;
 		};
@@ -209,6 +215,8 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj/game;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = ansi;
@@ -236,7 +244,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj/game;
 				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
 			};
 			name = Release;
 		};
@@ -246,6 +256,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../build/bin\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -257,6 +271,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../build/bin\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
