@@ -15,6 +15,9 @@
 
 //#include "internal_headers.h"
 
+#include "assert.h"
+#include "build.h"
+
 namespace
 {
 
@@ -42,6 +45,9 @@ namespace
 int main(int argc, char* argv[])
 {
     return 0;
+
+    UNUSED_PARAMETER(argc);
+    UNUSED_PARAMETER(argv[0]);
 }
 
 
@@ -50,13 +56,13 @@ int main(int argc, char* argv[])
 
 /*
  *  .
- *  engine
+ *  riot
  *
  *  Created by Kyle Weicht on 10/19/11.
  *  Copyright (c) 2011 Kyle Weicht. All rights reserved.
  */
-#ifndef engine_XXXX_h_
-#define engine_XXXX_h_
+#ifndef riot_XXXX_h_
+#define riot_XXXX_h_
 //#include <cheaders>
 
 //#include <c++headers>
@@ -77,7 +83,7 @@ int main(int argc, char* argv[])
  External functions
 \*******************************************************************/
 
-#endif
+#endif /* include guard */
 
 /* Source */
 /*

@@ -20,6 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\core.cpp" />
+    <ClCompile Include="..\..\lib\src\system\directory.cpp" />
+    <ClCompile Include="..\..\lib\src\system\file.cpp" />
+    <ClCompile Include="..\..\lib\src\system\hardware.cpp" />
+    <ClCompile Include="..\..\lib\src\system\thread.cpp" />
+    <ClCompile Include="..\..\lib\src\system\timer.cpp" />
+    <ClCompile Include="..\..\lib\src\system\utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\assert.h" />
+    <ClInclude Include="..\..\lib\include\build.h" />
+    <ClInclude Include="..\..\lib\include\system\atomic.h" />
+    <ClInclude Include="..\..\lib\include\system\directory.h" />
+    <ClInclude Include="..\..\lib\include\system\file.h" />
+    <ClInclude Include="..\..\lib\include\system\hardware.h" />
+    <ClInclude Include="..\..\lib\include\system\thread.h" />
+    <ClInclude Include="..\..\lib\include\system\timer.h" />
+    <ClInclude Include="..\..\lib\include\system\utility.h" />
+    <ClInclude Include="..\..\lib\include\types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{791480E4-02DC-427A-9559-402B992E8CE3}</ProjectGuid>
@@ -102,6 +120,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../lib/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -121,6 +140,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../lib/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -142,6 +162,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../lib/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,6 +186,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>$(SolutionDir)../../lib/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

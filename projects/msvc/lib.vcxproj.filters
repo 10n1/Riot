@@ -7,10 +7,66 @@
     <Filter Include="src">
       <UniqueIdentifier>{b7a9b05a-56bc-44f6-931e-5bcda955d470}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\system">
+      <UniqueIdentifier>{d2feccc8-e2b9-4ba7-afc8-c31b834700a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\system">
+      <UniqueIdentifier>{9111bbf8-c16d-4702-beab-995132192d36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\core.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\directory.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\file.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\hardware.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\thread.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\timer.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\utility.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\build.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\assert.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\atomic.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\directory.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\file.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\hardware.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\thread.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\timer.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\utility.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
