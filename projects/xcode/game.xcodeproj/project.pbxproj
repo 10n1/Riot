@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		27FFCD88149D222A00D22F31 /* game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = game.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FFCD8C149D222A00D22F31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		27FFCD8F149D222A00D22F31 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		27FFCD90149D222A00D22F31 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		27FFCD91149D222A00D22F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27FFCD85149D222A00D22F31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27FFCD7D149D222A00D22F31 = {
+			isa = PBXGroup;
+			children = (
+				27FFCD8B149D222A00D22F31 /* Frameworks */,
+				27FFCD89149D222A00D22F31 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27FFCD89149D222A00D22F31 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCD88149D222A00D22F31 /* game.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27FFCD8B149D222A00D22F31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCD8C149D222A00D22F31 /* Cocoa.framework */,
+				27FFCD8E149D222A00D22F31 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		27FFCD8E149D222A00D22F31 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCD8F149D222A00D22F31 /* AppKit.framework */,
+				27FFCD90149D222A00D22F31 /* CoreData.framework */,
+				27FFCD91149D222A00D22F31 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27FFCD87149D222A00D22F31 /* game */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27FFCDA6149D222B00D22F31 /* Build configuration list for PBXNativeTarget "game" */;
+			buildPhases = (
+				27FFCD84149D222A00D22F31 /* Sources */,
+				27FFCD85149D222A00D22F31 /* Frameworks */,
+				27FFCD86149D222A00D22F31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = game;
+			productName = game;
+			productReference = 27FFCD88149D222A00D22F31 /* game.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27FFCD7F149D222A00D22F31 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = none;
+			};
+			buildConfigurationList = 27FFCD82149D222A00D22F31 /* Build configuration list for PBXProject "game" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 27FFCD7D149D222A00D22F31;
+			productRefGroup = 27FFCD89149D222A00D22F31 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27FFCD87149D222A00D22F31 /* game */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27FFCD86149D222A00D22F31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27FFCD84149D222A00D22F31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		27FFCDA4149D222B00D22F31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		27FFCDA5149D222B00D22F31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		27FFCDA7149D222B00D22F31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "game/game-Prefix.pch";
+				INFOPLIST_FILE = "game/game-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		27FFCDA8149D222B00D22F31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "game/game-Prefix.pch";
+				INFOPLIST_FILE = "game/game-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27FFCD82149D222A00D22F31 /* Build configuration list for PBXProject "game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27FFCDA4149D222B00D22F31 /* Debug */,
+				27FFCDA5149D222B00D22F31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27FFCDA6149D222B00D22F31 /* Build configuration list for PBXNativeTarget "game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27FFCDA7149D222B00D22F31 /* Debug */,
+				27FFCDA8149D222B00D22F31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27FFCD7F149D222A00D22F31 /* Project object */;
+}
