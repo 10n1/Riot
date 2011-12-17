@@ -8,6 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		275D128B149D20300093FBF0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D128A149D20300093FBF0 /* Cocoa.framework */; };
+		27DEED53149D20BE003F355E /* assert.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED3F149D20BE003F355E /* assert.h */; };
+		27DEED54149D20BE003F355E /* build.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED40149D20BE003F355E /* build.h */; };
+		27DEED55149D20BE003F355E /* atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED42149D20BE003F355E /* atomic.h */; };
+		27DEED56149D20BE003F355E /* directory.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED43149D20BE003F355E /* directory.h */; };
+		27DEED57149D20BE003F355E /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED44149D20BE003F355E /* file.h */; };
+		27DEED58149D20BE003F355E /* hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED45149D20BE003F355E /* hardware.h */; };
+		27DEED59149D20BE003F355E /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED46149D20BE003F355E /* thread.h */; };
+		27DEED5A149D20BE003F355E /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED47149D20BE003F355E /* timer.h */; };
+		27DEED5B149D20BE003F355E /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED48149D20BE003F355E /* utility.h */; };
+		27DEED5C149D20BE003F355E /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 27DEED49149D20BE003F355E /* types.h */; };
+		27DEED5D149D20BE003F355E /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED4B149D20BE003F355E /* core.cpp */; };
+		27DEED5E149D20BE003F355E /* directory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED4D149D20BE003F355E /* directory.cpp */; };
+		27DEED5F149D20BE003F355E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED4E149D20BE003F355E /* file.cpp */; };
+		27DEED60149D20BE003F355E /* hardware.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED4F149D20BE003F355E /* hardware.cpp */; };
+		27DEED61149D20BE003F355E /* thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED50149D20BE003F355E /* thread.cpp */; };
+		27DEED62149D20BE003F355E /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED51149D20BE003F355E /* timer.cpp */; };
+		27DEED63149D20BE003F355E /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED52149D20BE003F355E /* utility.cpp */; };
+		27DEED66149D20C7003F355E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED65149D20C7003F355E /* main.cpp */; };
+		27DEED6B149D20D0003F355E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED68149D20D0003F355E /* main.cpp */; };
+		27DEED6C149D20D0003F355E /* atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27DEED6A149D20D0003F355E /* atomic.cpp */; };
+		27DEED6D149D20F3003F355E /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D127D149D20130093FBF0 /* liblib.a */; };
+		27DEED6E149D20F8003F355E /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D127D149D20130093FBF0 /* liblib.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +52,26 @@
 		275D128E149D20300093FBF0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		275D128F149D20300093FBF0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		275D12A9149D20440093FBF0 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
+		27DEED3F149D20BE003F355E /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
+		27DEED40149D20BE003F355E /* build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build.h; sourceTree = "<group>"; };
+		27DEED42149D20BE003F355E /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
+		27DEED43149D20BE003F355E /* directory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = directory.h; sourceTree = "<group>"; };
+		27DEED44149D20BE003F355E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		27DEED45149D20BE003F355E /* hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hardware.h; sourceTree = "<group>"; };
+		27DEED46149D20BE003F355E /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
+		27DEED47149D20BE003F355E /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		27DEED48149D20BE003F355E /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		27DEED49149D20BE003F355E /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		27DEED4B149D20BE003F355E /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		27DEED4D149D20BE003F355E /* directory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directory.cpp; sourceTree = "<group>"; };
+		27DEED4E149D20BE003F355E /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		27DEED4F149D20BE003F355E /* hardware.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hardware.cpp; sourceTree = "<group>"; };
+		27DEED50149D20BE003F355E /* thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread.cpp; sourceTree = "<group>"; };
+		27DEED51149D20BE003F355E /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
+		27DEED52149D20BE003F355E /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
+		27DEED65149D20C7003F355E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		27DEED68149D20D0003F355E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		27DEED6A149D20D0003F355E /* atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atomic.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED6D149D20F3003F355E /* liblib.a in Frameworks */,
 				275D128B149D20300093FBF0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED6E149D20F8003F355E /* liblib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,8 +105,9 @@
 		273D854A149D1FD500113582 = {
 			isa = PBXGroup;
 			children = (
-				275D1290149D20300093FBF0 /* game */,
-				275D12AB149D20440093FBF0 /* test */,
+				27DEED67149D20D0003F355E /* test */,
+				27DEED64149D20C7003F355E /* game */,
+				27DEED3D149D20BE003F355E /* lib */,
 				275D1289149D20300093FBF0 /* Frameworks */,
 				275D127E149D20130093FBF0 /* Products */,
 			);
@@ -97,18 +142,88 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		275D1290149D20300093FBF0 /* game */ = {
+		27DEED3D149D20BE003F355E /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				27DEED3E149D20BE003F355E /* include */,
+				27DEED4A149D20BE003F355E /* src */,
 			);
-			path = game;
+			name = lib;
+			path = ../../lib;
 			sourceTree = "<group>";
 		};
-		275D12AB149D20440093FBF0 /* test */ = {
+		27DEED3E149D20BE003F355E /* include */ = {
 			isa = PBXGroup;
 			children = (
+				27DEED3F149D20BE003F355E /* assert.h */,
+				27DEED40149D20BE003F355E /* build.h */,
+				27DEED41149D20BE003F355E /* system */,
+				27DEED49149D20BE003F355E /* types.h */,
 			);
-			path = test;
+			path = include;
+			sourceTree = "<group>";
+		};
+		27DEED41149D20BE003F355E /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED42149D20BE003F355E /* atomic.h */,
+				27DEED43149D20BE003F355E /* directory.h */,
+				27DEED44149D20BE003F355E /* file.h */,
+				27DEED45149D20BE003F355E /* hardware.h */,
+				27DEED46149D20BE003F355E /* thread.h */,
+				27DEED47149D20BE003F355E /* timer.h */,
+				27DEED48149D20BE003F355E /* utility.h */,
+			);
+			path = system;
+			sourceTree = "<group>";
+		};
+		27DEED4A149D20BE003F355E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED4B149D20BE003F355E /* core.cpp */,
+				27DEED4C149D20BE003F355E /* system */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		27DEED4C149D20BE003F355E /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED4D149D20BE003F355E /* directory.cpp */,
+				27DEED4E149D20BE003F355E /* file.cpp */,
+				27DEED4F149D20BE003F355E /* hardware.cpp */,
+				27DEED50149D20BE003F355E /* thread.cpp */,
+				27DEED51149D20BE003F355E /* timer.cpp */,
+				27DEED52149D20BE003F355E /* utility.cpp */,
+			);
+			path = system;
+			sourceTree = "<group>";
+		};
+		27DEED64149D20C7003F355E /* game */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED65149D20C7003F355E /* main.cpp */,
+			);
+			name = game;
+			path = ../../game;
+			sourceTree = "<group>";
+		};
+		27DEED67149D20D0003F355E /* test */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED68149D20D0003F355E /* main.cpp */,
+				27DEED69149D20D0003F355E /* system */,
+			);
+			name = test;
+			path = ../../test;
+			sourceTree = "<group>";
+		};
+		27DEED69149D20D0003F355E /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27DEED6A149D20D0003F355E /* atomic.cpp */,
+			);
+			path = system;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +233,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED53149D20BE003F355E /* assert.h in Headers */,
+				27DEED54149D20BE003F355E /* build.h in Headers */,
+				27DEED55149D20BE003F355E /* atomic.h in Headers */,
+				27DEED56149D20BE003F355E /* directory.h in Headers */,
+				27DEED57149D20BE003F355E /* file.h in Headers */,
+				27DEED58149D20BE003F355E /* hardware.h in Headers */,
+				27DEED59149D20BE003F355E /* thread.h in Headers */,
+				27DEED5A149D20BE003F355E /* timer.h in Headers */,
+				27DEED5B149D20BE003F355E /* utility.h in Headers */,
+				27DEED5C149D20BE003F355E /* types.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +343,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED5D149D20BE003F355E /* core.cpp in Sources */,
+				27DEED5E149D20BE003F355E /* directory.cpp in Sources */,
+				27DEED5F149D20BE003F355E /* file.cpp in Sources */,
+				27DEED60149D20BE003F355E /* hardware.cpp in Sources */,
+				27DEED61149D20BE003F355E /* thread.cpp in Sources */,
+				27DEED62149D20BE003F355E /* timer.cpp in Sources */,
+				27DEED63149D20BE003F355E /* utility.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED66149D20C7003F355E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +365,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DEED6B149D20D0003F355E /* main.cpp in Sources */,
+				27DEED6C149D20D0003F355E /* atomic.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,8 +444,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "game/game-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -339,8 +474,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "game/game-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -420,6 +555,7 @@
 				275D1280149D20130093FBF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		275D12A2149D20300093FBF0 /* Build configuration list for PBXNativeTarget "game" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +564,7 @@
 				275D12A4149D20300093FBF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		275D12B0149D20440093FBF0 /* Build configuration list for PBXNativeTarget "test" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +573,7 @@
 				275D12B2149D20440093FBF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
