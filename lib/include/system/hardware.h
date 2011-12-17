@@ -9,10 +9,6 @@
 #ifndef riot_hardware_h
 #define riot_hardware_h
 
-
-namespace System
-{
-
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
@@ -35,16 +31,19 @@ enum instruction_set_e
  Variables
 \*******************************************************************/
 
+namespace Hardware
+{
+
 /*******************************************************************\
  External functions
 \*******************************************************************/
-instruction_set_e HWInstructionSet(void);
-int HWMaxDataWidth(void);
-int HWCacheLineSize(void);
-int HWPhysMemory(void);
-int HWThreadCount(void);
-void HWcpuid(int info[4], int eax, int ecx);
+instruction_set_e InstructionSet(void);
+int MaxDataWidth(void);
+int CacheLineSize(void);
+int PhysMemory(void);
+int ThreadCount(void);
+void cpuid(int info[4], int eax, int ecx);
 
-}
+} // namespace Hardware
 
 #endif /* include guard */

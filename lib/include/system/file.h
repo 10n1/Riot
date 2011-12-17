@@ -11,9 +11,6 @@
 
 #include <stdio.h>
 
-namespace System
-{
-
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
@@ -35,10 +32,13 @@ enum file_mode_e
 /*******************************************************************\
  External functions
 \*******************************************************************/
-int FileOpen(file_t* file, const char* filename, file_mode_e mode);
-void FileClose(file_t* file);
-int FileRead(file_t* file, size_t bufferSize, void* buffer, size_t* bytesRead );
-int FileWrite(file_t* file, size_t bufferSize, const void* buffer, size_t* bytesWritten);
+namespace File
+{
+
+int Open(file_t* file, const char* filename, file_mode_e mode);
+void Close(file_t* file);
+int Read(file_t* file, size_t bufferSize, void* buffer, size_t* bytesRead );
+int Write(file_t* file, size_t bufferSize, const void* buffer, size_t* bytesWritten);
 
 }
 

@@ -177,6 +177,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\test\main.cpp" />
     <ClCompile Include="..\..\test\system\atomic.cpp" />
+    <ClCompile Include="..\..\test\system\file.cpp" />
+    <ClCompile Include="..\..\test\system\hardware.cpp" />
+    <ClCompile Include="..\..\test\system\thread.cpp" />
+    <ClCompile Include="..\..\test\system\timer.cpp" />
+    <ClCompile Include="..\..\test\system\types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\external\gtest-1.6.0\msvc\gtest.vcxproj">

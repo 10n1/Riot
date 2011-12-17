@@ -5,6 +5,21 @@
     <ClCompile Include="..\..\test\system\atomic.cpp">
       <Filter>system</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\system\file.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\system\hardware.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\system\thread.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\system\timer.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\system\types.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">

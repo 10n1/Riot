@@ -23,8 +23,6 @@
 namespace
 {
 
-using namespace System;
-
 /*******************************************************************\
  Internal constants and types
 \*******************************************************************/
@@ -136,7 +134,7 @@ int s_maxDataWidth        = -1;
 
 } // namespace
 
-namespace System
+namespace Hardware
 {
 
 /*******************************************************************\
@@ -146,13 +144,13 @@ namespace System
 /*******************************************************************\
  External functions
 \*******************************************************************/
-instruction_set_e HWInstructionSet(void)
+instruction_set_e InstructionSet(void)
 {
     if(s_isa > instruction_set_e::kInstructionSetNull)
         return s_isa;
         
     int isa = instruction_set_e::kInstructionSetStd;
-    HWcpuid((int*)&s_cpuid_info_eax1, 1, 0);
+    cpuid((int*)&s_cpuid_info_eax1, 1, 0);
     
     if(s_cpuid_info_eax1.mmx)
         ++isa;
@@ -175,7 +173,7 @@ instruction_set_e HWInstructionSet(void)
         
         /* AVX2 detection */
         int cpuid_result[4];
-        HWcpuid(cpuid_result, 7, 0);
+        cpuid(cpuid_result, 7, 0);
         if(cpuid_result[2] & 0x20)
             ++isa;
     }
@@ -183,14 +181,14 @@ instruction_set_e HWInstructionSet(void)
     s_isa = (instruction_set_e)isa;
     return s_isa;
 }
-int HWMaxDataWidth(void)
+int MaxDataWidth(void)
 {
     if(s_maxDataWidth > 0)
         return s_maxDataWidth;
         
     assert(s_maxDataWidth == -1);
     
-    instruction_set_e isa = HWInstructionSet();
+    instruction_set_e isa = InstructionSet();
     switch(isa)
     {
     case kInstructionSetAVX2:
@@ -220,7 +218,7 @@ int HWMaxDataWidth(void)
             
     return s_maxDataWidth;
 }
-int HWCacheLineSize(void)
+int CacheLineSize(void)
 {
     if(s_cacheLineSize > -1)
         return s_cacheLineSize;
@@ -256,7 +254,7 @@ int HWCacheLineSize(void)
     s_cacheLineSize = (int)line_size;
     return s_cacheLineSize;
 }
-int HWPhysMemory(void)
+int PhysMemory(void)
 {
     if(s_physicalMemorySize > 0)
         return s_physicalMemorySize;
@@ -280,7 +278,7 @@ int HWPhysMemory(void)
     
     return s_physicalMemorySize;
 }
-int HWThreadCount(void)
+int ThreadCount(void)
 {
     if(s_hardwareThreadCount > 0)
         return s_hardwareThreadCount;
@@ -307,7 +305,7 @@ int HWThreadCount(void)
 #endif /* PLATFORM_ID */
     return s_hardwareThreadCount;
 }
-void HWcpuid(int info[4], int eax, int ecx)
+void cpuid(int info[4], int eax, int ecx)
 {
 #ifdef __GNUC__
     __asm__ volatile
@@ -329,5 +327,4 @@ void HWcpuid(int info[4], int eax, int ecx)
 #endif
 }
 
-
-} // namespace System
+} // namespace Hardware

@@ -11,14 +11,13 @@
 
 #include "atomic.h"
 
-namespace System
+namespace Thread
 {
 
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
 typedef void (thread_proc_t)(void*);
-typedef atomic_t spinlock_t;
 
 /*******************************************************************\
  Variables
@@ -27,13 +26,15 @@ typedef atomic_t spinlock_t;
 /*******************************************************************\
  External functions
 \*******************************************************************/
-int ThreadSpawn(thread_proc_t* func, void* param);
+int Spawn(thread_proc_t* func, void* param);
 
+} // namespace Thread
+
+
+typedef atomic_t spinlock_t;
 /* Spinlock */
 int SpinlockTryLock(spinlock_t* lock);
 void SpinlockLock(spinlock_t* lock);
 void SpinlockUnlock(spinlock_t* lock);
-
-}
 
 #endif /* include guard */

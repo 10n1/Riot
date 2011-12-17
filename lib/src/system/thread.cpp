@@ -25,7 +25,8 @@
 namespace
 {
 
-using namespace System;
+using namespace Thread;
+
 /*******************************************************************\
  Internal constants and types
 \*******************************************************************/
@@ -71,7 +72,7 @@ thread_return_t SYSTEM_API_CONVENTION SystemProc(void* data)
 
 } // namespace
 
-namespace System
+namespace Thread
 {
 
 /*******************************************************************\
@@ -81,7 +82,7 @@ namespace System
 /*******************************************************************\
  External functions
 \*******************************************************************/
-int ThreadSpawn(thread_proc_t* func, void* param)
+int Spawn(thread_proc_t* func, void* param)
 {
     thread_data_t   threadData  = {func,param};
     thread_handle_t handle      = nullptr;
@@ -98,6 +99,8 @@ int ThreadSpawn(thread_proc_t* func, void* param)
 
     return handle ? 0 : 1;
 }
+
+} // namespace Thread
 
 /* Spinlock */
 int SpinlockTryLock(spinlock_t* lock)
@@ -116,5 +119,3 @@ void SpinlockUnlock(spinlock_t* lock)
     AtomicExchange32(lock,0);
 }
 
-
-} // namespace System

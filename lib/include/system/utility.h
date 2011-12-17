@@ -9,9 +9,6 @@
 #ifndef riot_utility_h
 #define riot_utility_h
 
-namespace System
-{
-
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
@@ -26,11 +23,14 @@ enum msg_box_result_e
  Variables
 \*******************************************************************/
 
+namespace Utility
+{
+
 /*******************************************************************\
  External functions
 \*******************************************************************/
-msg_box_result_e UtilityMessageBox(const char* header, const char* message);
+msg_box_result_e MessageBox(const char* header, const char* message);
 
-}
+} // namespace Utility
 
 #endif /* include guard */

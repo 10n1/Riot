@@ -25,7 +25,7 @@ namespace
 
 } // namespace
 
-namespace System
+namespace File
 {
 
 /*******************************************************************\
@@ -35,7 +35,7 @@ namespace System
 /*******************************************************************\
  External functions
 \*******************************************************************/
-int FileOpen(file_t* file, const char* filename, file_mode_e mode)
+int Open(file_t* file, const char* filename, file_mode_e mode)
 {
     char fopenMode[3] = {0,0,0};
 
@@ -56,13 +56,13 @@ int FileOpen(file_t* file, const char* filename, file_mode_e mode)
     
     return file->file ? 0 : 1;    
 }
-void FileClose(file_t* file)
+void Close(file_t* file)
 {
     int result = fclose(file->file);
     assert(result != EOF);
     file->file = NULL; /* should this be NULLed out? */
 }
-int FileRead(file_t* file, size_t bufferSize, void* buffer, size_t* bytesRead )
+int Read(file_t* file, size_t bufferSize, void* buffer, size_t* bytesRead )
 {
     *bytesRead = fread(buffer, (size_t)1, bufferSize, file->file);
     if(*bytesRead != bufferSize)
@@ -77,7 +77,7 @@ int FileRead(file_t* file, size_t bufferSize, void* buffer, size_t* bytesRead )
     
     return 0;
 }
-int FileWrite(file_t* file, size_t bufferSize, const void* buffer, size_t* bytesWritten)
+int Write(file_t* file, size_t bufferSize, const void* buffer, size_t* bytesWritten)
 {
     *bytesWritten = fwrite(buffer, (size_t)1, bufferSize, file->file);
     if(*bytesWritten != bufferSize)
@@ -91,4 +91,4 @@ int FileWrite(file_t* file, size_t bufferSize, const void* buffer, size_t* bytes
     return 0;
 }
 
-} // namespace System
+} // namespace File

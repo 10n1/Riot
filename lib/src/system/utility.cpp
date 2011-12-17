@@ -33,7 +33,7 @@ namespace
 
 } // namespace
 
-namespace System
+namespace Utility
 {
 
 /*******************************************************************\
@@ -44,7 +44,7 @@ namespace System
  External functions
 \*******************************************************************/
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_MACOS
-msg_box_result_e paUtlMessageBox(const char* header, const char* message)
+msg_box_result_e MessageBox(const char* header, const char* message)
 {
     /*convert the strings from char* to CFStringRef */
     CFStringRef header_ref  = CFStringCreateWithCString(NULL, header, kCFStringEncodingASCII);
@@ -77,9 +77,9 @@ msg_box_result_e paUtlMessageBox(const char* header, const char* message)
     return kMsgBoxCancel;
 }
 #elif BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
-msg_box_result_e paUtlMessageBox(const char* header, const char* message)
+msg_box_result_e MessageBox(const char* header, const char* message)
 {
-    int result = MessageBox(NULL, message, header, MB_OKCANCEL);
+    int result = ::MessageBox(NULL, message, header, MB_OKCANCEL);
 
     if(result == IDOK)
         return kMsgBoxOk;

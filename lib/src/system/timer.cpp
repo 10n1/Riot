@@ -33,7 +33,7 @@ namespace
 
 } // namespace
 
-namespace System
+namespace Timer
 {
 
 /*******************************************************************\
@@ -44,7 +44,7 @@ namespace System
  External functions
 \*******************************************************************/
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_MACOS
-void TimerInit(timer_t* timer)
+void Init(timer_t* timer)
 {
     mach_timebase_info_data_t frequency = {0,0};
     mach_timebase_info(&frequency);
@@ -52,11 +52,11 @@ void TimerInit(timer_t* timer)
     timer->frequency *= 1e-9;
     timer->startTime = timer->prevTime = mach_absolute_time();
 }
-void TimerReset(timer_t* timer)
+void Reset(timer_t* timer)
 {
     timer->startTime = timer->prevTime = mach_absolute_time();
 }
-double TimerGetDeltaTime(timer_t* timer)
+double GetDeltaTime(timer_t* timer)
 {
     uint64_t    current_time    = mach_absolute_time();
     double      delta_time      = (double)(current_time - timer->prevTime) * timer->frequency;
@@ -64,7 +64,7 @@ double TimerGetDeltaTime(timer_t* timer)
     
     return delta_time;
 }
-double TimerGetRunningTime(timer_t* timer)
+double GetRunningTime(timer_t* timer)
 {
     uint64_t    current_time = mach_absolute_time();
     double      running_time = (double)(current_time - timer->startTime) * timer->frequency;
@@ -72,7 +72,7 @@ double TimerGetRunningTime(timer_t* timer)
     return running_time;
 }
 #elif BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
-void TimerInit(timer_t* timer)
+void Init(timer_t* timer)
 {
     LARGE_INTEGER   freq;
     QueryPerformanceFrequency( &freq );
@@ -81,12 +81,12 @@ void TimerInit(timer_t* timer)
     QueryPerformanceCounter((LARGE_INTEGER*)&timer->startTime);
     timer->prevTime = timer->startTime;
 }
-void TimerReset(timer_t* timer)
+void Reset(timer_t* timer)
 {
     QueryPerformanceCounter((LARGE_INTEGER*)&timer->startTime);
     timer->prevTime = timer->startTime;
 }
-double TimerGetDeltaTime(timer_t* timer)
+double GetDeltaTime(timer_t* timer)
 {  
     uint64_t    current_time;
 
@@ -95,7 +95,7 @@ double TimerGetDeltaTime(timer_t* timer)
     timer->prevTime = current_time;
     return delta_time;
 }
-double TimerGetRunningTime(timer_t* timer)
+double GetRunningTime(timer_t* timer)
 {
     uint64_t  current_time;
 
@@ -107,4 +107,4 @@ double TimerGetRunningTime(timer_t* timer)
     #error Need a timer!
 #endif // PLATFORM_ID
 
-} // namespace System
+} // namespace Timer

@@ -11,9 +11,6 @@
 
 #include <stdint.h>
 
-namespace System
-{
-
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
@@ -28,14 +25,17 @@ struct timer_t
  Variables
 \*******************************************************************/
 
+namespace Timer
+{
+
 /*******************************************************************\
  External functions
 \*******************************************************************/
-void TimerInit(timer_t* timer);
-void TimerReset(timer_t* timer);
-double TimerGetDeltaTime(timer_t* timer);
-double TimerGetRunningTime(timer_t* timer);
+void Init(timer_t* timer);
+void Reset(timer_t* timer);
+double GetDeltaTime(timer_t* timer);
+double GetRunningTime(timer_t* timer);
 
-}
+} // namespace Timer
 
 #endif /* include guard */

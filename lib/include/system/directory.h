@@ -9,7 +9,7 @@
 #ifndef riot_directory_h
 #define riot_directory_h
 
-namespace System
+namespace Directory
 {
 
 /*******************************************************************\
@@ -23,9 +23,9 @@ namespace System
 /*******************************************************************\
  External functions
 \*******************************************************************/
-const char* DirectoryGetCurrent(void);
-void DirectorySetCurrent(const char* dir);
+const char* GetCurrent(void);
+void SetCurrent(const char* dir);
 
-}
+} // namespace Directory
 
 #endif /* include guard */

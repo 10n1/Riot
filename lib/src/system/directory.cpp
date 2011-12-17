@@ -35,7 +35,7 @@ char    s_currentWorkingDirectory[FILENAME_MAX] = {0};
 
 } // namespace
 
-namespace System
+namespace Directory
 {
 
 /*******************************************************************\
@@ -45,14 +45,14 @@ namespace System
 /*******************************************************************\
  External functions
 \*******************************************************************/
-const char* DirectoryGetCurrent(void)
+const char* GetCurrent(void)
 {
     getcwd(s_currentWorkingDirectory, sizeof(s_currentWorkingDirectory));
     return s_currentWorkingDirectory;
 }
-void DirectorySetCurrent(const char* dir)
+void SetCurrent(const char* dir)
 {
     chdir(dir);
 }
 
-} // namespace System
+} //namespace Directory
