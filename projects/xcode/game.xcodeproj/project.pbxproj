@@ -8,19 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		27B0317D149D29C300BBA349 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0317C149D29C300BBA349 /* liblib.a */; };
+		27B29E5F149D3F0B001C1928 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B29E5D149D3F0B001C1928 /* MainMenu.xib */; };
 		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		27B0317C149D29C300BBA349 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = ../../build/bin/liblib.a; sourceTree = "<group>"; };
+		27B29E5C149D3F0B001C1928 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27B29E5D149D3F0B001C1928 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		27FFCD88149D222A00D22F31 /* game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFCD8C149D222A00D22F31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27FFCD8F149D222A00D22F31 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		27FFCD90149D222A00D22F31 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		27FFCD91149D222A00D22F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFCDCD149D229400D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		27FFCDFF149D22CA00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +41,6 @@
 		27FFCD7D149D222A00D22F31 = {
 			isa = PBXGroup;
 			children = (
-				27B0317C149D29C300BBA349 /* liblib.a */,
 				27FFCDCC149D229400D22F31 /* game */,
 				27FFCD8B149D222A00D22F31 /* Frameworks */,
 				27FFCD89149D222A00D22F31 /* Products */,
@@ -57,7 +58,7 @@
 		27FFCD8B149D222A00D22F31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				27FFCDFF149D22CA00D22F31 /* liblib.a */,
+				27B0317C149D29C300BBA349 /* liblib.a */,
 				27FFCD8C149D222A00D22F31 /* Cocoa.framework */,
 				27FFCD8E149D222A00D22F31 /* Other Frameworks */,
 			);
@@ -77,6 +78,8 @@
 		27FFCDCC149D229400D22F31 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				27B29E5C149D3F0B001C1928 /* Info.plist */,
+				27B29E5D149D3F0B001C1928 /* MainMenu.xib */,
 				27FFCDCD149D229400D22F31 /* main.cpp */,
 			);
 			name = game;
@@ -134,6 +137,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27B29E5F149D3F0B001C1928 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +259,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = ../../game/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
@@ -270,7 +274,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = ../../game/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
