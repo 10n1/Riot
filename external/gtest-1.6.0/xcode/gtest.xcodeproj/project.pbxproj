@@ -976,6 +976,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF10E30E07400294801 /* DebugProject.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -984,6 +985,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF40E30E07400294801 /* ReleaseProject.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = "";
 				SDKROOT = macosx;
 			};
 			name = Release;
