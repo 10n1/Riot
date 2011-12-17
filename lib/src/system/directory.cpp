@@ -8,10 +8,10 @@
 #include "system/directory.h"
 #include "build.h"
 
+#include <stdio.h>
 #if BUILD_SYSTEM_TYPE == BUILD_SYSTEM_POSIX
     #include <unistd.h>
 #elif BUILD_SYSTEM_TYPE == BUILD_SYSTEM_WINDOWS
-    #include <stdio.h>
     #include <direct.h>
     #define getcwd _getcwd
     #define chdir _chdir

@@ -6,8 +6,47 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		27FFCDE6149D229B00D22F31 /* assert.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD2149D229B00D22F31 /* assert.h */; };
+		27FFCDE7149D229B00D22F31 /* build.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD3149D229B00D22F31 /* build.h */; };
+		27FFCDE8149D229B00D22F31 /* atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD5149D229B00D22F31 /* atomic.h */; };
+		27FFCDE9149D229B00D22F31 /* directory.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD6149D229B00D22F31 /* directory.h */; };
+		27FFCDEA149D229B00D22F31 /* file.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD7149D229B00D22F31 /* file.h */; };
+		27FFCDEB149D229B00D22F31 /* hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD8149D229B00D22F31 /* hardware.h */; };
+		27FFCDEC149D229B00D22F31 /* thread.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD9149D229B00D22F31 /* thread.h */; };
+		27FFCDED149D229B00D22F31 /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDDA149D229B00D22F31 /* timer.h */; };
+		27FFCDEE149D229B00D22F31 /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDDB149D229B00D22F31 /* utility.h */; };
+		27FFCDEF149D229B00D22F31 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDDC149D229B00D22F31 /* types.h */; };
+		27FFCDF0149D229B00D22F31 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDDE149D229B00D22F31 /* core.cpp */; };
+		27FFCDF1149D229B00D22F31 /* directory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE0149D229B00D22F31 /* directory.cpp */; };
+		27FFCDF2149D229B00D22F31 /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE1149D229B00D22F31 /* file.cpp */; };
+		27FFCDF3149D229B00D22F31 /* hardware.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE2149D229B00D22F31 /* hardware.cpp */; };
+		27FFCDF4149D229B00D22F31 /* thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE3149D229B00D22F31 /* thread.cpp */; };
+		27FFCDF5149D229B00D22F31 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE4149D229B00D22F31 /* timer.cpp */; };
+		27FFCDF6149D229B00D22F31 /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDE5149D229B00D22F31 /* utility.cpp */; };
+		27FFCE0D149D248300D22F31 /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCE0C149D248300D22F31 /* macros.h */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		27FFCD76149D220700D22F31 /* liblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FFCDD2149D229B00D22F31 /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
+		27FFCDD3149D229B00D22F31 /* build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build.h; sourceTree = "<group>"; };
+		27FFCDD5149D229B00D22F31 /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
+		27FFCDD6149D229B00D22F31 /* directory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = directory.h; sourceTree = "<group>"; };
+		27FFCDD7149D229B00D22F31 /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		27FFCDD8149D229B00D22F31 /* hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hardware.h; sourceTree = "<group>"; };
+		27FFCDD9149D229B00D22F31 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
+		27FFCDDA149D229B00D22F31 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		27FFCDDB149D229B00D22F31 /* utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
+		27FFCDDC149D229B00D22F31 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		27FFCDDE149D229B00D22F31 /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		27FFCDE0149D229B00D22F31 /* directory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directory.cpp; sourceTree = "<group>"; };
+		27FFCDE1149D229B00D22F31 /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		27FFCDE2149D229B00D22F31 /* hardware.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hardware.cpp; sourceTree = "<group>"; };
+		27FFCDE3149D229B00D22F31 /* thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread.cpp; sourceTree = "<group>"; };
+		27FFCDE4149D229B00D22F31 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
+		27FFCDE5149D229B00D22F31 /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
+		27FFCE0C149D248300D22F31 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,6 +63,7 @@
 		27FFCD6B149D220700D22F31 = {
 			isa = PBXGroup;
 			children = (
+				27FFCDD0149D229B00D22F31 /* lib */,
 				27FFCD77149D220700D22F31 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -36,6 +76,64 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		27FFCDD0149D229B00D22F31 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDD1149D229B00D22F31 /* include */,
+				27FFCDDD149D229B00D22F31 /* src */,
+			);
+			name = lib;
+			path = ../../lib;
+			sourceTree = "<group>";
+		};
+		27FFCDD1149D229B00D22F31 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDD2149D229B00D22F31 /* assert.h */,
+				27FFCDD3149D229B00D22F31 /* build.h */,
+				27FFCDD4149D229B00D22F31 /* system */,
+				27FFCDDC149D229B00D22F31 /* types.h */,
+				27FFCE0C149D248300D22F31 /* macros.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		27FFCDD4149D229B00D22F31 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDD5149D229B00D22F31 /* atomic.h */,
+				27FFCDD6149D229B00D22F31 /* directory.h */,
+				27FFCDD7149D229B00D22F31 /* file.h */,
+				27FFCDD8149D229B00D22F31 /* hardware.h */,
+				27FFCDD9149D229B00D22F31 /* thread.h */,
+				27FFCDDA149D229B00D22F31 /* timer.h */,
+				27FFCDDB149D229B00D22F31 /* utility.h */,
+			);
+			path = system;
+			sourceTree = "<group>";
+		};
+		27FFCDDD149D229B00D22F31 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDDE149D229B00D22F31 /* core.cpp */,
+				27FFCDDF149D229B00D22F31 /* system */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		27FFCDDF149D229B00D22F31 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDE0149D229B00D22F31 /* directory.cpp */,
+				27FFCDE1149D229B00D22F31 /* file.cpp */,
+				27FFCDE2149D229B00D22F31 /* hardware.cpp */,
+				27FFCDE3149D229B00D22F31 /* thread.cpp */,
+				27FFCDE4149D229B00D22F31 /* timer.cpp */,
+				27FFCDE5149D229B00D22F31 /* utility.cpp */,
+			);
+			path = system;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -43,6 +141,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FFCDE6149D229B00D22F31 /* assert.h in Headers */,
+				27FFCDE7149D229B00D22F31 /* build.h in Headers */,
+				27FFCDE8149D229B00D22F31 /* atomic.h in Headers */,
+				27FFCDE9149D229B00D22F31 /* directory.h in Headers */,
+				27FFCDEA149D229B00D22F31 /* file.h in Headers */,
+				27FFCDEB149D229B00D22F31 /* hardware.h in Headers */,
+				27FFCDEC149D229B00D22F31 /* thread.h in Headers */,
+				27FFCDED149D229B00D22F31 /* timer.h in Headers */,
+				27FFCDEE149D229B00D22F31 /* utility.h in Headers */,
+				27FFCDEF149D229B00D22F31 /* types.h in Headers */,
+				27FFCE0D149D248300D22F31 /* macros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +206,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FFCDF0149D229B00D22F31 /* core.cpp in Sources */,
+				27FFCDF1149D229B00D22F31 /* directory.cpp in Sources */,
+				27FFCDF2149D229B00D22F31 /* file.cpp in Sources */,
+				27FFCDF3149D229B00D22F31 /* hardware.cpp in Sources */,
+				27FFCDF4149D229B00D22F31 /* thread.cpp in Sources */,
+				27FFCDF5149D229B00D22F31 /* timer.cpp in Sources */,
+				27FFCDF6149D229B00D22F31 /* utility.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,10 +224,21 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SSE41_EXTENSIONS = YES;
+				GCC_ENABLE_SSE42_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -120,9 +247,19 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -134,15 +271,36 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SSE41_EXTENSIONS = YES;
+				GCC_ENABLE_SSE42_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
@@ -152,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -160,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -183,6 +343,7 @@
 				27FFCD7C149D220700D22F31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

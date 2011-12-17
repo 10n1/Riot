@@ -8,6 +8,7 @@
 #include "system/hardware.h"
 #include "assert.h"
 #include "build.h"
+#include "macros.h"
 
 #include <stdint.h>
 

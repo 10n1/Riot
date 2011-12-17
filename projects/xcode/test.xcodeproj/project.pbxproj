@@ -6,6 +6,13 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		27FFCDFC149D22A100D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDF9149D22A100D22F31 /* main.cpp */; };
+		27FFCDFD149D22A100D22F31 /* atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDFB149D22A100D22F31 /* atomic.cpp */; };
+		27FFCE02149D22DB00D22F31 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCE01149D22DB00D22F31 /* liblib.a */; };
+		27FFCE0B149D243E00D22F31 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCE0A149D243E00D22F31 /* libgtest.a */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		27FFCDB2149D224F00D22F31 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +27,10 @@
 
 /* Begin PBXFileReference section */
 		27FFCDB4149D224F00D22F31 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FFCDF9149D22A100D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		27FFCDFB149D22A100D22F31 /* atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atomic.cpp; sourceTree = "<group>"; };
+		27FFCE01149D22DB00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
+		27FFCE0A149D243E00D22F31 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libgtest.a; path = "../../external/gtest-1.6.0/xcode/build/Release/libgtest.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FFCE0B149D243E00D22F31 /* libgtest.a in Frameworks */,
+				27FFCE02149D22DB00D22F31 /* liblib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,8 +49,10 @@
 		27FFCDA9149D224F00D22F31 = {
 			isa = PBXGroup;
 			children = (
-				27FFCDB7149D224F00D22F31 /* test */,
+				27FFCE0A149D243E00D22F31 /* libgtest.a */,
+				27FFCDF8149D22A100D22F31 /* test */,
 				27FFCDB5149D224F00D22F31 /* Products */,
+				27FFCE01149D22DB00D22F31 /* liblib.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,11 +64,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		27FFCDB7149D224F00D22F31 /* test */ = {
+		27FFCDF8149D22A100D22F31 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				27FFCDF9149D22A100D22F31 /* main.cpp */,
+				27FFCDFA149D22A100D22F31 /* system */,
 			);
-			path = test;
+			name = test;
+			path = ../../test;
+			sourceTree = "<group>";
+		};
+		27FFCDFA149D22A100D22F31 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				27FFCDFB149D22A100D22F31 /* atomic.cpp */,
+			);
+			path = system;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +133,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FFCDFC149D22A100D22F31 /* main.cpp in Sources */,
+				27FFCDFD149D22A100D22F31 /* atomic.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +161,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -153,6 +182,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../lib/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
@@ -191,6 +221,7 @@
 				27FFCDC0149D224F00D22F31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
