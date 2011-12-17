@@ -2,5 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\test\main.cpp" />
+    <ClCompile Include="..\..\test\system\atomic.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="system">
+      <UniqueIdentifier>{27aabfe6-8e52-470c-a39d-9e85f843fb54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

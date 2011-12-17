@@ -5,16 +5,13 @@
  *  Created by Kyle Weicht on 12/16/11.
  *  Copyright (c) 2011 Kyle Weicht. All rights reserved.
  */
-#include <cstdio>
-#include "build.h"
+#include "gtest/gtest.h"
 
 /*******************************************************************\
  External functions
 \*******************************************************************/
 int main(int argc, char* argv[])
 {
-    printf("Test!");
-    return 0;
-    UNUSED_PARAMETER(argc);
-    UNUSED_PARAMETER(argv[0]);
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
