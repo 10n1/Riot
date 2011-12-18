@@ -48,11 +48,11 @@
     <ClCompile Include="..\..\lib\src\system\utility.cpp">
       <Filter>src\system</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\application\application.cpp">
-      <Filter>src\application</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\engine\core.cpp">
       <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\memory.cpp">
+      <Filter>src\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +86,11 @@
     <ClInclude Include="..\..\lib\include\system\utility.h">
       <Filter>include\system</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\application\application.h">
-      <Filter>include\application</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\engine\core.h">
       <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\memory.h">
+      <Filter>include\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

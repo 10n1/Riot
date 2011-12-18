@@ -6,7 +6,7 @@
  *  Copyright (c) 2011 Kyle Weicht. All rights reserved.
  */
 
-#include "application/application.h"
+#include "application.h"
 #include "build.h"
 
 #include <stdio.h>

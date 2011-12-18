@@ -20,8 +20,11 @@
     <ClCompile Include="..\..\test\system\types.cpp">
       <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\application\application.cpp">
-      <Filter>application</Filter>
+    <ClCompile Include="..\..\test\system\memory.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\engine\core.cpp">
+      <Filter>engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +33,9 @@
     </Filter>
     <Filter Include="application">
       <UniqueIdentifier>{40995ad9-944e-49e7-8830-6c0c1aaed823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{80fccb82-3a87-4ab2-9aba-629f43166e33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

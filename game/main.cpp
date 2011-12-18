@@ -18,7 +18,12 @@
 #include "assert.h"
 #include "build.h"
 
-#include "application\application.h"
+#include "application.h"
+#include "engine\core.h"
+
+#if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
+    #include <Windows.h>
+#endif
 
 namespace
 {
@@ -34,6 +39,15 @@ namespace
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
+void GameFrame(void)
+{
+    Core::Frame();
+
+    #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
+    if(GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+        Application::Shutdown();
+    #endif
+}
 
 } // namespace
 
@@ -47,7 +61,13 @@ namespace
 int main(int argc, char* argv[])
 {
     Application::Initialize();
-    Application::GetExecutableDirectory();
+    Application::SetFrameCallback(GameFrame);
+
+    Core::Initialize();
+
+    Application::StartMainLoop();
+
+    Core::Shutdown();
 
     return 0;
     UNUSED_PARAMETER(argc);

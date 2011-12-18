@@ -191,6 +191,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\game\application.cpp" />
     <ClCompile Include="..\..\game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,9 @@
     <ProjectReference Include="test.vcxproj">
       <Project>{f1403ef1-6f1b-4f47-b773-a90cc1f62805}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\game\application.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

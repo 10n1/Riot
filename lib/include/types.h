@@ -12,6 +12,7 @@
  External constants and types
 \*******************************************************************/
 #if defined( WIN32 ) || defined( WIN64 )
+#include <stdint.h>
 #include <limits.h>
 typedef unsigned __int8  byte;
 typedef unsigned __int8  uint8;
