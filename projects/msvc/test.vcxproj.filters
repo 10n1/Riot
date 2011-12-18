@@ -31,9 +31,6 @@
     <Filter Include="system">
       <UniqueIdentifier>{27aabfe6-8e52-470c-a39d-9e85f843fb54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="application">
-      <UniqueIdentifier>{40995ad9-944e-49e7-8830-6c0c1aaed823}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine">
       <UniqueIdentifier>{80fccb82-3a87-4ab2-9aba-629f43166e33}</UniqueIdentifier>
     </Filter>

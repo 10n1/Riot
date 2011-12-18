@@ -13,17 +13,17 @@
     <Filter Include="include\system">
       <UniqueIdentifier>{9111bbf8-c16d-4702-beab-995132192d36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\application">
-      <UniqueIdentifier>{1ead7e9a-5890-4483-ac31-9dd17c712984}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\application">
-      <UniqueIdentifier>{5267ebc5-1c02-4095-9c09-f93ea242c644}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\engine">
       <UniqueIdentifier>{bbf86049-5751-46a4-9a74-5aabfe5980ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\engine">
       <UniqueIdentifier>{2744e9f8-722c-4f4a-bb14-73faeb2e36ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics">
+      <UniqueIdentifier>{f646673d-4fc5-4186-a869-9795b31432b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\graphics">
+      <UniqueIdentifier>{5ca77d31-087e-4c45-85ff-8af9453e29a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +53,21 @@
     </ClCompile>
     <ClCompile Include="..\..\lib\src\system\memory.cpp">
       <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\system\task_manager.c">
+      <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\graphics\graphics_device_null.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\graphics\graphics_device_ogl.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\graphics\render_engine.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\graphics\windows_ogl.cpp">
+      <Filter>src\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="..\..\lib\include\system\memory.h">
       <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\system\task_manager.h">
+      <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\graphics\render_engine.h">
+      <Filter>include\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\graphics\graphics_device.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\graphics\windows_ogl.h">
+      <Filter>src\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

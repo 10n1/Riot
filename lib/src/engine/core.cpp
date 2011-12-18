@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "system/memory.h"
+#include "system/task_manager.h"
 
 namespace
 {
@@ -25,7 +26,8 @@ enum
 /*******************************************************************\
  Internal variables
 \*******************************************************************/
-engine_t*  s_engine = nullptr;
+engine_t*   s_engine = nullptr;
+void*       s_taskManager = nullptr;
 
 /*******************************************************************\
  Internal functions
@@ -57,7 +59,8 @@ void Initialize(void)
     memset(s_engine, 0, kEngineSize);
     
     /* Initialize subsystems */
-
+    s_taskManager = Memory::GlobalAllocator()->Allocate(kTaskManagerSize);
+    taskManagerInitialize(0, s_taskManager, kTaskManagerSize);
     
     /* Perform initialization */
     s_engine->initialized   = 1;
@@ -72,6 +75,7 @@ void Frame(void)
 }
 void Shutdown(void)
 {
+    taskManagerShutdown();
     /* Shutdown memory last */
     Memory::Shutdown();
 }
