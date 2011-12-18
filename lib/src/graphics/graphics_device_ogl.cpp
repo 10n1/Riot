@@ -7,9 +7,22 @@
  */
 
 #include "graphics_device.h"
+#include "build.h"
+
+#if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
+    #include <Windows.h>
+    #include "gl3/gl3.h"
+#else
+    #include <OpenGL/OpenGL.h>
+    #include <OpenGL/gl3.h>
+    #include <OpenGL/gl3ext.h>
+#endif
+
+#include "system_ogl.h"
 
 namespace
 {
+
 
 using namespace GraphicsDevice;
 /*******************************************************************\
@@ -23,8 +36,12 @@ using namespace GraphicsDevice;
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
-void InitializeOpenGL(void*)
+void InitializeOpenGL(void* window)
 {
+    /* Create the OS-specific context */
+    SystemOpenGL::Initialize(window);
+
+    /* Perform OpenGL setup */
 }
 void ShutdownOpenGL(void)
 {

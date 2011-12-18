@@ -11,6 +11,7 @@
 
 #include "system/memory.h"
 #include "system/task_manager.h"
+#include "graphics/render_engine.h"
 
 namespace
 {
@@ -61,6 +62,7 @@ void Initialize(void)
     /* Initialize subsystems */
     s_taskManager = Memory::GlobalAllocator()->Allocate(kTaskManagerSize);
     taskManagerInitialize(0, s_taskManager, kTaskManagerSize);
+    RenderEngine::CreateDevice(nullptr, GraphicsDeviceType::kNull);
     
     /* Perform initialization */
     s_engine->initialized   = 1;
@@ -75,6 +77,7 @@ void Frame(void)
 }
 void Shutdown(void)
 {
+    RenderEngine::Shutdown();
     taskManagerShutdown();
     /* Shutdown memory last */
     Memory::Shutdown();

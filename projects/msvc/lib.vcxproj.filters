@@ -116,7 +116,7 @@
     <ClInclude Include="..\..\lib\src\graphics\graphics_device.h">
       <Filter>src\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\src\graphics\windows_ogl.h">
+    <ClInclude Include="..\..\lib\src\graphics\system_ogl.h">
       <Filter>src\graphics</Filter>
     </ClInclude>
   </ItemGroup>
