@@ -136,14 +136,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		27B29E5A149D2D78001C1928 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = $TARGET_BUILD_DIR/test;
 		};

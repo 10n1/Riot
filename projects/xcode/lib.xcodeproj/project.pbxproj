@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27B29E65149D6371001C1928 /* application.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B29E64149D6371001C1928 /* application.h */; };
+		27B29E68149D63CC001C1928 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27B29E67149D63CC001C1928 /* application.cpp */; };
 		27FFCDE6149D229B00D22F31 /* assert.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD2149D229B00D22F31 /* assert.h */; };
 		27FFCDE7149D229B00D22F31 /* build.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD3149D229B00D22F31 /* build.h */; };
 		27FFCDE8149D229B00D22F31 /* atomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 27FFCDD5149D229B00D22F31 /* atomic.h */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27B29E64149D6371001C1928 /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
+		27B29E67149D63CC001C1928 /* application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = application.cpp; path = application/application.cpp; sourceTree = "<group>"; };
 		27FFCD76149D220700D22F31 /* liblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFCDD2149D229B00D22F31 /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
 		27FFCDD3149D229B00D22F31 /* build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build.h; sourceTree = "<group>"; };
@@ -60,6 +64,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27B29E63149D6371001C1928 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				27B29E64149D6371001C1928 /* application.h */,
+			);
+			path = application;
+			sourceTree = "<group>";
+		};
+		27B29E66149D63B4001C1928 /* application */ = {
+			isa = PBXGroup;
+			children = (
+				27B29E67149D63CC001C1928 /* application.cpp */,
+			);
+			name = application;
+			sourceTree = "<group>";
+		};
 		27FFCD6B149D220700D22F31 = {
 			isa = PBXGroup;
 			children = (
@@ -89,11 +109,12 @@
 		27FFCDD1149D229B00D22F31 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				27B29E63149D6371001C1928 /* application */,
+				27FFCDD4149D229B00D22F31 /* system */,
 				27FFCDD2149D229B00D22F31 /* assert.h */,
 				27FFCDD3149D229B00D22F31 /* build.h */,
-				27FFCDD4149D229B00D22F31 /* system */,
-				27FFCDDC149D229B00D22F31 /* types.h */,
 				27FFCE0C149D248300D22F31 /* macros.h */,
+				27FFCDDC149D229B00D22F31 /* types.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -115,6 +136,7 @@
 		27FFCDDD149D229B00D22F31 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				27B29E66149D63B4001C1928 /* application */,
 				27FFCDDE149D229B00D22F31 /* core.cpp */,
 				27FFCDDF149D229B00D22F31 /* system */,
 			);
@@ -152,6 +174,7 @@
 				27FFCDEE149D229B00D22F31 /* utility.h in Headers */,
 				27FFCDEF149D229B00D22F31 /* types.h in Headers */,
 				27FFCE0D149D248300D22F31 /* macros.h in Headers */,
+				27B29E65149D6371001C1928 /* application.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +236,7 @@
 				27FFCDF4149D229B00D22F31 /* thread.cpp in Sources */,
 				27FFCDF5149D229B00D22F31 /* timer.cpp in Sources */,
 				27FFCDF6149D229B00D22F31 /* utility.cpp in Sources */,
+				27B29E68149D63CC001C1928 /* application.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
