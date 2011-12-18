@@ -7,48 +7,41 @@
  */
 #ifndef riot_render_engine_h_
 #define riot_render_engine_h_
-#include "build.h"
-//#include <cheaders>
-
-//#include <c++headers>
-
-//#include "external_headers.h"
-
-//#include "internal_headers.h"
 
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
-namespace RenderStatus
+enum RenderStatus
 {
-    enum Enum
-    {
-        kOk = 0,
-        kError,
-        kUninitialized,
-    };
-}
+    kOk = 0,
+    kError,
+    kUninitialized,
+};
 
-namespace GraphicsDeviceType
+enum GraphicsDeviceType
 {
-    enum Enum
-    {
-        kNull = 0,
-        kOpenGL,
-        kDirect3D,
-    };
-}
+    kNull = 0,
+    kOpenGL,
+    kDirect3D,
+};
 
 namespace RenderEngine
 {
 
+typedef int shader_id_t;
+typedef int material_id_t;
 /*******************************************************************\
  Variables
 \*******************************************************************/
+extern RenderStatus g_status;
 
 /*******************************************************************\
  External functions
 \*******************************************************************/
+void Initialize(void);
+void CreateDevice(void* window, GraphicsDeviceType type);
+void Shutdown(void);
+void Frame(void);
 
 } // namespace RenderEngine
 

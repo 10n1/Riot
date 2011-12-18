@@ -176,6 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\test\engine\core.cpp" />
+    <ClCompile Include="..\..\test\graphics\graphics.cpp" />
     <ClCompile Include="..\..\test\main.cpp" />
     <ClCompile Include="..\..\test\system\atomic.cpp" />
     <ClCompile Include="..\..\test\system\file.cpp" />

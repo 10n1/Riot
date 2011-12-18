@@ -26,6 +26,9 @@
     <ClCompile Include="..\..\test\engine\core.cpp">
       <Filter>engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\graphics\graphics.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">
@@ -33,6 +36,9 @@
     </Filter>
     <Filter Include="engine">
       <UniqueIdentifier>{80fccb82-3a87-4ab2-9aba-629f43166e33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics">
+      <UniqueIdentifier>{d99479de-31b3-4b10-820d-7c27c8dc29a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
