@@ -13,6 +13,18 @@
     <Filter Include="include\system">
       <UniqueIdentifier>{9111bbf8-c16d-4702-beab-995132192d36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\application">
+      <UniqueIdentifier>{1ead7e9a-5890-4483-ac31-9dd17c712984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\application">
+      <UniqueIdentifier>{5267ebc5-1c02-4095-9c09-f93ea242c644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine">
+      <UniqueIdentifier>{bbf86049-5751-46a4-9a74-5aabfe5980ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engine">
+      <UniqueIdentifier>{2744e9f8-722c-4f4a-bb14-73faeb2e36ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\core.cpp">
@@ -35,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="..\..\lib\src\system\utility.cpp">
       <Filter>src\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\application\application.cpp">
+      <Filter>src\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\engine\core.cpp">
+      <Filter>src\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="..\..\lib\include\system\utility.h">
       <Filter>include\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\application\application.h">
+      <Filter>include\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\engine\core.h">
+      <Filter>include\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

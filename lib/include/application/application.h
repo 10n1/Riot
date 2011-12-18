@@ -12,10 +12,18 @@
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
+typedef void (frame_callback_t)(void);
 
 /*******************************************************************\
  External variables
 \*******************************************************************/
+enum application_status_e
+{
+    kNotStarted,
+    kStarted,
+    kRunning,
+    kStopped,
+};
 
 namespace Application
 {
@@ -26,6 +34,13 @@ namespace Application
 void Initialize(void);
 void StartMainLoop(void);
 void Shutdown(void);
+void SetFrameCallback(frame_callback_t* callback);
+
+application_status_e GetStatus(void);
+const char* GetExecutableDirectory(void);
+
+void* GetOSApplication(void);   // Windows: HINSTANCE
+                                // OS X:    NSApplication*
 
 } // namespace Application
 

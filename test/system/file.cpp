@@ -9,7 +9,7 @@
 #include "system/file.h"
 #include "gtest/gtest.h"
 
-TEST(PAFile, Open)
+TEST(File, Open)
 {
     file_t file;
     int result = File::Open(&file, "__notafile__", kFileRead);

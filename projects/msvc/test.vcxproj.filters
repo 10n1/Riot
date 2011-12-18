@@ -20,10 +20,16 @@
     <ClCompile Include="..\..\test\system\types.cpp">
       <Filter>system</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\application\application.cpp">
+      <Filter>application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="system">
       <UniqueIdentifier>{27aabfe6-8e52-470c-a39d-9e85f843fb54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{40995ad9-944e-49e7-8830-6c0c1aaed823}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

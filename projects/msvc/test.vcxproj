@@ -175,6 +175,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\test\application\application.cpp" />
     <ClCompile Include="..\..\test\main.cpp" />
     <ClCompile Include="..\..\test\system\atomic.cpp" />
     <ClCompile Include="..\..\test\system\file.cpp" />

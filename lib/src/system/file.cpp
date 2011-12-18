@@ -53,8 +53,7 @@ int Open(file_t* file, const char* filename, file_mode_e mode)
     }
         
     file->file = fopen(filename, fopenMode);
-    
-    return file->file ? 0 : 1;    
+    return file->file ? 0 : 1;
 }
 void Close(file_t* file)
 {

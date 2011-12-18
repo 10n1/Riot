@@ -18,6 +18,8 @@
 #include "assert.h"
 #include "build.h"
 
+#include "application\application.h"
+
 namespace
 {
 
@@ -44,8 +46,10 @@ namespace
 \*******************************************************************/
 int main(int argc, char* argv[])
 {
-    return 0;
+    Application::Initialize();
+    Application::GetExecutableDirectory();
 
+    return 0;
     UNUSED_PARAMETER(argc);
     UNUSED_PARAMETER(argv[0]);
 }
