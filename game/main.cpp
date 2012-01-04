@@ -19,7 +19,7 @@
 #include "build.h"
 
 #include "application.h"
-#include "engine\core.h"
+#include "engine/core.h"
 
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>

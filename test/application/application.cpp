@@ -6,6 +6,7 @@
  *  Copyright (c) 2011 Kyle Weicht. All rights reserved.
  */
 
+/*
 #include "application/application.h"
 #include "gtest/gtest.h"
 
@@ -27,3 +28,4 @@ TEST(Application, Application)
     
     EXPECT_EQ(application_status_e::kStopped, Application::GetStatus());
 }
+*/

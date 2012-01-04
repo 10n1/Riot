@@ -7,10 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27B03179149D29AF00BBA349 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B03178149D29AF00BBA349 /* libgtest.a */; };
 		27B0317B149D29B300BBA349 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0317A149D29B300BBA349 /* liblib.a */; };
 		27FFCDFC149D22A100D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDF9149D22A100D22F31 /* main.cpp */; };
-		27FFCDFD149D22A100D22F31 /* atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDFB149D22A100D22F31 /* atomic.cpp */; };
+		CDF2343414B516B600B1AE88 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF2343214B5166D00B1AE88 /* libgtest.a */; };
+		CDF2344314B516DE00B1AE88 /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343614B516DE00B1AE88 /* application.cpp */; };
+		CDF2344414B516DE00B1AE88 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343814B516DE00B1AE88 /* core.cpp */; };
+		CDF2344514B516DE00B1AE88 /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343A14B516DE00B1AE88 /* graphics.cpp */; };
+		CDF2344614B516DE00B1AE88 /* atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343C14B516DE00B1AE88 /* atomic.cpp */; };
+		CDF2344714B516DE00B1AE88 /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343D14B516DE00B1AE88 /* file.cpp */; };
+		CDF2344814B516DE00B1AE88 /* hardware.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343E14B516DE00B1AE88 /* hardware.cpp */; };
+		CDF2344914B516DE00B1AE88 /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2343F14B516DE00B1AE88 /* memory.cpp */; };
+		CDF2344A14B516DE00B1AE88 /* thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2344014B516DE00B1AE88 /* thread.cpp */; };
+		CDF2344B14B516DE00B1AE88 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2344114B516DE00B1AE88 /* timer.cpp */; };
+		CDF2344C14B516DE00B1AE88 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF2344214B516DE00B1AE88 /* types.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,13 +35,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		27B03178149D29AF00BBA349 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug/libgtest.a"; sourceTree = "<group>"; };
 		27B0317A149D29B300BBA349 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = ../../build/bin/liblib.a; sourceTree = "<group>"; };
 		27FFCDB4149D224F00D22F31 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFCDF9149D22A100D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		27FFCDFB149D22A100D22F31 /* atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atomic.cpp; sourceTree = "<group>"; };
-		27FFCE01149D22DB00D22F31 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = build/Release/liblib.a; sourceTree = "<group>"; };
-		27FFCE0A149D243E00D22F31 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../external/gtest-1.6.0/xcode/build/Release/libgtest.a"; sourceTree = "<group>"; };
+		CDF2343214B5166D00B1AE88 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../external/gtest-1.6.0/xcode/build/Debug/libgtest.a"; sourceTree = "<group>"; };
+		CDF2343614B516DE00B1AE88 /* application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = application.cpp; sourceTree = "<group>"; };
+		CDF2343814B516DE00B1AE88 /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		CDF2343A14B516DE00B1AE88 /* graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphics.cpp; sourceTree = "<group>"; };
+		CDF2343C14B516DE00B1AE88 /* atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atomic.cpp; sourceTree = "<group>"; };
+		CDF2343D14B516DE00B1AE88 /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		CDF2343E14B516DE00B1AE88 /* hardware.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hardware.cpp; sourceTree = "<group>"; };
+		CDF2343F14B516DE00B1AE88 /* memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory.cpp; sourceTree = "<group>"; };
+		CDF2344014B516DE00B1AE88 /* thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread.cpp; sourceTree = "<group>"; };
+		CDF2344114B516DE00B1AE88 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
+		CDF2344214B516DE00B1AE88 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,8 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF2343414B516B600B1AE88 /* libgtest.a in Frameworks */,
 				27B0317B149D29B300BBA349 /* liblib.a in Frameworks */,
-				27B03179149D29AF00BBA349 /* libgtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,12 +67,10 @@
 		27FFCDA9149D224F00D22F31 = {
 			isa = PBXGroup;
 			children = (
+				CDF2343214B5166D00B1AE88 /* libgtest.a */,
 				27B0317A149D29B300BBA349 /* liblib.a */,
-				27B03178149D29AF00BBA349 /* libgtest.a */,
 				27FFCDF8149D22A100D22F31 /* test */,
 				27FFCDB5149D224F00D22F31 /* Products */,
-				27FFCE0A149D243E00D22F31 /* libgtest.a */,
-				27FFCE01149D22DB00D22F31 /* liblib.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,17 +85,50 @@
 		27FFCDF8149D22A100D22F31 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				CDF2343514B516DE00B1AE88 /* application */,
+				CDF2343714B516DE00B1AE88 /* engine */,
+				CDF2343914B516DE00B1AE88 /* graphics */,
+				CDF2343B14B516DE00B1AE88 /* system */,
 				27FFCDF9149D22A100D22F31 /* main.cpp */,
-				27FFCDFA149D22A100D22F31 /* system */,
 			);
 			name = test;
 			path = ../../test;
 			sourceTree = "<group>";
 		};
-		27FFCDFA149D22A100D22F31 /* system */ = {
+		CDF2343514B516DE00B1AE88 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				27FFCDFB149D22A100D22F31 /* atomic.cpp */,
+				CDF2343614B516DE00B1AE88 /* application.cpp */,
+			);
+			path = application;
+			sourceTree = "<group>";
+		};
+		CDF2343714B516DE00B1AE88 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				CDF2343814B516DE00B1AE88 /* core.cpp */,
+			);
+			path = engine;
+			sourceTree = "<group>";
+		};
+		CDF2343914B516DE00B1AE88 /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				CDF2343A14B516DE00B1AE88 /* graphics.cpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
+		CDF2343B14B516DE00B1AE88 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				CDF2343C14B516DE00B1AE88 /* atomic.cpp */,
+				CDF2343D14B516DE00B1AE88 /* file.cpp */,
+				CDF2343E14B516DE00B1AE88 /* hardware.cpp */,
+				CDF2343F14B516DE00B1AE88 /* memory.cpp */,
+				CDF2344014B516DE00B1AE88 /* thread.cpp */,
+				CDF2344114B516DE00B1AE88 /* timer.cpp */,
+				CDF2344214B516DE00B1AE88 /* types.cpp */,
 			);
 			path = system;
 			sourceTree = "<group>";
@@ -155,7 +202,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FFCDFC149D22A100D22F31 /* main.cpp in Sources */,
-				27FFCDFD149D22A100D22F31 /* atomic.cpp in Sources */,
+				CDF2344314B516DE00B1AE88 /* application.cpp in Sources */,
+				CDF2344414B516DE00B1AE88 /* core.cpp in Sources */,
+				CDF2344514B516DE00B1AE88 /* graphics.cpp in Sources */,
+				CDF2344614B516DE00B1AE88 /* atomic.cpp in Sources */,
+				CDF2344714B516DE00B1AE88 /* file.cpp in Sources */,
+				CDF2344814B516DE00B1AE88 /* hardware.cpp in Sources */,
+				CDF2344914B516DE00B1AE88 /* memory.cpp in Sources */,
+				CDF2344A14B516DE00B1AE88 /* thread.cpp in Sources */,
+				CDF2344B14B516DE00B1AE88 /* timer.cpp in Sources */,
+				CDF2344C14B516DE00B1AE88 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +223,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CONFIGURATION_BUILD_DIR = ../../build/bin;
 				CONFIGURATION_TEMP_DIR = ../../build/obj/test;
 				COPY_PHASE_STRIP = NO;
@@ -199,6 +256,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CONFIGURATION_BUILD_DIR = ../../build/bin;
 				CONFIGURATION_TEMP_DIR = ../../build/obj/test;
 				COPY_PHASE_STRIP = YES;
@@ -222,10 +280,12 @@
 		27FFCDBF149D224F00D22F31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug\"",
 					"\"$(SRCROOT)/../../build/bin\"",
+					"\"$(SRCROOT)/../../external/gtest-1.6.0/xcode/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -234,10 +294,12 @@
 		27FFCDC0149D224F00D22F31 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-doxjzheuocksatbcfmgdtnliodya/Build/Products/Debug\"",
 					"\"$(SRCROOT)/../../build/bin\"",
+					"\"$(SRCROOT)/../../external/gtest-1.6.0/xcode/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

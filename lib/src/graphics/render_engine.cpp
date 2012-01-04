@@ -7,6 +7,7 @@
  */
 #include "graphics/render_engine.h"
 
+#include <string.h>
 #include <memory.h>
 
 #include "graphics_device.h"

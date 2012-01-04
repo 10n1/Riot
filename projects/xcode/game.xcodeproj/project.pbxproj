@@ -11,6 +11,7 @@
 		27B29E5F149D3F0B001C1928 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B29E5D149D3F0B001C1928 /* MainMenu.xib */; };
 		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
+		CDD73F0114B5118D003BC54F /* application_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDD73F0014B5118D003BC54F /* application_macosx.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,8 @@
 		27FFCD90149D222A00D22F31 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		27FFCD91149D222A00D22F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFCDCD149D229400D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CDD73E9514B4D015003BC54F /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
+		CDD73F0014B5118D003BC54F /* application_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = application_macosx.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +81,11 @@
 		27FFCDCC149D229400D22F31 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				CDD73E9514B4D015003BC54F /* application.h */,
 				27B29E5C149D3F0B001C1928 /* Info.plist */,
 				27B29E5D149D3F0B001C1928 /* MainMenu.xib */,
 				27FFCDCD149D229400D22F31 /* main.cpp */,
+				CDD73F0014B5118D003BC54F /* application_macosx.mm */,
 			);
 			name = game;
 			path = ../../game;
@@ -149,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FFCDCE149D229400D22F31 /* main.cpp in Sources */,
+				CDD73F0114B5118D003BC54F /* application_macosx.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

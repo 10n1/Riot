@@ -508,12 +508,12 @@ void taskManagerShutdown(void)
     wakeThreads();
     for(ii=1;ii<_task_manager->num_threads;++ii)
     {
-        /*printf("Waiting for thread %d...", ii); /* HACK */
+        /*printf("Waiting for thread %d...", ii); */ /* HACK */
         while(_task_manager->threads[ii].finished == 0)
         {
             wakeThreads(); /* Dirty hack to get threads to wake up */
         }
-        /*printf("done!\n"); /* HACK */
+        /*printf("done!\n"); */ /* HACK */
     }
 }
 
