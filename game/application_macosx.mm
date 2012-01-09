@@ -241,11 +241,11 @@ void* GetOSApplication(void);   // Windows: HINSTANCE
                 break;
         }
         
-        /*
-         */
+        //
+        // Frame
+        //
         s_frameCallback();
-        /*
-         */
+        
         if(s_shutdown)
             break;
         
@@ -254,8 +254,9 @@ void* GetOSApplication(void);   // Windows: HINSTANCE
 
 -(void) terminate:(id)sender
 {    
-    /*
-     */
+    //
+    // Shutdown
+    //
     s_status = kStopped;
     
     [super terminate:sender];

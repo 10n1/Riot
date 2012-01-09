@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD02FBC214BB518B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC114BB518B001977FC /* OpenGL.framework */; };
 		CD4E95A914B5181400B63534 /* macosx_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4E95A814B5181400B63534 /* macosx_ogl.cpp */; };
 		CDF2347614B5170700B1AE88 /* assert.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF2345014B5170700B1AE88 /* assert.h */; };
 		CDF2347714B5170700B1AE88 /* build.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF2345114B5170700B1AE88 /* build.h */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		27FFCD76149D220700D22F31 /* liblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD02FBC114BB518B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CD4E95A814B5181400B63534 /* macosx_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = macosx_ogl.cpp; sourceTree = "<group>"; };
 		CDF2345014B5170700B1AE88 /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
 		CDF2345114B5170700B1AE88 /* build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build.h; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD02FBC214BB518B001977FC /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +92,7 @@
 		27FFCD6B149D220700D22F31 = {
 			isa = PBXGroup;
 			children = (
+				CD02FBC114BB518B001977FC /* OpenGL.framework */,
 				CDF2344E14B5170700B1AE88 /* lib */,
 				27FFCD77149D220700D22F31 /* Products */,
 			);

@@ -58,7 +58,7 @@ Shader CreatePixelShaderNull(const char*)
 }
 Material CreateMaterialNull(const Shader&, const Shader&)
 {
-    Material material = {0}; return material;
+    Material material = {{0}}; return material;
 }
 
 }

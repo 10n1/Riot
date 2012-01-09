@@ -11,6 +11,7 @@
 		27B29E5F149D3F0B001C1928 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B29E5D149D3F0B001C1928 /* MainMenu.xib */; };
 		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
+		CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC414BB519B001977FC /* OpenGL.framework */; };
 		CDD73F0114B5118D003BC54F /* application_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDD73F0014B5118D003BC54F /* application_macosx.mm */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		27FFCD90149D222A00D22F31 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		27FFCD91149D222A00D22F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFCDCD149D229400D22F31 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CD02FBC414BB519B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CDD73E9514B4D015003BC54F /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
 		CDD73F0014B5118D003BC54F /* application_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = application_macosx.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */,
 				27B0317D149D29C300BBA349 /* liblib.a in Frameworks */,
 				27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */,
 			);
@@ -61,6 +64,7 @@
 		27FFCD8B149D222A00D22F31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD02FBC414BB519B001977FC /* OpenGL.framework */,
 				27B0317C149D29C300BBA349 /* liblib.a */,
 				27FFCD8C149D222A00D22F31 /* Cocoa.framework */,
 				27FFCD8E149D222A00D22F31 /* Other Frameworks */,

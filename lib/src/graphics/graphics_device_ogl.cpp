@@ -75,7 +75,7 @@ Shader CreatePixelShaderOpenGL(const char*)
 }
 Material CreateMaterialOpenGL(const Shader&, const Shader&)
 {
-    Material material = {0}; return material;
+    Material material = {{0}}; return material;
 }
 
 }
