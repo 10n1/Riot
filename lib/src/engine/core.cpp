@@ -72,6 +72,7 @@ void Initialize(void)
 }
 void Frame(void)
 {
+    RenderEngine::Frame();
     s_engine->numFrames++;
     s_engine->deltaTime = (float)Timer::GetDeltaTime(&s_engine->mainTimer);
 }

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\game\main.cpp" />
-    <ClCompile Include="..\..\game\application.cpp" />
+    <ClCompile Include="..\..\game\application_win32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />

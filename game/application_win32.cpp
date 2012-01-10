@@ -30,6 +30,7 @@ void DefaultFrameCallback(void) { }
 \*******************************************************************/
 char                s_executableDir[FILENAME_MAX] = {0};
 HINSTANCE           s_systemInstance    = nullptr;
+HWND                s_mainWindow        = nullptr;
 frame_callback_t*   s_frameCallback     = &DefaultFrameCallback;
 
 application_status_e    s_status    = kNotStarted;
@@ -136,7 +137,7 @@ const char* GetExecutableDirectory(void)
     GetModuleFileName(s_systemInstance, s_executableDir, sizeof(s_executableDir));
 
     // Strip off the executable name and extension
-    int filenameLength = strlen(s_executableDir);
+    int filenameLength = (int)strlen(s_executableDir);
     char* currChar = s_executableDir + filenameLength - 1;
     while(*currChar != '\\')
         currChar--;
@@ -149,6 +150,60 @@ const char* GetExecutableDirectory(void)
 void* GetOSApplication(void)
 {
     return s_systemInstance;
+}
+
+void CreateMainWindow(int width, int height, int fullscreen)
+{
+    assert(s_mainWindow == nullptr);
+
+    UINT uiStyle,uiStyleX;
+    if(fullscreen)
+    {
+        uiStyle = WS_POPUP;
+        uiStyleX = WS_EX_TOPMOST;
+        ShowCursor(false);
+    }
+    else
+    {
+        uiStyle = WS_OVERLAPPEDWINDOW;
+        uiStyleX = 0;
+    }
+    
+    DEVMODE	gDevMode;
+    if(fullscreen)
+    {
+        gDevMode.dmPelsHeight   = width;
+        gDevMode.dmPelsWidth    = height;
+        gDevMode.dmSize         = sizeof(DEVMODE);
+        gDevMode.dmFields       = DM_PELSWIDTH | DM_PELSHEIGHT;
+        if(ChangeDisplaySettings(&gDevMode, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+        {
+            MessageBox( nullptr, 
+                        TEXT("Cannot change to selected desktop resolution."),
+                        nullptr, 
+                        MB_OK | MB_ICONSTOP);
+            assert(0);
+        }
+    }
+
+    // Create window
+    RECT rc = { 0, 0, width, height };
+    AdjustWindowRect( &rc, uiStyle, FALSE );
+    s_mainWindow = CreateWindow(kClassName, 
+                                kGameName, 
+                                uiStyle,
+                                0, 0, 
+                                rc.right - rc.left, 
+                                rc.bottom - rc.top, 
+                                nullptr, nullptr, 
+                                s_systemInstance, nullptr);
+    assert(s_mainWindow);
+
+    ShowWindow(s_mainWindow, SW_SHOWNORMAL );
+}
+window_t* GetMainWindow(void)
+{
+    return s_mainWindow;
 }
 
 } // namespace Application

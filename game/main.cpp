@@ -20,6 +20,7 @@
 
 #include "application.h"
 #include "engine/core.h"
+#include "graphics/render_engine.h"
 
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>
@@ -62,8 +63,11 @@ int main(int argc, char* argv[])
 {
     Application::Initialize();
     Application::SetFrameCallback(GameFrame);
+    Application::CreateMainWindow(1280,800,0);
+    window_t* mainWindow = Application::GetMainWindow();
 
     Core::Initialize();
+    RenderEngine::CreateDevice(mainWindow, GraphicsDeviceType::kOpenGL);
 
     Application::StartMainLoop();
 

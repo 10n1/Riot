@@ -13,6 +13,7 @@
  External constants and types
 \*******************************************************************/
 typedef void (frame_callback_t)(void);
+typedef void window_t;
 
 /*******************************************************************\
  External variables
@@ -41,6 +42,9 @@ const char* GetExecutableDirectory(void);
 
 void* GetOSApplication(void);   // Windows: HINSTANCE
                                 // OS X:    NSApplication*
+
+void CreateMainWindow(int width, int height, int fullscreen);
+window_t* GetMainWindow(void);
 
 } // namespace Application
 

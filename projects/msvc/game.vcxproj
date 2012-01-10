@@ -65,22 +65,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\build\bin\</OutDir>
-    <IntDir>$(SolutionDir)..\..\build\obj\game</IntDir>
+    <IntDir>$(SolutionDir)..\..\build\obj\game\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\build\bin\</OutDir>
-    <IntDir>$(SolutionDir)..\..\build\obj\game</IntDir>
+    <IntDir>$(SolutionDir)..\..\build\obj\game\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\build\bin\</OutDir>
-    <IntDir>$(SolutionDir)..\..\build\obj\game</IntDir>
+    <IntDir>$(SolutionDir)..\..\build\obj\game\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\build\bin\</OutDir>
-    <IntDir>$(SolutionDir)..\..\build\obj\game</IntDir>
+    <IntDir>$(SolutionDir)..\..\build\obj\game\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -191,7 +191,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\game\application.cpp" />
+    <ClCompile Include="..\..\game\application_win32.cpp" />
     <ClCompile Include="..\..\game\main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -49,17 +49,21 @@ void ShutdownOpenGL(void)
 void FrameOpenGL(void)
 {
 }
-void SetClearColorOpenGL(float,float,float,float,float)
+void SetClearColorOpenGL(float r,float g,float b,float a,float depth)
 {
+    glClearColor(r,g,b,a);
+    glClearDepth(depth);
 }
 void BeginFrameOpenGL(void)
 {
 }
 void ClearOpenGL(void)
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void PresentOpenGL(void)
 {
+    SystemOpenGL::BufferSwap();
 }
 void EndFrameOpenGL(void)
 {
