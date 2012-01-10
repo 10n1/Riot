@@ -43,6 +43,7 @@ void CreateDevice(void* window, GraphicsDeviceType type);
 void Shutdown(void);
 void Frame(void);
 shader_id_t CreateVertexShader(const char* source);
+shader_id_t CreatePixelShader(const char* source);
 
 } // namespace RenderEngine
 

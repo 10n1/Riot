@@ -114,5 +114,13 @@ shader_id_t CreateVertexShader(const char* source)
 
     return shaderIndex;
 }
+shader_id_t CreatePixelShader(const char* source)
+{
+    const shader_t shader = GraphicsDevice::CreatePixelShader(source);
+    const int shaderIndex = s_engine->numShaders++;
+    s_engine->shaders[shaderIndex] = shader;
+
+    return shaderIndex;
+}
 
 } // namespace RenderEngine
