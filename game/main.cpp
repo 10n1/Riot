@@ -21,6 +21,7 @@
 #include "application.h"
 #include "engine/core.h"
 #include "graphics/render_engine.h"
+#include "system\file.h"
 
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>
@@ -66,8 +67,17 @@ int main(int argc, char* argv[])
     Application::CreateMainWindow(1280,800,0);
     window_t* mainWindow = Application::GetMainWindow();
 
+    char fileBuffer[1024*4] = {0};
+    size_t bytesRead;
+    file_t file;
+    File::Open(&file, "2d_pos_tex_20.psh", file_mode_e::kFileRead);
+    File::Read(&file, sizeof(fileBuffer), fileBuffer, &bytesRead);
+    File::Close(&file);
+    fileBuffer[bytesRead] = '\0';
+
     Core::Initialize();
     RenderEngine::CreateDevice(mainWindow, GraphicsDeviceType::kOpenGL);
+    RenderEngine::shader_id_t shaderId = RenderEngine::CreateVertexShader(fileBuffer);
 
     Application::StartMainLoop();
 

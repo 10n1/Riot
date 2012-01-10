@@ -13,6 +13,7 @@
 #include <Windows.h>
 
 #include "assert.h"
+#include "system/directory.h"
 
 namespace
 {
@@ -88,6 +89,8 @@ void Initialize(void)
     }
 
     s_status = kStarted;
+
+    Directory::SetCurrent(GetExecutableDirectory());
 }
 void StartMainLoop(void)
 {

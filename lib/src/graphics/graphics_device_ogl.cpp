@@ -8,6 +8,7 @@
 
 #include "graphics_device.h"
 #include "build.h"
+#include "assert.h"
 
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>
@@ -17,6 +18,8 @@
     #include <OpenGL/gl3.h>
     #include <OpenGL/gl3ext.h>
 #endif
+
+#include <stdio.h>
 
 #include "system_ogl.h"
 
@@ -36,6 +39,25 @@ using namespace GraphicsDevice;
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
+GLuint CompileShader(GLenum shaderType, const char* shaderSource)
+{   
+    GLchar  statusBuffer[1024] = {0};
+    GLint   status = GL_TRUE;
+    GLuint  shader = glCreateShader(shaderType);
+    glShaderSource(shader, 1, &shaderSource, NULL);
+    glCompileShader(shader);
+    
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+    if(status == GL_FALSE)
+    {
+        glGetShaderInfoLog(shader, sizeof(statusBuffer), NULL, statusBuffer);
+        printf("Error:\t%s\n", statusBuffer);
+        assert(0);
+    }
+    
+    return shader;
+}
+
 void InitializeOpenGL(void* window)
 {
     /* Create the OS-specific context */
@@ -69,17 +91,25 @@ void EndFrameOpenGL(void)
 {
 }
 
-Shader CreateVertexShaderOpenGL(const char*)
+shader_t CreateVertexShaderOpenGL(const char* source)
 {
-    Shader shader = {nullptr}; return shader;
+    const GLuint shaderIndex = CompileShader(GL_VERTEX_SHADER, source);
+    shader_t shader;
+    shader.intShader = shaderIndex;
+
+    return shader;
 }
-Shader CreatePixelShaderOpenGL(const char*)
+shader_t CreatePixelShaderOpenGL(const char* source)
 {
-    Shader shader = {nullptr}; return shader;
+    const GLuint shaderIndex = CompileShader(GL_FRAGMENT_SHADER, source);
+    shader_t shader;
+    shader.intShader = shaderIndex;
+
+    return shader;
 }
-Material CreateMaterialOpenGL(const Shader&, const Shader&)
+material_t CreateMaterialOpenGL(const shader_t&, const shader_t&)
 {
-    Material material = {{0}}; return material;
+    material_t material = {{0}}; return material;
 }
 
 }

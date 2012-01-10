@@ -19,8 +19,8 @@ namespace
 
 using namespace RenderEngine;
 
-using GraphicsDevice::Material;
-using GraphicsDevice::Shader;
+using GraphicsDevice::material_t;
+using GraphicsDevice::shader_t;
 
 /*******************************************************************\
  Internal constants and types
@@ -34,9 +34,9 @@ enum
 
 struct Engine
 {
-    Shader      shaders[kMaxShaders];
+    shader_t    shaders[kMaxShaders];
     uint64      numShaders;
-    Material    materials[kMaxMaterials];
+    material_t  materials[kMaxMaterials];
     uint64      numMaterials;
 };
 
@@ -105,6 +105,14 @@ void Frame(void)
     
     GraphicsDevice::Present();    
     GraphicsDevice::EndFrame();
+}
+shader_id_t CreateVertexShader(const char* source)
+{
+    const shader_t shader = GraphicsDevice::CreateVertexShader(source);
+    const int shaderIndex = s_engine->numShaders++;
+    s_engine->shaders[shaderIndex] = shader;
+
+    return shaderIndex;
 }
 
 } // namespace RenderEngine

@@ -48,17 +48,17 @@ void EndFrameNull(void)
 {
 }
 
-Shader CreateVertexShaderNull(const char*)
+shader_t CreateVertexShaderNull(const char*)
 {
-    Shader shader = {nullptr}; return shader;
+    shader_t shader = {nullptr}; return shader;
 }
-Shader CreatePixelShaderNull(const char*)
+shader_t CreatePixelShaderNull(const char*)
 {
-    Shader shader = {nullptr}; return shader;
+    shader_t shader = {nullptr}; return shader;
 }
-Material CreateMaterialNull(const Shader&, const Shader&)
+material_t CreateMaterialNull(const shader_t&, const shader_t&)
 {
-    Material material = {{0}}; return material;
+    material_t material = {{0}}; return material;
 }
 
 }
@@ -76,9 +76,9 @@ void (*Clear)(void)                 = nullptr;
 void (*Present)(void)               = nullptr;
 void (*EndFrame)(void)              = nullptr;
 void (*SetClearColor)(float,float,float,float,float) = nullptr;
-Shader (*CreateVertexShader)(const char*)   = nullptr;
-Shader (*CreatePixelShader)(const char*)    = nullptr;
-Material (*CreateMaterial)(const Shader&, const Shader&) = nullptr;
+shader_t (*CreateVertexShader)(const char*)   = nullptr;
+shader_t (*CreatePixelShader)(const char*)    = nullptr;
+material_t (*CreateMaterial)(const shader_t&, const shader_t&) = nullptr;
 
 /*******************************************************************\
  External functions

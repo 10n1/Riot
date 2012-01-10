@@ -18,17 +18,17 @@ namespace GraphicsDevice
 \*******************************************************************/
 struct Mesh;
 
-union Shader
+union shader_t
 {
     void*   pointerShader;
     int64_t intShader;
 };
 
-struct Material
+struct material_t
 {
-    Shader  vertexShader;
-    Shader  pixelShader;
-    int64_t program;
+    shader_t    vertexShader;
+    shader_t    pixelShader;
+    int64_t     program;
 };
 
 /*******************************************************************\
@@ -46,9 +46,9 @@ extern void (*Present)(void);
 extern void (*EndFrame)(void);
 extern void (*SetClearColor)(float r, float g, float b, float a, float depth);
 
-extern Shader (*CreateVertexShader)(const char* shaderSource);
-extern Shader (*CreatePixelShader)(const char* shaderSource);
-extern Material (*CreateMaterial)(const Shader& vertexShader, const Shader& pixelShader);
+extern shader_t (*CreateVertexShader)(const char* shaderSource);
+extern shader_t (*CreatePixelShader)(const char* shaderSource);
+extern material_t (*CreateMaterial)(const shader_t& vertexShader, const shader_t& pixelShader);
 
 /* Null device */
 void CreateNullDevice(void* window);

@@ -42,7 +42,7 @@ namespace Core
 /*******************************************************************\
  External variables
 \*******************************************************************/
-const engine_t*  g_engine       = nullptr;
+const engine_t const*  g_engine       = nullptr;
 engine_status_e  g_engineStatus = kEngineOk;
 int              g_engineError  = 0;
 
@@ -62,7 +62,7 @@ void Initialize(void)
     /* Initialize subsystems */
     s_taskManager = Memory::GlobalAllocator()->Allocate(kTaskManagerSize);
     taskManagerInitialize(0, s_taskManager, kTaskManagerSize);
-    RenderEngine::CreateDevice(nullptr, GraphicsDeviceType::kNull);
+    RenderEngine::Initialize();
     
     /* Perform initialization */
     s_engine->initialized   = 1;

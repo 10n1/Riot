@@ -7,6 +7,7 @@
  */
 #include "system/file.h"
 #include "assert.h"
+#include <stdlib.h>
 
 namespace
 {
@@ -53,6 +54,11 @@ int Open(file_t* file, const char* filename, file_mode_e mode)
     }
         
     file->file = fopen(filename, fopenMode);
+    if(file->file == nullptr)
+    {
+        int error = errno;
+        int x = 0;
+    }
     return file->file ? 0 : 1;
 }
 void Close(file_t* file)
