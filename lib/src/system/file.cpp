@@ -8,6 +8,7 @@
 #include "system/file.h"
 #include "assert.h"
 #include <stdlib.h>
+#include <errno.h>
 
 namespace
 {

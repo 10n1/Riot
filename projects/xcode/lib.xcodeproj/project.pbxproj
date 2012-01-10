@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CD02FBC214BB518B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC114BB518B001977FC /* OpenGL.framework */; };
 		CD4E95A914B5181400B63534 /* macosx_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4E95A814B5181400B63534 /* macosx_ogl.cpp */; };
+		CDED5AA614BCFAEA0056DFDB /* systems.h in Headers */ = {isa = PBXBuildFile; fileRef = CDED5AA514BCFAEA0056DFDB /* systems.h */; };
 		CDF2347614B5170700B1AE88 /* assert.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF2345014B5170700B1AE88 /* assert.h */; };
 		CDF2347714B5170700B1AE88 /* build.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF2345114B5170700B1AE88 /* build.h */; };
 		CDF2347814B5170700B1AE88 /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF2345314B5170700B1AE88 /* core.h */; };
@@ -45,6 +46,7 @@
 		27FFCD76149D220700D22F31 /* liblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02FBC114BB518B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CD4E95A814B5181400B63534 /* macosx_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = macosx_ogl.cpp; sourceTree = "<group>"; };
+		CDED5AA514BCFAEA0056DFDB /* systems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systems.h; sourceTree = "<group>"; };
 		CDF2345014B5170700B1AE88 /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
 		CDF2345114B5170700B1AE88 /* build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = build.h; sourceTree = "<group>"; };
 		CDF2345314B5170700B1AE88 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				CDF2345214B5170700B1AE88 /* engine */,
 				CDF2345414B5170700B1AE88 /* graphics */,
 				CDF2345714B5170700B1AE88 /* system */,
+				CDED5AA514BCFAEA0056DFDB /* systems.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				CDF2348414B5170700B1AE88 /* types.h in Headers */,
 				CDF2348714B5170700B1AE88 /* graphics_device.h in Headers */,
 				CDF2348B14B5170700B1AE88 /* system_ogl.h in Headers */,
+				CDED5AA614BCFAEA0056DFDB /* systems.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
