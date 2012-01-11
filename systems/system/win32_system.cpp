@@ -52,6 +52,7 @@
 namespace
 {
 
+using namespace System;
 /*******************************************************************\
  Internal constants and types
 \*******************************************************************/
@@ -60,29 +61,150 @@ namespace
  Internal variables
 \*******************************************************************/
 void DefaultCallback(void) {}
-System::callback_t* s_frameCallback     = &DefaultCallback;
-System::callback_t* s_shutdownCallback  = &DefaultCallback;
+void DefaultResizeCallback(int,int){}
+char    s_className[256] = {0};
+char    s_keyState[System::kMAX_KEYS] = {0};
 
-HINSTANCE   s_systemInstance = nullptr;
-HWND        s_hWnd           = nullptr;
-char        s_className[256] = {0};
-int         s_shutdown       = 0;
+HINSTANCE           s_systemInstance    = nullptr;
+HWND                s_hWnd              = nullptr;
+System::void_callback_t* s_frameCallback     = nullptr;
+System::void_callback_t* s_shutdownCallback  = nullptr;
+System::resize_callback_t* s_resizeCallback  = nullptr;
+
+int s_shutdown   = 0;
+int s_mouseX     = 0;
+int s_mouseY     = 0;
+mouse_state_t s_mouseState = 0;
 
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
+void SetKeyState(char key, char state)
+{
+    if(key >= 'A' && key <= 'Z')
+    {
+        int keyBase = (key - 'A') + kKeyA;
+        key_e keyIndex = (key_e)keyBase;
+        s_keyState[keyIndex] = state;
+    }
+    else if(key >= '0' && key <= '9')
+    {
+        int keyBase = (key - '0') + kKey0;
+        key_e keyIndex = (key_e)keyBase;
+        s_keyState[keyIndex] = state;
+    }
+    else if(key >= VK_F1 && key <= VK_F12)
+    {
+        int keyBase = (key - VK_F1) + kKeyF1;
+        key_e keyIndex = (key_e)keyBase;
+        s_keyState[keyIndex] = state;
+    }
+    else
+    {
+        switch(key)
+        {
+        case VK_ESCAPE:
+            s_keyState[kKeyEscape] = state; break;
+
+        case VK_SHIFT:
+        case VK_LSHIFT:
+        case VK_RSHIFT:
+            s_keyState[kKeyShift] = state; break;
+        case VK_CONTROL:
+        case VK_LCONTROL:
+        case VK_RCONTROL:
+            s_keyState[kKeyCtrl] = state; break;
+        case VK_MENU:
+        case VK_LMENU:
+        case VK_RMENU:
+            s_keyState[kKeyAlt] = state; break;
+
+        case VK_LEFT:
+            s_keyState[kKeyLeft] = state; break;
+        case VK_RIGHT:
+            s_keyState[kKeyRight] = state; break;
+        case VK_UP:
+            s_keyState[kKeyUp] = state; break;
+        case VK_DOWN:
+            s_keyState[kKeyDown] = state; break;
+
+        default:
+            int x = 0;
+            x++;
+            return;
+        }
+    }
+}
+void SetMouseState(unsigned int button)
+{
+    s_mouseState = 0;
+
+    if(button & MK_LBUTTON)
+        s_mouseState |= kMouseButtonLeft;
+    if(button & MK_RBUTTON)
+        s_mouseState |= kMouseButtonRight;
+    if(button & MK_MBUTTON)
+        s_mouseState |= kMouseButtonMiddle;
+}
+void MouseMove(int x, int y)
+{
+    s_mouseX = x;
+    s_mouseY = y;
+}
+
 LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
     switch (message) 
     {
+    // Keyboard input
+    case WM_KEYDOWN:
+    case WM_SYSKEYDOWN:
+        SetKeyState(char(wParam), 1);
+        // Handle Alt-F4 here. TODO: Support disabling it
+        if(GetKeyState(kKeyF4) && GetKeyState(kKeyAlt))
+            PostQuitMessage(0);
+        return 0;
+    // Keyboard input
+    case WM_KEYUP:
+    case WM_SYSKEYUP:
+        SetKeyState(char(wParam), 0);
+        // Handle Alt-F4 here. TODO: Support disabling it
+        if(GetKeyState(kKeyF4) && GetKeyState(kKeyAlt))
+            PostQuitMessage(0);
+        return 0;
+
+    // Mouse input
+    case WM_MOUSEMOVE:
+        {
+            POINTS pos = MAKEPOINTS(lParam);
+            MouseMove(pos.x, pos.y);
+        }
+    case WM_LBUTTONDOWN:
+    case WM_RBUTTONDOWN:
+    case WM_MBUTTONDOWN:
+    case WM_LBUTTONUP:
+    case WM_RBUTTONUP:
+    case WM_MBUTTONUP:
+        SetMouseState((int)wParam);
+        return 0;
+
+    case WM_SIZE:
+        {
+            int width = LOWORD(lParam);
+            int height = HIWORD(lParam);
+            s_resizeCallback(width, height);
+        }
+        break;
     case WM_DESTROY:
         PostQuitMessage(0);
-        break;
-    default:
+        return 0;
+
+
+    case WM_CAPTURECHANGED:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
 
-    return 0;
+    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 } // namespace
@@ -93,6 +215,7 @@ namespace System
 /*******************************************************************\
  External variables
 \*******************************************************************/
+
 /*******************************************************************\
  External functions
 \*******************************************************************/
@@ -143,20 +266,26 @@ void Initialize(void)
     //
     RestoreDirectory();
     s_shutdown = 0;
+    s_frameCallback     = &DefaultCallback;
+    s_shutdownCallback  = &DefaultCallback;
+    s_resizeCallback    = &DefaultResizeCallback;
 }
 
 
 void Shutdown(void)
 {
-    System::CloseWindow();
-    BOOL result = ::UnregisterClass(s_className, s_systemInstance);
+    BOOL result = 1;
+    if(s_hWnd)
+    {
+        result = ::DestroyWindow(s_hWnd);
+        assert(result);
+    }
+    result = ::UnregisterClass(s_className, s_systemInstance);
     assert(result != 0);
 
     s_systemInstance = nullptr;
     s_hWnd           = nullptr;
     s_className[0]   = 0;
-    s_frameCallback  = &DefaultCallback;
-    s_shutdownCallback  = &DefaultCallback;
     s_shutdown       = 1;
 }
 void* GetMainWindow(void)
@@ -165,14 +294,9 @@ void* GetMainWindow(void)
 }
 
 
-void SetFrameCallback(callback_t* callback)
-{
-    s_frameCallback = callback;
-}
-void SetShutdownCallback(callback_t* callback)
-{
-    s_shutdownCallback = callback;
-}
+void SetFrameCallback(void_callback_t* callback) { s_frameCallback = callback; }
+void SetShutdownCallback(void_callback_t* callback) { s_shutdownCallback = callback; }
+void SetResizeCallback(resize_callback_t* callback) { s_resizeCallback = callback; }
 
 
 void RunMainLoop(void)
@@ -196,7 +320,6 @@ void RunMainLoop(void)
         s_frameCallback();
     }
     s_shutdownCallback();
-    System::Shutdown();
     s_shutdown = 0;
 }
 
@@ -248,11 +371,8 @@ void SpawnWindow(int width, int height, int fullscreen)
     assert(s_hWnd);
 
     ShowWindow(s_hWnd, SW_SHOWNORMAL );
-}
 
-void CloseWindow(void)
-{
-    ::DestroyWindow(s_hWnd);
+    // Get the mouse position
 }
 
 void SetWindowTitle(const char* title)
@@ -307,6 +427,26 @@ message_box_e MessageBox(const char* title, const char* message, message_box_typ
     }
 
     return kCancel;
+}
+
+
+void GetMousePosition(int* x, int *y)
+{
+    *x = s_mouseX;
+    *y = s_mouseY;
+}
+mouse_state_t GetMouseState(void)
+{
+    return s_mouseState;
+}
+void GetKeyboardState(char keys[kMAX_KEYS])
+{
+    memcpy(keys, s_keyState, sizeof(s_keyState));
+}
+int GetKeyState(key_e key)
+{
+    assert(key >= 0 && key < kMAX_KEYS);
+    return s_keyState[key];
 }
 
 } // namespace System
