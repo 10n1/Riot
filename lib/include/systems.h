@@ -57,6 +57,18 @@ void ThreadingSupportShit(void);
 void MemorySupportShit(void);
 void TimerSupportShit(void);
 void HardwareInformationShit(void);
+void LoggingSupportShit(void);
+
+
+/*******************************************************************\
+ Network
+\*******************************************************************/
+void OpenSocket(void);
+void CloseSocket(void);
+void SendSync(void);
+void RecieveAsync(void);
+void RecieveSync(void);
+void RecieveAsync(void);
 
 
 /*******************************************************************\

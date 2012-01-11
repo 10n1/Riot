@@ -17,6 +17,7 @@
 
 #include "assert.h"
 #include "build.h"
+#include <stdio.h>
 
 #include "application.h"
 #include "engine/core.h"
@@ -26,6 +27,8 @@
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>
 #endif
+
+#include "system/system.h"
 
 namespace
 {
@@ -41,14 +44,19 @@ namespace
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
-void GameFrame(void)
+void Frame(void)
 {
-    Core::Frame();
+    static int frame = 0;
+    printf("Frame %d\n", frame++);
 
-    #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
-    if(GetAsyncKeyState(VK_ESCAPE) & 0x8000)
-        Application::Shutdown();
-    #endif
+    System::message_box_e result = System::MessageBox("Message Box!", "Hit OK!", System::kOkCancel);
+    result = System::MessageBox("Message Box!", "Hit cancel!", System::kOkCancel);
+    result = System::MessageBox("Message Box!", "Hit Retry!", System::kRetryCancel);
+    result = System::MessageBox("Message Box!", "Hit Cancel!", System::kRetryCancel);
+}
+void Shutdown(void)
+{
+    printf("Shutdown\n");
 }
 
 } // namespace
@@ -62,26 +70,49 @@ void GameFrame(void)
 \*******************************************************************/
 int main(int argc, char* argv[])
 {
-    Application::Initialize();
-    Application::SetFrameCallback(GameFrame);
-    Application::CreateMainWindow(1280,800,0);
-    window_t* mainWindow = Application::GetMainWindow();
+    /*
+     * Test system
+     */ 
+    char exeDirectory[256] = {0};
+    System::GetExecutableDirectory(sizeof(exeDirectory), exeDirectory);
+    printf("%s\n", exeDirectory);
 
-    char fileBuffer[1024*4] = {0};
-    size_t bytesRead;
-    file_t file;
-    File::Open(&file, "2d_pos_tex_20.psh", file_mode_e::kFileRead);
-    File::Read(&file, sizeof(fileBuffer), fileBuffer, &bytesRead);
-    File::Close(&file);
-    fileBuffer[bytesRead] = '\0';
+    System::Initialize();
+    System::Shutdown();
+    
+    System::Initialize();
+    System::Shutdown();
+    
+    System::Initialize();
+    System::Shutdown();
 
-    Core::Initialize();
-    RenderEngine::CreateDevice(mainWindow, GraphicsDeviceType::kOpenGL);
-    RenderEngine::shader_id_t shaderId = RenderEngine::CreateVertexShader(fileBuffer);
+    System::Initialize();
+    System::SetFrameCallback(&Frame);
+    System::SetShutdownCallback(&Shutdown);
+    System::SpawnWindow(1280,800,0);
+    System::SetWindowTitle("My Window!");
+    System::RunMainLoop();
 
-    Application::StartMainLoop();
+    //Application::Initialize();
+    //Application::SetFrameCallback(GameFrame);
+    //Application::CreateMainWindow(1280,800,0);
+    //window_t* mainWindow = Application::GetMainWindow();
 
-    Core::Shutdown();
+    //char fileBuffer[1024*4] = {0};
+    //size_t bytesRead;
+    //file_t file;
+    //File::Open(&file, "2d_pos_tex_20.psh", file_mode_e::kFileRead);
+    //File::Read(&file, sizeof(fileBuffer), fileBuffer, &bytesRead);
+    //File::Close(&file);
+    //fileBuffer[bytesRead] = '\0';
+
+    //Core::Initialize();
+    //RenderEngine::CreateDevice(mainWindow, GraphicsDeviceType::kOpenGL);
+    //RenderEngine::shader_id_t shaderId = RenderEngine::CreateVertexShader(fileBuffer);
+
+    //Application::StartMainLoop();
+
+    //Core::Shutdown();
 
     return 0;
     UNUSED_PARAMETER(argc);
