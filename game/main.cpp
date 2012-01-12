@@ -76,7 +76,7 @@ void Shutdown(void)
     //
     // Shutdown Subsystems
     //
-    Render::Shutdown();
+    //Render::Shutdown();
 
 
     printf("Shutdown\n");
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
     //
     void* systemWindow = System::GetMainWindow();
     assert(systemWindow);
-    Render::Initialize(systemWindow);
+    //Render::Initialize(systemWindow);
 
     System::RunMainLoop();
 

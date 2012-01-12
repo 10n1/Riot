@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2795677F14BE7E7E004F8FF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2795677E14BE7E7E004F8FF4 /* Foundation.framework */; };
+		2795678214BE7E85004F8FF4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2795678114BE7E85004F8FF4 /* Cocoa.framework */; };
 		CD02FBC214BB518B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC114BB518B001977FC /* OpenGL.framework */; };
 		CD4E95A914B5181400B63534 /* macosx_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4E95A814B5181400B63534 /* macosx_ogl.cpp */; };
 		CDED5AA614BCFAEA0056DFDB /* systems.h in Headers */ = {isa = PBXBuildFile; fileRef = CDED5AA514BCFAEA0056DFDB /* systems.h */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2795677E14BE7E7E004F8FF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2795678114BE7E85004F8FF4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27FFCD76149D220700D22F31 /* liblib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD02FBC114BB518B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CD4E95A814B5181400B63534 /* macosx_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = macosx_ogl.cpp; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2795678214BE7E85004F8FF4 /* Cocoa.framework in Frameworks */,
+				2795677F14BE7E7E004F8FF4 /* Foundation.framework in Frameworks */,
 				CD02FBC214BB518B001977FC /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +100,8 @@
 		27FFCD6B149D220700D22F31 = {
 			isa = PBXGroup;
 			children = (
+				2795678114BE7E85004F8FF4 /* Cocoa.framework */,
+				2795677E14BE7E7E004F8FF4 /* Foundation.framework */,
 				CD02FBC114BB518B001977FC /* OpenGL.framework */,
 				CDF2344E14B5170700B1AE88 /* lib */,
 				27FFCD77149D220700D22F31 /* Products */,

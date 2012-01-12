@@ -7,16 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		272D71AD14BE779900A4E992 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272D71AC14BE779900A4E992 /* Foundation.framework */; };
+		272D71B314BE786100A4E992 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272D71B214BE786100A4E992 /* Cocoa.framework */; };
 		CDF3981814BDF6650088BE48 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF3981614BDF6650088BE48 /* system.cpp */; };
 		CDF3981914BDF6650088BE48 /* system.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF3981714BDF6650088BE48 /* system.h */; };
-		CDF3981E14BDF7F40088BE48 /* macosx_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF3981D14BDF7F40088BE48 /* macosx_system.cpp */; };
+		CDF3981E14BDF7F40088BE48 /* macosx_system.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDF3981D14BDF7F40088BE48 /* macosx_system.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		272D71AC14BE779900A4E992 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		272D71B214BE786100A4E992 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		CDF3980814BDF5A20088BE48 /* libsystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsystem.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDF3981614BDF6650088BE48 /* system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = system.cpp; sourceTree = "<group>"; };
 		CDF3981714BDF6650088BE48 /* system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = system.h; sourceTree = "<group>"; };
-		CDF3981D14BDF7F40088BE48 /* macosx_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = macosx_system.cpp; sourceTree = "<group>"; };
+		CDF3981D14BDF7F40088BE48 /* macosx_system.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = macosx_system.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272D71B314BE786100A4E992 /* Cocoa.framework in Frameworks */,
+				272D71AD14BE779900A4E992 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,9 +39,11 @@
 		CDF397FD14BDF5A20088BE48 = {
 			isa = PBXGroup;
 			children = (
-				CDF3981D14BDF7F40088BE48 /* macosx_system.cpp */,
+				CDF3981D14BDF7F40088BE48 /* macosx_system.mm */,
 				CDF3981614BDF6650088BE48 /* system.cpp */,
 				CDF3981714BDF6650088BE48 /* system.h */,
+				272D71B214BE786100A4E992 /* Cocoa.framework */,
+				272D71AC14BE779900A4E992 /* Foundation.framework */,
 				CDF3980914BDF5A20088BE48 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,7 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDF3981814BDF6650088BE48 /* system.cpp in Sources */,
-				CDF3981E14BDF7F40088BE48 /* macosx_system.cpp in Sources */,
+				CDF3981E14BDF7F40088BE48 /* macosx_system.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

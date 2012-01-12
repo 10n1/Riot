@@ -83,7 +83,7 @@ namespace System
 
 void GetCurrentDirectory(size_t bufferSize, char* directory)
 {
-    getcwd(directory, (int)bufferSize);
+    ::getcwd(directory, (int)bufferSize);
 }
 void SetCurrentDirectory(const char* directory)
 {
