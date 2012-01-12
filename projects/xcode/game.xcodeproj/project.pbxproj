@@ -13,6 +13,7 @@
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
 		CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC414BB519B001977FC /* OpenGL.framework */; };
 		CDD73F0114B5118D003BC54F /* application_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDD73F0014B5118D003BC54F /* application_macosx.mm */; };
+		CDF3981C14BDF72A0088BE48 /* libsystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF3981B14BDF72A0088BE48 /* libsystem.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CD02FBC414BB519B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CDD73E9514B4D015003BC54F /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
 		CDD73F0014B5118D003BC54F /* application_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = application_macosx.mm; sourceTree = "<group>"; };
+		CDF3981B14BDF72A0088BE48 /* libsystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystem.a; path = /Users/kcweicht/development/Riot/systems/system/../../build/bin/systems/libsystem.a; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF3981C14BDF72A0088BE48 /* libsystem.a in Frameworks */,
 				CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */,
 				27B0317D149D29C300BBA349 /* liblib.a in Frameworks */,
 				27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */,
@@ -47,6 +50,7 @@
 		27FFCD7D149D222A00D22F31 = {
 			isa = PBXGroup;
 			children = (
+				CDF3981B14BDF72A0088BE48 /* libsystem.a */,
 				27FFCDCC149D229400D22F31 /* game */,
 				27FFCD8B149D222A00D22F31 /* Frameworks */,
 				27FFCD89149D222A00D22F31 /* Products */,
@@ -209,7 +213,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../lib/include;
+				HEADER_SEARCH_PATHS = (
+					../../systems,
+					../../lib/include,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../../build/obj/game;
 				ONLY_ACTIVE_ARCH = YES;
@@ -256,7 +263,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../lib/include;
+				HEADER_SEARCH_PATHS = (
+					../../systems,
+					../../lib/include,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../../build/obj/game;
 				SDKROOT = macosx;
@@ -273,6 +283,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
+					"\"$(SRCROOT)/../../build/bin/systems\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -288,6 +299,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
+					"\"$(SRCROOT)/../../build/bin/systems\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
