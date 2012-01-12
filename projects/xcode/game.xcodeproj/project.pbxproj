@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		272D71B114BE782D00A4E992 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD91149D222A00D22F31 /* Foundation.framework */; };
+		2786A0BA14BE7FD400B669ED /* libsystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 272D71AF14BE780500A4E992 /* libsystem.a */; };
+		2795677D14BE7CE6004F8FF4 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2795677C14BE7CE6004F8FF4 /* libgtest.a */; };
+		2795678414BE7F80004F8FF4 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2795678314BE7F80004F8FF4 /* CoreServices.framework */; };
 		27B0317D149D29C300BBA349 /* liblib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B0317C149D29C300BBA349 /* liblib.a */; };
 		27B29E5F149D3F0B001C1928 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B29E5D149D3F0B001C1928 /* MainMenu.xib */; };
 		27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFCD8C149D222A00D22F31 /* Cocoa.framework */; };
 		27FFCDCE149D229400D22F31 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFCDCD149D229400D22F31 /* main.cpp */; };
 		CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02FBC414BB519B001977FC /* OpenGL.framework */; };
 		CDD73F0114B5118D003BC54F /* application_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDD73F0014B5118D003BC54F /* application_macosx.mm */; };
-		CDF3981C14BDF72A0088BE48 /* libsystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF3981B14BDF72A0088BE48 /* libsystem.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		272D71AF14BE780500A4E992 /* libsystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystem.a; path = ../../build/bin/systems/libsystem.a; sourceTree = "<group>"; };
+		2795677C14BE7CE6004F8FF4 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = "../../../../Library/Developer/Xcode/DerivedData/riot-gbfmzgfkitrztdfwqjhowztqklhm/Build/Products/Debug/libgtest.a"; sourceTree = "<group>"; };
+		2795678314BE7F80004F8FF4 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		27B0317C149D29C300BBA349 /* liblib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblib.a; path = ../../build/bin/liblib.a; sourceTree = "<group>"; };
 		27B29E5C149D3F0B001C1928 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27B29E5D149D3F0B001C1928 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
@@ -29,7 +35,6 @@
 		CD02FBC414BB519B001977FC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CDD73E9514B4D015003BC54F /* application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
 		CDD73F0014B5118D003BC54F /* application_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = application_macosx.mm; sourceTree = "<group>"; };
-		CDF3981B14BDF72A0088BE48 /* libsystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystem.a; path = /Users/kcweicht/development/Riot/systems/system/../../build/bin/systems/libsystem.a; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,10 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF3981C14BDF72A0088BE48 /* libsystem.a in Frameworks */,
-				CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */,
+				2786A0BA14BE7FD400B669ED /* libsystem.a in Frameworks */,
+				2795678414BE7F80004F8FF4 /* CoreServices.framework in Frameworks */,
 				27B0317D149D29C300BBA349 /* liblib.a in Frameworks */,
+				272D71B114BE782D00A4E992 /* Foundation.framework in Frameworks */,
 				27FFCD8D149D222A00D22F31 /* Cocoa.framework in Frameworks */,
+				2795677D14BE7CE6004F8FF4 /* libgtest.a in Frameworks */,
+				CD02FBC514BB519B001977FC /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +58,9 @@
 		27FFCD7D149D222A00D22F31 = {
 			isa = PBXGroup;
 			children = (
-				CDF3981B14BDF72A0088BE48 /* libsystem.a */,
+				2795678314BE7F80004F8FF4 /* CoreServices.framework */,
+				2795677C14BE7CE6004F8FF4 /* libgtest.a */,
+				272D71AF14BE780500A4E992 /* libsystem.a */,
 				27FFCDCC149D229400D22F31 /* game */,
 				27FFCD8B149D222A00D22F31 /* Frameworks */,
 				27FFCD89149D222A00D22F31 /* Products */,
@@ -217,6 +227,7 @@
 					../../systems,
 					../../lib/include,
 				);
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../../build/obj/game;
 				ONLY_ACTIVE_ARCH = YES;
@@ -267,6 +278,7 @@
 					../../systems,
 					../../lib/include,
 				);
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../../build/obj/game;
 				SDKROOT = macosx;
@@ -284,6 +296,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
 					"\"$(SRCROOT)/../../build/bin/systems\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-gbfmzgfkitrztdfwqjhowztqklhm/Build/Products/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -300,6 +313,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../build/bin\"",
 					"\"$(SRCROOT)/../../build/bin/systems\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/riot-gbfmzgfkitrztdfwqjhowztqklhm/Build/Products/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
