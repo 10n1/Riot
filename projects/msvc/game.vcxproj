@@ -211,6 +211,11 @@
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\assets\color.psh" />
+    <None Include="..\..\assets\pos.vsh" />
+    <None Include="..\..\assets\asset.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

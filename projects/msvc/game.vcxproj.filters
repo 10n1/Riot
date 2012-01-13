@@ -7,4 +7,20 @@
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="assets">
+      <UniqueIdentifier>{39230cea-6895-4427-80da-ac5d97302a0e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\assets\asset.bmp">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="..\..\assets\pos.vsh">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="..\..\assets\color.psh">
+      <Filter>assets</Filter>
+    </None>
+  </ItemGroup>
 </Project>

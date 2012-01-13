@@ -8,7 +8,7 @@
 #ifndef __graphicsDevice_h__
 #define __graphicsDevice_h__
 
-//#include <cheaders>
+#include <stdint.h>
 
 //#include <c++headers>
 
@@ -22,6 +22,21 @@ namespace GraphicsDevice
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
+union shader_t
+{
+    void*   pointerShader;
+    int64_t intShader;
+};
+union buffer_t
+{
+    void*   pointerBuffer;
+    int64_t intBuffer;
+};
+enum index_format_e
+{
+    kIndex16,
+    kIndex32,
+};
 
 /*******************************************************************\
  Variables
@@ -42,6 +57,17 @@ void SetClearDepth(float d);
 // Frame controls
 void Clear(void);
 void Present(void);
+
+// Render object creation
+shader_t CreateVertexShader(const char* shaderSource);
+shader_t CreatePixelShader(const char* shaderSource);
+buffer_t CreateVertexBuffer(size_t size, const void* data);
+buffer_t CreateIndexBuffer(size_t size, const void* data);
+
+// Set functions
+
+// Draw commands
+void Draw(index_format_e indexFormat, int indexCount);
 
 } // namespace Render
 

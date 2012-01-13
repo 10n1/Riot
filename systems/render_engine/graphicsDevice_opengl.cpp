@@ -62,9 +62,29 @@ HDC     s_hDC         = nullptr;
 HGLRC   s_hGLRC       = nullptr;
 int     s_pixelFormat = -1;
 
+GLuint  s_vao = 0;
+
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
+GLuint CompileShader(GLenum shaderType, const char* shaderSource)
+{   
+    GLchar  statusBuffer[1024] = {0};
+    GLint   status = GL_TRUE;
+    GLuint  shader = glCreateShader(shaderType);
+    glShaderSource(shader, 1, &shaderSource, NULL);
+    glCompileShader(shader);
+    
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+    if(status == GL_FALSE)
+    {
+        glGetShaderInfoLog(shader, sizeof(statusBuffer), NULL, statusBuffer);
+        printf("Error:\t%s\n", statusBuffer);
+        assert(0);
+    }
+    
+    return shader;
+}
 
 } // namespace
 
@@ -158,6 +178,12 @@ void Initialize(void* window)
     s_hDC   = hDC;
     s_hGLRC = hGLRC;
     s_pixelFormat = pixelFormat;
+
+    //
+    // Perform OpenGL initialization
+    //
+    glGenVertexArrays(1, &s_vao);
+    glBindVertexArray(s_vao);
 }
 void Shutdown(void)
 {
@@ -191,6 +217,51 @@ void Present(void)
 #else
     #error Need OpenGL
 #endif // BUILD_PLATFORM_ID
+}
+
+
+// Render object creation
+shader_t CreateVertexShader(const char* shaderSource)
+{
+    GLuint shaderId = CompileShader(GL_VERTEX_SHADER, shaderSource);
+    shader_t shader;
+    shader.intShader = shaderId;
+
+    return shader;
+}
+shader_t CreatePixelShader(const char* shaderSource)
+{
+    GLuint shaderId = CompileShader(GL_FRAGMENT_SHADER, shaderSource);
+    shader_t shader;
+    shader.intShader = shaderId;
+
+    return shader;
+}
+buffer_t CreateVertexBuffer(size_t size, const void* data)
+{
+    GLuint bufferId = 0;
+    glGenBuffers(1, &bufferId);
+    glBindBuffer(GL_ARRAY_BUFFER, bufferId);
+    glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)size, data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    buffer_t buffer;
+    buffer.intBuffer = bufferId;
+
+    return buffer;
+}
+buffer_t CreateIndexBuffer(size_t size, const void* data)
+{
+    GLuint bufferId = 0;
+    glGenBuffers(1, &bufferId);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferId);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)size, data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
+    buffer_t buffer;
+    buffer.intBuffer = bufferId;
+
+    return buffer;
 }
 
 } // namespace GraphicsDevice

@@ -18,6 +18,7 @@
 #include "assert.h"
 #include "build.h"
 #include <stdio.h>
+#include <malloc.h>
 
 #include "application.h"
 #include "engine/core.h"
@@ -76,7 +77,7 @@ void Shutdown(void)
     //
     // Shutdown Subsystems
     //
-    //Render::Shutdown();
+    Render::Shutdown();
 
 
     printf("Shutdown\n");
@@ -133,11 +134,34 @@ int main(int argc, char* argv[])
     //
     // Render Engine
     //
+    void* renderEngineMemory = malloc(Render::kRenderEngineSize);
     void* systemWindow = System::GetMainWindow();
     assert(systemWindow);
-    //Render::Initialize(systemWindow);
+    Render::Initialize(systemWindow, renderEngineMemory, Render::kRenderEngineSize);
+
+    //
+    // Asset loading
+    //
+    char vertexShaderSource[1024] = {0};
+    char pixelShaderSource[1024] = {0};
+    size_t bytesRead;
+    file_t file;
+    File::Open(&file, "assets/pos.vsh", file_mode_e::kFileRead);
+    File::Read(&file, sizeof(vertexShaderSource), vertexShaderSource, &bytesRead);
+    File::Close(&file);
+    File::Open(&file, "assets/color.psh", file_mode_e::kFileRead);
+    File::Read(&file, sizeof(pixelShaderSource), pixelShaderSource, &bytesRead);
+    File::Close(&file);
+
+    const Render::shader_t vertexShader = Render::CreateShader(vertexShaderSource, Render::kVertexShader);
+    const Render::shader_t pixelShader = Render::CreateShader(pixelShaderSource, Render::kPixelShader);
 
     System::RunMainLoop();
+
+    //
+    // Post-shutdown
+    //
+    free(renderEngineMemory);
 
     //Application::Initialize();
     //Application::SetFrameCallback(GameFrame);

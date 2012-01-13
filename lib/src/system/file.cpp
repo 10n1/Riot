@@ -58,7 +58,9 @@ int Open(file_t* file, const char* filename, file_mode_e mode)
     if(file->file == nullptr)
     {
         int error = errno;
-        int x = 0;
+        if(error != 0)
+        {
+        }
     }
     return file->file ? 0 : 1;
 }

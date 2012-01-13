@@ -1,12 +1,12 @@
 /*
- *  renderEngine.h
+ *  renderEngineInternal.h
  *  renderEngine.lib
  *
  *  Created by Kyle Weicht on 1/10/12.
  *  Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __renderEngineLib_h__
-#define __renderEngineLib_h__
+#ifndef __renderEngineInternalLib_h__
+#define __renderEngineInternalLib_h__
 
 //#include <cheaders>
 
