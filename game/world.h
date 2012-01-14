@@ -41,11 +41,15 @@ private:
         kDirt,
         kGrass,
         kSky,
+
+        kNothing,
     };
     struct tixel_t
     {
         tixel_type_e    type;
     };
+
+    void Circle(int x0, int y0, int radius, tixel_type_e type, int fill);
 
 /* Members */
 private:
@@ -53,6 +57,10 @@ private:
     Render::texture_t   _terrainTexture;
     Render::material_t  _terrainMaterial;
     Render::mesh_t      _terrainMesh;
+    
+    Render::texture_t   _skyTexture;
+    Render::material_t  _skyMaterial;
+    Render::mesh_t      _skyMesh;    
 
     tixel_t _worldData[kWorldSize][kWorldSize];
 };

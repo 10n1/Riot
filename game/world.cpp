@@ -130,6 +130,7 @@ void World::UpdateTerrainTexture(void)
                 SetColor(25,200,50,255,xx,yy,_terrainTextureData);
                 break;
             case kSky:
+            case kNothing:
                 SetColor(132,194,232,255,xx,yy,_terrainTextureData);
                 break;
             default:
@@ -215,7 +216,65 @@ void World::Update(float elapsedTime)
 void World::MouseClick(int x, int y)
 {
     _worldData[x][y].type = kSky;
+    Circle(x,y, 20, kSky, true);
     UpdateTerrainTexture();
+}
+void World::Circle(int x0, int y0, int radius, tixel_type_e type, int fill)
+{   // Souce: http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
+    int f = 1 - radius;
+    int ddF_x = 1;
+    int ddF_y = -2 * radius;
+    int x = 0;
+    int y = radius;
+
+    _worldData[x0][y0 + radius].type = type;
+    _worldData[x0][y0 - radius].type = type;
+    _worldData[x0 + radius][y0].type = type;
+    _worldData[x0 - radius][y0].type = type;
+
+    while(x < y)
+    {
+        // ddF_x == 2 * x + 1;
+        // ddF_y == -2 * y;
+        // f == x*x + y*y - radius*radius + 2*x - y + 1;
+        if(f >= 0) 
+        {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x;    
+
+        if(fill)
+        {
+            for(int xx=x0 - x; xx <= x0 + x; ++xx)
+            {
+                for(int yy=y0 - y; yy <= y0 + y; ++yy)
+                {
+                    _worldData[xx][yy].type = type;
+                }
+            }
+            for(int xx=x0 - y; xx <= x0 + y; ++xx)
+            {
+                for(int yy=y0 - x; yy <= y0 + x; ++yy)
+                {
+                    _worldData[xx][yy].type = type;
+                }
+            }
+        }
+
+        _worldData[x0 + x][y0 + y].type = type;
+        _worldData[x0 - x][y0 + y].type = type;
+        _worldData[x0 + x][y0 - y].type = type;
+        _worldData[x0 - x][y0 - y].type = type;
+        _worldData[x0 + y][y0 + x].type = type;
+        _worldData[x0 - y][y0 + x].type = type;
+        _worldData[x0 + y][y0 - x].type = type;
+        _worldData[x0 - y][y0 - x].type = type;
+
+    }
 }
 
 void World::Render(void)
