@@ -74,6 +74,11 @@ enum index_format_e
     kIndex16,
     kIndex32,
 };
+union texture_t
+{
+    void*   pointerTexture;
+    int64_t intTexture;
+};
 struct mesh_t
 {
     buffer_t    vertexBuffer;
@@ -111,6 +116,7 @@ program_t CreateProgram(shader_t vertexShader, shader_t pixelShader);
 buffer_t CreateVertexBuffer(size_t size, const void* data);
 buffer_t CreateIndexBuffer(size_t size, const void* data);
 vertex_format_t CreateVertexLayout(const vertex_layout_t* layout, int vertexStride);
+texture_t CreateTexture(int width, int height, int bits, void* data);
 mesh_t CreateMesh(  const vertex_layout_t* layout,
                     int indexCount, 
                     int vertexCount, 

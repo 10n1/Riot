@@ -58,6 +58,7 @@ enum
     kMaxMeshes  = 8,
     kMaxMaterials = 8,
     kMaxRenderCommands = 8,
+    kMaxTextures = 8,
 };
 
 struct material_t
@@ -80,11 +81,13 @@ struct render_t
     material_t                      materials[kMaxMaterials];
     GraphicsDevice::mesh_t          meshes[kMaxMeshes];
     render_command_t                renderCommands[kMaxRenderCommands];
+    GraphicsDevice::texture_t       textures[kMaxTextures];
 
     int numShaders;
     int numMeshes;
     int numMaterials;
     int numRenderCommands;
+    int numTextures;
 }* s_render = nullptr;
 
 /*******************************************************************\
@@ -230,6 +233,16 @@ mesh_t CreateMesh(  vertex_layout_e layout,
     s_render->meshes[meshId] = mesh;
 
     return meshId;
+}
+texture_t CreateTexture(int width, int height, int bits, void* data)
+{
+    GraphicsDevice::texture_t texture = GraphicsDevice::CreateTexture(width, height, bits, data);
+    
+    assert(s_render->numTextures < kMaxTextures);
+    const texture_t textureId = s_render->numTextures++;
+    s_render->textures[textureId] = texture;
+
+    return textureId;
 }
 void SubmitCommand(material_t material, mesh_t mesh)
 {

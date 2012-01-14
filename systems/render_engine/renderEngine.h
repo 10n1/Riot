@@ -38,6 +38,7 @@ enum vertex_layout_e
 typedef int shader_t;
 typedef int mesh_t;
 typedef int material_t;
+typedef int texture_t;
 
 /*******************************************************************\
  Variables
@@ -60,6 +61,7 @@ mesh_t CreateMesh(  vertex_layout_e layout,
                     size_t indexSize, 
                     const void* vertices, 
                     const void* indices);
+texture_t CreateTexture(int width, int height, int bits, void* data);
 
 void SubmitCommand(material_t material, mesh_t mesh);
 

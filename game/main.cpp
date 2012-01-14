@@ -19,6 +19,7 @@
 #include "build.h"
 #include <stdio.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 #include "application.h"
 #include "engine/core.h"
@@ -164,8 +165,6 @@ int main(int argc, char* argv[])
     // Render Engine
     //
     void* renderEngineMemory = (void*)new char[Render::kRenderEngineSize];
-    //delete [] renderEngineMemory;
-    //renderEngineMemory = malloc(Render::kRenderEngineSize);
     void* systemWindow = System::GetMainWindow();
     assert(systemWindow);
     Render::Initialize(systemWindow, renderEngineMemory, Render::kRenderEngineSize);
@@ -204,35 +203,19 @@ int main(int argc, char* argv[])
     const int textureSize = textureWidth*textureHeight*pixelSize;
 
     uint8_t* textureData = new uint8_t[textureWidth*textureHeight*pixelSize];
+    for(int ii=0; ii<textureSize; ++ii)
+    {
+        textureData[ii] = (char)rand();
+    }
+    
+    Render::texture_t texture = Render::CreateTexture(textureWidth, textureHeight, pixelSize*8, textureData);
 
     System::RunMainLoop();
 
     //
     // Post-shutdown
     //
-    //free(renderEngineMemory);
     delete [] renderEngineMemory;
-
-    //Application::Initialize();
-    //Application::SetFrameCallback(GameFrame);
-    //Application::CreateMainWindow(1280,800,0);
-    //window_t* mainWindow = Application::GetMainWindow();
-
-    //char fileBuffer[1024*4] = {0};
-    //size_t bytesRead;
-    //file_t file;
-    //File::Open(&file, "2d_pos_tex_20.psh", file_mode_e::kFileRead);
-    //File::Read(&file, sizeof(fileBuffer), fileBuffer, &bytesRead);
-    //File::Close(&file);
-    //fileBuffer[bytesRead] = '\0';
-
-    //Core::Initialize();
-    //RenderEngine::CreateDevice(mainWindow, GraphicsDeviceType::kOpenGL);
-    //RenderEngine::shader_id_t shaderId = RenderEngine::CreateVertexShader(fileBuffer);
-
-    //Application::StartMainLoop();
-
-    //Core::Shutdown();
 
     assert(THIS_SHOULD_BECOME_1_AT_SHUTDOWN);
     return 0;

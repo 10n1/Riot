@@ -253,6 +253,62 @@ program_t CreateProgram(shader_t vertexShader, shader_t pixelShader)
     
     return program;
 }
+texture_t CreateTexture(int width, int height, int bits, void* data)
+{
+    GLuint textureId;
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    GLint components;
+    GLint format;    
+    switch(bits)
+    {
+        case 24:
+            format = GL_BGR;
+            components = GL_RGB;
+            break;
+        case 32:
+            format = GL_BGRA;
+            components = GL_RGBA;
+            break;
+        case 8:
+            assert(0);
+            break;
+        default:
+            assert(0);
+            break;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, (GLint)components, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+    GLenum error = glGetError();
+    switch(error)
+    {
+    case GL_NO_ERROR:
+        break;
+    case GL_INVALID_ENUM:
+        assert(0);
+    case GL_INVALID_VALUE:
+        assert(0);
+    case GL_INVALID_OPERATION:
+        assert(0);
+    default:
+        format = 0;
+        printf("Error not handled\n");
+        assert(0);
+    }
+
+    //glBindTexture(GL_TEXTURE_2D, 0);
+
+    texture_t texture;
+    texture.intTexture = textureId;
+
+    return texture;
+}
 buffer_t CreateVertexBuffer(size_t size, const void* data)
 {
     GLuint bufferId = 0;
