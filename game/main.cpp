@@ -48,149 +48,7 @@ namespace
 \*******************************************************************/
 int THIS_SHOULD_BECOME_1_AT_SHUTDOWN = 0;
 
-struct pos_vertex_t
-{
-    float f[3];
-};
-struct pos_tex_vertex_t
-{
-    float pos[3];
-    float tex[2];
-};
-
-const pos_tex_vertex_t kQuadVerts[] = 
-{
-    { { -1.0f, -1.0f, 0.0f }, { 0.0f, 0.0f } },
-    { {  1.0f, -1.0f, 0.0f }, { 1.0f, 0.0f } },
-    { { -1.0f,  1.0f, 0.0f }, { 0.0f, 1.0f } },
-    { {  1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f } },
-};
-const int kQuadIndices[] =
-{
-    0,1,2,
-    2,1,3,
-};
-
-Render::shader_t vertexShader   = -1;
-Render::shader_t pixelShader    = -1;
-Render::material_t material     = -1;
-Render::mesh_t quadMesh         = -1;
-Render::texture_t texture       = -1;
-
-const int textureWidth = 1024;
-const int textureHeight = 1024;
-const int pixelSize = 3;
-const int textureSize = textureWidth*textureHeight*pixelSize;
-
-uint8_t* textureData = nullptr;
-
 World   s_world;
-
-int terrainHeights[textureWidth];
-
-void SetColor(char r, char g, char b, int x, int y, void* tex)
-{
-    char* pixel = &((char*)tex)[(x*3) + (y*3*textureHeight)];
-    pixel[0] = b;
-    pixel[1] = g;
-    pixel[2] = r;
-}
-void UpdateTerrain(void* textureData)
-{
-    for(int ii=0; ii<textureWidth; ++ii)
-    {
-        int jj;
-        for(jj=0; jj<terrainHeights[ii]; ++jj)
-        {
-            SetColor(148,100,12,ii,jj,textureData);
-        }
-        for(int kk=0; kk<10; ++kk, ++jj)
-        {   
-            if(ii > textureWidth || jj > textureHeight)
-                continue;
-            SetColor(25,200,50,ii,jj,textureData);
-        }
-        for(; jj<textureHeight; ++jj)
-        {
-            if(ii > textureWidth || jj > textureHeight)
-                continue;
-            SetColor(132,194,232,ii,jj,textureData);
-        }
-    }
-}
-int RandomMidpoint(int low, int high)
-{
-    int difference = high-low;
-    if(difference == 0)
-        return high;
-
-    int number = rand()%difference;
-    return number+low;
-}
-void Midpoint(int low, int high)
-{
-    if(abs(high-low) == 1)
-        return;
-
-    int lowHeight = terrainHeights[low];
-    int highHeight = terrainHeights[high];
-    int newHeight;
-    if(lowHeight > highHeight)
-    {
-        newHeight = RandomMidpoint(highHeight, lowHeight);
-    }
-    else
-    {
-        newHeight = RandomMidpoint(lowHeight, highHeight);
-    }
-
-    int midpoint = (high+low)/2;
-    terrainHeights[midpoint] = newHeight;
-
-    // Left side
-    Midpoint(low, midpoint);
-    Midpoint(midpoint, high);
-}
-
-void CalculateTerrainHeights(void)
-{
-    //
-    // Completely random
-    //
-    for(int ii=0; ii<textureWidth; ++ii)
-    {
-        int height = rand()%textureHeight;
-        for(int jj=0; jj<5; ++jj,++ii)
-        {
-            terrainHeights[ii] = height;
-        }
-        terrainHeights[ii] = height;
-    }
-
-    //
-    // Half thing
-    //
-    const int smoothDistance = 20;
-    const int half = smoothDistance/2;
-    for(int kk=0; kk<6; ++kk)
-    {
-        for(int ii=0; ii<textureWidth; ++ii)
-        {
-            int count = 0;
-            int value = 0;
-            for(int jj=-half; jj<half+1; ++jj)
-            {
-                int index = ii+jj;
-                if(index < 0 || index > textureWidth)
-                    continue;
-                value += terrainHeights[index];
-                count++;
-            }
-
-            terrainHeights[ii] = value/count;
-        }
-    }
-}
 
 /*******************************************************************\
  Internal functions
@@ -214,8 +72,6 @@ void Frame(void)
         System::Shutdown();
     if(System::GetKeyState(System::kKeyEscape))
         System::Shutdown();
-    if(System::GetKeyState(System::kKeyT))
-        CalculateTerrainHeights();
 
     //
     // Perform actual update stuff
@@ -290,46 +146,11 @@ int main(int argc, char* argv[])
     assert(systemWindow);
     Render::Initialize(systemWindow, renderEngineMemory, Render::kRenderEngineSize);
 
+    // 
+    // Game initialization
     //
-    // Asset loading
-    //
-    char vertexShaderSource[1024] = {0};
-    char pixelShaderSource[1024] = {0};
-    size_t bytesRead;
-    file_t file;
-    File::Open(&file, "assets/pos_tex.vsh", file_mode_e::kFileRead);
-    File::Read(&file, sizeof(vertexShaderSource), vertexShaderSource, &bytesRead);
-    File::Close(&file);
-    File::Open(&file, "assets/tex.psh", file_mode_e::kFileRead);
-    File::Read(&file, sizeof(pixelShaderSource), pixelShaderSource, &bytesRead);
-    File::Close(&file);
-
-    vertexShader = Render::CreateShader(vertexShaderSource, Render::kVertexShader);
-    pixelShader = Render::CreateShader(pixelShaderSource, Render::kPixelShader);
-    material = Render::CreateMaterial(vertexShader, pixelShader);
-    quadMesh = Render::CreateMesh(  Render::kPosTex, 
-                                    sizeof(kQuadIndices)/sizeof(kQuadIndices[0]), 
-                                    sizeof(kQuadVerts)/sizeof(kQuadVerts[0]), 
-                                    sizeof(kQuadVerts[0]), 
-                                    sizeof(kQuadIndices[0]), 
-                                    kQuadVerts, 
-                                    kQuadIndices);
-
-    //
-    // Create texture
-    //
-    textureData = new uint8_t[textureWidth*textureHeight*pixelSize];
-    for(int ii=0; ii<textureSize; ++ii)
-    {
-        textureData[ii] = 0;
-    }
-    texture = Render::CreateTexture(textureWidth, textureHeight, pixelSize*8, textureData);
-
-
-    CalculateTerrainHeights();
-    UpdateTerrain(textureData);
-
     s_world.Create();
+
     //
     // Run main loop
     //

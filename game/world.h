@@ -30,10 +30,21 @@ public:
     void Update(float elapsedTime);
     void Render(void);
 
+    void GenerateNewTerrain(void);
+
     static const int kWorldSize = 1024;
 
 private:
-    
+    enum tixel_type_e
+    {
+        kDirt,
+        kGrass,
+        kSky,
+    };
+    struct tixel_t
+    {
+        tixel_type_e    type;
+    };
 
 /* Members */
 private:
@@ -41,6 +52,8 @@ private:
     Render::texture_t   _terrainTexture;
     Render::material_t  _terrainMaterial;
     Render::mesh_t      _terrainMesh;
+
+    tixel_t _worldData[kWorldSize][kWorldSize];
 };
 
 /*******************************************************************\

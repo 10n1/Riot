@@ -10,6 +10,7 @@
 
 /* C headers */
 #include <memory.h>
+#include <stdlib.h>
 /* C++ headers */
 /* External headers */
 /* Internal headers */
@@ -67,6 +68,10 @@ External functions
 \*******************************************************************/
 void World::Create(void)
 {
+    //
+    // Render initialization
+    //
+
     // Initialize texture
     const int textureSize = kWorldSize*kWorldSize*4;
     _terrainTextureData = new uint8_t[textureSize];
@@ -97,6 +102,11 @@ void World::Create(void)
                                         sizeof(kQuadIndices[0]), 
                                         kQuadVerts, 
                                         kQuadIndices);
+
+    //
+    // Game initialization
+    //
+    GenerateNewTerrain();
 }
 
 void World::Destroy(void)
@@ -106,15 +116,101 @@ void World::Destroy(void)
 
 void World::UpdateTerrainTexture(void)
 {
+    for(int xx=0; xx<kWorldSize; ++xx)
+    {
+        for(int yy=0; yy<kWorldSize; ++yy)
+        {
+            const tixel_t& tixel = _worldData[xx][yy];
+            switch(tixel.type)
+            {
+            case kDirt:
+                SetColor(148,100,12,255,xx,yy,_terrainTextureData);
+                break;
+            case kGrass:
+                SetColor(25,200,50,255,xx,yy,_terrainTextureData);
+                break;
+            case kSky:
+                SetColor(132,194,232,255,xx,yy,_terrainTextureData);
+                break;
+            default:
+                break;
+            }
+        }
+    }
     Render::UpdateTextureData(_terrainTexture, kWorldSize, kWorldSize, 32, _terrainTextureData);
+}
+void World::GenerateNewTerrain(void)
+{
+    int terrainHeights[kWorldSize];
+    //
+    // Completely random
+    //
+    for(int ii=0; ii<kWorldSize; ++ii)
+    {
+        int height = rand()%kWorldSize;
+        for(int jj=0; jj<5; ++jj,++ii)
+        {
+            terrainHeights[ii] = height;
+        }
+        terrainHeights[ii] = height;
+    }
+
+    //
+    // Half thing
+    //
+    const int smoothDistance = 20;
+    const int half = smoothDistance/2;
+    for(int kk=0; kk<6; ++kk)
+    {
+        for(int ii=0; ii<kWorldSize; ++ii)
+        {
+            int count = 0;
+            int value = 0;
+            for(int jj=-half; jj<half+1; ++jj)
+            {
+                int index = ii+jj;
+                if(index < 0 || index > kWorldSize)
+                    continue;
+                value += terrainHeights[index];
+                count++;
+            }
+
+            terrainHeights[ii] = value/count;
+        }
+    }
+
+    //
+    // Now update the texture
+    //
+    for(int ii=0; ii<kWorldSize; ++ii)
+    {
+        int jj;
+        // Dirt
+        for(jj=0; jj<terrainHeights[ii]; ++jj)
+        {
+            _worldData[ii][jj].type = kDirt;
+        }
+        // Grass
+        for(int kk=0; kk<10; ++kk, ++jj)
+        {   
+            if(ii > kWorldSize || jj > kWorldSize)
+                continue;
+            _worldData[ii][jj].type = kGrass;
+        }
+        // Sky
+        for(; jj<kWorldSize; ++jj)
+        {
+            if(ii > kWorldSize || jj > kWorldSize)
+                continue;
+            _worldData[ii][jj].type = kSky;
+        }
+    }
+
+    UpdateTerrainTexture();
 }
 
 void World::Update(float elapsedTime)
 {
-    static int ii = 0;
-    SetColor(255,255,150,255,ii++,0,_terrainTextureData);
-    if(ii % 500 == 0)
-        UpdateTerrainTexture();
 }
 
 void World::Render(void)
