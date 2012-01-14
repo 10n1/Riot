@@ -23,8 +23,16 @@ namespace System
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
+enum mouse_button_e
+{
+    kMouseButtonLeft    = 0x1,
+    kMouseButtonRight   = 0x2,
+    kMouseButtonMiddle  = 0x4,
+};
+
 typedef void (void_callback_t)(void);
 typedef void (resize_callback_t)(int,int);
+typedef void (mouse_click_callback_t)(System::mouse_button_e,int,int);
 
 enum message_box_e
 {
@@ -36,12 +44,6 @@ enum message_box_type_e
 {
     kOkCancel,
     kRetryCancel,
-};
-enum mouse_button_e
-{
-    kMouseButtonLeft    = 0x1,
-    kMouseButtonRight   = 0x2,
-    kMouseButtonMiddle  = 0x4,
 };
 
 enum key_e
@@ -126,6 +128,7 @@ void* GetMainWindow(void);
 void SetFrameCallback(void_callback_t* callback);
 void SetShutdownCallback(void_callback_t* callback);
 void SetResizeCallback(resize_callback_t* callback);
+void SetMouseClickCallback(mouse_click_callback_t* callback);
 void RunMainLoop(void);
 
 void SpawnWindow(int width, int height, int fullscreen);

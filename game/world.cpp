@@ -212,6 +212,11 @@ void World::GenerateNewTerrain(void)
 void World::Update(float elapsedTime)
 {
 }
+void World::MouseClick(int x, int y)
+{
+    _worldData[x][y].type = kSky;
+    UpdateTerrainTexture();
+}
 
 void World::Render(void)
 {

@@ -48,6 +48,9 @@ namespace
 \*******************************************************************/
 int THIS_SHOULD_BECOME_1_AT_SHUTDOWN = 0;
 
+int     s_windowWidth;
+int     s_windowHeight;
+
 World   s_world;
 
 /*******************************************************************\
@@ -93,6 +96,16 @@ void Shutdown(void)
 void Resize(int width, int height)
 {
     printf("%d, %d\n", width, height);
+    s_windowWidth = width;
+    s_windowHeight = height;
+}
+void MouseClick(System::mouse_button_e button, int x, int y)
+{
+    printf("Button: %d. Pos: %d, %d\n", button, x, y);
+    // Flip the Y so its down in the lower left hand corner
+    y = s_windowHeight - y;
+
+    s_world.MouseClick(x,y);
 }
 
 } // namespace
@@ -135,6 +148,7 @@ int main(int argc, char* argv[])
     System::SetFrameCallback(&Frame);
     System::SetShutdownCallback(&Shutdown);
     System::SetResizeCallback(&Resize);
+    System::SetMouseClickCallback(&MouseClick);
     System::SpawnWindow(1024,1024,0);
     System::SetWindowTitle("My Window!");
 

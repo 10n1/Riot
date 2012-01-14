@@ -62,6 +62,7 @@ using namespace System;
 \*******************************************************************/
 void DefaultCallback(void) {}
 void DefaultResizeCallback(int,int){}
+void DefaultMouseClickCallback(mouse_button_e,int,int){}
 char    s_className[256] = {0};
 char    s_keyState[System::kMAX_KEYS] = {0};
 
@@ -70,6 +71,7 @@ HWND                s_hWnd              = nullptr;
 System::void_callback_t* s_frameCallback     = nullptr;
 System::void_callback_t* s_shutdownCallback  = nullptr;
 System::resize_callback_t* s_resizeCallback  = nullptr;
+System::mouse_click_callback_t* s_mouseClickCallback = nullptr;
 
 int s_shutdown   = 0;
 int s_mouseX     = 0;
@@ -137,8 +139,14 @@ void SetKeyState(char key, char state)
 }
 void SetMouseState(unsigned int button)
 {
+    if(button & MK_LBUTTON && (s_mouseState & kMouseButtonLeft) == 0)
+        s_mouseClickCallback(kMouseButtonLeft, s_mouseX, s_mouseY);
+    if(button & MK_RBUTTON && (s_mouseState & kMouseButtonRight) == 0)
+        s_mouseClickCallback(kMouseButtonRight, s_mouseX, s_mouseY);
+    if(button & MK_MBUTTON && (s_mouseState & kMouseButtonMiddle) == 0)
+        s_mouseClickCallback(kMouseButtonMiddle, s_mouseX, s_mouseY);
+    
     s_mouseState = 0;
-
     if(button & MK_LBUTTON)
         s_mouseState |= kMouseButtonLeft;
     if(button & MK_RBUTTON)
@@ -269,6 +277,7 @@ void Initialize(void)
     s_frameCallback     = &DefaultCallback;
     s_shutdownCallback  = &DefaultCallback;
     s_resizeCallback    = &DefaultResizeCallback;
+    s_mouseClickCallback = &DefaultMouseClickCallback;
 }
 
 
@@ -297,7 +306,7 @@ void* GetMainWindow(void)
 void SetFrameCallback(void_callback_t* callback) { s_frameCallback = callback; }
 void SetShutdownCallback(void_callback_t* callback) { s_shutdownCallback = callback; }
 void SetResizeCallback(resize_callback_t* callback) { s_resizeCallback = callback; }
-
+void SetMouseClickCallback(mouse_click_callback_t* callback) { s_mouseClickCallback = callback; }
 
 void RunMainLoop(void)
 {

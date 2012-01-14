@@ -31,6 +31,7 @@ public:
     void Render(void);
 
     void GenerateNewTerrain(void);
+    void MouseClick(int x, int y);
 
     static const int kWorldSize = 1024;
 
