@@ -1,0 +1,11 @@
+#version 330
+uniform sampler2D   kTex;
+
+in vec2     vInterpTex;
+
+out vec4    vOutColor;
+
+void main()
+{
+    vOutColor = texture(kTex, vInterpTex);
+}

@@ -22,5 +22,11 @@
     <None Include="..\..\assets\color.psh">
       <Filter>assets</Filter>
     </None>
+    <None Include="..\..\assets\pos_tex.vsh">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="..\..\assets\tex.psh">
+      <Filter>assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

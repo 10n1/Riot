@@ -56,28 +56,54 @@ enum
 {
     kMaxShaders = 8,
     kMaxMeshes  = 8,
+    kMaxMaterials = 8,
+    kMaxRenderCommands = 8,
 };
 
-struct mesh_t
+struct material_t
 {
-    GraphicsDevice::buffer_t        vertexBuffer;
-    GraphicsDevice::buffer_t        indexBuffer;
-    GraphicsDevice::index_format_e  indexFormat;
-    int indexCount;
+    GraphicsDevice::shader_t    vertexShader;
+    GraphicsDevice::shader_t    pixelShader;
+    GraphicsDevice::program_t   program;
+};
+
+struct render_command_t
+{
+    material_t  material;
+    GraphicsDevice::mesh_t      mesh;
 };
 
 struct render_t
 {
-    GraphicsDevice::shader_t shaders[kMaxShaders];
-    mesh_t  meshes;
+    GraphicsDevice::vertex_format_t vertexFormats[Render::kMAX_VERTEX_LAYOUTS];
+    GraphicsDevice::shader_t        shaders[kMaxShaders];
+    material_t                      materials[kMaxMaterials];
+    GraphicsDevice::mesh_t          meshes[kMaxMeshes];
+    render_command_t                renderCommands[kMaxRenderCommands];
 
-    uint64_t    numShaders;
-    uint64_t    numMeshes;
+    int numShaders;
+    int numMeshes;
+    int numMaterials;
+    int numRenderCommands;
 }* s_render = nullptr;
 
 /*******************************************************************\
  Internal variables
 \*******************************************************************/
+static const GraphicsDevice::vertex_layout_t kShaderLayouts[Render::kMAX_VERTEX_LAYOUTS][16] =
+{
+    // kPos
+    {
+        { GraphicsDevice::kShaderInputPosition, 3 },
+        { GraphicsDevice::kShaderInputNull,     0 },
+    },    
+    // kPosTex
+    {
+        { GraphicsDevice::kShaderInputPosition,     3 },
+        { GraphicsDevice::kShaderInputTexCoord0,    2 },
+        { GraphicsDevice::kShaderInputNull,         0 },
+    },
+};
 
 /*******************************************************************\
  Internal functions
@@ -111,17 +137,35 @@ void Initialize(void* window, void* memoryBuffer, size_t bufferSize)
     GraphicsDevice::SetClearColor(0.0f, 0.3f, 0.4f, 1.0f);
     GraphicsDevice::SetClearDepth(1.0f);
 
-    int x = sizeof(render_t);
-    x = sizeof(s_render);
+    // Create vertex formats
+    //for(int ii=0; ii<kMAX_VERTEX_LAYOUTS; ++ii)
+    //{
+    //    s_render->vertexFormats[ii] = GraphicsDevice::CreateVertexLayout(kShaderLayouts[ii], 3*sizeof(float));
+    //}
 }
 void Shutdown(void)
 {
     GraphicsDevice::Shutdown();
+
+    // Clean up the memory
+    memset(s_render, 0, kRenderEngineSize);
+    s_render = nullptr;
 }
 void Frame(void)
 {
-    GraphicsDevice::Present();
     GraphicsDevice::Clear();
+    for(int ii=0; ii<s_render->numRenderCommands; ++ii)
+    {
+        const render_command_t& command = s_render->renderCommands[ii];
+
+        GraphicsDevice::SetProgram(command.material.program);
+        //GraphicsDevice::SetVertexLayout(command.mesh.vertexFormat);
+        //GraphicsDevice::BindIndexBuffer(command.mesh.indexBuffer);
+        //GraphicsDevice::BindVertexBuffer(command.mesh.vertexBuffer);
+        GraphicsDevice::DrawMesh(command.mesh);
+    }
+    s_render->numRenderCommands = 0;
+    GraphicsDevice::Present();
 }
 
 shader_t CreateShader(const char* shaderSource, shader_type_e type)
@@ -145,6 +189,25 @@ shader_t CreateShader(const char* shaderSource, shader_type_e type)
 
     return shaderId;
 }
+material_t CreateMaterial(shader_t vertexShader, shader_t pixelShader)
+{
+    GraphicsDevice::shader_t deviceVertexShader = s_render->shaders[vertexShader];
+    GraphicsDevice::shader_t devicePixelShader = s_render->shaders[pixelShader];
+
+    GraphicsDevice::program_t program = GraphicsDevice::CreateProgram(deviceVertexShader, devicePixelShader);
+    ::material_t material = 
+    {
+        deviceVertexShader,
+        devicePixelShader,
+        program
+    };
+
+    assert(s_render->numMaterials < kMaxMaterials);
+    const material_t materialId = s_render->numMaterials++;
+    s_render->materials[materialId] = material;
+
+    return materialId;
+}
 mesh_t CreateMesh(  vertex_layout_e layout, 
                     int indexCount, 
                     int vertexCount, 
@@ -153,10 +216,27 @@ mesh_t CreateMesh(  vertex_layout_e layout,
                     const void* vertices, 
                     const void* indices)
 {
-    const GraphicsDevice::buffer_t vertexBuffer = GraphicsDevice::CreateVertexBuffer(vertexSize*vertexCount, vertices);
-    const GraphicsDevice::buffer_t indexBuffer = GraphicsDevice::CreateIndexBuffer(indexSize*indexCount, indices);
+    GraphicsDevice::mesh_t mesh = GraphicsDevice::CreateMesh(kShaderLayouts[layout],
+                                                             indexCount, 
+                                                             vertexCount, 
+                                                             vertexSize, 
+                                                             indexSize, 
+                                                             vertices, 
+                                                             indices);
+                                                            
 
-    return mesh_t();
+    assert(s_render->numMeshes < kMaxMeshes);
+    const mesh_t meshId = s_render->numMeshes++;
+    s_render->meshes[meshId] = mesh;
+
+    return meshId;
+}
+void SubmitCommand(material_t material, mesh_t mesh)
+{
+    int renderCommandId = s_render->numRenderCommands++;
+
+    s_render->renderCommands[renderCommandId].material = s_render->materials[material];
+    s_render->renderCommands[renderCommandId].mesh = s_render->meshes[mesh];
 }
 
 } // namespace Render

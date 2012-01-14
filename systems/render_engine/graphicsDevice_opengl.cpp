@@ -62,8 +62,6 @@ HDC     s_hDC         = nullptr;
 HGLRC   s_hGLRC       = nullptr;
 int     s_pixelFormat = -1;
 
-GLuint  s_vao = 0;
-
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
@@ -82,6 +80,8 @@ GLuint CompileShader(GLenum shaderType, const char* shaderSource)
         printf("Error:\t%s\n", statusBuffer);
         assert(0);
     }
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
     
     return shader;
 }
@@ -168,8 +168,11 @@ void Initialize(void* window)
     //
     // Perform OpenGL initialization
     //
-    glGenVertexArrays(1, &s_vao);
-    glBindVertexArray(s_vao);
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
 }
 void Shutdown(void)
 {
@@ -185,16 +188,22 @@ void Shutdown(void)
 void SetClearColor(float r, float g, float b, float a)
 {
     glClearColor(r,g,b,a);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
 }
 void SetClearDepth(float d)
 {
     glClearDepth(d);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
 }
 
 // Frame controls
 void Clear(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
 }
 void Present(void)
 {
@@ -223,6 +232,27 @@ shader_t CreatePixelShader(const char* shaderSource)
 
     return shader;
 }
+program_t CreateProgram(shader_t vertexShader, shader_t pixelShader)
+{
+    GLchar  statusBuffer[1024] = {0};
+    GLint   status  = GL_TRUE;
+    GLuint  program = glCreateProgram();
+    glAttachShader(program, vertexShader.intShader);
+    glAttachShader(program, pixelShader.intShader);
+    glLinkProgram(program);
+    
+    glGetProgramiv(program, GL_LINK_STATUS, &status);
+    if(status == GL_FALSE)
+    {
+        glGetProgramInfoLog(program, sizeof(statusBuffer), NULL, statusBuffer);
+        printf("Link error:\t%s\n", statusBuffer);
+        assert(0);
+    }
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+    
+    return program;
+}
 buffer_t CreateVertexBuffer(size_t size, const void* data)
 {
     GLuint bufferId = 0;
@@ -233,7 +263,9 @@ buffer_t CreateVertexBuffer(size_t size, const void* data)
     
     buffer_t buffer;
     buffer.intBuffer = bufferId;
-
+    
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
     return buffer;
 }
 buffer_t CreateIndexBuffer(size_t size, const void* data)
@@ -246,8 +278,192 @@ buffer_t CreateIndexBuffer(size_t size, const void* data)
     
     buffer_t buffer;
     buffer.intBuffer = bufferId;
-
+    
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
     return buffer;
+}
+
+mesh_t CreateMesh(  const vertex_layout_t* layout,
+                    int indexCount, 
+                    int vertexCount, 
+                    size_t vertexStride, 
+                    size_t indexSize, 
+                    const void* vertices, 
+                    const void* indices)
+{
+    // Create buffers
+    buffer_t vertexBuffer = CreateVertexBuffer(vertexStride*vertexCount, vertices);
+    buffer_t indexBuffer = CreateIndexBuffer(indexSize*indexCount, indices);
+
+    // Create layout
+    int     offset = 0;
+    GLuint  vao = 0;
+
+    glGenVertexArrays(1, &vao);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    assert(vao);
+    assert(layout);
+    assert(vertexStride);
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer.intBuffer);
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.intBuffer);
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    while(layout && layout->slot != kShaderInputNull)
+    {
+        glEnableVertexAttribArray((uint32_t)layout->slot);
+
+        error = glGetError();
+        assert(error == GL_NO_ERROR);
+
+        glVertexAttribPointer((uint32_t)layout->slot, layout->count, GL_FLOAT, GL_FALSE, vertexStride, (void*)offset);
+
+        error = glGetError();
+        assert(error == GL_NO_ERROR);
+        switch(error)
+        {
+        case GL_NO_ERROR:
+            break;
+        case GL_INVALID_VALUE:
+            error = error;
+            break;
+        case GL_INVALID_ENUM:
+            error = error;
+            break;
+        default:
+            assert(0);
+        };
+
+        offset += layout->count*(int)sizeof(float);
+        layout++;
+    }
+    glBindVertexArray(0);
+
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    vertex_format_t format;
+    format.intFormat = vao;
+
+    mesh_t mesh;
+    mesh.indexBuffer = indexBuffer;
+    mesh.vertexBuffer = vertexBuffer;
+    mesh.vertexLayout = format;
+    mesh.indexCount = indexCount;
+    mesh.indexFormat = (indexSize == 2) ? GraphicsDevice::kIndex16 : GraphicsDevice::kIndex32;
+
+    return mesh;
+}
+vertex_format_t CreateVertexLayout(const vertex_layout_t* layout, int vertexStride)
+{
+    int     offset = 0;
+    GLuint  vao = 0;
+
+    glGenVertexArrays(1, &vao);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    assert(vao);
+    assert(layout);
+    assert(vertexStride);
+    glBindVertexArray(vao);
+
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    while(layout && layout->slot != kShaderInputNull)
+    {
+        glEnableVertexAttribArray((uint32_t)layout->slot);
+
+        error = glGetError();
+        assert(error == GL_NO_ERROR);
+
+        glVertexAttribPointer((uint32_t)layout->slot, layout->count, GL_FLOAT, GL_FALSE, vertexStride, (void*)offset);
+
+        error = glGetError();
+        assert(error == GL_NO_ERROR);
+        switch(error)
+        {
+        case GL_INVALID_VALUE:
+            error = error;
+            break;
+        case GL_INVALID_ENUM:
+            error = error;
+            break;
+        default:
+            assert(0);
+        };
+
+        offset += layout->count*(int)sizeof(float);
+        layout++;
+    }
+    glBindVertexArray(0);
+
+    error = glGetError();
+    assert(error == GL_NO_ERROR);
+
+    vertex_format_t format;
+    format.intFormat = vao;
+
+    return format;
+}
+
+// Set functions
+void SetVertexShader(shader_t)
+{
+    /* invalid in OpenGL */
+}
+void SetPixelShader(shader_t)
+{
+    /* invalid in OpenGL */
+}
+void SetProgram(program_t program)
+{
+    glUseProgram(program);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+}
+void SetVertexLayout(vertex_format_t layout)
+{
+    glBindVertexArray(layout.intFormat);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+}
+void BindVertexBuffer(buffer_t buffer)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, buffer.intBuffer);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+}
+void BindIndexBuffer(buffer_t buffer)
+{
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer.intBuffer);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+}
+
+// Draw commands
+void Draw(index_format_e indexFormat, int indexCount)
+{
+    glDrawElements(GL_TRIANGLES, indexCount, (indexFormat == kIndex16) ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, 0);
+    GLenum error = glGetError();
+    assert(error == GL_NO_ERROR);
+}
+void DrawMesh(mesh_t mesh)
+{
+    glBindVertexArray(mesh.vertexLayout.intFormat);
+    glDrawElements(GL_TRIANGLES, mesh.indexCount, (mesh.indexFormat == kIndex16) ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, 0);
 }
 
 } // namespace GraphicsDevice

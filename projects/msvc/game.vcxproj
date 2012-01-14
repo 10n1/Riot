@@ -103,7 +103,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>$(OutDir)test</Command>
+      <Command>$(OutDir)test
+mklink /D $(OutDir)assets $(SolutionDir)..\..\assets</Command>
       <Message>$(OutDir)test</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -128,7 +129,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>$(OutDir)test</Command>
+      <Command>$(OutDir)test
+mklink /D $(OutDir)assets $(SolutionDir)..\..\assets</Command>
       <Message>$(OutDir)test</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -157,7 +159,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>$(OutDir)test</Command>
+      <Command>$(OutDir)test
+mklink /D $(OutDir)assets $(SolutionDir)..\..\assets</Command>
       <Message>$(OutDir)test</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -186,7 +189,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>$(OutDir)test</Command>
+      <Command>$(OutDir)test
+mklink /D $(OutDir)assets $(SolutionDir)..\..\assets</Command>
       <Message>$(OutDir)test</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -215,6 +219,8 @@
     <None Include="..\..\assets\color.psh" />
     <None Include="..\..\assets\pos.vsh" />
     <None Include="..\..\assets\asset.bmp" />
+    <None Include="..\..\assets\pos_tex.vsh" />
+    <None Include="..\..\assets\tex.psh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

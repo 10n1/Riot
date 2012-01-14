@@ -44,6 +44,34 @@ namespace
 \*******************************************************************/
 int THIS_SHOULD_BECOME_1_AT_SHUTDOWN = 0;
 
+struct pos_vertex_t
+{
+    float f[3];
+};
+struct pos_tex_vertex_t
+{
+    float pos[3];
+    float tex[2];
+};
+
+const pos_tex_vertex_t kQuadVerts[] = 
+{
+    { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } },
+    { {  0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f } },
+    { { -0.5f,  0.5f, 0.0f }, { 0.0f, 1.0f } },
+    { {  0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f } },
+};
+const int kQuadIndices[] =
+{
+    0,1,2,
+    2,1,3,
+};
+
+Render::shader_t vertexShader   = -1;
+Render::shader_t pixelShader    = -1;
+Render::material_t material     = -1;
+Render::mesh_t quadMesh         = -1;
+
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
@@ -70,6 +98,7 @@ void Frame(void)
     //
     // Perform actual update stuff
     //
+    Render::SubmitCommand(material, quadMesh);
     Render::Frame();
 }
 void Shutdown(void)
@@ -134,7 +163,9 @@ int main(int argc, char* argv[])
     //
     // Render Engine
     //
-    void* renderEngineMemory = malloc(Render::kRenderEngineSize);
+    void* renderEngineMemory = (void*)new char[Render::kRenderEngineSize];
+    //delete [] renderEngineMemory;
+    //renderEngineMemory = malloc(Render::kRenderEngineSize);
     void* systemWindow = System::GetMainWindow();
     assert(systemWindow);
     Render::Initialize(systemWindow, renderEngineMemory, Render::kRenderEngineSize);
@@ -146,22 +177,41 @@ int main(int argc, char* argv[])
     char pixelShaderSource[1024] = {0};
     size_t bytesRead;
     file_t file;
-    File::Open(&file, "assets/pos.vsh", file_mode_e::kFileRead);
+    File::Open(&file, "assets/pos_tex.vsh", file_mode_e::kFileRead);
     File::Read(&file, sizeof(vertexShaderSource), vertexShaderSource, &bytesRead);
     File::Close(&file);
-    File::Open(&file, "assets/color.psh", file_mode_e::kFileRead);
+    File::Open(&file, "assets/tex.psh", file_mode_e::kFileRead);
     File::Read(&file, sizeof(pixelShaderSource), pixelShaderSource, &bytesRead);
     File::Close(&file);
 
-    const Render::shader_t vertexShader = Render::CreateShader(vertexShaderSource, Render::kVertexShader);
-    const Render::shader_t pixelShader = Render::CreateShader(pixelShaderSource, Render::kPixelShader);
+    vertexShader = Render::CreateShader(vertexShaderSource, Render::kVertexShader);
+    pixelShader = Render::CreateShader(pixelShaderSource, Render::kPixelShader);
+    material = Render::CreateMaterial(vertexShader, pixelShader);
+    quadMesh = Render::CreateMesh(  Render::kPosTex, 
+                                    sizeof(kQuadIndices)/sizeof(kQuadIndices[0]), 
+                                    sizeof(kQuadVerts)/sizeof(kQuadVerts[0]), 
+                                    sizeof(kQuadVerts[0]), 
+                                    sizeof(kQuadIndices[0]), 
+                                    kQuadVerts, 
+                                    kQuadIndices);
+
+    //
+    // Create texture
+    //
+    const int textureWidth = 512;
+    const int textureHeight = 512;
+    const int pixelSize = 3;
+    const int textureSize = textureWidth*textureHeight*pixelSize;
+
+    uint8_t* textureData = new uint8_t[textureWidth*textureHeight*pixelSize];
 
     System::RunMainLoop();
 
     //
     // Post-shutdown
     //
-    free(renderEngineMemory);
+    //free(renderEngineMemory);
+    delete [] renderEngineMemory;
 
     //Application::Initialize();
     //Application::SetFrameCallback(GameFrame);

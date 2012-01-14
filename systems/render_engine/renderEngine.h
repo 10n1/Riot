@@ -30,10 +30,14 @@ enum shader_type_e
 };
 enum vertex_layout_e
 {
-    kPosition,
+    kPos,
+    kPosTex,
+
+    kMAX_VERTEX_LAYOUTS,
 };
 typedef int shader_t;
 typedef int mesh_t;
+typedef int material_t;
 
 /*******************************************************************\
  Variables
@@ -48,6 +52,7 @@ void Shutdown(void);
 void Frame(void);
 
 shader_t CreateShader(const char* shaderSource, shader_type_e type);
+material_t CreateMaterial(shader_t vertexShader, shader_t pixelShader);
 mesh_t CreateMesh(  vertex_layout_e layout, 
                     int indexCount, 
                     int vertexCount, 
@@ -55,6 +60,8 @@ mesh_t CreateMesh(  vertex_layout_e layout,
                     size_t indexSize, 
                     const void* vertices, 
                     const void* indices);
+
+void SubmitCommand(material_t material, mesh_t mesh);
 
 } // namespace Render
 
