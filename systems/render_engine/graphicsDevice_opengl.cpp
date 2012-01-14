@@ -110,11 +110,23 @@ void Initialize(void* window)
     // Create context to load extensions
     //
     hDC = GetDC(hWnd);
-    PIXELFORMATDESCRIPTOR pfd;
-    pixelFormat = 1;
+    
+	PIXELFORMATDESCRIPTOR pfd;
+	memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
+	pfd.nSize  = sizeof(PIXELFORMATDESCRIPTOR);
+	pfd.nVersion   = 1;
+	pfd.dwFlags    = PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW;
+	pfd.iPixelType = PFD_TYPE_RGBA;
+	pfd.cColorBits = 32;
+	pfd.cDepthBits = 32;
+	pfd.iLayerType = PFD_MAIN_PLANE;
+
+    pixelFormat = ChoosePixelFormat(hDC, &pfd);
+    assert(pixelFormat != 0);
 
     BOOL bSuccess = SetPixelFormat(hDC, pixelFormat, &pfd);
     assert(bSuccess);
+
     hGLRC = wglCreateContext(hDC);
     wglMakeCurrent(hDC, hGLRC);
 
@@ -127,57 +139,31 @@ void Initialize(void* window)
         assert(0);
     }
 
-    // Release and start over
-    wglMakeCurrent(NULL, NULL);
-    wglDeleteContext(hGLRC);
-    hGLRC = nullptr;
-
     //
-    // Define attributes required
+    // Create new OpenGL context
     //
-    unsigned int pixCount = 0;
-    int pixAttribs[] = 
-    {
-        WGL_SUPPORT_OPENGL_ARB, 1,
-        WGL_DRAW_TO_WINDOW_ARB, 1,
-        WGL_ACCELERATION_ARB,   1,
-        WGL_COLOR_BITS_ARB,     32,
-        WGL_DEPTH_BITS_ARB,     24,
-        WGL_DOUBLE_BUFFER_ARB,  GL_TRUE,
-        //WGL_SAMPLE_BUFFERS_ARB, GL_TRUE,
-        //WGL_SAMPLES_ARB,        8,
-        WGL_PIXEL_TYPE_ARB,     WGL_TYPE_RGBA_ARB,
-        0
-    };
 
-    // Chose most appropriate format
-    wglChoosePixelFormatARB(hDC, &pixAttribs[0], NULL, 1, &pixelFormat, &pixCount);
+    assert(wglewIsSupported("WGL_ARB_create_context") == 1);
 
-    if(pixelFormat == -1)
-    {
-        // TODO: Handle error
-        assert(0);
-    }
-
-    // Set pixel format
-    SetPixelFormat(hDC, pixelFormat, &pfd);
-
-    //
-    // Create OpenGL context
-    //
     GLint pCreationAttributes[] =
     {
         WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-        WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+        WGL_CONTEXT_MINOR_VERSION_ARB, 2,
         0,
     };
-    hGLRC = wglCreateContextAttribsARB( hDC, 0, pCreationAttributes );
+    HGLRC newContext = wglCreateContextAttribsARB( hDC, 0, pCreationAttributes );
     assert(hGLRC);
-    wglMakeCurrent(hDC, hGLRC);
+
+    wglMakeCurrent(nullptr, nullptr);
+    wglDeleteContext(hGLRC);
+    wglMakeCurrent(hDC, newContext);
+    hGLRC = newContext;
 
     s_hDC   = hDC;
     s_hGLRC = hGLRC;
     s_pixelFormat = pixelFormat;
+
+    const char* majorVersion = (const char*)glGetString(GL_VERSION);
 
     //
     // Perform OpenGL initialization
