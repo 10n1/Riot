@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\game\application_win32.cpp" />
     <ClCompile Include="..\..\game\main.cpp" />
+    <ClCompile Include="..\..\game\world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\systems\render_engine\render_engine.vcxproj">
@@ -216,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
+    <ClInclude Include="..\..\game\world.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\assets\color.psh" />

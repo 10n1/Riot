@@ -133,6 +133,8 @@ void SetVertexLayout(vertex_format_t layout);
 void BindVertexBuffer(buffer_t buffer);
 void BindIndexBuffer(buffer_t buffer);
 
+void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data);
+
 // Draw commands
 void Draw(index_format_e indexFormat, int indexCount);
 void DrawMesh(mesh_t mesh);

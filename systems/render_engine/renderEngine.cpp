@@ -252,4 +252,9 @@ void SubmitCommand(material_t material, mesh_t mesh)
     s_render->renderCommands[renderCommandId].mesh = s_render->meshes[mesh];
 }
 
+void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data)
+{
+    GraphicsDevice::UpdateTextureData(s_render->textures[texture], width, height, bits, data);
+}
+
 } // namespace Render

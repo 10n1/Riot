@@ -65,6 +65,9 @@ texture_t CreateTexture(int width, int height, int bits, void* data);
 
 void SubmitCommand(material_t material, mesh_t mesh);
 
+void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data);
+
+
 } // namespace Render
 
 #endif /* include guard */

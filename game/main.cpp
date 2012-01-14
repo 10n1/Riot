@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <ctime>
+
 
 #include "application.h"
 #include "engine/core.h"
@@ -32,6 +34,7 @@
 
 #include "system/system.h"
 #include "render_engine/renderEngine.h"
+#include "world.h"
 
 namespace
 {
@@ -57,10 +60,10 @@ struct pos_tex_vertex_t
 
 const pos_tex_vertex_t kQuadVerts[] = 
 {
-    { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } },
-    { {  0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f } },
-    { { -0.5f,  0.5f, 0.0f }, { 0.0f, 1.0f } },
-    { {  0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f } },
+    { { -1.0f, -1.0f, 0.0f }, { 0.0f, 0.0f } },
+    { {  1.0f, -1.0f, 0.0f }, { 1.0f, 0.0f } },
+    { { -1.0f,  1.0f, 0.0f }, { 0.0f, 1.0f } },
+    { {  1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f } },
 };
 const int kQuadIndices[] =
 {
@@ -72,6 +75,122 @@ Render::shader_t vertexShader   = -1;
 Render::shader_t pixelShader    = -1;
 Render::material_t material     = -1;
 Render::mesh_t quadMesh         = -1;
+Render::texture_t texture       = -1;
+
+const int textureWidth = 1024;
+const int textureHeight = 1024;
+const int pixelSize = 3;
+const int textureSize = textureWidth*textureHeight*pixelSize;
+
+uint8_t* textureData = nullptr;
+
+World   s_world;
+
+int terrainHeights[textureWidth];
+
+void SetColor(char r, char g, char b, int x, int y, void* tex)
+{
+    char* pixel = &((char*)tex)[(x*3) + (y*3*textureHeight)];
+    pixel[0] = b;
+    pixel[1] = g;
+    pixel[2] = r;
+}
+void UpdateTerrain(void* textureData)
+{
+    for(int ii=0; ii<textureWidth; ++ii)
+    {
+        int jj;
+        for(jj=0; jj<terrainHeights[ii]; ++jj)
+        {
+            SetColor(148,100,12,ii,jj,textureData);
+        }
+        for(int kk=0; kk<10; ++kk, ++jj)
+        {   
+            if(ii > textureWidth || jj > textureHeight)
+                continue;
+            SetColor(25,200,50,ii,jj,textureData);
+        }
+        for(; jj<textureHeight; ++jj)
+        {
+            if(ii > textureWidth || jj > textureHeight)
+                continue;
+            SetColor(132,194,232,ii,jj,textureData);
+        }
+    }
+}
+int RandomMidpoint(int low, int high)
+{
+    int difference = high-low;
+    if(difference == 0)
+        return high;
+
+    int number = rand()%difference;
+    return number+low;
+}
+void Midpoint(int low, int high)
+{
+    if(abs(high-low) == 1)
+        return;
+
+    int lowHeight = terrainHeights[low];
+    int highHeight = terrainHeights[high];
+    int newHeight;
+    if(lowHeight > highHeight)
+    {
+        newHeight = RandomMidpoint(highHeight, lowHeight);
+    }
+    else
+    {
+        newHeight = RandomMidpoint(lowHeight, highHeight);
+    }
+
+    int midpoint = (high+low)/2;
+    terrainHeights[midpoint] = newHeight;
+
+    // Left side
+    Midpoint(low, midpoint);
+    Midpoint(midpoint, high);
+}
+
+void CalculateTerrainHeights(void)
+{
+    //
+    // Completely random
+    //
+    for(int ii=0; ii<textureWidth; ++ii)
+    {
+        int height = rand()%textureHeight;
+        for(int jj=0; jj<5; ++jj,++ii)
+        {
+            terrainHeights[ii] = height;
+        }
+        terrainHeights[ii] = height;
+    }
+
+    //
+    // Half thing
+    //
+    const int smoothDistance = 20;
+    const int half = smoothDistance/2;
+    for(int kk=0; kk<6; ++kk)
+    {
+        for(int ii=0; ii<textureWidth; ++ii)
+        {
+            int count = 0;
+            int value = 0;
+            for(int jj=-half; jj<half+1; ++jj)
+            {
+                int index = ii+jj;
+                if(index < 0 || index > textureWidth)
+                    continue;
+                value += terrainHeights[index];
+                count++;
+            }
+
+            terrainHeights[ii] = value/count;
+        }
+    }
+}
 
 /*******************************************************************\
  Internal functions
@@ -95,11 +214,14 @@ void Frame(void)
         System::Shutdown();
     if(System::GetKeyState(System::kKeyEscape))
         System::Shutdown();
+    if(System::GetKeyState(System::kKeyT))
+        CalculateTerrainHeights();
 
     //
     // Perform actual update stuff
     //
-    Render::SubmitCommand(material, quadMesh);
+    s_world.Update(0.0f);
+    s_world.Render();
     Render::Frame();
 }
 void Shutdown(void)
@@ -108,7 +230,6 @@ void Shutdown(void)
     // Shutdown Subsystems
     //
     Render::Shutdown();
-
 
     printf("Shutdown\n");
     THIS_SHOULD_BECOME_1_AT_SHUTDOWN = 1;
@@ -150,7 +271,7 @@ int main(int argc, char* argv[])
     result = System::MessageBox("Message Box!", "Hit Retry!", System::kRetryCancel);
     result = System::MessageBox("Message Box!", "Hit Cancel!", System::kRetryCancel);
 #endif
-    
+    srand(time(NULL));
     //
     // System initialization
     //
@@ -158,7 +279,7 @@ int main(int argc, char* argv[])
     System::SetFrameCallback(&Frame);
     System::SetShutdownCallback(&Shutdown);
     System::SetResizeCallback(&Resize);
-    System::SpawnWindow(1280,800,0);
+    System::SpawnWindow(1024,1024,0);
     System::SetWindowTitle("My Window!");
 
     //
@@ -197,24 +318,27 @@ int main(int argc, char* argv[])
     //
     // Create texture
     //
-    const int textureWidth = 512;
-    const int textureHeight = 512;
-    const int pixelSize = 3;
-    const int textureSize = textureWidth*textureHeight*pixelSize;
-
-    uint8_t* textureData = new uint8_t[textureWidth*textureHeight*pixelSize];
+    textureData = new uint8_t[textureWidth*textureHeight*pixelSize];
     for(int ii=0; ii<textureSize; ++ii)
     {
-        textureData[ii] = (char)rand();
+        textureData[ii] = 0;
     }
-    
-    Render::texture_t texture = Render::CreateTexture(textureWidth, textureHeight, pixelSize*8, textureData);
+    texture = Render::CreateTexture(textureWidth, textureHeight, pixelSize*8, textureData);
 
+
+    CalculateTerrainHeights();
+    UpdateTerrain(textureData);
+
+    s_world.Create();
+    //
+    // Run main loop
+    //
     System::RunMainLoop();
 
     //
     // Post-shutdown
     //
+    s_world.Destroy();
     delete [] renderEngineMemory;
 
     assert(THIS_SHOULD_BECOME_1_AT_SHUTDOWN);

@@ -261,6 +261,9 @@ texture_t CreateTexture(int width, int height, int bits, void* data)
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -507,6 +510,20 @@ void BindIndexBuffer(buffer_t buffer)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer.intBuffer);
     GLenum error = glGetError();
     assert(error == GL_NO_ERROR);
+}
+
+void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data)
+{
+    GLenum format;
+    switch(bits)
+    {
+        case 24: format = GL_BGR; break;
+        case 32: format = GL_BGRA; break;
+        default: assert(0);
+    }
+    glBindTexture(GL_TEXTURE_2D, texture.intTexture);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, data);
+    //glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 // Draw commands
