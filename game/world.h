@@ -14,12 +14,14 @@
 /* External headers */
 /* Internal headers */
 #include "render_engine/renderEngine.h"
+#include "player.h"
 
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
 class World
 {
+friend class Player;
 /* Methods */
 public:
     void Create(void);
@@ -33,23 +35,29 @@ public:
     void GenerateNewTerrain(void);
     void MouseClick(int x, int y);
 
+
     static const int kWorldSize = 1024;
 
-private:
     enum tixel_type_e
     {
         kDirt,
         kGrass,
-        kSky,
 
         kNothing,
     };
     struct tixel_t
     {
         tixel_type_e    type;
+        float           durability;
     };
 
-    void Circle(int x0, int y0, int radius, tixel_type_e type, int fill);
+    void CircleFill(int x0, int y0, int radius, tixel_type_e type, int fill);
+    void CircleFunc(int x0, int y0, int radius, int fill, void (*func)(tixel_t*,void*), void* param);
+    const tixel_t* GetTixel(int x, int y);
+
+    float CalculateSlope(int x, int y);
+
+    int CalculateNearestHeight(int x, int y);
 
 /* Members */
 private:
@@ -60,9 +68,11 @@ private:
     
     Render::texture_t   _skyTexture;
     Render::material_t  _skyMaterial;
-    Render::mesh_t      _skyMesh;    
+    Render::mesh_t      _skyMesh;
 
     tixel_t _worldData[kWorldSize][kWorldSize];
+
+    Player  _player;
 };
 
 /*******************************************************************\

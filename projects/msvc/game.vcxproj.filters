@@ -4,10 +4,12 @@
     <ClCompile Include="..\..\game\main.cpp" />
     <ClCompile Include="..\..\game\application_win32.cpp" />
     <ClCompile Include="..\..\game\world.cpp" />
+    <ClCompile Include="..\..\game\player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
     <ClInclude Include="..\..\game\world.h" />
+    <ClInclude Include="..\..\game\player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">

@@ -132,6 +132,7 @@ void SetProgram(program_t program);
 void SetVertexLayout(vertex_format_t layout);
 void BindVertexBuffer(buffer_t buffer);
 void BindIndexBuffer(buffer_t buffer);
+void SetTexture(texture_t texture);
 
 void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data);
 

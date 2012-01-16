@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\game\application_win32.cpp" />
     <ClCompile Include="..\..\game\main.cpp" />
+    <ClCompile Include="..\..\game\player.cpp" />
     <ClCompile Include="..\..\game\world.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
+    <ClInclude Include="..\..\game\player.h" />
     <ClInclude Include="..\..\game\world.h" />
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,7 @@
 #include "system/system.h"
 #include "render_engine/renderEngine.h"
 #include "world.h"
+#include "system/timer.h"
 
 namespace
 {
@@ -52,6 +53,8 @@ int     s_windowWidth;
 int     s_windowHeight;
 
 World   s_world;
+
+timer_t s_timer;
 
 /*******************************************************************\
  Internal functions
@@ -79,7 +82,8 @@ void Frame(void)
     //
     // Perform actual update stuff
     //
-    s_world.Update(0.0f);
+    float elapsedTime = Timer::GetDeltaTime(&s_timer);
+    s_world.Update(elapsedTime);
     s_world.Render();
     Render::Frame();
 }
@@ -164,6 +168,7 @@ int main(int argc, char* argv[])
     // Game initialization
     //
     s_world.Create();
+    Timer::Init(&s_timer);
 
     //
     // Run main loop

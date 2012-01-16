@@ -72,6 +72,7 @@ struct render_command_t
 {
     material_t  material;
     GraphicsDevice::mesh_t      mesh;
+    GraphicsDevice::texture_t   texture;
 };
 
 struct render_t
@@ -162,9 +163,7 @@ void Frame(void)
         const render_command_t& command = s_render->renderCommands[ii];
 
         GraphicsDevice::SetProgram(command.material.program);
-        //GraphicsDevice::SetVertexLayout(command.mesh.vertexFormat);
-        //GraphicsDevice::BindIndexBuffer(command.mesh.indexBuffer);
-        //GraphicsDevice::BindVertexBuffer(command.mesh.vertexBuffer);
+        GraphicsDevice::SetTexture(command.texture);
         GraphicsDevice::DrawMesh(command.mesh);
     }
     s_render->numRenderCommands = 0;
@@ -244,12 +243,13 @@ texture_t CreateTexture(int width, int height, int bits, void* data)
 
     return textureId;
 }
-void SubmitCommand(material_t material, mesh_t mesh)
+void SubmitCommand(material_t material, mesh_t mesh, texture_t texture)
 {
     int renderCommandId = s_render->numRenderCommands++;
 
     s_render->renderCommands[renderCommandId].material = s_render->materials[material];
     s_render->renderCommands[renderCommandId].mesh = s_render->meshes[mesh];
+    s_render->renderCommands[renderCommandId].texture = s_render->textures[texture];
 }
 
 void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data)

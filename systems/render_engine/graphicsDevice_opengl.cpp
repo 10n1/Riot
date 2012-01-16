@@ -168,11 +168,8 @@ void Initialize(void* window)
     //
     // Perform OpenGL initialization
     //
-    error = glGetError();
-    assert(error == GL_NO_ERROR);
-
-    error = glGetError();
-    assert(error == GL_NO_ERROR);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 void Shutdown(void)
 {
@@ -511,7 +508,10 @@ void BindIndexBuffer(buffer_t buffer)
     GLenum error = glGetError();
     assert(error == GL_NO_ERROR);
 }
-
+void SetTexture(texture_t texture)
+{
+    glBindTexture(GL_TEXTURE_2D, texture.intTexture);
+}
 void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data)
 {
     GLenum format;
@@ -523,7 +523,7 @@ void UpdateTextureData(texture_t texture, int width, int height, int bits, void*
     }
     glBindTexture(GL_TEXTURE_2D, texture.intTexture);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, data);
-    //glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 // Draw commands

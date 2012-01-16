@@ -63,7 +63,7 @@ mesh_t CreateMesh(  vertex_layout_e layout,
                     const void* indices);
 texture_t CreateTexture(int width, int height, int bits, void* data);
 
-void SubmitCommand(material_t material, mesh_t mesh);
+void SubmitCommand(material_t material, mesh_t mesh, texture_t texture);
 
 void UpdateTextureData(texture_t texture, int width, int height, int bits, void* data);
 
