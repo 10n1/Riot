@@ -218,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\game\application.h" />
+    <ClInclude Include="..\..\game\materials.h" />
     <ClInclude Include="..\..\game\player.h" />
     <ClInclude Include="..\..\game\world.h" />
   </ItemGroup>

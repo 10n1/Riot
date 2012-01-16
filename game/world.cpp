@@ -48,14 +48,14 @@ const int kQuadIndices[] =
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
-void SetColor(char r, char g, char b, char a, int x, int y, void* tex)
+void SetColor(const uint8_t color[4], int x, int y, void* tex)
 {
     uint32_t* textureDataAsInt = (uint32_t*)tex;
     uint8_t* pixel = (uint8_t*)&textureDataAsInt[x + (y*World::kWorldSize)];
-    pixel[0] = b;
-    pixel[1] = g;
-    pixel[2] = r;
-    pixel[3] = a;
+    pixel[0] = color[2];
+    pixel[1] = color[1];
+    pixel[2] = color[0];
+    pixel[3] = color[3];
 }
 
 } // anonymous namespace
@@ -113,7 +113,14 @@ void World::Create(void)
     {
         for(int xx=0; xx<kWorldSize; ++xx)
         {
-            SetColor(132,194,232,255,xx,yy,skyTextureData);
+            if(xx == kWorldSize/2 && yy%3 == 0)
+            {
+                uint8_t dashColor[] = {150,150,150,255};
+                SetColor(dashColor,xx,yy,skyTextureData);
+                continue;             
+            }
+            uint8_t skyColor[] = {132,194,232,255};
+            SetColor(skyColor,xx,yy,skyTextureData);
         }
     }
     _skyTexture = Render::CreateTexture(kWorldSize, kWorldSize, 32, skyTextureData);
@@ -128,10 +135,6 @@ void World::Create(void)
     GenerateNewTerrain();
     _player.Create();
     _player._world = this;
-    while(_worldData[posX][posY].type == kNothing)
-        posY--;
-    _player._position[0] = posX;
-    _player._position[1] = posY;
 }
 
 void World::Destroy(void)
@@ -147,20 +150,7 @@ void World::UpdateTerrainTexture(void)
         for(int yy=0; yy<kWorldSize; ++yy)
         {
             const tixel_t& tixel = _worldData[xx][yy];
-            switch(tixel.type)
-            {
-            case kDirt:
-                SetColor(148,100,12,tixel.durability*255,xx,yy,_terrainTextureData);
-                break;
-            case kGrass:
-                SetColor(25,200,50,tixel.durability*255,xx,yy,_terrainTextureData);
-                break;
-            case kNothing:
-                SetColor(0,0,0,0,xx,yy,_terrainTextureData);
-                break;
-            default:
-                break;
-            }
+            SetColor(kMaterialTemplates[tixel.type].color,xx,yy,_terrainTextureData);
         }
     }
     Render::UpdateTextureData(_terrainTexture, kWorldSize, kWorldSize, 32, _terrainTextureData);
@@ -168,51 +158,13 @@ void World::UpdateTerrainTexture(void)
 void World::GenerateNewTerrain(void)
 {
     int terrainHeights[kWorldSize];
-    //
-    // Completely random
-    //
-    for(int ii=0; ii<kWorldSize; ++ii)
-    {
-        int height = rand()%kWorldSize;
-        for(int jj=0; jj<5; ++jj,++ii)
-        {
-            terrainHeights[ii] = height;
-        }
-        terrainHeights[ii] = height;
-    }
-
-    //
-    // Half thing
-    //
-    const int smoothDistance = 20;
-    const int half = smoothDistance/2;
-    for(int kk=0; kk<12; ++kk)
-    {
-        for(int ii=0; ii<kWorldSize; ++ii)
-        {
-            int count = 0;
-            int value = 0;
-            for(int jj=-half; jj<half+1; ++jj)
-            {
-                int index = ii+jj;
-                if(index < 0 || index > kWorldSize)
-                    continue;
-                value += terrainHeights[index];
-                count++;
-            }
-
-            terrainHeights[ii] = value/count;
-        }
-    }
-
-#if 0
+#if 1
     //
     // Flat
     //
     for(int ii=0; ii<kWorldSize; ++ii)
     {
-        terrainHeights[ii] = kWorldSize/2;
-        terrainHeights[ii] = ii;
+        terrainHeights[ii] = 20;
     }
 #endif
 
@@ -260,22 +212,11 @@ void World::Update(float elapsedTime)
     _player.Update(elapsedTime);
     UpdateTerrainTexture();
 }
-void GrassFunc(World::tixel_t* tixel)
-{
-    tixel->durability -= 0.01f;
-    if(tixel->durability <= 0.0f)
-        tixel->type = World::kNothing;
-}
 void World::MouseClick(int x, int y)
 {
-    //_worldData[x][y].type = kNothing;
-    //CircleFill(x,y, 20, kNothing, true);
-    //CircleFunc(x,y,10, true, &GrassFunc);
-    CalculateSlope(x,y);
-
     UpdateTerrainTexture();
 }
-void World::CircleFill(int x0, int y0, int radius, tixel_type_e type, int fill)
+void World::CircleFill(int x0, int y0, int radius, material_type_e type, int fill)
 {   // Souce: http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
     int f = 1 - radius;
     int ddF_x = 1;
@@ -388,104 +329,6 @@ void World::CircleFunc(int x0, int y0, int radius, int fill, void (*func)(tixel_
         func(&_worldData[x0 - y][y0 - x],param);
 
     }
-}
-float Length(int v[2])
-{
-    float len = v[0]*v[0] + v[1]*v[1];
-    return sqrtf(len);
-}
-float DotProduct(int v1[2], int v2[2])
-{
-    return (v1[0]*v2[0] + v1[1]*v2[1]);
-}
-
-float World::CalculateSlope(int x, int y)
-{
-    static const int kBoxSize = 20;
-
-    float avgSlope = 0;
-    int count = 0;
-
-    int prevX = x-kBoxSize;
-    int prevY = 0;
-    for(int yy=y+kBoxSize; yy>y-kBoxSize; --yy)
-    {
-        if(yy < 0 || yy > kWorldSize)
-            continue;
-
-        const tixel_t* tixel = GetTixel(prevX,yy);
-        if(tixel->type == kNothing)
-            continue;
-
-        prevY = yy;
-        break;
-    }
-
-    for(int xx=x-(kBoxSize-1); xx<x+kBoxSize; ++xx)
-    {
-        int yy;
-        for(yy=y+kBoxSize; yy>y-kBoxSize; --yy)
-        {
-            if(xx < 0 || xx > kWorldSize || yy < 0 || yy > kWorldSize)
-                continue;
-
-            const tixel_t* tixel = GetTixel(xx,yy);
-            if(tixel->type == kNothing)
-                continue;
-
-            float rise = yy-prevY;
-            float run = xx-prevX;
-            float slope = rise/run;
-            
-            avgSlope += slope;
-            count++;
-
-            break;
-        }
-        prevX = xx;
-        prevY = yy;
-    }
-
-    if(count == 0)
-    {
-        printf("Oh shit!\n");
-    }
-    else
-    {
-        avgSlope /= count;
-        printf("Slope: %f\n", avgSlope );
-    }
-
-    return avgSlope;
-}
-int World::CalculateNearestHeight(int x, int y)
-{   
-    int newY = y;
-    if(_worldData[x][newY].type == kNothing)
-    {
-        int count = 0;
-        while(_worldData[x][newY].type == kNothing && count >= -5)
-        {
-            --newY;
-            --count;
-        }
-        if(count == -5)
-            return y;
-
-        return newY;
-    }
-
-    int count = 0;
-    while(_worldData[x][newY].type != kNothing && count <= 5)
-    {
-        ++newY;
-        --count;
-    }
-    --newY;
-    if(count == 5)
-        return y;
-
-    return newY;
 }
 void World::Render(void)
 {

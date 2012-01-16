@@ -13,19 +13,12 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+#include "materials.h"
 #include "render_engine/renderEngine.h"
 
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-enum material_e
-{
-    kDirt,
-    kGrass,
-
-    kNothing,
-};
-
 class World;
 
 class Player
@@ -39,25 +32,14 @@ public:
     void Update(float elapsedTime);
     void Render(void);
 
-    void AddToInventory(material_e material, int count);
+    void AddToInventory(material_type_e material, int count);
 private:
-    void UpdatePlayerTexture(void);
 
 /* Members */
 private:
-    uint8_t*            _playerTextureData;
-    Render::texture_t   _playerTexture;
-    Render::material_t  _playerMaterial;
-    Render::mesh_t      _playerMesh;
-
     World*              _world;
 
     int _inventory[128];
-
-    float _position[2];
-    float _previousPosition[2];
-
-    int _facingRight;
 };
 
 /*******************************************************************\

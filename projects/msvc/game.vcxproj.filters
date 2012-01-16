@@ -10,6 +10,7 @@
     <ClInclude Include="..\..\game\application.h" />
     <ClInclude Include="..\..\game\world.h" />
     <ClInclude Include="..\..\game\player.h" />
+    <ClInclude Include="..\..\game\materials.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">

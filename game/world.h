@@ -15,6 +15,7 @@
 /* Internal headers */
 #include "render_engine/renderEngine.h"
 #include "player.h"
+#include "materials.h"
 
 /*******************************************************************\
 External Constants And types
@@ -38,20 +39,13 @@ public:
 
     static const int kWorldSize = 1024;
 
-    enum tixel_type_e
-    {
-        kDirt,
-        kGrass,
-
-        kNothing,
-    };
     struct tixel_t
     {
-        tixel_type_e    type;
+        material_type_e type;
         float           durability;
     };
 
-    void CircleFill(int x0, int y0, int radius, tixel_type_e type, int fill);
+    void CircleFill(int x0, int y0, int radius, material_type_e type, int fill);
     void CircleFunc(int x0, int y0, int radius, int fill, void (*func)(tixel_t*,void*), void* param);
     const tixel_t* GetTixel(int x, int y);
 
