@@ -18,7 +18,6 @@
 #include "assert.h"
 #include "build.h"
 #include <stdio.h>
-#include <malloc.h>
 #include <stdlib.h>
 #include <ctime>
 
@@ -30,6 +29,7 @@
 
 #if BUILD_PLATFORM_ID == BUILD_PLATFORM_WINDOWS
     #include <Windows.h>
+    #include <malloc.h>
 #endif
 
 #include "system/system.h"
@@ -52,7 +52,7 @@ int THIS_SHOULD_BECOME_1_AT_SHUTDOWN = 0;
 int     s_windowWidth;
 int     s_windowHeight;
 
-World   s_world;
+//World   s_world;
 
 timer_t s_timer;
 
@@ -83,8 +83,8 @@ void Frame(void)
     // Perform actual update stuff
     //
     float elapsedTime = Timer::GetDeltaTime(&s_timer);
-    s_world.Update(elapsedTime);
-    s_world.Render();
+    //s_world.Update(elapsedTime);
+    //s_world.Render();
     Render::Frame();
 }
 void Shutdown(void)
@@ -110,7 +110,9 @@ void MouseClick(System::mouse_button_e button, int x, int y)
     //y = s_windowHeight - y;
 
     if(button == System::kMouseButtonLeft)
-        s_world.MouseClick(x,y);
+    {
+        //s_world.MouseClick(x,y);
+    }
 }
 
 } // namespace
@@ -168,7 +170,7 @@ int main(int argc, char* argv[])
     // 
     // Game initialization
     //
-    s_world.Create();
+    //s_world.Create();
     Timer::Init(&s_timer);
 
     //
@@ -179,7 +181,7 @@ int main(int argc, char* argv[])
     //
     // Post-shutdown
     //
-    s_world.Destroy();
+    //s_world.Destroy();
     delete [] renderEngineMemory;
 
     assert(THIS_SHOULD_BECOME_1_AT_SHUTDOWN);
