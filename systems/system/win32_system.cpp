@@ -156,8 +156,14 @@ void SetMouseState(unsigned int button)
 }
 void MouseMove(int x, int y)
 {
+    RECT clientRect;
+    GetClientRect(s_hWnd, &clientRect);
+
+    //int width = clientRect.right - clientRect.left;
+    int height = clientRect.bottom - clientRect.top;
+
     s_mouseX = x;
-    s_mouseY = y;
+    s_mouseY = height-y;
 }
 
 LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )

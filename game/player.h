@@ -39,7 +39,7 @@ private:
 private:
     World*              _world;
 
-    int _inventory[128];
+    int _inventory[kMAX_MATERIAL_TYPES];
 };
 
 /*******************************************************************\

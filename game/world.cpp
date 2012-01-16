@@ -15,7 +15,9 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+#include "system/system.h"
 #include "system/file.h"
+#include "assert.h"
 
 namespace
 {
@@ -113,9 +115,9 @@ void World::Create(void)
     {
         for(int xx=0; xx<kWorldSize; ++xx)
         {
-            if(xx == kWorldSize/2 && yy%3 == 0)
+            if( (xx == kWorldSize/2 || xx == kWorldSize/2-1) && yy%3 == 0)
             {
-                uint8_t dashColor[] = {150,150,150,255};
+                uint8_t dashColor[] = {100,100,100,255};
                 SetColor(dashColor,xx,yy,skyTextureData);
                 continue;             
             }
@@ -129,9 +131,6 @@ void World::Create(void)
     //
     // Game initialization
     //
-    int posX = kWorldSize/2;
-    int posY = kWorldSize-1;
-
     GenerateNewTerrain();
     _player.Create();
     _player._world = this;
@@ -177,30 +176,27 @@ void World::GenerateNewTerrain(void)
         // Dirt
         for(jj=0; jj<terrainHeights[ii]; ++jj)
         {
-            _worldData[ii][jj].type = kDirt;
-            _worldData[ii][jj].durability = 1.0f;
+            _worldData[ii][jj] = kMaterialTemplates[kDirt];
         }
         // Grass
-        for(int kk=0; kk<10; ++kk, ++jj)
+        for(int kk=0; kk<5; ++kk, ++jj)
         {   
             if(ii > kWorldSize || jj > kWorldSize)
                 continue;
-            _worldData[ii][jj].type = kGrass;
-            _worldData[ii][jj].durability = 1.0f;
+            _worldData[ii][jj] = kMaterialTemplates[kGrass];
         }
         // Sky
         for(; jj<kWorldSize; ++jj)
         {
             if(ii > kWorldSize || jj > kWorldSize)
                 continue;
-            _worldData[ii][jj].type = kNothing;
-            _worldData[ii][jj].durability = 0.0f;
+            _worldData[ii][jj] = kMaterialTemplates[kNothing];
         }
     }
 
     UpdateTerrainTexture();
 }
-const World::tixel_t* World::GetTixel(int x, int y)
+const tixel_t* World::GetTixel(int x, int y)
 {
     if(x < 0 || x >= kWorldSize || y < 0 || y >= kWorldSize)
         return nullptr;
@@ -209,12 +205,60 @@ const World::tixel_t* World::GetTixel(int x, int y)
 }
 void World::Update(float elapsedTime)
 {
+    //
+    // Mouse input
+    //
+    int mouseX, mouseY;
+    System::GetMousePosition(&mouseX, &mouseY);
+    System::mouse_state_t mouseState = System::GetMouseState();
+
+    if(mouseState & System::kMouseButtonRight)
+    {
+        for(int x=mouseX-1; x<mouseX+2; ++x)
+        {
+            for(int y=mouseY-1; y<mouseY+2; ++y)
+            {
+                SetTileType(x, y, kDirt);
+            }
+        }
+    }
+
     _player.Update(elapsedTime);
+
+    // 
+    // Make terrain fall
+    //
+    static float fallAmount = 0.0f;
+    fallAmount += elapsedTime*50.0f;
+    if(fallAmount >= 1.0f)
+    {
+        for(int x=0; x<kWorldSize; ++x)
+        {
+            for(int y=1; y < kWorldSize; ++y)
+            {
+                if(_worldData[x][y-1].type == kNothing)
+                {
+                    _worldData[x][y-1] = _worldData[x][y];
+                    _worldData[x][y].type = kNothing;
+                }
+            }
+        }
+        fallAmount -= 1.0f;
+    }
+
     UpdateTerrainTexture();
 }
 void World::MouseClick(int x, int y)
 {
     UpdateTerrainTexture();
+}
+void World::SetTileType(int x, int y, material_type_e type)
+{
+    if(x < 0 || x >= kWorldSize || y < 0 || y >= kWorldSize)
+        return;
+
+    assert(type >= kNothing && type < kMAX_MATERIAL_TYPES);
+    _worldData[x][y] = kMaterialTemplates[type];
 }
 void World::CircleFill(int x0, int y0, int radius, material_type_e type, int fill)
 {   // Souce: http://en.wikipedia.org/wiki/Midpoint_circle_algorithm

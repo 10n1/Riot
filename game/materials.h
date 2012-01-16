@@ -39,11 +39,10 @@ struct tixel_t
     
     tixel_t operator=(const tixel_template_t& temp)
     {
-        tixel_t newTixel = *this;
-        newTixel.type       = temp.type;
-        newTixel.durability = temp.maxDurability;
+        type       = temp.type;
+        durability = temp.maxDurability;
 
-        return newTixel;
+        return *this;
     }
 };
 

@@ -133,6 +133,10 @@ extern "C" {
     #define UNUSED_PARAMETER(param) (void)sizeof((param))
 #endif
 
+#ifndef ARRAY_LENGTH
+    #define ARRAY_LENGTH(x) ( sizeof((x))/sizeof((x)[0]) )
+#endif
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

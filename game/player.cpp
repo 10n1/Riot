@@ -14,9 +14,9 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+#include "build.h"
 #include "world.h"
 #include "system/file.h"
-#include "system/system.h"
 #include "materials.h"
 
 namespace
@@ -25,41 +25,14 @@ namespace
 /*******************************************************************\
 Internal Constants And types
 \*******************************************************************/
-struct pos_tex_vertex_t
-{
-    float pos[3];
-    float tex[2];
-};
 
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-const pos_tex_vertex_t kQuadVerts[] = 
-{
-    { { -1.0f, -1.0f, 0.0f }, { 0.0f, 0.0f } },
-    { {  1.0f, -1.0f, 0.0f }, { 1.0f, 0.0f } },
-    { { -1.0f,  1.0f, 0.0f }, { 0.0f, 1.0f } },
-    { {  1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f } },
-};
-const int kQuadIndices[] =
-{
-    0,1,2,
-    2,1,3,
-};
-static const int kWorldSize = World::kWorldSize;
 
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
-void SetColor(char r, char g, char b, char a, int x, int y, void* tex)
-{
-    uint32_t* textureDataAsInt = (uint32_t*)tex;
-    uint8_t* pixel = (uint8_t*)&textureDataAsInt[x + (y*kWorldSize)];
-    pixel[0] = b;
-    pixel[1] = g;
-    pixel[2] = r;
-    pixel[3] = a;
-}
 
 } // anonymous namespace
 
@@ -75,7 +48,7 @@ void Player::Create(void)
     //
     // Player initialization
     //
-    for(int ii=0; ii<sizeof(_inventory)/sizeof(_inventory[0]); ++ii)
+    for(int ii=0; ii<ARRAY_LENGTH(_inventory); ++ii)
     {
         _inventory[ii] = 0;
     }

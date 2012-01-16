@@ -36,14 +36,7 @@ public:
     void GenerateNewTerrain(void);
     void MouseClick(int x, int y);
 
-
     static const int kWorldSize = 1024;
-
-    struct tixel_t
-    {
-        material_type_e type;
-        float           durability;
-    };
 
     void CircleFill(int x0, int y0, int radius, material_type_e type, int fill);
     void CircleFunc(int x0, int y0, int radius, int fill, void (*func)(tixel_t*,void*), void* param);
@@ -52,6 +45,8 @@ public:
     float CalculateSlope(int x, int y);
 
     int CalculateNearestHeight(int x, int y);
+
+    void SetTileType(int x, int y, material_type_e type);
 
 /* Members */
 private:
