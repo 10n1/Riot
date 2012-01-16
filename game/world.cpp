@@ -208,15 +208,16 @@ void World::Update(float elapsedTime)
     //
     // Mouse input
     //
+    static const int kBuildBoxSize = 5;
     int mouseX, mouseY;
     System::GetMousePosition(&mouseX, &mouseY);
     System::mouse_state_t mouseState = System::GetMouseState();
 
     if(mouseState & System::kMouseButtonRight)
     {
-        for(int x=mouseX-1; x<mouseX+2; ++x)
+        for(int x=mouseX-kBuildBoxSize; x<mouseX+kBuildBoxSize; ++x)
         {
-            for(int y=mouseY-1; y<mouseY+2; ++y)
+            for(int y=mouseY-kBuildBoxSize; y<mouseY+kBuildBoxSize; ++y)
             {
                 SetTileType(x, y, kDirt);
             }
@@ -236,7 +237,7 @@ void World::Update(float elapsedTime)
         {
             for(int y=1; y < kWorldSize; ++y)
             {
-                if(_worldData[x][y-1].type == kNothing)
+                if(_worldData[x][y].type != kNothing && _worldData[x][y-1].type == kNothing)
                 {
                     _worldData[x][y-1] = _worldData[x][y];
                     _worldData[x][y].type = kNothing;
@@ -248,8 +249,14 @@ void World::Update(float elapsedTime)
 
     UpdateTerrainTexture();
 }
+void Explosion(tixel_t* tixel, void* param)
+{
+    tixel->type = kNothing;
+}
 void World::MouseClick(int x, int y)
 {
+    //CircleFill(x,y,10,kNothing,1);
+    CircleFunc(x,y,10,1,Explosion, this);
     UpdateTerrainTexture();
 }
 void World::SetTileType(int x, int y, material_type_e type)

@@ -107,9 +107,10 @@ void MouseClick(System::mouse_button_e button, int x, int y)
 {
     printf("Button: %d. Pos: %d, %d\n", button, x, y);
     // Flip the Y so its down in the lower left hand corner
-    y = s_windowHeight - y;
+    //y = s_windowHeight - y;
 
-    s_world.MouseClick(x,y);
+    if(button == System::kMouseButtonLeft)
+        s_world.MouseClick(x,y);
 }
 
 } // namespace
