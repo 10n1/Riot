@@ -41,7 +41,7 @@ void Initialize(void)
     /* Global init */
     timerInit(&s_timer);
     s_graphics = gfxCreate(sysGetWindow(s_system));
-    gfxSetClearColor(s_graphics, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+    gfxSetClearColor(s_graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
     gfxSetDepthTest(s_graphics, 1, 1);
     gfxSetAlphaTest(s_graphics, 1);
 
