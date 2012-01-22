@@ -11,8 +11,8 @@
 /* External headers */
 /* Internal headers */
 #include "global.h"
-
 #include "system/system.h"
+#include "timer.h"
 
 /*******************************************************************\
 Internal Constants And types
@@ -22,24 +22,39 @@ Internal Constants And types
 Internal variables
 \*******************************************************************/
 static system_t*    s_system = NULL;
+static timer_t      s_timer;
+static float        s_elapsedTime = 0.0f;
 
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
 static void Initialize(void)
 {
+    /* Global init */
+    timerInit(&s_timer);
 }
 static void Frame(void)
 {
-    int x, y;
+    static int frameCount = 0;
+    static float frameTime = 0.0f;
+    static float fps = 0.0f;
+    float elapsedTime = (float)timerGetDeltaTime(&s_timer);
+    frameTime += elapsedTime;
+    if(frameCount == 128)
+    {
+        fps = frameCount/frameTime;
+        frameCount = 0;
+        frameTime = 0.0f;
+    }
+
     if(sysGetKeyState(s_system, kSysKeyEscape))
         sysSetFlag(s_system, kSysRunning, 0);
-
-    if(sysGetMouseState(s_system) & kSysMouseLeft)
+    if(sysGetKeyState(s_system, kSysKeyF))
     {
-        sysGetMousePosition(s_system, &x, &y);
-        printf("%d, %d\n", x, y);
+        printf("FPS: %f\n", fps);
     }
+
+    frameCount++;
 }
 static void Shutdown(void)
 {

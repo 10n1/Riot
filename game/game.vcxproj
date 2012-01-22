@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="timer.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\systems\graphicsDevice\graphicsDevice.vcxproj">
@@ -23,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="vm.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

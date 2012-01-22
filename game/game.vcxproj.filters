@@ -2,9 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="timer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="timer.h" />
   </ItemGroup>
 </Project>
