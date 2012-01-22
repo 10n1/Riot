@@ -77,7 +77,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>OpenGL32.lib;d3d11.lib;dxguid.lib;</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;d3d11.lib;dxguid.lib;d3dx11.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)lib\x86;</AdditionalLibraryDirectories>
@@ -107,7 +107,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>OpenGL32.lib;d3d11.lib;dxguid.lib;</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;d3d11.lib;dxguid.lib;d3dx11.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)lib\x86;</AdditionalLibraryDirectories>

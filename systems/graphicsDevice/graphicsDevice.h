@@ -15,11 +15,11 @@
 /* External headers */
 /* Internal headers */
 
-#define GD_DIRECTX 1
-#define GD_OPENGL  2
+#define GFX_DIRECTX 1
+#define GFX_OPENGL  2
 
-#ifndef GD_API
-    #define GD_API GD_OPENGL
+#ifndef GFX_API
+    #define GFX_API GFX_DIRECTX
 #endif
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
@@ -125,12 +125,12 @@ void gfxSetVSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint3
 void gfxSetPSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint32_t index);
 void gfxDrawMesh(graphics_t* device, mesh_t* mesh);
 
-#ifndef GD_API
-    #define GD_API GD_OPENGL
+#ifndef GFX_API
+    #define GFX_API GFX_OPENGL
 #else
     #ifndef WIN32
-        #undef GD_API
-        #define GD_API GD_OPENGL
+        #undef GFX_API
+        #define GFX_API GFX_OPENGL
     #endif
 #endif
 

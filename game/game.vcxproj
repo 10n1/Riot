@@ -11,8 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="timer.c" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\systems\graphicsDevice\graphicsDevice.vcxproj">
@@ -26,6 +27,12 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="vm.h" />
+    <ClInclude Include="world.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\ground.png" />
+    <None Include="..\assets\pos.vsh" />
+    <None Include="..\assets\texture.psh" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}</ProjectGuid>

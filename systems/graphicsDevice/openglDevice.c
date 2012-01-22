@@ -7,9 +7,9 @@
  */
 
 #include "graphicsDevice.h"
-#include "openglDevice.h"
 
-#if (GD_API == GD_OPENGL)
+#if (GFX_API == GFX_OPENGL)
+#include "openglDevice.h"
 
 /* C headers */
 #include <stdio.h>
@@ -507,4 +507,4 @@ void gfxDrawMesh(graphics_t* device, mesh_t* mesh)
 }
 
 
-#endif /* #if (GD_API == GD_OPENGL) */
+#endif /* #if (GFX_API == GFX_OPENGL) */

@@ -1,5 +1,5 @@
 /*
- * main.c
+ * main.cpp
  * Riot
  *
  * Created by Kyle Weicht on 1/21/2012.
@@ -8,11 +8,16 @@
 
 /* C headers */
 #include <stdio.h>
+/* C++ headers */
 /* External headers */
 /* Internal headers */
 #include "global.h"
 #include "system/system.h"
+#include "graphicsDevice/graphicsDevice.h"
 #include "timer.h"
+
+namespace
+{
 
 /*******************************************************************\
 Internal Constants And types
@@ -21,48 +26,49 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-static system_t*    s_system = NULL;
-static timer_t      s_timer;
-static float        s_elapsedTime = 0.0f;
+system_t*   s_system = NULL;
+timer_t     s_timer;
+float       s_elapsedTime = 0.0f;
+graphics_t* s_graphics = NULL;
 
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
-static void Initialize(void)
+void Initialize(void)
 {
     /* Global init */
     timerInit(&s_timer);
+    s_graphics = gfxCreate(sysGetWindow(s_system));
+    gfxSetClearColor(s_graphics, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+    gfxSetDepthTest(s_graphics, 1, 1);
+    gfxSetAlphaTest(s_graphics, 1);
 }
-static void Frame(void)
+void Frame(void)
 {
-    static int frameCount = 0;
-    static float frameTime = 0.0f;
-    static float fps = 0.0f;
-    float elapsedTime = (float)timerGetDeltaTime(&s_timer);
-    frameTime += elapsedTime;
-    if(frameCount == 128)
-    {
-        fps = frameCount/frameTime;
-        frameCount = 0;
-        frameTime = 0.0f;
-    }
+    /*
+     * Update
+     */
+    s_elapsedTime = (float)timerGetDeltaTime(&s_timer);
 
     if(sysGetKeyState(s_system, kSysKeyEscape))
         sysSetFlag(s_system, kSysRunning, 0);
-    if(sysGetKeyState(s_system, kSysKeyF))
-    {
-        printf("FPS: %f\n", fps);
-    }
+    
+    /*
+     * Render
+     */
+    gfxClear(s_graphics);
+    gfxPresent(s_graphics);
+}
+void Shutdown(void)
+{
+    /* Global shutdown */
+    gfxDestroy(s_graphics);
+}
+void Resize(int, int)
+{
+}
 
-    frameCount++;
-}
-static void Shutdown(void)
-{
-}
-static void Resize(int width, int height)
-{
-    UNUSED_PARAMETER(width & height);
-}
+} // anonymous namespace
 
 /*******************************************************************\
 External variables
@@ -71,7 +77,7 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-int main(int argc, char* argv[])
+int main(int, char*[])
 {
 #ifdef _WIN32
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
@@ -95,6 +101,4 @@ int main(int argc, char* argv[])
     sysShutdown(s_system);
 
     return 0;
-    UNUSED_PARAMETER(argc);
-    UNUSED_PARAMETER(argv[0]);
 }

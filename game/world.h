@@ -1,31 +1,38 @@
 /*
- * timer.h
- * riot
+ * world.h
+ * Riot
  *
  * Created by Kyle Weicht on 1/22/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __riot_timer_h__
-#define __riot_timer_h__
+#ifndef __Riot_world_h__
+#define __Riot_world_h__
 
 /* C headers */
-#include <stdint.h>
+/* C++ headers */
 /* External headers */
 /* Internal headers */
-
-#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
-extern "C" {
-#endif
+struct graphics_t;
 
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-typedef struct timer_t
+class World
 {
-    uint64_t    startTime;
-    uint64_t    prevTime;
-    double      frequency;
-} timer_t;
+/* Methods */
+public:
+    void Create(void);
+    void Destroy(void);
+
+    void Update(float elapsedTime);
+    void Render(void);
+
+    void SetGraphicsDevice(graphics_t* graphics);
+
+/* Members */
+private:
+    graphics_t* _graphics;
+};
 
 /*******************************************************************\
 External variables
@@ -34,14 +41,5 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void timerInit(timer_t* timer);
-void timerReset(timer_t* timer);
-double timerGetDeltaTime(timer_t* timer);
-double timerGetRunningTime(timer_t* timer);
-
-
-#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
-} // extern "C" {
-#endif
 
 #endif /* include guard */

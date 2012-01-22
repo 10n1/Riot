@@ -20,7 +20,12 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-#define UNUSED_PARAMETER(param) (void)(sizeof((param)))
+#ifndef __cplusplus
+    #define UNUSED_PARAMETER(param) (void)(sizeof((param)))
+#else
+    #define UNUSED_PARAMETER(param) (void)(param)
+#endif
+
 #define ARRAY_LENGTH(arr) (sizeof(arr)/sizeof(arr[0]))
 #define malloc_and_zero(pointer, type) pointer = (type)malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
 #ifndef WIN32_LEAN_AND_MEAN

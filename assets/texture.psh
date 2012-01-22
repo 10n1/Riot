@@ -1,0 +1,41 @@
+#ifdef OPENGL
+
+    #define float2 vec2
+    #define float3 vec3
+    #define float4 vec4
+
+    #define TEXCOORD0 0
+    #define SAMPLE_TEXTURE(texName, coords) texture(texName, coords)
+    #define TEXTURE0(texName) uniform sampler2D texName
+
+    #define INPUT_PARAM(type, name, slot) in type name;
+
+    #define BEGIN_SHADER
+    #define END_SHADER \
+        out vec4 vFinalColor; \
+        void main()
+#else
+
+    SamplerState    linearSampler : register(s0);
+
+    #define TEXCOORD0 TEXCOORD0
+    #define TEXTURE0(name) Texture2D name : register(t0)
+    #define SAMPLE_TEXTURE(texture, coords) texture.Sample(linearSampler, coords)
+
+    #define INPUT_PARAM(type, name, slot) in type name : slot,
+
+    #define BEGIN_SHADER \
+        void main(
+    #define END_SHADER \
+             in float4 vScreenPosition : SV_POSITION, out float4 vFinalColor : SV_TARGET)
+    
+#endif
+
+TEXTURE0(kTexture);
+
+BEGIN_SHADER
+    INPUT_PARAM(float2, vInterpTexCoord, TEXCOORD0)
+END_SHADER
+{
+    vFinalColor = SAMPLE_TEXTURE(kTexture, vInterpTexCoord);
+}
