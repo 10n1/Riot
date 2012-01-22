@@ -72,6 +72,9 @@ struct system_t
     keyboard_callback_t*    keyboardCallback;
     
     uint32_t    flags;
+    mouse_state_t   mouseState;
+    int             mouseX;
+    int             mouseY;
 };
 
 @interface application_t : NSApplication
@@ -93,7 +96,6 @@ struct system_t
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
-#if 1
 #define KEY_MAPPING(keyCode, sysKey) case keyCode: keyIndex = sysKey; break
 static void SetKeyState(system_t* system, uint8_t key, uint8_t state)
 {
@@ -182,7 +184,6 @@ static void SetKeyState(system_t* system, uint8_t key, uint8_t state)
         system->keyboardCallback(keyIndex);
     }
 }
-#endif
 static NSString* GetAppName(void)
 {
     NSDictionary*   infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -354,6 +355,16 @@ int sysGetKeyState(system_t* system, sys_key_e key)
 {
     return system->keyState[key];
 }
+
+void sysGetMousePosition(system_t* system, int* x, int* y)
+{
+    *x = system->mouseX;
+    *y = system->mouseY;
+}
+mouse_state_t sysGetMouseState(system_t* system)
+{
+    return system->mouseState;
+}
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 
                                 const char* message, 
@@ -470,6 +481,56 @@ sys_mb_return_e sysMessageBox(  system_t* system,
     system_t*               system = [delegate system];
     unsigned short key = [theEvent keyCode];
     SetKeyState(system, (uint8_t)key, 0);
+}
+-(void)mouseMoved:(NSEvent *)theEvent
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    NSRect  bounds = [self bounds];
+    NSPoint mousePosition = [theEvent locationInWindow];
+    int x = (int)mousePosition.x;
+    int y = (int)(bounds.size.height-mousePosition.y);
+    
+    system->mouseX = x;
+    system->mouseY = y;
+}
+-(void)mouseDragged:(NSEvent *)theEvent
+{
+    [self mouseMoved:theEvent];
+}
+-(void)rightMouseDragged:(NSEvent *)theEvent
+{
+    [self mouseMoved:theEvent];
+}
+-(void)mouseDown:(NSEvent *)theEvent
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    system->mouseState |= kSysMouseLeft;    
+    UNUSED_PARAMETER(theEvent);
+}
+
+-(void)rightMouseDown:(NSEvent *)theEvent:(NSEvent *)theEvent
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    system->mouseState |= kSysMouseLeft;
+    UNUSED_PARAMETER(theEvent);
+}
+-(void)mouseUp:(NSEvent *)theEvent
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    system->mouseState &= ~kSysMouseLeft;    
+    UNUSED_PARAMETER(theEvent);
+}
+
+-(void)rightMouseUp:(NSEvent *)theEvent:(NSEvent *)theEvent
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    system->mouseState &= ~kSysMouseLeft;
+    UNUSED_PARAMETER(theEvent);
 }
 
 @end
