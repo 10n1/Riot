@@ -61,6 +61,9 @@ struct system_t
     resize_callback_t*      resizeCallback;
     keyboard_callback_t*    keyboardCallback;
     uint32_t                flags;
+    mouse_state_t           mouseState;
+    int                     mouseX;
+    int                     mouseY;
 };
 
 /*******************************************************************\
@@ -70,6 +73,30 @@ struct system_t
 /*******************************************************************\
  Internal functions
 \*******************************************************************/
+void SetMouseState(system_t* system, unsigned int button)
+{
+    //if(button & MK_LBUTTON && (system->mouseState & kSysMouseLeft) == 0)
+    //    s_mouseClickCallback(kMouseButtonLeft, s_mouseX, s_mouseY);
+    //if(button & MK_RBUTTON && (system->mouseState & kSysMouseRight) == 0)
+    //    s_mouseClickCallback(kMouseButtonRight, s_mouseX, s_mouseY);
+    //if(button & MK_MBUTTON && (system->mouseState & kSysMouseMiddle) == 0)
+    //    s_mouseClickCallback(kMouseButtonMiddle, s_mouseX, s_mouseY);
+    
+    system->mouseState = 0;
+    if(button & MK_LBUTTON)
+        system->mouseState |= kSysMouseLeft;
+    if(button & MK_RBUTTON)
+        system->mouseState |= kSysMouseRight;
+    if(button & MK_MBUTTON)
+        system->mouseState |= kSysMouseMiddle;
+}
+
+void MouseMove(system_t* system, int x, int y)
+{
+    system->mouseX = x;
+    system->mouseY = y;
+    UNUSED_PARAMETER(system);
+}
 static void SetKeyState(system_t* system, uint8_t key, uint8_t state)
 {
     sys_key_e   keyIndex;
@@ -166,6 +193,21 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
             height = HIWORD(lParam);
             s_system->resizeCallback(width, height);
         }
+        return 0;
+    
+    /* Mouse input */
+    case WM_MOUSEMOVE:
+        {
+            POINTS pos = MAKEPOINTS(lParam);
+            MouseMove(s_system, pos.x, pos.y);
+        }
+    case WM_LBUTTONDOWN:
+    case WM_RBUTTONDOWN:
+    case WM_MBUTTONDOWN:
+    case WM_LBUTTONUP:
+    case WM_RBUTTONUP:
+    case WM_MBUTTONUP:
+        SetMouseState(s_system, (int)wParam);
         return 0;
     }
 
@@ -291,6 +333,16 @@ int sysGetKeyState(system_t* system, sys_key_e key)
 {
     return system->keyState[key];
 }
+void sysGetMousePosition(system_t* system, int* x, int* y)
+{
+    *x = system->mouseX;
+    *y = system->mouseY;
+}
+mouse_state_t sysGetMouseState(system_t* system)
+{
+    return system->mouseState;
+}
+
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 
                                 const char* message, 

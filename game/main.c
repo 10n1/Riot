@@ -31,8 +31,15 @@ static void Initialize(void)
 }
 static void Frame(void)
 {
+    int x, y;
     if(sysGetKeyState(s_system, kSysKeyEscape))
         sysSetFlag(s_system, kSysRunning, 0);
+
+    if(sysGetMouseState(s_system) & kSysMouseLeft)
+    {
+        sysGetMousePosition(s_system, &x, &y);
+        printf("%d, %d\n", x, y);
+    }
 }
 static void Shutdown(void)
 {

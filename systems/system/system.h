@@ -36,6 +36,13 @@ typedef enum
 
 typedef enum
 {
+    kSysMouseLeft   = 0x1,
+    kSysMouseRight  = 0x2,
+    kSysMouseMiddle = 0x4
+} sys_mouse_button_e;
+
+typedef enum
+{
     kSysKey0,
     kSysKey1,
     kSysKey2,
@@ -106,6 +113,7 @@ typedef struct system_t system_t;
 typedef void (void_callback_t)(void);
 typedef void (resize_callback_t)(int,int);
 typedef void (keyboard_callback_t)(sys_key_e);
+typedef unsigned int mouse_state_t;
 
 /*******************************************************************\
  Variables
@@ -126,6 +134,9 @@ void* sysGetWindow(system_t* system);
 int sysGetKeyState(system_t* system, sys_key_e key);
 int sysGetFlag(system_t* system, sys_flag_e flag);
 void sysSetFlag(system_t* system, sys_flag_e flag, int value);
+void sysGetMousePosition(system_t* system, int* x, int* y);
+mouse_state_t sysGetMouseState(system_t* system);
+
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 
                                 const char* message, 
