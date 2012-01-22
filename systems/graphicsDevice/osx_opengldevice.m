@@ -78,6 +78,8 @@ graphics_t* gfxCreate(void* window)
     [cocoaContext setValues:&vsyncInterval forParameter:NSOpenGLCPSwapInterval];
     CheckGLError();
     
+    [view setPostsFrameChangedNotifications:YES];
+    
     /* Load extensions */
     // TODO: Using glew in OS X actually makes things not work...
     //error = glewInit();
@@ -112,4 +114,11 @@ graphics_t* gfxCreate(void* window)
 void gfxPresent(graphics_t* device)
 {
     [(NSOpenGLContext*)device->context flushBuffer];
+}
+
+void gfxResize(graphics_t* device, int width, int height)
+{
+    glViewport(0,0,width,height);
+    CheckGLError();
+    [(NSOpenGLContext*)device->context update];
 }
