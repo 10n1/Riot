@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "..\game\game.vcxproj", "{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphicsDevice", "..\systems\graphicsDevice\graphicsDevice.vcxproj", "{73E70916-9ADA-4F7A-BD82-4EC4DC6C6BFF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system", "..\systems\system\system.vcxproj", "{DD516A96-216F-404F-B426-B6A103A9FB3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}.Debug|Win32.Build.0 = Debug|Win32
+		{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}.Release|Win32.ActiveCfg = Release|Win32
+		{DAB2CB2A-E0EC-4A52-8D43-105AB51D2D37}.Release|Win32.Build.0 = Release|Win32
+		{73E70916-9ADA-4F7A-BD82-4EC4DC6C6BFF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{73E70916-9ADA-4F7A-BD82-4EC4DC6C6BFF}.Debug|Win32.Build.0 = Debug|Win32
+		{73E70916-9ADA-4F7A-BD82-4EC4DC6C6BFF}.Release|Win32.ActiveCfg = Release|Win32
+		{73E70916-9ADA-4F7A-BD82-4EC4DC6C6BFF}.Release|Win32.Build.0 = Release|Win32
+		{DD516A96-216F-404F-B426-B6A103A9FB3B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DD516A96-216F-404F-B426-B6A103A9FB3B}.Debug|Win32.Build.0 = Debug|Win32
+		{DD516A96-216F-404F-B426-B6A103A9FB3B}.Release|Win32.ActiveCfg = Release|Win32
+		{DD516A96-216F-404F-B426-B6A103A9FB3B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

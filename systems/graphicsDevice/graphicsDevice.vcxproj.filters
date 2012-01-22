@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="directxDevice.c" />
+    <ClCompile Include="openglDevice.c" />
+    <ClCompile Include="stb_image.c" />
+    <ClCompile Include="windows_openglDevice.c" />
+    <ClCompile Include="glew\glew.c">
+      <Filter>glew</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="global.h" />
+    <ClInclude Include="graphicsDevice.h" />
+    <ClInclude Include="openglDevice.h" />
+    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="glew">
+      <UniqueIdentifier>{adc255b3-29ce-4a3e-8dbb-b12727d6647f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
