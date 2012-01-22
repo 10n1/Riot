@@ -136,6 +136,7 @@ int sysGetFlag(system_t* system, sys_flag_e flag);
 void sysSetFlag(system_t* system, sys_flag_e flag, int value);
 void sysGetMousePosition(system_t* system, int* x, int* y);
 mouse_state_t sysGetMouseState(system_t* system);
+void sysGetWindowSize(system_t* system, int* width, int* height);
 
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 

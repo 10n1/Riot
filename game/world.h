@@ -12,7 +12,7 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-struct graphics_t;
+#include "graphicsDevice/graphicsDevice.h"
 
 /*******************************************************************\
 External Constants And types
@@ -32,6 +32,11 @@ public:
 /* Members */
 private:
     graphics_t* _graphics;
+    mesh_t*     _quadMesh;
+    texture_t*  _backgroundTexture;
+    material_t* _material;
+    constant_buffer_t*  _perFrameConstantBuffer;
+    constant_buffer_t*  _perObjectConstantBuffer;
 };
 
 /*******************************************************************\

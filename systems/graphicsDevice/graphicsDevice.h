@@ -60,7 +60,7 @@ typedef enum
     kGfxShaderInputColor,
     kGfxShaderInputTexCoord0,
     
-    kShaderInputNull = -1
+    kGfxShaderInputNull = -1
 } shader_input_slot_e;
 
 typedef struct vertex_element_desc_t

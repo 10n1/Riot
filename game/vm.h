@@ -13,6 +13,10 @@
 extern "C" {
 #endif
 
+#ifdef _MSC_VER
+    #pragma warning(disable:4505) /* Unused function */
+#endif
+
 #include <stdint.h>
 #include <math.h>
 

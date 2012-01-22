@@ -342,7 +342,13 @@ mouse_state_t sysGetMouseState(system_t* system)
 {
     return system->mouseState;
 }
-
+void sysGetWindowSize(system_t* system, int* width, int* height)
+{
+    RECT clientRect;
+    GetClientRect(system->hwnd, &clientRect);
+    *width = clientRect.right - clientRect.left;
+    *height = clientRect.bottom - clientRect.top;
+}
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 
                                 const char* message, 

@@ -15,6 +15,7 @@
 #include "system/system.h"
 #include "graphicsDevice/graphicsDevice.h"
 #include "timer.h"
+#include "world.h"
 
 namespace
 {
@@ -30,6 +31,7 @@ system_t*   s_system = NULL;
 timer_t     s_timer;
 float       s_elapsedTime = 0.0f;
 graphics_t* s_graphics = NULL;
+World       s_world;
 
 /*******************************************************************\
 Internal functions
@@ -42,6 +44,10 @@ void Initialize(void)
     gfxSetClearColor(s_graphics, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f);
     gfxSetDepthTest(s_graphics, 1, 1);
     gfxSetAlphaTest(s_graphics, 1);
+
+    /* Game init */
+    s_world.SetGraphicsDevice(s_graphics);
+    s_world.Create();
 }
 void Frame(void)
 {
@@ -52,20 +58,30 @@ void Frame(void)
 
     if(sysGetKeyState(s_system, kSysKeyEscape))
         sysSetFlag(s_system, kSysRunning, 0);
+
+    s_world.Update(s_elapsedTime);
     
     /*
      * Render
      */
     gfxClear(s_graphics);
+    s_world.Render();
     gfxPresent(s_graphics);
 }
 void Shutdown(void)
 {
+    /* Game shutdown */
+    s_world.Destroy();
+
     /* Global shutdown */
     gfxDestroy(s_graphics);
 }
-void Resize(int, int)
+void Resize(int width, int height)
 {
+    if(s_graphics)
+    {
+        gfxResize(s_graphics, width, height);
+    }
 }
 
 } // anonymous namespace
@@ -85,7 +101,7 @@ int main(int, char*[])
     /* Initialize system */
     s_system = sysCreate();
     sysSetResizeCallback(s_system, Resize);
-    sysCreateWindow(s_system, 1280, 800);
+    sysCreateWindow(s_system, 1024, 1024);
 
     /* Start main loop */
     Initialize();

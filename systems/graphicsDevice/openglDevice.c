@@ -322,7 +322,7 @@ mesh_t* gfxCreateMesh(graphics_t* device,
     glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
 
-    while(layout && layout->slot != kShaderInputNull)
+    while(layout && layout->slot != kGfxShaderInputNull)
     {
         glEnableVertexAttribArray((GLuint)layout->slot);
         CheckGLError();

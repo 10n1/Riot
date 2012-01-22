@@ -287,9 +287,9 @@ graphics_t* gfxCreate(void* window)
     
     /* samplers */
     samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
     samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
     samplerDesc.MinLOD = 0;
     samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
@@ -579,7 +579,7 @@ mesh_t* gfxCreateMesh(graphics_t* device,
     assert(SUCCEEDED(hr));
 
     /* input layout */
-    while(layout && layout->slot != kShaderInputNull)
+    while(layout && layout->slot != kGfxShaderInputNull)
     {
         switch(layout->count)
         {
