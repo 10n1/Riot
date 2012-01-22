@@ -177,12 +177,6 @@ void gfxClear(graphics_t* device)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CheckGLError();
 }
-void gfxResize(graphics_t* device, int width, int height)
-{
-    UNUSED_PARAMETER(device);
-    glViewport(0,0,width,height);
-    CheckGLError();
-}
 
 /* Pipeline management */
 void gfxSetClearColor(graphics_t* device, float r, float g, float b, float a, float depth)

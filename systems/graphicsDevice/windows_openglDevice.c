@@ -135,5 +135,11 @@ void gfxPresent(graphics_t* device)
     SwapBuffers(device->dc);
     UNUSED_PARAMETER(device);
 }
+void gfxResize(graphics_t* device, int width, int height)
+{
+    UNUSED_PARAMETER(device);
+    glViewport(0,0,width,height);
+    CheckGLError();
+}
 
 #endif // #if (GD_API == GD_OPENGL)
