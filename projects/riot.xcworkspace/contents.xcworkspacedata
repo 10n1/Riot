@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:"
+      name = "External">
+      <FileRef
+         location = "group:../external/Box2D_v2.2.1/projects/xcode4/Box2D.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:../systems/graphicsDevice/graphicsDevice.xcodeproj">
    </FileRef>
