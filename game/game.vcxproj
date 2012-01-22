@@ -16,7 +16,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\external\Box2D_v2.2.1\Build\vs2010\Box2D.vcxproj">
+    <ProjectReference Include="..\external\Box2D_v2.2.1\projects\vs2010\Box2D.vcxproj">
       <Project>{98400d17-43a5-1a40-95be-c53ac78e7694}</Project>
     </ProjectReference>
     <ProjectReference Include="..\systems\graphicsDevice\graphicsDevice.vcxproj">

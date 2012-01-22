@@ -26,6 +26,7 @@
 *.ilk
 *.dblite
 *.db
-
 build
 ipch
+bin
+obj
