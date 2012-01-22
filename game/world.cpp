@@ -130,14 +130,14 @@ void World::Render(void)
     /* Render background */
     gfxSetMaterial(_graphics, _material);
     gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
+    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(identity), &identity);
     gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
     gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
     gfxSetTexture(_graphics, _backgroundTexture);
     gfxDrawMesh(_graphics, _quadMesh);
 
     /* Render bricks */
-    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-60.0f, 60.0f, 100.0f, -20.0f, -1.0f, 1.0f);
-    //Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-1, 1, 1, -1, -1.0f, 1.0f);
+    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
     gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
     gfxSetTexture(_graphics, _brickTexture);
     gfxDrawMesh(_graphics, _quadMesh);
