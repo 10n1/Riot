@@ -43,12 +43,14 @@ const int kQuadIndices[] =
     0,2,1,
     2,3,1,
 };
-static const vertex_element_desc_t kPosTexVertexFormat[] =
+const vertex_element_desc_t kPosTexVertexFormat[] =
 {
     { kGfxShaderInputPosition,  3 },
     { kGfxShaderInputTexCoord0, 2 },
     { kGfxShaderInputNull,      0 }, 
 };
+
+b2Body* s_brickBody = NULL;
 
 /*******************************************************************\
 Internal functions
@@ -104,11 +106,44 @@ void World::Create(void)
     /*
      * Game initialization
      */
+    memset(_activeBodies, 0, sizeof(_activeBodies));
+    _numActiveBodies = 0;
+
     b2Vec2  gravity(0.0f, -9.8f);
     bool    sleep = true;
     _box2d = new b2World(gravity);
     _box2d->SetAllowSleeping(sleep);
+
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(0.0f, -4.0f);
+    b2Body* groundBody = _box2d->CreateBody(&groundBodyDef);
+    b2PolygonShape groundBox;
+    groundBox.SetAsBox(64.0f, 4.0f);
+    groundBody->CreateFixture(&groundBox, 0.0f);
+
+    for(int ii=0; ii<100; ++ii)
+    {
+        AddBrick(-5.0f + (ii/10.0f), 10.0f+1.1f*ii);
+    }
 }
+void World::AddBrick(float x, float y)
+{
+    int bodyIndex = _numActiveBodies++;
+
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(x, y);
+    _activeBodies[bodyIndex] = _box2d->CreateBody(&bodyDef);
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1.0f, 0.5f);
+
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.5f;
+    _activeBodies[bodyIndex]->CreateFixture(&fixtureDef);
+}
+
 void World::Destroy(void)
 {
     delete _box2d;
@@ -121,8 +156,11 @@ void World::Destroy(void)
     gfxDestroyConstantBuffer(_perObjectConstantBuffer);
 }
 
-void World::Update(float)
+void World::Update(float elapsedTime)
 {
+    int32_t velocityIterations = 6;
+    int32_t positionIterations = 2;
+    _box2d->Step(elapsedTime, velocityIterations, positionIterations);
 }
 void World::Render(void)
 {
@@ -140,7 +178,17 @@ void World::Render(void)
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
     gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
     gfxSetTexture(_graphics, _brickTexture);
-    gfxDrawMesh(_graphics, _quadMesh);
+    for(int ii=0; ii<_numActiveBodies; ++ii)
+    {
+        Matrix4 worldMatrix = Matrix4RotationZ(_activeBodies[ii]->GetAngle());
+        //worldMatrix = Matrix4MatrixMultiply(identity, Matrix4Scale(0.5f, 0.5f, 1.0f));
+        worldMatrix = Matrix4MatrixMultiply(Matrix4Scale(1.0f, 0.5f, 1.0f), worldMatrix);
+        b2Vec2 pos = _activeBodies[ii]->GetPosition();
+        worldMatrix.r3.x = pos.x;
+        worldMatrix.r3.y = pos.y;
+        gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
+        gfxDrawMesh(_graphics, _quadMesh);
+    }
 }
 void World::SetGraphicsDevice(graphics_t* graphics)
 {

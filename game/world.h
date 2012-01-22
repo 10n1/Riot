@@ -18,6 +18,11 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
+enum
+{
+    kMaxObjects = 128,
+};
+
 class World
 {
 /* Methods */
@@ -30,6 +35,8 @@ public:
 
     void SetGraphicsDevice(graphics_t* graphics);
 
+    void AddBrick(float x, float y);
+
 /* Members */
 private:
     graphics_t* _graphics;
@@ -40,6 +47,8 @@ private:
     constant_buffer_t*  _perFrameConstantBuffer;
     constant_buffer_t*  _perObjectConstantBuffer;
     b2World*    _box2d;
+    b2Body*     _activeBodies[kMaxObjects];
+    int         _numActiveBodies;
 };
 
 /*******************************************************************\
