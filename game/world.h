@@ -13,6 +13,7 @@
 /* External headers */
 /* Internal headers */
 #include "graphicsDevice/graphicsDevice.h"
+#include "Box2D\Box2D.h"
 
 /*******************************************************************\
 External Constants And types
@@ -34,9 +35,11 @@ private:
     graphics_t* _graphics;
     mesh_t*     _quadMesh;
     texture_t*  _backgroundTexture;
+    texture_t*  _brickTexture;
     material_t* _material;
     constant_buffer_t*  _perFrameConstantBuffer;
     constant_buffer_t*  _perObjectConstantBuffer;
+    b2World*    _box2d;
 };
 
 /*******************************************************************\

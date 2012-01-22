@@ -16,6 +16,9 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\external\Box2D_v2.2.1\Build\vs2010\Box2D.vcxproj">
+      <Project>{98400d17-43a5-1a40-95be-c53ac78e7694}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\systems\graphicsDevice\graphicsDevice.vcxproj">
       <Project>{73e70916-9ada-4f7a-bd82-4ec4dc6c6bff}</Project>
     </ProjectReference>
@@ -78,7 +81,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\systems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\systems;$(SolutionDir)..\external\Box2D_v2.2.1</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -100,7 +103,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\systems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\systems;$(SolutionDir)..\external\Box2D_v2.2.1</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>

@@ -42,7 +42,7 @@ void Initialize(void)
     timerInit(&s_timer);
     s_graphics = gfxCreate(sysGetWindow(s_system));
     gfxSetClearColor(s_graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
-    gfxSetDepthTest(s_graphics, 1, 1);
+    gfxSetDepthTest(s_graphics, 0, 0);
     gfxSetAlphaTest(s_graphics, 1);
 
     /* Game init */
@@ -57,7 +57,7 @@ void Frame(void)
     s_elapsedTime = (float)timerGetDeltaTime(&s_timer);
 
     if(sysGetKeyState(s_system, kSysKeyEscape))
-        sysSetFlag(s_system, kSysRunning, 0);
+        sysStop(s_system);
 
     s_world.Update(s_elapsedTime);
     

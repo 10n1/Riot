@@ -126,6 +126,7 @@ system_t* sysCreate(void);
 void sysShutdown(system_t* system);
 void sysCreateWindow(system_t* system, int width, int height);
 void sysPollSystemEvents(system_t* system);
+void sysStop(system_t* system);
 
 void sysSetResizeCallback(system_t* system, resize_callback_t* callback);
 void sysSetKeyboardCallback(system_t* system, keyboard_callback_t* callback);

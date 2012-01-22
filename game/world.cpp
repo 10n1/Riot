@@ -65,6 +65,10 @@ External functions
 \*******************************************************************/
 void World::Create(void)
 {
+    /*
+     * Graphics initialization
+     */
+
     /* Create graphics objects */
     vertex_shader_t* vertexShader = gfxCreateVertexShader(_graphics, "assets/pos.vsh");
     pixel_shader_t* pixelShader = gfxCreatePixelShader(_graphics, "assets/texture.psh");
@@ -82,6 +86,7 @@ void World::Create(void)
                                 kQuadIndices);
     /* textures */
     _backgroundTexture = gfxCreateTexture(_graphics, "assets/ground.png");
+    _brickTexture = gfxCreateTexture(_graphics, "assets/brick.png");
 
     /* Constant buffers */
     gfxBindConstantBufferToIndex(_graphics, _material, "PerFrame", 0);
@@ -95,12 +100,23 @@ void World::Create(void)
     /* Release shaders */
     gfxDestroyVertexShader(vertexShader);
     gfxDestroyPixelShader(pixelShader);
+
+    /*
+     * Game initialization
+     */
+    b2Vec2  gravity(0.0f, -9.8f);
+    bool    sleep = true;
+    _box2d = new b2World(gravity);
+    _box2d->SetAllowSleeping(sleep);
 }
 void World::Destroy(void)
 {
+    delete _box2d;
+
     gfxDestroyMaterial(_material);
     gfxDestroyMesh(_quadMesh);
     gfxDestroyTexture(_backgroundTexture);
+    gfxDestroyTexture(_brickTexture);
     gfxDestroyConstantBuffer(_perFrameConstantBuffer);
     gfxDestroyConstantBuffer(_perObjectConstantBuffer);
 }
@@ -110,10 +126,20 @@ void World::Update(float)
 }
 void World::Render(void)
 {
+    Matrix4 identity = Matrix4Identity();
+    /* Render background */
     gfxSetMaterial(_graphics, _material);
+    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
     gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
     gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
     gfxSetTexture(_graphics, _backgroundTexture);
+    gfxDrawMesh(_graphics, _quadMesh);
+
+    /* Render bricks */
+    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-60.0f, 60.0f, 100.0f, -20.0f, -1.0f, 1.0f);
+    //Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-1, 1, 1, -1, -1.0f, 1.0f);
+    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
+    gfxSetTexture(_graphics, _brickTexture);
     gfxDrawMesh(_graphics, _quadMesh);
 }
 void World::SetGraphicsDevice(graphics_t* graphics)

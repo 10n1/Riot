@@ -306,6 +306,10 @@ void sysPollSystemEvents(system_t* system)
         TurnFlagOff(&system->flags, kSysRunning);
     }
 }
+void sysStop(system_t* system)
+{
+    PostQuitMessage(0);
+}
 void sysSetResizeCallback(system_t* system, resize_callback_t* callback)
 {
     system->resizeCallback = callback;
