@@ -51,6 +51,7 @@ void Initialize(void)
 }
 void Frame(void)
 {
+    static int leftMouseDown = 0;
     /*
      * Update
      */
@@ -60,6 +61,20 @@ void Frame(void)
         sysStop(s_system);
 
     s_world.Update(s_elapsedTime);
+
+    if(sysGetMouseState(s_system) & kSysMouseLeft)
+    {
+        if(leftMouseDown == 0)
+        {
+            //s_world.BuildBuilding();
+            s_world.Explosion(0.0f, 10.0f, 15.0f);
+        }
+        leftMouseDown = 1;
+    }
+    else
+    {
+        leftMouseDown = 0;
+    }
     
     /*
      * Render

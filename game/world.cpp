@@ -121,15 +121,20 @@ void World::Create(void)
     groundBox.SetAsBox(64.0f, 4.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 
-    for(int ii=0; ii<100; ++ii)
-    {
-        AddBrick(-5.0f + (ii/10.0f), 10.0f+1.1f*ii);
-    }
+    //for(int ii=0; ii<100; ++ii)
+    //{
+    //    AddBrick(-5.0f + (ii/10.0f), 10.0f+1.1f*ii);
+    //}
+
+    BuildBuilding();
 }
 void World::AddBrick(float x, float y)
 {
-    int bodyIndex = _numActiveBodies++;
+    if(_numActiveBodies == kMaxObjects)
+        return;
 
+    int bodyIndex = _numActiveBodies++;
+     
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
@@ -142,6 +147,40 @@ void World::AddBrick(float x, float y)
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.5f;
     _activeBodies[bodyIndex]->CreateFixture(&fixtureDef);
+}
+void World::BuildBuilding(void)
+{
+    float xOffset = -0.5f;
+    for(float y = 0.5f; _numActiveBodies < kMaxObjects /*y <= 20.5f*/; y += 1.0f)
+    {
+        for(float x = -19.0f; x <= 19.0f; x += 2.0f)
+        {
+            AddBrick(x+xOffset,y);
+        }
+        xOffset *= -1.0f;
+    }
+}
+void World::Explosion(float x, float y, float radius)
+{
+    //_activeBodies[0]->ApplyForceToCenter(b2Vec2(0.0f, 100.0f));
+    //_activeBodies[0]->ApplyForce(b2Vec2(0.0f, 100.0f));
+    //return;
+    for(b2Body* b = _box2d->GetBodyList(); b; b = b->GetNext())
+    {
+        b2Vec2 forcePosition(x,y);
+        b2Vec2 bodyPosition = b->GetPosition();
+    
+        float distance = b2Distance(bodyPosition, forcePosition);
+        if(distance > radius) continue;
+    
+        float force = (radius - distance) / radius;
+        force *= 100.0f;
+        b2Vec2 forceDirecton = bodyPosition-forcePosition;
+        forceDirecton.Normalize();
+        forceDirecton *= force;
+    
+        b->ApplyLinearImpulse(forceDirecton, bodyPosition);
+    }
 }
 
 void World::Destroy(void)

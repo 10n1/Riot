@@ -20,7 +20,7 @@ External Constants And types
 \*******************************************************************/
 enum
 {
-    kMaxObjects = 128,
+    kMaxObjects = 2048,
 };
 
 class World
@@ -36,6 +36,10 @@ public:
     void SetGraphicsDevice(graphics_t* graphics);
 
     void AddBrick(float x, float y);
+
+    void BuildBuilding(void);
+
+    void Explosion(float x, float y, float radius);
 
 /* Members */
 private:

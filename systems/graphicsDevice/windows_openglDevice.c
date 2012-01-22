@@ -9,7 +9,7 @@
 #include "graphicsDevice.h"
 #include "openglDevice.h"
 
-#if (GD_API == GD_OPENGL)
+#if (GFX_API == GFX_OPENGL)
 
 /* C headers */
 #include <stdio.h>
