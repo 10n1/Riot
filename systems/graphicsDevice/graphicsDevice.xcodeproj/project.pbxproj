@@ -1,0 +1,252 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27487AD114CC01BA00E15C1F /* global.h in Headers */ = {isa = PBXBuildFile; fileRef = 27487ACA14CC01BA00E15C1F /* global.h */; };
+		27487AD214CC01BA00E15C1F /* graphicsDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 27487ACB14CC01BA00E15C1F /* graphicsDevice.h */; };
+		27487AD314CC01BA00E15C1F /* openglDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 27487ACC14CC01BA00E15C1F /* openglDevice.c */; };
+		27487AD414CC01BA00E15C1F /* openglDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 27487ACD14CC01BA00E15C1F /* openglDevice.h */; };
+		27487AD514CC01BA00E15C1F /* osx_opengldevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 27487ACE14CC01BA00E15C1F /* osx_opengldevice.m */; };
+		27487AD614CC01BA00E15C1F /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 27487ACF14CC01BA00E15C1F /* stb_image.c */; };
+		27487AD714CC01BA00E15C1F /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 27487AD014CC01BA00E15C1F /* stb_image.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		27487ABD14CC015E00E15C1F /* libgraphicsDevice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgraphicsDevice.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27487ACA14CC01BA00E15C1F /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
+		27487ACB14CC01BA00E15C1F /* graphicsDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphicsDevice.h; sourceTree = "<group>"; };
+		27487ACC14CC01BA00E15C1F /* openglDevice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = openglDevice.c; sourceTree = "<group>"; };
+		27487ACD14CC01BA00E15C1F /* openglDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openglDevice.h; sourceTree = "<group>"; };
+		27487ACE14CC01BA00E15C1F /* osx_opengldevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = osx_opengldevice.m; sourceTree = "<group>"; };
+		27487ACF14CC01BA00E15C1F /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
+		27487AD014CC01BA00E15C1F /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27487ABA14CC015E00E15C1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27487AB214CC015E00E15C1F = {
+			isa = PBXGroup;
+			children = (
+				27487ACA14CC01BA00E15C1F /* global.h */,
+				27487ACB14CC01BA00E15C1F /* graphicsDevice.h */,
+				27487ACC14CC01BA00E15C1F /* openglDevice.c */,
+				27487ACD14CC01BA00E15C1F /* openglDevice.h */,
+				27487ACE14CC01BA00E15C1F /* osx_opengldevice.m */,
+				27487ACF14CC01BA00E15C1F /* stb_image.c */,
+				27487AD014CC01BA00E15C1F /* stb_image.h */,
+				27487ABE14CC015E00E15C1F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27487ABE14CC015E00E15C1F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27487ABD14CC015E00E15C1F /* libgraphicsDevice.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		27487ABB14CC015E00E15C1F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27487AD114CC01BA00E15C1F /* global.h in Headers */,
+				27487AD214CC01BA00E15C1F /* graphicsDevice.h in Headers */,
+				27487AD414CC01BA00E15C1F /* openglDevice.h in Headers */,
+				27487AD714CC01BA00E15C1F /* stb_image.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		27487ABC14CC015E00E15C1F /* graphicsDevice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27487AC114CC015E00E15C1F /* Build configuration list for PBXNativeTarget "graphicsDevice" */;
+			buildPhases = (
+				27487AB914CC015E00E15C1F /* Sources */,
+				27487ABA14CC015E00E15C1F /* Frameworks */,
+				27487ABB14CC015E00E15C1F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = graphicsDevice;
+			productName = graphicsDevice;
+			productReference = 27487ABD14CC015E00E15C1F /* libgraphicsDevice.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27487AB414CC015E00E15C1F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = none;
+			};
+			buildConfigurationList = 27487AB714CC015E00E15C1F /* Build configuration list for PBXProject "graphicsDevice" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 27487AB214CC015E00E15C1F;
+			productRefGroup = 27487ABE14CC015E00E15C1F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27487ABC14CC015E00E15C1F /* graphicsDevice */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27487AB914CC015E00E15C1F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27487AD314CC01BA00E15C1F /* openglDevice.c in Sources */,
+				27487AD514CC01BA00E15C1F /* osx_opengldevice.m in Sources */,
+				27487AD614CC01BA00E15C1F /* stb_image.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		27487ABF14CC015E00E15C1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
+			};
+			name = Debug;
+		};
+		27487AC014CC015E00E15C1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CONFIGURATION_BUILD_DIR = ../../build/bin;
+				CONFIGURATION_TEMP_DIR = ../../build/obj;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../../build/obj;
+				SDKROOT = macosx;
+				SYMROOT = ../../build/bin;
+			};
+			name = Release;
+		};
+		27487AC214CC015E00E15C1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27487AC314CC015E00E15C1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27487AB714CC015E00E15C1F /* Build configuration list for PBXProject "graphicsDevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27487ABF14CC015E00E15C1F /* Debug */,
+				27487AC014CC015E00E15C1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27487AC114CC015E00E15C1F /* Build configuration list for PBXNativeTarget "graphicsDevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27487AC214CC015E00E15C1F /* Debug */,
+				27487AC314CC015E00E15C1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27487AB414CC015E00E15C1F /* Project object */;
+}

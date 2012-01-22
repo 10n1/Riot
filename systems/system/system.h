@@ -18,20 +18,20 @@ extern "C" {
 \*******************************************************************/
 typedef enum 
 {
-    kSysRunning = 0x1,
+    kSysRunning = 0x1
 } sys_flag_e;
 
 typedef enum
 {
     kOkCancel,
-    kRetryCancel,
+    kRetryCancel
 } sys_mb_type_e;
 
 typedef enum
 {
     kOk,
     kCancel,
-    kRetry,
+    kRetry
 } sys_mb_return_e;
 
 typedef enum
@@ -99,7 +99,7 @@ typedef enum
     kSysKeyF11,
     kSysKeyF12,
 
-    kMAX_KEYS,
+    kMAX_KEYS
 } sys_key_e;
 
 typedef struct system_t system_t;

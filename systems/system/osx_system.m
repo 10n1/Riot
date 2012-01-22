@@ -6,7 +6,6 @@
  *  Copyright (c) 2012 Kyle C Weicht. All rights reserved.
  */
 #include "system.h"
-#include "global.h"
 
 /* C headers */
 #import <Foundation/Foundation.h>
@@ -16,6 +15,49 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+
+#define UNUSED_PARAMETER(param) (void)(sizeof((param)))
+
+/*
+ * Define debugBreak
+ */
+#if defined( _MSC_VER )
+    #define debugBreak() __debugbreak()
+#elif defined( __GNUC__ )
+    #define debugBreak() __asm__( "int $3\n" : : )
+#else
+    #error Unsupported compiler
+#endif
+
+/*
+ * Define assert
+ */
+#ifndef assert
+    #define assert(condition)   \
+        do                      \
+        {                       \
+            if(!(condition))    \
+            {                   \
+                debugBreak();   \
+            }                   \
+        } while(__LINE__ == -1)
+        /* This causes warning 4127 with VC++ (conditional expression is constant) */
+    #if defined( _MSC_VER )
+        #pragma warning(disable:4127)
+    #endif /* defined( _MSC_VER ) */
+#endif
+
+#ifndef NULL
+    #if defined(__GNUG__)
+        #define NULL __null
+    #else
+        #ifdef __cplusplus
+            #define NULL 0
+        #else
+            #define NULL ((void*)0)
+        #endif
+    #endif
+#endif
 
 /*******************************************************************\
  Internal constants and types
@@ -57,79 +99,78 @@ static void SetKeyState(system_t* system, uint8_t key, uint8_t state)
 {
     /* Reference: http://boredzo.org/blog/wp-content/uploads/2007/05/IMTx-virtual-keycodes.pdf */
     sys_key_e   keyIndex;
-    int         keyBase;
     
     switch(key)
     {
     /* Qwerty row */
-    KEY_MAPPING(12, kKeyQ);
-    KEY_MAPPING(13, kKeyW);
-    KEY_MAPPING(14, kKeyE);
-    KEY_MAPPING(15, kKeyR);
-    KEY_MAPPING(17, kKeyT);
-    KEY_MAPPING(16, kKeyY);
-    KEY_MAPPING(32, kKeyU);
-    KEY_MAPPING(34, kKeyI);
-    KEY_MAPPING(31, kKeyO);
-    KEY_MAPPING(35, kKeyP);
+    KEY_MAPPING(12, kSysKeyQ);
+    KEY_MAPPING(13, kSysKeyW);
+    KEY_MAPPING(14, kSysKeyE);
+    KEY_MAPPING(15, kSysKeyR);
+    KEY_MAPPING(17, kSysKeyT);
+    KEY_MAPPING(16, kSysKeyY);
+    KEY_MAPPING(32, kSysKeyU);
+    KEY_MAPPING(34, kSysKeyI);
+    KEY_MAPPING(31, kSysKeyO);
+    KEY_MAPPING(35, kSysKeyP);
     
     /* Asdf row */
-    KEY_MAPPING(0, kKeyA);
-    KEY_MAPPING(1, kKeyS);
-    KEY_MAPPING(2, kKeyD);
-    KEY_MAPPING(3, kKeyF);
-    KEY_MAPPING(5, kKeyG);
-    KEY_MAPPING(4, kKeyH);
-    KEY_MAPPING(38, kKeyJ);
-    KEY_MAPPING(40, kKeyK);
-    KEY_MAPPING(37, kKeyL);
+    KEY_MAPPING(0, kSysKeyA);
+    KEY_MAPPING(1, kSysKeyS);
+    KEY_MAPPING(2, kSysKeyD);
+    KEY_MAPPING(3, kSysKeyF);
+    KEY_MAPPING(5, kSysKeyG);
+    KEY_MAPPING(4, kSysKeyH);
+    KEY_MAPPING(38, kSysKeyJ);
+    KEY_MAPPING(40, kSysKeyK);
+    KEY_MAPPING(37, kSysKeyL);
     
     /* Zxcv row */
-    KEY_MAPPING(6, kKeyZ);
-    KEY_MAPPING(7, kKeyX);
-    KEY_MAPPING(8, kKeyC);
-    KEY_MAPPING(9, kKeyV);
-    KEY_MAPPING(11, kKeyB);
-    KEY_MAPPING(45, kKeyN);
-    KEY_MAPPING(46, kKeyM);
+    KEY_MAPPING(6, kSysKeyZ);
+    KEY_MAPPING(7, kSysKeyX);
+    KEY_MAPPING(8, kSysKeyC);
+    KEY_MAPPING(9, kSysKeyV);
+    KEY_MAPPING(11, kSysKeyB);
+    KEY_MAPPING(45, kSysKeyN);
+    KEY_MAPPING(46, kSysKeyM);
     
     /* Numbers */
-    KEY_MAPPING(18, kKey1);
-    KEY_MAPPING(19, kKey2);
-    KEY_MAPPING(20, kKey3);
-    KEY_MAPPING(21, kKey4);
-    KEY_MAPPING(23, kKey5);
-    KEY_MAPPING(22, kKey6);
-    KEY_MAPPING(26, kKey7);
-    KEY_MAPPING(28, kKey8);
-    KEY_MAPPING(25, kKey9);
-    KEY_MAPPING(29, kKey0);
+    KEY_MAPPING(18, kSysKey1);
+    KEY_MAPPING(19, kSysKey2);
+    KEY_MAPPING(20, kSysKey3);
+    KEY_MAPPING(21, kSysKey4);
+    KEY_MAPPING(23, kSysKey5);
+    KEY_MAPPING(22, kSysKey6);
+    KEY_MAPPING(26, kSysKey7);
+    KEY_MAPPING(28, kSysKey8);
+    KEY_MAPPING(25, kSysKey9);
+    KEY_MAPPING(29, kSysKey0);
     
     /* Misc */
-    KEY_MAPPING(53, kKeyEscape);
-    KEY_MAPPING(56, kKeyShift);
-    KEY_MAPPING(59, kKeyCtrl);
-    KEY_MAPPING(58, kKeyAlt);
+    KEY_MAPPING(53, kSysKeyEscape);
+    KEY_MAPPING(56, kSysKeyShift);
+    KEY_MAPPING(59, kSysKeyCtrl);
+    KEY_MAPPING(58, kSysKeyAlt);
     
     /* Arrows */
-    KEY_MAPPING(126, kKeyUp);
-    KEY_MAPPING(125, kKeyDown);
-    KEY_MAPPING(123, kKeyLeft);
-    KEY_MAPPING(124, kKeyRight);
+    KEY_MAPPING(126, kSysKeyUp);
+    KEY_MAPPING(125, kSysKeyDown);
+    KEY_MAPPING(123, kSysKeyLeft);
+    KEY_MAPPING(124, kSysKeyRight);
     
     /* Function keys */
-    KEY_MAPPING(122, kKeyF1);
-    KEY_MAPPING(120, kKeyF2);
-    KEY_MAPPING(99, kKeyF3);
-    KEY_MAPPING(118, kKeyF4);
-    KEY_MAPPING(96, kKeyF5);
-    KEY_MAPPING(97, kKeyF6);
-    KEY_MAPPING(98, kKeyF7);
-    KEY_MAPPING(100, kKeyF8);
-    KEY_MAPPING(101, kKeyF9);
-    KEY_MAPPING(109, kKeyF10);
-    KEY_MAPPING(103, kKeyF11);
-    KEY_MAPPING(111, kKeyF12);    
+    KEY_MAPPING(122, kSysKeyF1);
+    KEY_MAPPING(120, kSysKeyF2);
+    KEY_MAPPING(99, kSysKeyF3);
+    KEY_MAPPING(118, kSysKeyF4);
+    KEY_MAPPING(96, kSysKeyF5);
+    KEY_MAPPING(97, kSysKeyF6);
+    KEY_MAPPING(98, kSysKeyF7);
+    KEY_MAPPING(100, kSysKeyF8);
+    KEY_MAPPING(101, kSysKeyF9);
+    KEY_MAPPING(109, kSysKeyF10);
+    KEY_MAPPING(103, kSysKeyF11);
+    KEY_MAPPING(111, kSysKeyF12);    
     
     default:
         return;
@@ -421,14 +462,14 @@ sys_mb_return_e sysMessageBox(  system_t* system,
     application_delegate_t* delegate = [[self window] delegate];
     system_t*               system = [delegate system];
     unsigned short key = [theEvent keyCode];
-    SetKeyState(system, key, 1);
+    SetKeyState(system, (uint8_t)key, 1);
 }
 -(void)keyUp:(NSEvent *)theEvent
 {
     application_delegate_t* delegate = [[self window] delegate];
     system_t*               system = [delegate system];
     unsigned short key = [theEvent keyCode];
-    SetKeyState(system, key, 0);
+    SetKeyState(system, (uint8_t)key, 0);
 }
 
 @end

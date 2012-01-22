@@ -62,7 +62,7 @@ enum
 {
     kOk,
     kRetry,
-    kCancel,
+    kCancel
 };
 
 /*******************************************************************\
@@ -74,9 +74,40 @@ Internal functions
 \*******************************************************************/
 static int RetryMessageBox(const char* header, const char* message)
 {
+#ifdef _WIN32
     int messageBoxResult = MessageBox(NULL, message, header, MB_RETRYCANCEL);
     if(messageBoxResult == IDRETRY)
         return kRetry;
+#else    
+    /*convert the strings from char* to CFStringRef */
+    CFStringRef header_ref  = CFStringCreateWithCString(NULL, header, kCFStringEncodingASCII);
+    CFStringRef message_ref = CFStringCreateWithCString(NULL, message, kCFStringEncodingASCII);
+    CFStringRef buttonText = CFSTR("Retry");
+
+    CFOptionFlags result;  /*result code from the message box */
+   
+    /*launch the message box */
+    CFUserNotificationDisplayAlert( 0.0f, /* no timeout */
+                                    kCFUserNotificationNoteAlertLevel, /*change it depending message_type flags ( MB_ICONASTERISK.... etc.) */
+                                    NULL, /*icon url, use default, you can change it depending message_type flags */
+                                    NULL, /*not used */
+                                    NULL, /*localization of strings */
+                                    header_ref, /*header text  */
+                                    message_ref, /*message text */
+                                    buttonText, /*default "ok" text in button */
+                                    CFSTR("Cancel"), /*alternate button title */
+                                    NULL, /*other button title, null--> no other button */
+                                    &result /*response flags */ );
+
+    /*Clean up the strings */
+    CFRelease( header_ref );
+    CFRelease( message_ref );
+
+    /*Convert the result */
+    if(result == kCFUserNotificationDefaultResponse)
+        return kRetry;
+    
+#endif
     return kCancel;
 }
 
@@ -476,4 +507,4 @@ void gfxDrawMesh(graphics_t* device, mesh_t* mesh)
 }
 
 
-#endif // #if (GD_API == GD_OPENGL)
+#endif /* #if (GD_API == GD_OPENGL) */

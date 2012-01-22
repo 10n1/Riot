@@ -7,9 +7,11 @@
  */
 
 /* C headers */
+#include <stdio.h>
 /* External headers */
 /* Internal headers */
 #include "global.h"
+
 #include "system/system.h"
 
 /*******************************************************************\

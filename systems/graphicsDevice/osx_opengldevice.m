@@ -43,7 +43,7 @@ static void CheckGLError(void)
 /*******************************************************************\
  External functions
 \*******************************************************************/
-graphics_t* gdCreate(void* window)
+graphics_t* gfxCreate(void* window)
 {
     NSWindow*               nsWindow        = (NSWindow*)window;
     graphics_t*             device          = NULL;
@@ -109,7 +109,7 @@ graphics_t* gdCreate(void* window)
     
     return device;
 }
-void gdPresent(graphics_t* device)
+void gfxPresent(graphics_t* device)
 {
     [(NSOpenGLContext*)device->context flushBuffer];
 }

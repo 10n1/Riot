@@ -21,6 +21,7 @@
 #elif defined(__APPLE__)
     #include <OpenGL/OpenGL.h>
     #include <OpenGL/gl3.h>
+    #include <CoreFoundation/CoreFoundation.h>
 #endif
 /* Internal headers */
 

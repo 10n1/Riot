@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27073BAF14CBFF9C004F0DFA /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 27073BAD14CBFF9C004F0DFA /* main.c */; };
+		27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */; };
+		27487ADE14CC01D800E15C1F /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADC14CC01D800E15C1F /* libsystemInterface.a */; };
+		27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADF14CC01E400E15C1F /* CoreFoundation.framework */; };
+		27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE014CC01E400E15C1F /* Foundation.framework */; };
+		27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE314CC01E900E15C1F /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		27C073F214CBFF47003B65D5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		27073BAC14CBFF9C004F0DFA /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
+		27073BAD14CBFF9C004F0DFA /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		27073BAE14CBFF9C004F0DFA /* vm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
+		27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphicsDevice.a; path = ../build/bin/libgraphicsDevice.a; sourceTree = "<group>"; };
+		27487ADC14CC01D800E15C1F /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = ../build/bin/libsystemInterface.a; sourceTree = "<group>"; };
+		27487ADF14CC01E400E15C1F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		27487AE014CC01E400E15C1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		27487AE314CC01E900E15C1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		27C073F414CBFF47003B65D5 /* game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = game; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27C073F114CBFF47003B65D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */,
+				27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */,
+				27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */,
+				27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */,
+				27487ADE14CC01D800E15C1F /* libsystemInterface.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27487ADA14CC01C800E15C1F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27487AE314CC01E900E15C1F /* Cocoa.framework */,
+				27487ADF14CC01E400E15C1F /* CoreFoundation.framework */,
+				27487AE014CC01E400E15C1F /* Foundation.framework */,
+				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
+				27487ADC14CC01D800E15C1F /* libsystemInterface.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		27C073E914CBFF47003B65D5 = {
+			isa = PBXGroup;
+			children = (
+				27487ADA14CC01C800E15C1F /* Frameworks */,
+				27073BAC14CBFF9C004F0DFA /* global.h */,
+				27073BAD14CBFF9C004F0DFA /* main.c */,
+				27073BAE14CBFF9C004F0DFA /* vm.h */,
+				27C073F514CBFF47003B65D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27C073F514CBFF47003B65D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27C073F414CBFF47003B65D5 /* game */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27C073F314CBFF47003B65D5 /* game */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27C073FE14CBFF47003B65D5 /* Build configuration list for PBXNativeTarget "game" */;
+			buildPhases = (
+				27C073F014CBFF47003B65D5 /* Sources */,
+				27C073F114CBFF47003B65D5 /* Frameworks */,
+				27C073F214CBFF47003B65D5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = game;
+			productName = game;
+			productReference = 27C073F414CBFF47003B65D5 /* game */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27C073EB14CBFF47003B65D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = none;
+			};
+			buildConfigurationList = 27C073EE14CBFF47003B65D5 /* Build configuration list for PBXProject "game" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 27C073E914CBFF47003B65D5;
+			productRefGroup = 27C073F514CBFF47003B65D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27C073F314CBFF47003B65D5 /* game */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27C073F014CBFF47003B65D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27073BAF14CBFF9C004F0DFA /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		27C073FC14CBFF47003B65D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				CONFIGURATION_TEMP_DIR = ../build/obj;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../build/obj;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "";
+				SYMROOT = ../build/bin;
+				USER_HEADER_SEARCH_PATHS = ../systems;
+			};
+			name = Debug;
+		};
+		27C073FD14CBFF47003B65D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				CONFIGURATION_TEMP_DIR = ../build/obj;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = ../build/obj;
+				SDKROOT = macosx;
+				SHARED_PRECOMPS_DIR = "";
+				SYMROOT = ../build/bin;
+				USER_HEADER_SEARCH_PATHS = ../systems;
+			};
+			name = Release;
+		};
+		27C073FF14CBFF47003B65D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../build/bin\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27C0740014CBFF47003B65D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../build/bin\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27C073EE14CBFF47003B65D5 /* Build configuration list for PBXProject "game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27C073FC14CBFF47003B65D5 /* Debug */,
+				27C073FD14CBFF47003B65D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27C073FE14CBFF47003B65D5 /* Build configuration list for PBXNativeTarget "game" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27C073FF14CBFF47003B65D5 /* Debug */,
+				27C0740014CBFF47003B65D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27C073EB14CBFF47003B65D5 /* Project object */;
+}
