@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27073BAF14CBFF9C004F0DFA /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 27073BAD14CBFF9C004F0DFA /* main.c */; };
+		27031D5B14CC833900C804B9 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 27031D5714CC833900C804B9 /* timer.c */; };
+		27031D5C14CC833900C804B9 /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27031D5914CC833900C804B9 /* world.cpp */; };
+		27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27031D5D14CC835A00C804B9 /* OpenGL.framework */; };
+		27073BAF14CBFF9C004F0DFA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27073BAD14CBFF9C004F0DFA /* main.cpp */; };
 		27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */; };
 		27487ADE14CC01D800E15C1F /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADC14CC01D800E15C1F /* libsystemInterface.a */; };
 		27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADF14CC01E400E15C1F /* CoreFoundation.framework */; };
@@ -28,8 +31,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27031D5514CC832100C804B9 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = /Users/kyle/development/Riot/systems/graphicsDevice/../../assets; sourceTree = "<absolute>"; };
+		27031D5714CC833900C804B9 /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
+		27031D5814CC833900C804B9 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		27031D5914CC833900C804B9 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
+		27031D5A14CC833900C804B9 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = world.h; sourceTree = "<group>"; };
+		27031D5D14CC835A00C804B9 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		27073BAC14CBFF9C004F0DFA /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
-		27073BAD14CBFF9C004F0DFA /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		27073BAD14CBFF9C004F0DFA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		27073BAE14CBFF9C004F0DFA /* vm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
 		27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphicsDevice.a; path = ../build/bin/libgraphicsDevice.a; sourceTree = "<group>"; };
 		27487ADC14CC01D800E15C1F /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = ../build/bin/libsystemInterface.a; sourceTree = "<group>"; };
@@ -44,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */,
 				27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */,
 				27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */,
 				27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */,
@@ -58,6 +68,7 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27031D5D14CC835A00C804B9 /* OpenGL.framework */,
 				27487AE314CC01E900E15C1F /* Cocoa.framework */,
 				27487ADF14CC01E400E15C1F /* CoreFoundation.framework */,
 				27487AE014CC01E400E15C1F /* Foundation.framework */,
@@ -70,10 +81,15 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
-				27487ADA14CC01C800E15C1F /* Frameworks */,
+				27031D5714CC833900C804B9 /* timer.c */,
+				27031D5814CC833900C804B9 /* timer.h */,
+				27031D5914CC833900C804B9 /* world.cpp */,
+				27031D5A14CC833900C804B9 /* world.h */,
 				27073BAC14CBFF9C004F0DFA /* global.h */,
-				27073BAD14CBFF9C004F0DFA /* main.c */,
+				27073BAD14CBFF9C004F0DFA /* main.cpp */,
 				27073BAE14CBFF9C004F0DFA /* vm.h */,
+				27031D5514CC832100C804B9 /* assets */,
+				27487ADA14CC01C800E15C1F /* Frameworks */,
 				27C073F514CBFF47003B65D5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,7 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27073BAF14CBFF9C004F0DFA /* main.c in Sources */,
+				27073BAF14CBFF9C004F0DFA /* main.cpp in Sources */,
+				27031D5B14CC833900C804B9 /* timer.c in Sources */,
+				27031D5C14CC833900C804B9 /* world.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,11 +167,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				CONFIGURATION_TEMP_DIR = ../build/obj;
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -192,12 +211,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				CONFIGURATION_TEMP_DIR = ../build/obj;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
