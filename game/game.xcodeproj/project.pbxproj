@@ -16,6 +16,7 @@
 		27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADF14CC01E400E15C1F /* CoreFoundation.framework */; };
 		27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE014CC01E400E15C1F /* Foundation.framework */; };
 		27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE314CC01E900E15C1F /* Cocoa.framework */; };
+		27AB4D6D14CCACB800EA7883 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AB4D6C14CCACB800EA7883 /* libBox2D.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		27487ADF14CC01E400E15C1F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		27487AE014CC01E400E15C1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27487AE314CC01E900E15C1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		27AB4D6C14CCACB800EA7883 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ../external/Box2D_v2.2.1/projects/xcode4/build/Debug/libBox2D.a; sourceTree = "<group>"; };
 		27C073F414CBFF47003B65D5 /* game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = game; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27AB4D6D14CCACB800EA7883 /* libBox2D.a in Frameworks */,
 				27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */,
 				27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */,
 				27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */,
@@ -68,12 +71,13 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				27031D5D14CC835A00C804B9 /* OpenGL.framework */,
+				27AB4D6C14CCACB800EA7883 /* libBox2D.a */,
+				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
+				27487ADC14CC01D800E15C1F /* libsystemInterface.a */,
 				27487AE314CC01E900E15C1F /* Cocoa.framework */,
 				27487ADF14CC01E400E15C1F /* CoreFoundation.framework */,
 				27487AE014CC01E400E15C1F /* Foundation.framework */,
-				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
-				27487ADC14CC01D800E15C1F /* libsystemInterface.a */,
+				27031D5D14CC835A00C804B9 /* OpenGL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,13 +200,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/Box2D_v2.2.1/";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../build/obj;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "";
 				SYMROOT = ../build/bin;
-				USER_HEADER_SEARCH_PATHS = ../systems;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../systems/";
 			};
 			name = Debug;
 		};
@@ -234,12 +239,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/Box2D_v2.2.1/";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OBJROOT = ../build/obj;
 				SDKROOT = macosx;
 				SHARED_PRECOMPS_DIR = "";
 				SYMROOT = ../build/bin;
-				USER_HEADER_SEARCH_PATHS = ../systems;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../systems/";
 			};
 			name = Release;
 		};
@@ -249,6 +255,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../build/bin\"",
+					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -260,6 +267,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../build/bin\"",
+					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

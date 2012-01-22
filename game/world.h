@@ -13,7 +13,7 @@
 /* External headers */
 /* Internal headers */
 #include "graphicsDevice/graphicsDevice.h"
-#include "Box2D\Box2D.h"
+#include "Box2D/Box2D.h"
 
 /*******************************************************************\
 External Constants And types

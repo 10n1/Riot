@@ -361,6 +361,10 @@ void sysGetMousePosition(system_t* system, int* x, int* y)
     *x = system->mouseX;
     *y = system->mouseY;
 }
+void sysStop(system_t* system)
+{
+    [NSApp terminate: nil];
+}
 mouse_state_t sysGetMouseState(system_t* system)
 {
     return system->mouseState;
@@ -525,7 +529,7 @@ sys_mb_return_e sysMessageBox(  system_t* system,
     UNUSED_PARAMETER(theEvent);
 }
 
--(void)rightMouseDown:(NSEvent *)theEvent:(NSEvent *)theEvent
+-(void)rightMouseDown:(NSEvent *)theEvent
 {
     application_delegate_t* delegate = [[self window] delegate];
     system_t*               system = [delegate system];
@@ -540,7 +544,7 @@ sys_mb_return_e sysMessageBox(  system_t* system,
     UNUSED_PARAMETER(theEvent);
 }
 
--(void)rightMouseUp:(NSEvent *)theEvent:(NSEvent *)theEvent
+-(void)rightMouseUp:(NSEvent *)theEvent
 {
     application_delegate_t* delegate = [[self window] delegate];
     system_t*               system = [delegate system];
