@@ -459,7 +459,22 @@ sys_mb_return_e sysMessageBox(  system_t* system,
 {
     return YES;
 }
+-(void) viewDidMoveToWindow
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowResized:) name:NSWindowDidResizeNotification
+                                               object:[self window]];
+}
 - (void)reshape
+{
+    application_delegate_t* delegate = [[self window] delegate];
+    system_t*               system = [delegate system];
+    NSRect bounds = [self bounds];
+    if(system->resizeCallback)
+        system->resizeCallback((int)bounds.size.width, (int)bounds.size.height);
+    (void)sizeof(bounds);
+}
+- (void)windowResized:(NSNotification *)notification;
 {
     application_delegate_t* delegate = [[self window] delegate];
     system_t*               system = [delegate system];
