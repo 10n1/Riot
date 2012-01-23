@@ -28,6 +28,14 @@ enum
 #endif
 };
 
+enum material_type_e
+{
+    kBrick,
+    kWood,
+
+    kNUM_MATERIALS,
+};
+
 class World
 {
 /* Methods */
@@ -55,12 +63,19 @@ private:
     mesh_t*     _quadMesh;
     texture_t*  _backgroundTexture;
     texture_t*  _brickTexture;
+    texture_t*  _woodTexture;
     material_t* _material;
     constant_buffer_t*  _perFrameConstantBuffer;
     constant_buffer_t*  _perObjectConstantBuffer;
     b2World*    _box2d;
     Entity      _activeEntities[kMaxEntities];
     int         _numActiveEntities;
+};
+
+struct material_properties_t
+{
+    float density;
+    float friction;
 };
 
 /*******************************************************************\

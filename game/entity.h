@@ -18,6 +18,7 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
+
 class Entity
 {
 /* Methods */
@@ -41,7 +42,10 @@ private:
     mesh_t*     _mesh;
 
     b2Body*     _physicsBody;
+    float       _width;
+    float       _height;
 };
+
 
 /*******************************************************************\
 External variables

@@ -50,7 +50,12 @@ const vertex_element_desc_t kPosTexVertexFormat[] =
     { kGfxShaderInputNull,      0 }, 
 };
 
-b2Body* s_brickBody = NULL;
+const material_properties_t   kMaterialProperties[kNUM_MATERIALS] =
+{
+    { 2000.0f, 0.65f }, // Brick
+    {  750.0f, 0.30f }, // Wood
+};
+
 
 /*******************************************************************\
 Internal functions
@@ -101,6 +106,7 @@ void World::Create(void)
     /* textures */
     _backgroundTexture = gfxCreateTexture(_graphics, "assets/ground.png");
     _brickTexture = gfxCreateTexture(_graphics, "assets/brick.png");
+    _woodTexture = gfxCreateTexture(_graphics, "assets/wood.png");
 
     /* Constant buffers */
     gfxBindConstantBufferToIndex(_graphics, _material, "PerFrame", 0);
@@ -162,7 +168,18 @@ void World::BuildBuilding(void)
                 break;
             int entityIndex = _numActiveEntities++;
 
-            Entity::CreateEntity(&_activeEntities[entityIndex], _box2d, _brickTexture, _quadMesh, x+xOffset, y, 2.0f, 1.0f, 1.0f, 0.65f);
+            if(y < 10.0f)
+                Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                                        _woodTexture, _quadMesh, 
+                                        x+xOffset, y, 
+                                        2.0f, 1.0f, 
+                                        kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+            else
+                Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                                        _brickTexture, _quadMesh, 
+                                        x+xOffset, y, 
+                                        2.0f, 1.0f, 
+                                        kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
         }
         xOffset *= -1.0f;
     }
@@ -195,6 +212,7 @@ void World::Destroy(void)
     gfxDestroyMesh(_quadMesh);
     gfxDestroyTexture(_backgroundTexture);
     gfxDestroyTexture(_brickTexture);
+    gfxDestroyTexture(_woodTexture);
     gfxDestroyConstantBuffer(_perFrameConstantBuffer);
     gfxDestroyConstantBuffer(_perObjectConstantBuffer);
 }

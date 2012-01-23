@@ -67,6 +67,9 @@ void Entity::CreateEntity(  Entity* entity, b2World* world,
     fixtureDef.density = density;
     fixtureDef.friction = friction;
     entity->_physicsBody->CreateFixture(&fixtureDef);
+
+    entity->_width = w;
+    entity->_height = h;
 }
 void Entity::Update(float elapsedTime)
 {
@@ -74,7 +77,7 @@ void Entity::Update(float elapsedTime)
 void Entity::Render(void)
 {
     Matrix4 worldMatrix = Matrix4RotationZ(_physicsBody->GetAngle());
-    worldMatrix = Matrix4MatrixMultiply(Matrix4Scale(2.0f, 1.0f, 1.0f), worldMatrix);
+    worldMatrix = Matrix4MatrixMultiply(Matrix4Scale(_width, _height, 1.0f), worldMatrix);
     b2Vec2 pos = _physicsBody->GetPosition();
     worldMatrix.r3.x = pos.x;
     worldMatrix.r3.y = pos.y;
