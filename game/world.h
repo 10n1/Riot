@@ -21,10 +21,10 @@ External Constants And types
 \*******************************************************************/
 enum
 {
-#ifndef DEBUG
-    kMaxEntities = 2048,
-#else   
+#if defined(DEBUG) || defined(_DEBUG) 
     kMaxEntities = 512,
+#else   
+    kMaxEntities = 2048,
 #endif
 };
 
