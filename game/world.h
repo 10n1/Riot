@@ -24,7 +24,7 @@ enum
 #if defined(DEBUG) || defined(_DEBUG) 
     kMaxEntities = 512,
 #else   
-    kMaxEntities = 2048,
+    kMaxEntities = 4096,
 #endif
 };
 

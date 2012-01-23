@@ -155,6 +155,23 @@ void World::Reset(void)
     groundBox.SetAsBox(128.0f, 4.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 
+    
+    //groundBodyDef.position.Set(-64.5, 0.0f);
+    //groundBody = _box2d->CreateBody(&groundBodyDef);
+    //groundBox.SetAsBox(0.5f, 200.0f);
+    //groundBody->CreateFixture(&groundBox, 0.0f);
+    //
+    //groundBodyDef.position.Set(64.5, 0.0f);
+    //groundBody = _box2d->CreateBody(&groundBodyDef);
+    //groundBox.SetAsBox(0.5f, 200.0f);
+    //groundBody->CreateFixture(&groundBox, 0.0f);
+    //
+    //
+    //groundBodyDef.position.Set(0.0f, 120.5f);
+    //groundBody = _box2d->CreateBody(&groundBodyDef);
+    //groundBox.SetAsBox(200.0f, 0.5f);
+    //groundBody->CreateFixture(&groundBox, 0.0f);
+
     BuildBuilding();
 }
 void World::BuildBuilding(void)
@@ -208,11 +225,11 @@ void World::BuildBuilding(void)
     Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             0.0f, 15.5f, 
-                            75.0f, 1.0f, 
+                            128.0f, 1.0f, 
                             kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
 
-    int towerWidth = 38;
-    float startX = -36.5;
+    int towerWidth = 64;
+    float startX = -63.0f;
     float y = 16.5f;
     while(towerWidth)
     {
@@ -220,6 +237,8 @@ void World::BuildBuilding(void)
         float x = startX;
         for(; ii < towerWidth; ++ii, x += 2.0f)
         {
+            if(_numActiveEntities >= kMaxEntities)
+                break;
             entityIndex = _numActiveEntities++;
             Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
                                     _brickTexture, _quadMesh, 
@@ -288,12 +307,6 @@ void World::Render(void)
     Matrix4 worldMatrix  = Matrix4Scale(2.0f,2.0f,1.0f);
     /* Render background */
     gfxSetMaterial(_graphics, _material);
-    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
-    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
-    gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
-    gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
-    gfxSetTexture(_graphics, _backgroundTexture);
-    gfxDrawMesh(_graphics, _quadMesh);
 
     /* Render bricks */
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
@@ -302,6 +315,14 @@ void World::Render(void)
     {
         _activeEntities[ii].Render();
     }
+
+    
+    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
+    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
+    gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
+    gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
+    gfxSetTexture(_graphics, _backgroundTexture);
+    gfxDrawMesh(_graphics, _quadMesh);
 }
 void World::SetGraphicsDevice(graphics_t* graphics)
 {
