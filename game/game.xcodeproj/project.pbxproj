@@ -77,6 +77,8 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD07031A14CDC13900755BE3 /* libsystemInterface.a */,
+				CD07031814CDC13700755BE3 /* libBox2D.a */,
 				272B0B5F14CCC16B00B63109 /* libBox2D.a */,
 				27AB4D6C14CCACB800EA7883 /* libBox2D.a */,
 				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
@@ -92,8 +94,6 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
-				CD07031A14CDC13900755BE3 /* libsystemInterface.a */,
-				CD07031814CDC13700755BE3 /* libBox2D.a */,
 				CD07031614CDC11500755BE3 /* assets */,
 				272B0B6114CCE96600B63109 /* entity.cpp */,
 				272B0B6214CCE96600B63109 /* entity.h */,
