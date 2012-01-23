@@ -57,7 +57,9 @@ void Initialize(void)
     s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
 
-    lua_State* L = lua_open();
+    lua_State* L = luaL_newstate();
+    luaL_openlibs(L);
+    luaL_dofile(L, "assets/testLua.lua");
     lua_close(L);
 }
 void Frame(void)
