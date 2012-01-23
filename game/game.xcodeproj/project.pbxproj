@@ -72,6 +72,7 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				272B0B5F14CCC16B00B63109 /* libBox2D.a */,
 				27AB4D6C14CCACB800EA7883 /* libBox2D.a */,
 				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
 				27487ADC14CC01D800E15C1F /* libsystemInterface.a */,
@@ -86,7 +87,6 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
-				272B0B5F14CCC16B00B63109 /* libBox2D.a */,
 				27031D5714CC833900C804B9 /* timer.c */,
 				27031D5814CC833900C804B9 /* timer.h */,
 				27031D5914CC833900C804B9 /* world.cpp */,
