@@ -17,11 +17,11 @@
 #include "timer.h"
 #include "world.h"
 
-extern "C" {
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-}
+//extern "C" {
+//#include "lua.h"
+//#include "lualib.h"
+//#include "lauxlib.h"
+//}
 
 namespace
 {
@@ -57,10 +57,10 @@ void Initialize(void)
     s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
 
-    lua_State* L = luaL_newstate();
-    luaL_openlibs(L);
-    luaL_dofile(L, "assets/testLua.lua");
-    lua_close(L);
+//    lua_State* L = luaL_newstate();
+//    luaL_openlibs(L);
+//    luaL_dofile(L, "assets/testLua.lua");
+//    lua_close(L);
 }
 void Frame(void)
 {

@@ -11,13 +11,13 @@
 		27031D5C14CC833900C804B9 /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27031D5914CC833900C804B9 /* world.cpp */; };
 		27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27031D5D14CC835A00C804B9 /* OpenGL.framework */; };
 		27073BAF14CBFF9C004F0DFA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27073BAD14CBFF9C004F0DFA /* main.cpp */; };
-		272B0B6014CCC16B00B63109 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 272B0B5F14CCC16B00B63109 /* libBox2D.a */; };
 		272B0B6314CCE96600B63109 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 272B0B6114CCE96600B63109 /* entity.cpp */; };
 		27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */; };
-		27487ADE14CC01D800E15C1F /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADC14CC01D800E15C1F /* libsystemInterface.a */; };
 		27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADF14CC01E400E15C1F /* CoreFoundation.framework */; };
 		27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE014CC01E400E15C1F /* Foundation.framework */; };
 		27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE314CC01E900E15C1F /* Cocoa.framework */; };
+		CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031814CDC13700755BE3 /* libBox2D.a */; };
+		CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031A14CDC13900755BE3 /* libsystemInterface.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		27031D5514CC832100C804B9 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = /Users/kyle/development/Riot/systems/graphicsDevice/../../assets; sourceTree = "<absolute>"; };
 		27031D5714CC833900C804B9 /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
 		27031D5814CC833900C804B9 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		27031D5914CC833900C804B9 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
@@ -52,6 +51,9 @@
 		27487AE314CC01E900E15C1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		27AB4D6C14CCACB800EA7883 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ../external/Box2D_v2.2.1/projects/xcode4/build/Debug/libBox2D.a; sourceTree = "<group>"; };
 		27C073F414CBFF47003B65D5 /* game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = game; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD07031614CDC11500755BE3 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../assets; sourceTree = "<group>"; };
+		CD07031814CDC13700755BE3 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug/libBox2D.a"; sourceTree = "<group>"; };
+		CD07031A14CDC13900755BE3 /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/libsystemInterface.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,13 +61,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				272B0B6014CCC16B00B63109 /* libBox2D.a in Frameworks */,
+				CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */,
+				CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */,
 				27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */,
 				27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */,
 				27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */,
 				27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */,
 				27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */,
-				27487ADE14CC01D800E15C1F /* libsystemInterface.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,9 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
+				CD07031A14CDC13900755BE3 /* libsystemInterface.a */,
+				CD07031814CDC13700755BE3 /* libBox2D.a */,
+				CD07031614CDC11500755BE3 /* assets */,
 				272B0B6114CCE96600B63109 /* entity.cpp */,
 				272B0B6214CCE96600B63109 /* entity.h */,
 				27031D5714CC833900C804B9 /* timer.c */,
@@ -99,7 +104,6 @@
 				27073BAC14CBFF9C004F0DFA /* global.h */,
 				27073BAD14CBFF9C004F0DFA /* main.cpp */,
 				27073BAE14CBFF9C004F0DFA /* vm.h */,
-				27031D5514CC832100C804B9 /* assets */,
 				27487ADA14CC01C800E15C1F /* Frameworks */,
 				27C073F514CBFF47003B65D5 /* Products */,
 			);
@@ -265,6 +269,8 @@
 					"\"$(SRCROOT)/../build/bin\"",
 					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Debug\"",
 					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Release\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -278,6 +284,8 @@
 					"\"$(SRCROOT)/../build/bin\"",
 					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Debug\"",
 					"\"$(SRCROOT)/../external/Box2D_v2.2.1/projects/xcode4/build/Release\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

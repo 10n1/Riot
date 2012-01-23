@@ -153,6 +153,7 @@ static void SetKeyState(system_t* system, uint8_t key, uint8_t state)
     KEY_MAPPING(56, kSysKeyShift);
     KEY_MAPPING(59, kSysKeyCtrl);
     KEY_MAPPING(58, kSysKeyAlt);
+    KEY_MAPPING(49, kSysKeySpace);
     
     /* Arrows */
     KEY_MAPPING(126, kSysKeyUp);
