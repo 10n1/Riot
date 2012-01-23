@@ -26,6 +26,7 @@ External Constants And types
 #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN
 #endif
+#define SAFE_DELETE(p) if(p){ delete p; p = NULL; }
 
 /*
  * Define debugBreak

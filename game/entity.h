@@ -1,12 +1,12 @@
 /*
- * world.h
+ * entity.h
  * Riot
  *
  * Created by Kyle Weicht on 1/22/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __Riot_world_h__
-#define __Riot_world_h__
+#ifndef __Riot_entity_h__
+#define __Riot_entity_h__
 
 /* C headers */
 /* C++ headers */
@@ -14,55 +14,33 @@
 /* Internal headers */
 #include "graphicsDevice/graphicsDevice.h"
 #include "Box2D/Box2D.h"
-#include "entity.h"
 
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-enum
-{
-#ifndef _DEBUG
-    kMaxEntities = 2048,
-#else   
-    kMaxEntities = 512,
-#endif
-};
-
-class World
+class Entity
 {
 /* Methods */
 public:
-    World(void);
-
-    void Create(void);
-    void Destroy(void);
-
     void Update(float elapsedTime);
     void Render(void);
 
-    void SetGraphicsDevice(graphics_t* graphics);
-
-    void AddBrick(float x, float y);
-
-    void BuildBuilding(void);
-    void Reset(void);
-
-    void Explosion(float x, float y, float radius, float force);
-
-    void ConvertToWorldPos(float* x, float* y);
+    static void SetGraphics(graphics_t* graphics);
+    static void SetConstantBuffer(constant_buffer_t* constBuffer);
+    static void CreateEntity(   Entity* entity, b2World* world,
+                                texture_t* texture, mesh_t* mesh,
+                                float x, float y, 
+                                float w, float h, 
+                                float density, float friction);
 
 /* Members */
 private:
-    graphics_t* _graphics;
-    mesh_t*     _quadMesh;
-    texture_t*  _backgroundTexture;
-    texture_t*  _brickTexture;
-    material_t* _material;
-    constant_buffer_t*  _perFrameConstantBuffer;
-    constant_buffer_t*  _perObjectConstantBuffer;
-    b2World*    _box2d;
-    Entity      _activeEntities[kMaxEntities];
-    int         _numActiveEntities;
+    static constant_buffer_t*   s_constBuffer;
+    static graphics_t*          s_graphics;
+    texture_t*  _texture;
+    mesh_t*     _mesh;
+
+    b2Body*     _physicsBody;
 };
 
 /*******************************************************************\

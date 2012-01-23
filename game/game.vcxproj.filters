@@ -4,12 +4,14 @@
     <ClCompile Include="timer.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="world.cpp" />
+    <ClCompile Include="entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="world.h" />
+    <ClInclude Include="entity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">

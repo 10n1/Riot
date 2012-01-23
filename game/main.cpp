@@ -32,6 +32,8 @@ timer_t     s_timer;
 float       s_elapsedTime = 0.0f;
 graphics_t* s_graphics = NULL;
 World       s_world;
+int         s_windowWidth = 0;
+int         s_windowHeight = 0;
 
 /*******************************************************************\
 Internal functions
@@ -52,6 +54,7 @@ void Initialize(void)
 void Frame(void)
 {
     static int leftMouseDown = 0;
+    static int reset = 0;
     /*
      * Update
      */
@@ -59,6 +62,18 @@ void Frame(void)
 
     if(sysGetKeyState(s_system, kSysKeyEscape))
         sysStop(s_system);
+    if(sysGetKeyState(s_system, kSysKeyR))
+    {
+        if(reset == 0)
+        {
+            s_world.Reset();
+        }
+        reset = 1;
+    }
+    else
+    {
+        reset = 0;
+    }
 
     s_world.Update(s_elapsedTime);
 
@@ -66,8 +81,13 @@ void Frame(void)
     {
         if(leftMouseDown == 0)
         {
-            //s_world.BuildBuilding();
-            s_world.Explosion(0.0f, 10.0f, 15.0f);
+            int xPosition;
+            int yPosition;
+            sysGetMousePosition(s_system, &xPosition, &yPosition);
+            float modXPosition = (xPosition/(float)s_windowWidth*2) - 1.0f;
+            float modYPosition = -1.0f * ((yPosition/(float)s_windowHeight*2) - 1.0f);
+            s_world.ConvertToWorldPos(&modXPosition, &modYPosition);
+            s_world.Explosion(modXPosition, modYPosition, 15.0f, 100.0f);
         }
         leftMouseDown = 1;
     }
@@ -97,6 +117,8 @@ void Resize(int width, int height)
     {
         gfxResize(s_graphics, width, height);
     }
+    s_windowWidth = width;
+    s_windowHeight = height;
 }
 
 } // anonymous namespace
