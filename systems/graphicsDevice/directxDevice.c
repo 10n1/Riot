@@ -349,6 +349,7 @@ graphics_t* gfxCreate(void* window)
 }
 void gfxDestroy(graphics_t* device)
 {
+    IDXGISwapChain_SetFullscreenState(device->swapChain, 0, NULL);
     SAFE_RELEASE(device->blendAlpha);
     SAFE_RELEASE(device->blendNoAlpha);
 

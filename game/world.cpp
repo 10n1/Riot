@@ -208,12 +208,12 @@ void World::BuildBuilding(void)
     Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             0.0f, 15.5f, 
-                            25.0f, 1.0f, 
+                            75.0f, 1.0f, 
                             kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
 
-    int towerWidth = 10;
-    float startX = -9.0f;
-    float y = 16.7f;
+    int towerWidth = 38;
+    float startX = -36.5;
+    float y = 16.5f;
     while(towerWidth)
     {
         int ii = 0;
@@ -279,7 +279,9 @@ void World::ConvertToWorldPos(float* x, float* y)
     *x = origX * 64.0f;
     *y = (origY * 64.0f) + 56.0f;
 }
-
+void World::Resize(float width, float height)
+{
+}
 void World::Render(void)
 {
     Matrix4 identity = Matrix4Identity();

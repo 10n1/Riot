@@ -56,6 +56,7 @@ public:
     void Explosion(float x, float y, float radius, float force);
 
     void ConvertToWorldPos(float* x, float* y);
+    void Resize(float width, float height);
 
 /* Members */
 private:
