@@ -120,26 +120,6 @@ void World::Create(void)
      */
     Reset();
 }
-void World::AddBrick(float x, float y)
-{
-    //if(_numActiveEntities == kMaxEntities)
-    //    return;
-    //
-    //int bodyIndex = _numActiveEntities++;
-    // 
-    //b2BodyDef bodyDef;
-    //bodyDef.type = b2_dynamicBody;
-    //bodyDef.position.Set(x, y);
-    //_activeBodies[bodyIndex] = _box2d->CreateBody(&bodyDef);
-    //b2PolygonShape dynamicBox;
-    //dynamicBox.SetAsBox(1.0f, 0.5f);
-    //
-    //b2FixtureDef fixtureDef;
-    //fixtureDef.shape = &dynamicBox;
-    //fixtureDef.density = 1.0f;
-    //fixtureDef.friction = 0.65f;
-    //_activeBodies[bodyIndex]->CreateFixture(&fixtureDef);
-}
 void World::Reset(void)
 {
     /*

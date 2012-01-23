@@ -42,8 +42,6 @@ public:
 
     void SetGraphicsDevice(graphics_t* graphics);
 
-    void AddBrick(float x, float y);
-
     void BuildBuilding(void);
     void Reset(void);
 
