@@ -66,10 +66,9 @@ void Initialize(void)
     fread(buffer,sizeof(buffer),1, file);
     fclose(file);
 
-    //s_root = cJSON_Parse(buffer);
-    //printf(cJSON_GetErrorPtr());
-    //cJSON* format = cJSON_GetObjectItem(s_root, "format");
-    //int framerate = cJSON_GetObjectItem(format, "frame rate")->valueint;
+    s_root = cJSON_Parse(buffer);
+    cJSON* format = cJSON_GetObjectItem(s_root, "format");
+    int framerate = cJSON_GetObjectItem(format, "frame rate")->valueint;
 
     /* Game init */
     s_world.SetGraphicsDevice(s_graphics);
