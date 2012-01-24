@@ -37,6 +37,8 @@ World       s_world;
 int         s_windowWidth = 0;
 int         s_windowHeight = 0;
 cJSON*      s_root = NULL;
+float       s_explosionRadius = 0.0f;
+float       s_explosionForce = 0.0f;
 
 /*******************************************************************\
 Internal functions
@@ -61,14 +63,21 @@ void Initialize(void)
     scriptingDoScript(  "print(\"Hello from Lua...\")\n"
                         "TestScript()\n");
 
-    char buffer[1024];
+    char buffer[1024] = {0};
     FILE* file = fopen("Assets/testJson.json", "r");
     fread(buffer,sizeof(buffer),1, file);
     fclose(file);
 
-    s_root = cJSON_Parse(buffer);
-    cJSON* format = cJSON_GetObjectItem(s_root, "format");
-    int framerate = cJSON_GetObjectItem(format, "frame rate")->valueint;
+    //cJSON_Hooks hooks = { &malloc, &free };
+    //cJSON_InitHooks(&hooks);
+    cJSON* s_root = cJSON_Parse(buffer);
+    if(s_root == NULL)
+        printf(cJSON_GetErrorPtr() - 10);
+    cJSON* gameData = cJSON_GetObjectItem(s_root, "gameData");
+    cJSON* explosion = cJSON_GetObjectItem(gameData, "explosion");
+    s_explosionRadius = (float)cJSON_GetObjectItem(explosion, "radius")->valuedouble;
+    s_explosionForce = (float)cJSON_GetObjectItem(explosion, "force")->valuedouble;
+    cJSON_Delete(s_root);
 
     /* Game init */
     s_world.SetGraphicsDevice(s_graphics);
@@ -90,6 +99,22 @@ void Frame(void)
         if(reset == 0)
         {
             s_world.Reset();
+            
+            char buffer[1024] = {0};
+            FILE* file = fopen("Assets/testJson.json", "r");
+            fread(buffer,sizeof(buffer),1, file);
+            fclose(file);
+
+            //cJSON_Hooks hooks = { &malloc, &free };
+            //cJSON_InitHooks(&hooks);
+            cJSON* s_root = cJSON_Parse(buffer);
+            if(s_root == NULL)
+                printf(cJSON_GetErrorPtr() - 10);
+            cJSON* gameData = cJSON_GetObjectItem(s_root, "gameData");
+            cJSON* explosion = cJSON_GetObjectItem(gameData, "explosion");
+            s_explosionRadius = (float)cJSON_GetObjectItem(explosion, "radius")->valuedouble;
+            s_explosionForce = (float)cJSON_GetObjectItem(explosion, "force")->valuedouble;
+            cJSON_Delete(s_root);
         }
         reset = 1;
     }
@@ -110,7 +135,7 @@ void Frame(void)
             float modXPosition = (xPosition/(float)s_windowWidth*2) - 1.0f;
             float modYPosition = -1.0f * ((yPosition/(float)s_windowHeight*2) - 1.0f);
             s_world.ConvertToWorldPos(&modXPosition, &modYPosition);
-            s_world.Explosion(modXPosition, modYPosition, 20.0f, 20000000.0f);
+            s_world.Explosion(modXPosition, modYPosition, s_explosionRadius, s_explosionForce);
         }
         leftMouseDown = 1;
     }
