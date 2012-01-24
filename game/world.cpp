@@ -15,6 +15,7 @@
 #include "global.h"
 #include "vm.h"
 #include "graphicsDevice/graphicsDevice.h"
+#include "cJSON.h"
 
 namespace
 {
@@ -87,10 +88,26 @@ void World::Create(void)
     /*
      * Graphics initialization
      */
+    char json[1024] = {0};
+    FILE* file = fopen("assets/gameData.json", "r");
+    fread(json, sizeof(json), 1, file);
+    fclose(file);
+    cJSON* root = cJSON_Parse(json);
+    cJSON* assets = cJSON_GetObjectItem(root, "assets");
+    cJSON* textures = cJSON_GetObjectItem(assets, "textures");
+    cJSON* shaders = cJSON_GetObjectItem(assets, "shaders");
+
+    const char* groundTexture = cJSON_GetObjectItem(textures, "groundTexture")->valuestring;
+    const char* brickTexture = cJSON_GetObjectItem(textures, "brickTexture")->valuestring;
+    const char* woodTexture = cJSON_GetObjectItem(textures, "woodTexture")->valuestring;
+
+    const char* vertexShaderFilename = cJSON_GetObjectItem(shaders, "vertexShader")->valuestring;
+    const char* pixelShaderFilename = cJSON_GetObjectItem(shaders, "pixelShader")->valuestring;
+
 
     /* Create graphics objects */
-    vertex_shader_t* vertexShader = gfxCreateVertexShader(_graphics, "assets/pos.vsh");
-    pixel_shader_t* pixelShader = gfxCreatePixelShader(_graphics, "assets/texture.psh");
+    vertex_shader_t* vertexShader = gfxCreateVertexShader(_graphics, vertexShaderFilename);
+    pixel_shader_t* pixelShader = gfxCreatePixelShader(_graphics, pixelShaderFilename);
     _material = gfxCreateMaterial(_graphics, vertexShader, pixelShader);
 
     /* Create mesh */
@@ -104,9 +121,9 @@ void World::Create(void)
                                 kQuadVerts, 
                                 kQuadIndices);
     /* textures */
-    _backgroundTexture = gfxCreateTexture(_graphics, "assets/ground.png");
-    _brickTexture = gfxCreateTexture(_graphics, "assets/brick.png");
-    _woodTexture = gfxCreateTexture(_graphics, "assets/wood.png");
+    _backgroundTexture = gfxCreateTexture(_graphics, groundTexture);
+    _brickTexture = gfxCreateTexture(_graphics, brickTexture);
+    _woodTexture = gfxCreateTexture(_graphics, woodTexture);
 
     /* Constant buffers */
     gfxBindConstantBufferToIndex(_graphics, _material, "PerFrame", 0);
@@ -124,6 +141,7 @@ void World::Create(void)
     /*
      * Game initialization
      */
+    cJSON_Delete(root);
     Reset();
 }
 void World::Reset(void)

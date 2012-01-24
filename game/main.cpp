@@ -64,12 +64,10 @@ void Initialize(void)
                         "TestScript()\n");
 
     char buffer[1024] = {0};
-    FILE* file = fopen("Assets/testJson.json", "r");
+    FILE* file = fopen("Assets/gameData.json", "r");
     fread(buffer,sizeof(buffer),1, file);
     fclose(file);
 
-    //cJSON_Hooks hooks = { &malloc, &free };
-    //cJSON_InitHooks(&hooks);
     cJSON* s_root = cJSON_Parse(buffer);
     if(s_root == NULL)
         printf(cJSON_GetErrorPtr() - 10);
@@ -101,12 +99,10 @@ void Frame(void)
             s_world.Reset();
             
             char buffer[1024] = {0};
-            FILE* file = fopen("Assets/testJson.json", "r");
+            FILE* file = fopen("Assets/gameData.json", "r");
             fread(buffer,sizeof(buffer),1, file);
             fclose(file);
 
-            //cJSON_Hooks hooks = { &malloc, &free };
-            //cJSON_InitHooks(&hooks);
             cJSON* s_root = cJSON_Parse(buffer);
             if(s_root == NULL)
                 printf(cJSON_GetErrorPtr() - 10);
