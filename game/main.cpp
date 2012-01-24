@@ -17,6 +17,7 @@
 #include "timer.h"
 #include "world.h"
 #include "scripting.h"
+#include "cJSON.h"
 
 namespace
 {
@@ -35,6 +36,7 @@ graphics_t* s_graphics = NULL;
 World       s_world;
 int         s_windowWidth = 0;
 int         s_windowHeight = 0;
+cJSON*      s_root = NULL;
 
 /*******************************************************************\
 Internal functions
@@ -58,6 +60,16 @@ void Initialize(void)
     scriptingRegisterFunction(TestScript);
     scriptingDoScript(  "print(\"Hello from Lua...\")\n"
                         "TestScript()\n");
+
+    char buffer[1024];
+    FILE* file = fopen("Assets/testJson.json", "r");
+    fread(buffer,sizeof(buffer),1, file);
+    fclose(file);
+
+    //s_root = cJSON_Parse(buffer);
+    //printf(cJSON_GetErrorPtr());
+    //cJSON* format = cJSON_GetObjectItem(s_root, "format");
+    //int framerate = cJSON_GetObjectItem(format, "frame rate")->valueint;
 
     /* Game init */
     s_world.SetGraphicsDevice(s_graphics);
@@ -101,7 +113,7 @@ void Frame(void)
             s_world.ConvertToWorldPos(&modXPosition, &modYPosition);
             s_world.Explosion(modXPosition, modYPosition, 20.0f, 20000000.0f);
         }
-        leftMouseDown = 0;
+        leftMouseDown = 1;
     }
     else
     {

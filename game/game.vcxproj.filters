@@ -6,6 +6,7 @@
     <ClCompile Include="world.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="scripting.cpp" />
+    <ClCompile Include="cJSON.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
@@ -14,6 +15,7 @@
     <ClInclude Include="world.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="scripting.h" />
+    <ClInclude Include="cJSON.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">
