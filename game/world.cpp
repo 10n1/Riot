@@ -16,6 +16,7 @@
 #include "vm.h"
 #include "graphicsDevice/graphicsDevice.h"
 #include "cJSON.h"
+#include "file.h"
 
 namespace
 {
@@ -89,9 +90,7 @@ void World::Create(void)
      * Graphics initialization
      */
     char json[1024] = {0};
-    FILE* file = fopen("assets/gameData.json", "r");
-    fread(json, sizeof(json), 1, file);
-    fclose(file);
+    fileLoadAndRead(json, sizeof(json), "Assets/gameData.json");
     cJSON* root = cJSON_Parse(json);
     cJSON* assets = cJSON_GetObjectItem(root, "assets");
     cJSON* textures = cJSON_GetObjectItem(assets, "textures");

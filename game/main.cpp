@@ -62,21 +62,9 @@ void Initialize(void)
     scriptingDoScript(  "print(\"Hello from Lua...\")\n"
                         "TestScript()\n");
 
-
-    file_t myFile;
-    char buffer[1024] = {0};
-    //FILE* file = fopen("Assets/gameData.json", "r");
-    //fread(buffer,sizeof(buffer),1, file);
-    //fclose(file);
+    char buffer[1024] = {0};    
+    fileLoadAndRead(buffer, sizeof(buffer), "Assets/gameData.json");
     
-    fileOpen("Assets/gameData.json", "r", &myFile);
-    fileRead(buffer, 1, sizeof(buffer), &myFile);
-    fileClose(&myFile);
-    
-    //fileLoadAndRead(buffer, sizeof(buffer), &myFile);
-    
-    //fileOpen("assets/gamedata.json2", "r", &myFile);
-
     cJSON* s_root = cJSON_Parse(buffer);
     if(s_root == NULL)
         printf(cJSON_GetErrorPtr() - 10);
@@ -109,9 +97,7 @@ void Frame(void)
             s_world.Reset();
             
             char buffer[1024] = {0};
-            FILE* file = fopen("Assets/gameData.json", "r");
-            fread(buffer,sizeof(buffer),1, file);
-            fclose(file);
+            fileLoadAndRead(buffer, sizeof(buffer), "Assets/gameData.json");
 
             cJSON* s_root = cJSON_Parse(buffer);
             if(s_root == NULL)
