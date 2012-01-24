@@ -365,6 +365,7 @@ void sysGetMousePosition(system_t* system, int* x, int* y)
 void sysStop(system_t* system)
 {
     [NSApp terminate: nil];
+    UNUSED_PARAMETER(system);
 }
 mouse_state_t sysGetMouseState(system_t* system)
 {
@@ -487,6 +488,7 @@ sys_mb_return_e sysMessageBox(  system_t* system,
     if(system->resizeCallback)
         system->resizeCallback((int)bounds.size.width, (int)bounds.size.height);
     (void)sizeof(bounds);
+    UNUSED_PARAMETER(notification);
 }
 - (void)keyDown:(NSEvent *)theEvent
 {

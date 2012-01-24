@@ -11,6 +11,7 @@
 /* C headers */
 #include <stdint.h>
 #include <stddef.h>
+#include <stdio.h>
 /* External headers */
 /* Internal headers */
 
@@ -21,7 +22,11 @@ extern "C" {
 /*******************************************************************\
  External constants and types
 \*******************************************************************/
-typedef struct file_t file_t;
+typedef struct file_t
+{
+    char    filename[256-sizeof(FILE*)];
+    FILE*   file;
+} file_t;
 
 /*******************************************************************\
  Variables
@@ -30,9 +35,10 @@ typedef struct file_t file_t;
 /*******************************************************************\
  External functions
 \*******************************************************************/
-file_t* fileLoad(const char* filename, const char* mode);
-size_t fileLoadAndRead(void* buffer, size_t bufferSize, size_t readSize, const char* filename);
-size_t fileRead(void* buffer, size_t bufferSize, size_t readSize, size_t readCount, file_t* file);
+void fileOpen(const char* filename, const char* mode, file_t* file);
+size_t fileLoadAndRead(void* buffer, size_t bufferSize, const char* filename);
+size_t fileSize(file_t* file);
+size_t fileRead(void* buffer, size_t readSize, size_t readCount, file_t* file);
 size_t fileWrite(const void* buffer, size_t writeSize, size_t writeCount, file_t* file);
 void fileClose(file_t* file);
 

@@ -22,9 +22,9 @@ External Constants And types
 enum
 {
 #if defined(DEBUG) || defined(_DEBUG) 
-    kMaxEntities = 512,
+    kMaxEntities = 512
 #else   
-    kMaxEntities = 4096,
+    kMaxEntities = 4096
 #endif
 };
 
@@ -33,7 +33,7 @@ enum material_type_e
     kBrick,
     kWood,
 
-    kNUM_MATERIALS,
+    kNUM_MATERIALS
 };
 
 class World

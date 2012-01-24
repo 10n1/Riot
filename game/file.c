@@ -9,7 +9,6 @@
 
 /* C headers */
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #if defined(__APPLE__)
     #include <CoreFoundation/CoreFoundation.h>
@@ -24,11 +23,34 @@
 /*******************************************************************\
  Internal constants and types
 \*******************************************************************/
-struct file_t
-{
-    char    filename[256-sizeof(FILE*)];
-    FILE*   file;
-};
+/*
+ * Define debugBreak
+ */
+#if defined( _MSC_VER )
+    #define debugBreak() __debugbreak()
+#elif defined( __GNUC__ )
+    #define debugBreak() __asm__( "int $3\n" : : )
+#else
+    #error Unsupported compiler
+#endif
+
+/*
+ * Define assert
+ */
+#ifndef assert
+    #define assert(condition)   \
+        do                      \
+        {                       \
+            if(!(condition))    \
+            {                   \
+                debugBreak();   \
+            }                   \
+        } while(__LINE__ == -1)
+        /* This causes warning 4127 with VC++ (conditional expression is constant) */
+    #if defined( _MSC_VER )
+        #pragma warning(disable:4127)
+    #endif /* defined( _MSC_VER ) */
+#endif
 
 enum
 {
@@ -83,6 +105,22 @@ static int RetryMessageBox(const char* header, const char* message)
     return kCancel;
 }
 
+static const char* GetErrorString(void)
+{
+    switch(errno)
+    {
+    case EINVAL: return "Invalid Mode argument";
+    case EACCES: return "Access permissions invalid";
+    case EEXIST: return "File already exists";
+    case EISDIR: return "File is a directory";
+    case ENAMETOOLONG: return "Filename too long";
+    case ENOTDIR: return "A component of the path prefix is not a directory";
+    case ENOENT: return "File does not exist";
+    default:
+        return "Unknown error";
+    }	
+}
+
 /*******************************************************************\
  External variables
 \*******************************************************************/
@@ -90,12 +128,11 @@ static int RetryMessageBox(const char* header, const char* message)
 /*******************************************************************\
  External functions
 \*******************************************************************/
-file_t* fileLoad(const char* filename, const char* mode)
+void fileOpen(const char* filename, const char* mode, file_t* file)
 {
     char workingDirectory[256];
-    char fileLoadBuffer[1024];
+    char fileLoadBuffer[1024*2];
     int result;
-    file_t* file = malloc(sizeof(*file));
     memset(file, 0, sizeof(*file));
     strncpy(file->filename, filename, sizeof(file->filename));
     do
@@ -105,14 +142,58 @@ file_t* fileLoad(const char* filename, const char* mode)
         if(file->file == NULL)
         {
             getcwd(workingDirectory, sizeof(workingDirectory));
-            sprintf(fileLoadBuffer, "File load failed!\nWorking Directory:\t%s\nFilename:\t\t%s\nError:\t\t\t%d", workingDirectory, filename, errno);
+            sprintf(fileLoadBuffer, "File load failed!\nWorking Directory:\t%s\nFilename:\t\t\t%s\nError:\t\t\t%s\nFile mode:\t\t\t%s", workingDirectory, filename, GetErrorString(), mode);
             result = RetryMessageBox("File Load Error", fileLoadBuffer);
         }
     } while(result == kRetry);
-    
-    return file;
 }
-size_t fileLoadAndRead(void* buffer, size_t bufferSize, size_t readSize, const char* filename);
-size_t fileRead(void* buffer, size_t bufferSize, size_t readSize, size_t readCount, file_t* file);
-size_t fileWrite(const void* buffer, size_t writeSize, size_t writeCount, file_t* file);
-void fileClose(file_t* file);
+size_t fileLoadAndRead(void* buffer, size_t bufferSize, const char* filename)
+{
+    size_t bytesRead = 0;
+    file_t file;
+    fileOpen(filename, "r", &file);
+    bytesRead = fileRead(buffer, sizeof(char), bufferSize, &file);
+    fileClose(&file);
+    return bytesRead;
+}
+size_t fileSize(file_t* file)
+{
+    size_t fileSize = 0;
+    fseek (file->file , 0 , SEEK_END);
+    fileSize = ftell (file->file);
+    rewind (file->file);
+    return fileSize;
+}
+size_t fileRead(void* buffer, size_t readSize, size_t readCount, file_t* file)
+{
+    int error = 0;
+    size_t countRead = fread(buffer, readSize, readCount, file->file);
+    if(countRead != readCount)
+    {
+        error = feof(file->file);
+        assert(error == 1);
+        if(error == 0)
+        {
+            error = ferror(file->file);
+            assert(error == 0);
+        }
+    }
+    return countRead;
+}
+size_t fileWrite(const void* buffer, size_t writeSize, size_t writeCount, file_t* file)
+{
+    int error = 0;
+    size_t count = fwrite(buffer, writeSize, writeCount, file->file);
+    if(count != writeCount)
+    {
+        error = ferror(file->file);
+        assert(error == 0);
+    }
+    return count;
+}
+void fileClose(file_t* file)
+{
+    fclose(file->file);
+    file->file = NULL;
+    file->filename[0] = '\0';
+}

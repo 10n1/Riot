@@ -1,0 +1,19 @@
+{
+    "gameData" : {
+        "explosion" : {
+            "radius" : 15,
+            "force" : 200000
+        }
+    },
+    "assets" : {
+        "textures" : {
+            "groundTexture" : "assets/ground.png",
+            "brickTexture" : "assets/brick.png",
+            "woodTexture" : "assets/wood.png"
+        },
+        "shaders" : {
+            "vertexShader" : "assets/pos.vsh",
+            "pixelShader" : "assets/texture.psh"
+        }
+    }
+}

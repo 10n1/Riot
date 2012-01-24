@@ -76,7 +76,7 @@ T GetLuaType(lua_State* L, int index);
 
 template<> float GetLuaType<float>(lua_State* L, int index) 
 { 
-    return luaL_checknumber(L, index); 
+    return (float)luaL_checknumber(L, index); 
 }
 
 template<> const char* GetLuaType<const char*>(lua_State* L, int index) 
@@ -166,6 +166,7 @@ int _scriptingCallLuaFunction(lua_State* L, void (*func)(void))
 {
     func();
     return 0;
+    (void)(sizeof(L));
 }
 
 static float _FloatFloatFloat(float, float) {return 0.0f;}
