@@ -370,6 +370,10 @@ void gfxDestroy(graphics_t* device)
 
     free(device);
 }
+gfx_api_e gfxGetApi(void)
+{
+    return kDirectX;
+}
 
 /* Device contols */
 void gfxClear(graphics_t* device)

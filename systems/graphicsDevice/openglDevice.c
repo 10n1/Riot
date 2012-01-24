@@ -169,6 +169,10 @@ void gfxDestroy(graphics_t* device)
 #endif
     free(device);
 }
+gfx_api_e gfxGetApi(void)
+{
+    return kOpenGL;
+}
 
 /* Device contols */
 void gfxClear(graphics_t* device)

@@ -69,6 +69,12 @@ typedef struct vertex_element_desc_t
     uint32_t count;
 } vertex_element_desc_t;
 
+typedef enum
+{
+    kDirectX,
+    kOpenGL
+} gfx_api_e;
+
 /*******************************************************************\
 External variables
 \*******************************************************************/
@@ -79,6 +85,7 @@ External functions
 /* Graphics device managment */
 graphics_t* gfxCreate(void* window);
 void gfxDestroy(graphics_t* device);
+gfx_api_e gfxGetApi(void);
 
 /* Device contols */
 void gfxClear(graphics_t* device);
