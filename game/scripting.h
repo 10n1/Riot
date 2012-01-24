@@ -23,6 +23,7 @@ struct lua_State;
 void scriptingInit(void);
 void scriptingShutdown(void);
 void scriptingDoScript(const char* script);
+void scriptingDoScriptFile(const char* filename);
 
 template<class T_return, class T_param1, class T_param2 >
 int _scriptingCallLuaFunction(lua_State* L, T_return (*func)(T_param1,T_param2));
@@ -32,13 +33,13 @@ int _scriptingCallLuaFunction(lua_State* L, void (*func)(void));
 
 void scriptingRegisterFunction(const char* funcName, int (*func)(lua_State* L));
 
-#define BIND_LUA_FUNCTION(funcName) \
-    static int __##funcName##_lua(lua_State* L) \
+#define scriptingDeclareFunction(function) \
+    static int __##function##_lua(lua_State* L) \
     { \
-        return _scriptingCallLuaFunction(L, funcName); \
+        return _scriptingCallLuaFunction(L, function); \
     }
     
-#define REGISTER_LUA_FUNCTION(funcName) \
-    scriptingRegisterFunction(#funcName, __##funcName##_lua)
+#define scriptingRegisterFunction(function) \
+    scriptingRegisterFunction(#function, __##function##_lua)
 
 #endif /* include guard */

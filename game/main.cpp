@@ -16,12 +16,7 @@
 #include "graphicsDevice/graphicsDevice.h"
 #include "timer.h"
 #include "world.h"
-
-//extern "C" {
-//#include "lua.h"
-//#include "lualib.h"
-//#include "lauxlib.h"
-//}
+#include "scripting.h"
 
 namespace
 {
@@ -44,6 +39,12 @@ int         s_windowHeight = 0;
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
+void TestScript(void)
+{
+    printf("From C\n");
+}
+
+scriptingDeclareFunction(TestScript);
 void Initialize(void)
 {
     /* Global init */
@@ -53,14 +54,14 @@ void Initialize(void)
     gfxSetDepthTest(s_graphics, 0, 0);
     gfxSetAlphaTest(s_graphics, 1);
 
+    scriptingInit();
+    scriptingRegisterFunction(TestScript);
+    scriptingDoScript(  "print(\"Hello from Lua...\")\n"
+                        "TestScript()\n");
+
     /* Game init */
     s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
-
-//    lua_State* L = luaL_newstate();
-//    luaL_openlibs(L);
-//    luaL_dofile(L, "assets/testLua.lua");
-//    lua_close(L);
 }
 void Frame(void)
 {
@@ -121,6 +122,7 @@ void Shutdown(void)
 
     /* Global shutdown */
     gfxDestroy(s_graphics);
+    scriptingShutdown();
 }
 void Resize(int width, int height)
 {

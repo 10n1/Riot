@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scripting.cpp" />
     <ClCompile Include="timer.c" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -44,6 +45,7 @@
   <ItemGroup>
     <ClInclude Include="entity.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="scripting.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="vm.h" />
     <ClInclude Include="world.h" />

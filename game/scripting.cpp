@@ -13,11 +13,15 @@
 /* C++ headers */
 /* External headers */
 extern "C" {
-#include "src/lua.h"
-#include "src/lualib.h"
-#include "src/lauxlib.h"
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
 }
 /* Internal headers */
+
+
+#undef scriptingDeclareFunction
+#undef scriptingRegisterFunction
 
 namespace
 {
@@ -123,7 +127,13 @@ void scriptingShutdown(void)
 }
 void scriptingDoScript(const char* script)
 {
-    int result = luaL_dofile(_L, script);
+    int result = luaL_dostring(_L, script);
+    if(result)
+        printLuaError();
+}
+void scriptingDoScriptFile(const char* filename)
+{
+    int result = luaL_dofile(_L, filename);
     if(result)
         printLuaError();
 }

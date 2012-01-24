@@ -5,6 +5,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="world.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="scripting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
@@ -12,6 +13,7 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="world.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="scripting.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">
