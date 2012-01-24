@@ -98,9 +98,9 @@ void Frame(void)
             float modXPosition = (xPosition/(float)s_windowWidth*2) - 1.0f;
             float modYPosition = -1.0f * ((yPosition/(float)s_windowHeight*2) - 1.0f);
             s_world.ConvertToWorldPos(&modXPosition, &modYPosition);
-            s_world.Explosion(modXPosition, modYPosition, 20.0f, 200000.0f);
+            s_world.Explosion(modXPosition, modYPosition, 20.0f, 20000000.0f);
         }
-        leftMouseDown = 1;
+        leftMouseDown = 0;
     }
     else
     {

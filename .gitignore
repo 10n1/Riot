@@ -30,3 +30,5 @@ build
 ipch
 bin
 obj
+external/lua-5.2.0/src/lua
+external/lua-5.2.0/src/luac

@@ -1,28 +1,44 @@
 /*
- * scripting.h
- * Riot
+ *  scripting.h
+ *  scripting
  *
- * Created by Kyle Weicht on 1/22/2012.
- * Copyright (c) 2012 Kyle Weicht. All rights reserved.
+ *  Created by Kyle C Weicht on 1/23/12..
+ *  Copyright (c) 2012 Kyle C Weicht. All rights reserved.
  */
-#ifndef __Riot_scripting_h__
-#define __Riot_scripting_h__
-
-/* C headers */
-/* C++ headers */
-/* External headers */
-/* Internal headers */
+#ifndef scripting_scripting_h
+#define scripting_scripting_h
 
 /*******************************************************************\
-External Constants And types
+ External constants and types
+\*******************************************************************/
+struct lua_State;
+
+/*******************************************************************\
+ Variables
 \*******************************************************************/
 
 /*******************************************************************\
-External variables
+ External functions
 \*******************************************************************/
+void scriptingInit(void);
+void scriptingShutdown(void);
+void scriptingDoScript(const char* script);
 
-/*******************************************************************\
-External functions
-\*******************************************************************/
+template<class T_return, class T_param1, class T_param2 >
+int _scriptingCallLuaFunction(lua_State* L, T_return (*func)(T_param1,T_param2));
+template<class T_return, class T_param1, class T_param2 >
+int _scriptingCallLuaFunction(lua_State* L, void (*func)(T_param1,T_param2));
+int _scriptingCallLuaFunction(lua_State* L, void (*func)(void));
+
+void scriptingRegisterFunction(const char* funcName, int (*func)(lua_State* L));
+
+#define BIND_LUA_FUNCTION(funcName) \
+    static int __##funcName##_lua(lua_State* L) \
+    { \
+        return _scriptingCallLuaFunction(L, funcName); \
+    }
+    
+#define REGISTER_LUA_FUNCTION(funcName) \
+    scriptingRegisterFunction(#funcName, __##funcName##_lua)
 
 #endif /* include guard */
