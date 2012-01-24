@@ -18,6 +18,7 @@
 #include "world.h"
 #include "scripting.h"
 #include "cJSON.h"
+#include "file.h"
 
 namespace
 {
@@ -36,7 +37,6 @@ graphics_t* s_graphics = NULL;
 World       s_world;
 int         s_windowWidth = 0;
 int         s_windowHeight = 0;
-cJSON*      s_root = NULL;
 float       s_explosionRadius = 0.0f;
 float       s_explosionForce = 0.0f;
 
@@ -48,11 +48,10 @@ void TestScript(void)
     printf("From C\n");
 }
 
-scriptingDeclareFunction(TestScript);
+scriptingDeclareFunction(TestScript)
 void Initialize(void)
 {
     /* Global init */
-    timerInit(&s_timer);
     s_graphics = gfxCreate(sysGetWindow(s_system));
     gfxSetClearColor(s_graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
     gfxSetDepthTest(s_graphics, 0, 0);
@@ -67,6 +66,8 @@ void Initialize(void)
     FILE* file = fopen("Assets/gameData.json", "r");
     fread(buffer,sizeof(buffer),1, file);
     fclose(file);
+    
+    file_t* myFile = fileLoad("assets/gamedata.json2", "r");
 
     cJSON* s_root = cJSON_Parse(buffer);
     if(s_root == NULL)
@@ -80,6 +81,7 @@ void Initialize(void)
     /* Game init */
     s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
+    timerInit(&s_timer);
 }
 void Frame(void)
 {

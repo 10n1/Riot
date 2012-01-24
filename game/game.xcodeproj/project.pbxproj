@@ -18,6 +18,7 @@
 		27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE314CC01E900E15C1F /* Cocoa.framework */; };
 		CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031814CDC13700755BE3 /* libBox2D.a */; };
 		CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031A14CDC13900755BE3 /* libsystemInterface.a */; };
+		CD3E47BD14CF1087009BE07D /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = CD3E47BC14CF1087009BE07D /* file.c */; };
 		CDE19D6A14CE6784005BA5C2 /* scripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDE19D6814CE6784005BA5C2 /* scripting.cpp */; };
 		CDE19D6C14CE67CF005BA5C2 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE19D6B14CE67CF005BA5C2 /* liblua.a */; };
 		CDF9B9B014CE7AC100E9D1B3 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */; };
@@ -67,6 +68,8 @@
 		CD07031614CDC11500755BE3 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../assets; sourceTree = "<group>"; };
 		CD07031814CDC13700755BE3 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug/libBox2D.a"; sourceTree = "<group>"; };
 		CD07031A14CDC13900755BE3 /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/libsystemInterface.a"; sourceTree = "<group>"; };
+		CD3E47BA14CF1003009BE07D /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		CD3E47BC14CF1087009BE07D /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
 		CDE19D6814CE6784005BA5C2 /* scripting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scripting.cpp; sourceTree = "<group>"; };
 		CDE19D6914CE6784005BA5C2 /* scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scripting.h; sourceTree = "<group>"; };
 		CDE19D6B14CE67CF005BA5C2 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = "../external/lua-5.2.0/src/liblua.a"; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
+				CD3E47BC14CF1087009BE07D /* file.c */,
+				CD3E47BA14CF1003009BE07D /* file.h */,
 				CD07031614CDC11500755BE3 /* assets */,
 				CDE19D6B14CE67CF005BA5C2 /* liblua.a */,
 				CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */,
@@ -217,6 +222,7 @@
 				272B0B6314CCE96600B63109 /* entity.cpp in Sources */,
 				CDE19D6A14CE6784005BA5C2 /* scripting.cpp in Sources */,
 				CDF9B9B014CE7AC100E9D1B3 /* cJSON.c in Sources */,
+				CD3E47BD14CF1087009BE07D /* file.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
