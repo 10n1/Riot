@@ -15,6 +15,7 @@
 #elif defined(_WIN32)
     #define WIN32_LEAN_AND_MEAN
     #include <windows.h>
+    #include <errno.h>
 #endif
 /* External headers */
 /* Internal headers */
@@ -171,7 +172,7 @@ size_t fileRead(void* buffer, size_t readSize, size_t readCount, file_t* file)
     if(countRead != readCount)
     {
         error = feof(file->file);
-        assert(error == 1);
+        assert(error != 0);
         if(error == 0)
         {
             error = ferror(file->file);

@@ -19,6 +19,7 @@
 		CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031814CDC13700755BE3 /* libBox2D.a */; };
 		CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031A14CDC13900755BE3 /* libsystemInterface.a */; };
 		CD3E47BD14CF1087009BE07D /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = CD3E47BC14CF1087009BE07D /* file.c */; };
+		CD3E47D914CF371D009BE07D /* librenderEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3E47D814CF371D009BE07D /* librenderEngine.a */; };
 		CDE19D6A14CE6784005BA5C2 /* scripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDE19D6814CE6784005BA5C2 /* scripting.cpp */; };
 		CDE19D6C14CE67CF005BA5C2 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE19D6B14CE67CF005BA5C2 /* liblua.a */; };
 		CDF9B9B014CE7AC100E9D1B3 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */; };
@@ -55,7 +56,6 @@
 		27073BAC14CBFF9C004F0DFA /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		27073BAD14CBFF9C004F0DFA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		27073BAE14CBFF9C004F0DFA /* vm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
-		272B0B5F14CCC16B00B63109 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ../external/Box2D_v2.2.1/projects/xcode4/build/Release/libBox2D.a; sourceTree = "<group>"; };
 		272B0B6114CCE96600B63109 /* entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
 		272B0B6214CCE96600B63109 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entity.h; sourceTree = "<group>"; };
 		27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphicsDevice.a; path = ../build/bin/libgraphicsDevice.a; sourceTree = "<group>"; };
@@ -70,6 +70,7 @@
 		CD07031A14CDC13900755BE3 /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/libsystemInterface.a"; sourceTree = "<group>"; };
 		CD3E47BA14CF1003009BE07D /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		CD3E47BC14CF1087009BE07D /* file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file.c; sourceTree = "<group>"; };
+		CD3E47D814CF371D009BE07D /* librenderEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librenderEngine.a; path = /Users/kcweicht/development/Riot/systems/renderEngine/../../build/bin/librenderEngine.a; sourceTree = "<absolute>"; };
 		CDE19D6814CE6784005BA5C2 /* scripting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scripting.cpp; sourceTree = "<group>"; };
 		CDE19D6914CE6784005BA5C2 /* scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scripting.h; sourceTree = "<group>"; };
 		CDE19D6B14CE67CF005BA5C2 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = "../external/lua-5.2.0/src/liblua.a"; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD3E47D914CF371D009BE07D /* librenderEngine.a in Frameworks */,
 				CDE19D6C14CE67CF005BA5C2 /* liblua.a in Frameworks */,
 				CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */,
 				CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */,
@@ -99,9 +101,10 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD3E47D814CF371D009BE07D /* librenderEngine.a */,
+				CDE19D6B14CE67CF005BA5C2 /* liblua.a */,
 				CD07031A14CDC13900755BE3 /* libsystemInterface.a */,
 				CD07031814CDC13700755BE3 /* libBox2D.a */,
-				272B0B5F14CCC16B00B63109 /* libBox2D.a */,
 				27AB4D6C14CCACB800EA7883 /* libBox2D.a */,
 				27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */,
 				27487ADC14CC01D800E15C1F /* libsystemInterface.a */,
@@ -116,11 +119,9 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
-				CD3E47BC14CF1087009BE07D /* file.c */,
-				CD3E47BA14CF1003009BE07D /* file.h */,
 				CD07031614CDC11500755BE3 /* assets */,
-				CDE19D6B14CE67CF005BA5C2 /* liblua.a */,
 				CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */,
+				CD3E47BC14CF1087009BE07D /* file.c */,
 				27031D5714CC833900C804B9 /* timer.c */,
 				272B0B6114CCE96600B63109 /* entity.cpp */,
 				27073BAD14CBFF9C004F0DFA /* main.cpp */,
@@ -128,6 +129,7 @@
 				27031D5914CC833900C804B9 /* world.cpp */,
 				CDF9B9AF14CE7AC100E9D1B3 /* cJSON.h */,
 				272B0B6214CCE96600B63109 /* entity.h */,
+				CD3E47BA14CF1003009BE07D /* file.h */,
 				27073BAC14CBFF9C004F0DFA /* global.h */,
 				CDE19D6914CE6784005BA5C2 /* scripting.h */,
 				27031D5814CC833900C804B9 /* timer.h */,

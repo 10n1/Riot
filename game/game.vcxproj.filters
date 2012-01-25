@@ -7,6 +7,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="cJSON.c" />
+    <ClCompile Include="file.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
@@ -16,6 +17,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="scripting.h" />
     <ClInclude Include="cJSON.h" />
+    <ClInclude Include="file.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">

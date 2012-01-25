@@ -17,4 +17,7 @@
    <FileRef
       location = "group:../systems/system/systemInterface.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../systems/renderEngine/renderEngine.xcodeproj">
+   </FileRef>
 </Workspace>

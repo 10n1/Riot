@@ -13,9 +13,15 @@
 /* External headers */
 /* Internal headers */
 
+
+#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
+extern "C" {
+#endif
+
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
+struct graphics_t;
 
 /*******************************************************************\
 External variables
@@ -24,6 +30,12 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void renderInit(void);
+void renderInit(graphics_t* graphics);
+void renderShutdown(void);
+
+
+#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
+} // extern "C" {
+#endif
 
 #endif /* include guard */
