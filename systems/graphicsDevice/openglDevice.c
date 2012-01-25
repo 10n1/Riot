@@ -68,6 +68,8 @@ enum
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
+static malloc_func_t*   gfx_malloc = &malloc;
+static free_func_t*     gfx_free   = &free;
 
 /*******************************************************************\
 Internal functions
@@ -229,7 +231,7 @@ vertex_shader_t* gfxCreateVertexShader(graphics_t* device, const char* filename)
     vertexShader = CompileShader(GL_VERTEX_SHADER, filename);
 
     /* Create new shader */
-    malloc_and_zero(shader, vertex_shader_t*);
+    gfx_malloc_and_zero(shader, vertex_shader_t*);
     shader->shader = vertexShader;
 
     return shader;
@@ -243,7 +245,7 @@ pixel_shader_t* gfxCreatePixelShader(graphics_t* device, const char* filename)
     pixelShader = CompileShader(GL_FRAGMENT_SHADER, filename);
 
     /* Create new shader */
-    malloc_and_zero(shader, pixel_shader_t*);
+    gfx_malloc_and_zero(shader, pixel_shader_t*);
     shader->shader = pixelShader;
 
     return shader;
@@ -273,7 +275,7 @@ material_t* gfxCreateMaterial(graphics_t* device, vertex_shader_t* vertexShader,
     CheckGLError();
     
     /* allocate material */
-    malloc_and_zero(material, material_t*);
+    gfx_malloc_and_zero(material, material_t*);
     material->program = program;
     
     return material;
@@ -336,7 +338,7 @@ mesh_t* gfxCreateMesh(graphics_t* device,
     CheckGLError();
 
     /* allocate mesh */
-    malloc_and_zero(mesh, mesh_t*);
+    gfx_malloc_and_zero(mesh, mesh_t*);
     mesh->vertexBuffer  = buffers[0];
     mesh->indexBuffer   = buffers[1];
     mesh->inputLayout   = vao;
@@ -390,7 +392,7 @@ texture_t* gfxCreateTexture(graphics_t* device, const char* filename)
     stbi_image_free(textureData);
 
     /* allocate texture */
-    malloc_and_zero(texture, texture_t*);
+    gfx_malloc_and_zero(texture, texture_t*);
     texture->texture = textureId;
 
     return texture;
@@ -411,7 +413,7 @@ constant_buffer_t* gfxCreateConstantBuffer(graphics_t* device, size_t size, cons
     CheckGLError();
 
     /* allocate buffer */
-    malloc_and_zero(constantBuffer, constant_buffer_t*);
+    gfx_malloc_and_zero(constantBuffer, constant_buffer_t*);
     constantBuffer->buffer = buffer;
 
     return constantBuffer;

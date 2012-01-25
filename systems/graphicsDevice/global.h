@@ -27,7 +27,7 @@ External Constants And types
 #endif
 
 #define ARRAY_LENGTH(arr) (sizeof(arr)/sizeof(arr[0]))
-#define malloc_and_zero(pointer, type) pointer = (type)malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
+#define gfx_malloc_and_zero(pointer, type) pointer = (type)gfx_malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
 #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN
 #endif

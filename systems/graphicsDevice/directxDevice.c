@@ -94,6 +94,8 @@ struct constant_buffer_t
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
+static malloc_func_t*   gfx_malloc = &malloc;
+static free_func_t*     gfx_free   = &free;
 
 /*******************************************************************\
 Internal functions
@@ -260,7 +262,7 @@ graphics_t* gfxCreate(void* window)
      * Create the device
      */
     assert(device == NULL);
-    malloc_and_zero(device, graphics_t*);
+    gfx_malloc_and_zero(device, graphics_t*);
 
     device->context     = dxContext;
     device->device      = dxDevice;
@@ -368,7 +370,7 @@ void gfxDestroy(graphics_t* device)
     SAFE_RELEASE(device->context);
     SAFE_RELEASE(device->device);
 
-    free(device);
+    gfx_free(device);
 }
 gfx_api_e gfxGetApi(void)
 {
@@ -448,6 +450,11 @@ void gfxResize(graphics_t* device, int width, int height)
     /* Restore render targets */
     ID3D11DeviceContext_OMSetRenderTargets(device->context, 1, &device->renderTargetView, device->depthStencilView );
 }
+void gfxSetMemoryFuncs(malloc_func_t* mallocFn, free_func_t* freeFn)
+{
+    gfx_malloc = mallocFn;
+    gfx_free = freeFn;
+}
 
 
 /* Pipeline management */
@@ -504,7 +511,7 @@ vertex_shader_t* gfxCreateVertexShader(graphics_t* device, const char* filename)
     assert(SUCCEEDED(hr));
 
     /* Create new shader */
-    malloc_and_zero(shader, vertex_shader_t*);
+    gfx_malloc_and_zero(shader, vertex_shader_t*);
     shader->shader      = vertexShader;
     shader->shaderBlob  = vertexShaderBlob;
 
@@ -527,7 +534,7 @@ pixel_shader_t* gfxCreatePixelShader(graphics_t* device, const char* filename)
     assert(SUCCEEDED(hr));
 
     /* Create new shader */
-    malloc_and_zero(shader, pixel_shader_t*);
+    gfx_malloc_and_zero(shader, pixel_shader_t*);
     shader->shader  = pixelShader;
 
     return shader;
@@ -537,7 +544,7 @@ material_t* gfxCreateMaterial(graphics_t* device, vertex_shader_t* vertexShader,
     material_t* material = NULL;
 
     /* Allocate material */
-    malloc_and_zero(material, material_t*);    
+    gfx_malloc_and_zero(material, material_t*);    
     material->vertexShader  = vertexShader->shader;
     material->pixelShader   = pixelShader->shader;
     ADD_REF(material->vertexShader);
@@ -613,7 +620,7 @@ mesh_t* gfxCreateMesh(graphics_t* device,
     assert(SUCCEEDED(hr));
 
     /* create mesh object */
-    malloc_and_zero(mesh, mesh_t*);
+    gfx_malloc_and_zero(mesh, mesh_t*);
     mesh->vertexBuffer = vertexBuffer;
     mesh->indexBuffer  = indexBuffer;
     mesh->inputLayout  = inputLayout;
@@ -633,7 +640,7 @@ texture_t* gfxCreateTexture(graphics_t* device, const char* filename)
     assert(SUCCEEDED(hr));
 
     /* allocate texture */
-    malloc_and_zero(texture, texture_t*);
+    gfx_malloc_and_zero(texture, texture_t*);
     texture->resourceView = resourceView;
 
     return texture;
@@ -656,7 +663,7 @@ constant_buffer_t* gfxCreateConstantBuffer(graphics_t* device, size_t size, cons
     assert(SUCCEEDED(hr));
 
     /* allocate buffer */
-    malloc_and_zero(constantBuffer, constant_buffer_t*);
+    gfx_malloc_and_zero(constantBuffer, constant_buffer_t*);
     constantBuffer->buffer = buffer;
 
     return constantBuffer;
@@ -683,35 +690,35 @@ void gfxDestroyVertexShader(vertex_shader_t* shader)
 {
     SAFE_RELEASE(shader->shaderBlob);
     SAFE_RELEASE(shader->shader);
-    free(shader);
+    gfx_free(shader);
 }
 void gfxDestroyPixelShader(pixel_shader_t* shader)
 {
     SAFE_RELEASE(shader->shader);
-    free(shader);
+    gfx_free(shader);
 }
 void gfxDestroyMaterial(material_t* material)
 {
     SAFE_RELEASE(material->pixelShader);
     SAFE_RELEASE(material->vertexShader);
-    free(material);
+    gfx_free(material);
 }
 void gfxDestroyMesh(mesh_t* mesh)
 {
     SAFE_RELEASE(mesh->vertexBuffer);
     SAFE_RELEASE(mesh->indexBuffer);
     SAFE_RELEASE(mesh->inputLayout);
-    free(mesh);
+    gfx_free(mesh);
 }
 void gfxDestroyTexture(texture_t* texture)
 {
     SAFE_RELEASE(texture->resourceView);
-    free(texture);
+    gfx_free(texture);
 }
 void gfxDestroyConstantBuffer(constant_buffer_t* buffer)
 {
     SAFE_RELEASE(buffer->buffer);
-    free(buffer);
+    gfx_free(buffer);
 }
 
 /* Render controls */

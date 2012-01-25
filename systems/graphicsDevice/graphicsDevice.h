@@ -19,7 +19,7 @@
 #define GFX_OPENGL  2
 
 #ifndef GFX_API
-    #define GFX_API GFX_DIRECTX
+    #define GFX_API GFX_OPENGL
 #endif
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
@@ -75,6 +75,9 @@ typedef enum
     kOpenGL
 } gfx_api_e;
 
+typedef void* (malloc_func_t)(size_t);
+typedef void  (free_func_t)(void*);
+
 /*******************************************************************\
 External variables
 \*******************************************************************/
@@ -86,6 +89,7 @@ External functions
 graphics_t* gfxCreate(void* window);
 void gfxDestroy(graphics_t* device);
 gfx_api_e gfxGetApi(void);
+void gfxSetMemoryFuncs(malloc_func_t* mallocFn, free_func_t* freeFn);
 
 /* Device contols */
 void gfxClear(graphics_t* device);
@@ -102,14 +106,14 @@ vertex_shader_t* gfxCreateVertexShader(graphics_t* device, const char* filename)
 pixel_shader_t* gfxCreatePixelShader(graphics_t* device, const char* filename);
 material_t* gfxCreateMaterial(graphics_t* device, vertex_shader_t* vertexShader, pixel_shader_t* pixelShader);
 mesh_t* gfxCreateMesh(graphics_t* device,
-                     vertex_shader_t* vertexShader,
-                     const vertex_element_desc_t* layout,
-                     uint32_t vertexCount,
-                     uint32_t indexCount,
-                     size_t vertexSize,
-                     size_t indexSize,
-                     const void* vertices,
-                     const void* indices);
+                      vertex_shader_t* vertexShader,
+                      const vertex_element_desc_t* layout,
+                      uint32_t vertexCount,
+                      uint32_t indexCount,
+                      size_t vertexSize,
+                      size_t indexSize,
+                      const void* vertices,
+                      const void* indices);
 texture_t* gfxCreateTexture(graphics_t* device, const char* filename);
 constant_buffer_t* gfxCreateConstantBuffer(graphics_t* device, size_t size, const void* data);
 
