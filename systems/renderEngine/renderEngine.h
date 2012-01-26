@@ -10,6 +10,7 @@
 
 /* C headers */
 #include <stdint.h>
+#include <stddef.h>
 /* C++ headers */
 /* External headers */
 /* Internal headers */
@@ -35,7 +36,7 @@ typedef enum vertex_format_e
     kVtxFmtPosTex,
     kVtxFmtPosNormTex,
 
-    kMAX_VERTEX_FORMATS,
+    kMAX_VERTEX_FORMATS
 } vertex_format_e;
 
 /*******************************************************************\
