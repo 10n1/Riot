@@ -12,7 +12,8 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-#include "graphicsDevice/graphicsDevice.h"
+//#include "graphicsDevice/graphicsDevice.h"
+#include "renderEngine/renderEngine.h"
 #include "Box2D/Box2D.h"
 #include "entity.h"
 
@@ -48,7 +49,7 @@ public:
     void Update(float elapsedTime);
     void Render(void);
 
-    void SetGraphicsDevice(graphics_t* graphics);
+    //void SetGraphicsDevice(graphics_t* graphics);
 
     void BuildBuilding(void);
     void Reset(void);
@@ -60,12 +61,12 @@ public:
 
 /* Members */
 private:
-    graphics_t* _graphics;
-    mesh_t*     _quadMesh;
-    texture_t*  _backgroundTexture;
-    texture_t*  _brickTexture;
-    texture_t*  _woodTexture;
-    material_t* _material;
+    //graphics_t _graphics;
+    mesh_id_t     _quadMesh;
+    texture_id_t  _backgroundTexture;
+    texture_id_t  _brickTexture;
+    texture_id_t  _woodTexture;
+    material_id_t _material;
     constant_buffer_t*  _perFrameConstantBuffer;
     constant_buffer_t*  _perObjectConstantBuffer;
     b2World*    _box2d;

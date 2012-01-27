@@ -19,6 +19,7 @@
 #include "scripting.h"
 #include "cJSON.h"
 #include "file.h"
+#include "renderEngine/renderEngine.h"
 
 namespace
 {
@@ -45,7 +46,7 @@ Internal functions
 \*******************************************************************/
 void TestScript(void)
 {
-    printf("From C\n");
+    printf("...From C\n");
 }
 
 scriptingDeclareFunction(TestScript)
@@ -56,6 +57,7 @@ void Initialize(void)
     gfxSetClearColor(s_graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
     gfxSetDepthTest(s_graphics, 0, 0);
     gfxSetAlphaTest(s_graphics, 1);
+    renderInit(s_graphics);
 
     scriptingInit();
     scriptingRegisterFunction(TestScript);
@@ -75,7 +77,7 @@ void Initialize(void)
     cJSON_Delete(s_root);
 
     /* Game init */
-    s_world.SetGraphicsDevice(s_graphics);
+    //s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
     timerInit(&s_timer);
 }
@@ -139,9 +141,10 @@ void Frame(void)
     /*
      * Render
      */
-    gfxClear(s_graphics);
+    //gfxClear(s_graphics);
     s_world.Render();
-    gfxPresent(s_graphics);
+    //gfxPresent(s_graphics);
+    renderFrame();
 }
 void Shutdown(void)
 {
@@ -149,6 +152,7 @@ void Shutdown(void)
     s_world.Destroy();
 
     /* Global shutdown */
+    renderShutdown();
     gfxDestroy(s_graphics);
     scriptingShutdown();
 }

@@ -73,8 +73,7 @@ External variables
 External functions
 \*******************************************************************/
 World::World()
-    : _graphics(NULL)
-    , _quadMesh(NULL)
+    : _quadMesh(NULL)
     , _backgroundTexture(NULL)
     , _brickTexture(NULL)
     , _material(NULL)
@@ -105,37 +104,37 @@ void World::Create(void)
 
 
     /* Create graphics objects */
-    vertex_shader_t* vertexShader = gfxCreateVertexShader(_graphics, vertexShaderFilename);
-    pixel_shader_t* pixelShader = gfxCreatePixelShader(_graphics, pixelShaderFilename);
-    _material = gfxCreateMaterial(_graphics, vertexShader, pixelShader);
+    vertex_shader_id_t vertexShader = renderCreateVertexShader(vertexShaderFilename);
+    pixel_shader_id_t pixelShader = renderCreatePixelShader(pixelShaderFilename);
+    _material = renderCreateMaterial(vertexShader, pixelShader);
 
     /* Create mesh */
-    _quadMesh = gfxCreateMesh(  _graphics,
-                                vertexShader,
-                                kPosTexVertexFormat,
-                                ARRAY_LENGTH(kQuadVerts),
-                                ARRAY_LENGTH(kQuadIndices),
-                                sizeof(kQuadVerts[0]),
-                                sizeof(kQuadIndices[0]),
-                                kQuadVerts, 
-                                kQuadIndices);
+    _quadMesh = renderCreateMesh(   vertexShader,
+                                    kVtxFmtPosTex,
+                                    ARRAY_LENGTH(kQuadVerts),
+                                    ARRAY_LENGTH(kQuadIndices),
+                                    sizeof(kQuadVerts[0]),
+                                    sizeof(kQuadIndices[0]),
+                                    kQuadVerts, 
+                                    kQuadIndices);
     /* textures */
-    _backgroundTexture = gfxCreateTexture(_graphics, groundTexture);
-    _brickTexture = gfxCreateTexture(_graphics, brickTexture);
-    _woodTexture = gfxCreateTexture(_graphics, woodTexture);
+    _backgroundTexture = renderCreateTexture(groundTexture);
+    _brickTexture = renderCreateTexture(brickTexture);
+    _woodTexture = renderCreateTexture(woodTexture);
 
     /* Constant buffers */
-    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer0", 0);
-    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer2", 1);
+//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer0", 0);
+//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer2", 1);
+//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer1", 2);
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
-    projMatrix = Matrix4Identity();
-    _perFrameConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(projMatrix), &projMatrix);
-    Matrix4 identity = Matrix4Identity();
-    _perObjectConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(identity), &identity);
+//    projMatrix = Matrix4Identity();
+//    _perFrameConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(projMatrix), &projMatrix);
+//    Matrix4 identity = Matrix4Identity();
+//    _perObjectConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(identity), &identity);
 
     /* Release shaders */
-    gfxDestroyVertexShader(vertexShader);
-    gfxDestroyPixelShader(pixelShader);
+//    gfxDestroyVertexShader(vertexShader);
+//    gfxDestroyPixelShader(pixelShader);
 
     /*
      * Game initialization
@@ -153,8 +152,8 @@ void World::Reset(void)
     /*
      * Initialize
      */
-    Entity::SetConstantBuffer(_perObjectConstantBuffer);
-    Entity::SetGraphics(_graphics);
+    //Entity::SetConstantBuffer(_perObjectConstantBuffer);
+    //Entity::SetGraphics(_graphics);
     memset(_activeEntities, 0, sizeof(_activeEntities));
     _numActiveEntities = 0;
     
@@ -217,57 +216,57 @@ void World::BuildBuilding(void)
     //    }
     //    xOffset *= -1.0f;
     //}
-    int entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-                            _woodTexture, _quadMesh, 
-                            -10.0f, 7.5f, 
-                            1.0f, 15.0f, 
-                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-                            
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-                            _woodTexture, _quadMesh, 
-                            10.0f, 7.5f, 
-                            1.0f, 15.0f, 
-                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-                            
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-                            _woodTexture, _quadMesh, 
-                            0.0f, 7.5f, 
-                            1.0f, 15.0f, 
-                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-                            
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-                            _woodTexture, _quadMesh, 
-                            0.0f, 15.5f, 
-                            128.0f, 1.0f, 
-                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-
-    int towerWidth = 64;
-    float startX = -63.0f;
-    float y = 16.5f;
-    while(towerWidth)
-    {
-        int ii = 0;
-        float x = startX;
-        for(; ii < towerWidth; ++ii, x += 2.0f)
-        {
-            if(_numActiveEntities >= kMaxEntities)
-                break;
-            entityIndex = _numActiveEntities++;
-            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-                                    _brickTexture, _quadMesh, 
-                                    x, y, 
-                                    2.0f, 1.0f, 
-                                    kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
-            
-        }
-        y += 1.0f;
-        startX += 1.0f;
-        --towerWidth;
-    }
+//    int entityIndex = _numActiveEntities++;
+//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+//                            _woodTexture, _quadMesh, 
+//                            -10.0f, 7.5f, 
+//                            1.0f, 15.0f, 
+//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+//                            
+//    entityIndex = _numActiveEntities++;
+//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+//                            _woodTexture, _quadMesh, 
+//                            10.0f, 7.5f, 
+//                            1.0f, 15.0f, 
+//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+//                            
+//    entityIndex = _numActiveEntities++;
+//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+//                            _woodTexture, _quadMesh, 
+//                            0.0f, 7.5f, 
+//                            1.0f, 15.0f, 
+//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+//                            
+//    entityIndex = _numActiveEntities++;
+//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+//                            _woodTexture, _quadMesh, 
+//                            0.0f, 15.5f, 
+//                            128.0f, 1.0f, 
+//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+//
+//    int towerWidth = 64;
+//    float startX = -63.0f;
+//    float y = 16.5f;
+//    while(towerWidth)
+//    {
+//        int ii = 0;
+//        float x = startX;
+//        for(; ii < towerWidth; ++ii, x += 2.0f)
+//        {
+//            if(_numActiveEntities >= kMaxEntities)
+//                break;
+//            entityIndex = _numActiveEntities++;
+//            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+//                                    _brickTexture, _quadMesh, 
+//                                    x, y, 
+//                                    2.0f, 1.0f, 
+//                                    kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
+//            
+//        }
+//        y += 1.0f;
+//        startX += 1.0f;
+//        --towerWidth;
+//    }
 }
 void World::Explosion(float x, float y, float radius, float force)
 {
@@ -293,13 +292,6 @@ void World::Destroy(void)
 {
     delete _box2d;
 
-    gfxDestroyMaterial(_material);
-    gfxDestroyMesh(_quadMesh);
-    gfxDestroyTexture(_backgroundTexture);
-    gfxDestroyTexture(_brickTexture);
-    gfxDestroyTexture(_woodTexture);
-    gfxDestroyConstantBuffer(_perFrameConstantBuffer);
-    gfxDestroyConstantBuffer(_perObjectConstantBuffer);
 }
 
 void World::Update(float elapsedTime)
@@ -323,25 +315,26 @@ void World::Render(void)
     Matrix4 identity = Matrix4Identity();
     Matrix4 worldMatrix  = Matrix4Scale(2.0f,2.0f,1.0f);
     /* Render background */
-    gfxSetMaterial(_graphics, _material);
 
     /* Render bricks */
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
-    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
+    //gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
     for(int ii=0; ii<_numActiveEntities; ++ii)
     {
-        _activeEntities[ii].Render();
+        //_activeEntities[ii].Render();
     }
 
     
-    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
-    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
-    gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
-    gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
-    gfxSetTexture(_graphics, _backgroundTexture);
-    gfxDrawMesh(_graphics, _quadMesh);
+//    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
+//    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
+//    gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
+//    gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
+//    gfxSetTexture(_graphics, _backgroundTexture);
+//    gfxDrawMesh(_graphics, _quadMesh);
+    
+    renderSubmitDraw(&projMatrix.r0.x, _material, _backgroundTexture, &identity.r0.x, _quadMesh);
 }
-void World::SetGraphicsDevice(graphics_t* graphics)
-{
-    _graphics = graphics;
-}
+//void World::SetGraphicsDevice(graphics_t* graphics)
+//{
+//    _graphics = graphics;
+//}

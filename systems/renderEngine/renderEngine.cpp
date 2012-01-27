@@ -55,7 +55,18 @@ enum
 {
     kMaxMaterials = 16,
     kMaxMeshes = 16,
-    kMaxTextures = 16
+    kMaxTextures = 16,
+    kMaxCommands = 1024,
+    
+    kConstantBufferSize = sizeof(float)*16
+};
+struct render_command_t
+{
+    float           worldMatrix[16];
+    float           viewProj[16];
+    material_id_t   material;
+    texture_id_t    texture;
+    mesh_id_t       mesh;
 };
 struct render_t
 {
@@ -73,6 +84,8 @@ struct render_t
     int                 numTextures;
     constant_buffer_t*  constantBuffers[16];
     
+    render_command_t    renderCommands[kMaxCommands];
+    int                 numRenderCommands;
 }* s_render;
 
 /*******************************************************************\
@@ -111,11 +124,12 @@ void renderInit(graphics_t* graphics)
     /* Allocate structure */
     s_render = (render_t*)malloc(sizeof(*s_render));
     memset(s_render, 0, sizeof(*s_render));
+    s_render->graphics = graphics;
 
     /* Fill it out */
     for(int ii=0; ii<16; ++ii)
     {
-        s_render->constantBuffers[ii] = gfxCreateConstantBuffer(graphics, sizeof(float)*16, NULL);
+        s_render->constantBuffers[ii] = gfxCreateConstantBuffer(graphics, kConstantBufferSize, NULL);
     }
 }
 void renderShutdown(void)
@@ -160,6 +174,10 @@ material_id_t renderCreateMaterial(vertex_shader_id_t vertexShader, pixel_shader
     assert(s_render->numMaterials < kMaxMaterials);
     material_id_t materialId = s_render->numMaterials++;
     s_render->materials[materialId] = gfxCreateMaterial(s_render->graphics, s_render->vertexShaders[vertexShader], s_render->pixelShaders[pixelShader]);
+    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer0", 0);
+    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer1", 1);
+    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer2", 2);
+    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer3", 3);
     return materialId;
 }
 
@@ -189,4 +207,36 @@ texture_id_t renderCreateTexture(const char* filename)
     texture_id_t textureId = s_render->numTextures++;
     s_render->textures[textureId] = gfxCreateTexture(s_render->graphics, filename);
     return textureId;
+}
+
+void renderSubmitDraw(  const float* viewProj,
+                        material_id_t material, 
+                        texture_id_t texture, 
+                        const float* worldMatrix,
+                        mesh_id_t mesh)
+{
+    assert(s_render->numRenderCommands < kMaxCommands);
+    render_command_t& command = s_render->renderCommands[s_render->numRenderCommands++];
+    command.texture = texture;
+    command.material = material;
+    command.mesh = mesh;
+    memcpy(command.worldMatrix, worldMatrix, sizeof(float)*16);
+    memcpy(command.viewProj, viewProj, sizeof(float)*16);
+}
+
+void renderFrame(void)
+{
+    graphics_t* graphics = s_render->graphics;
+    
+    gfxPresent(graphics);
+    gfxClear(graphics);
+    for(int ii=0; ii<s_render->numRenderCommands; ++ii)
+    {
+        const render_command_t& command = s_render->renderCommands[ii];
+        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[0], kConstantBufferSize, command.viewProj);
+        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[2], kConstantBufferSize, command.worldMatrix);
+        gfxSetTexture(graphics, s_render->textures[command.texture]);
+        gfxDrawMesh(graphics, s_render->meshes[command.mesh]);
+    }
+    s_render->numRenderCommands = 0;
 }
