@@ -67,7 +67,7 @@ void Initialize(void)
     
     cJSON* s_root = cJSON_Parse(buffer);
     if(s_root == NULL)
-        printf(cJSON_GetErrorPtr() - 10);
+        printf(cJSON_GetErrorPtr());
     cJSON* gameData = cJSON_GetObjectItem(s_root, "gameData");
     cJSON* explosion = cJSON_GetObjectItem(gameData, "explosion");
     s_explosionRadius = (float)cJSON_GetObjectItem(explosion, "radius")->valuedouble;

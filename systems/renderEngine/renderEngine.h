@@ -29,7 +29,6 @@ typedef int vertex_shader_id_t;
 typedef int pixel_shader_id_t;
 typedef int material_id_t;
 typedef int texture_id_t;
-typedef int constant_buffer_id_t;
 
 typedef enum vertex_format_e
 {
@@ -61,7 +60,6 @@ mesh_id_t renderCreateMesh( vertex_shader_id_t vertexShader,
                             const void* vertices,
                             const void* indices);
 texture_id_t renderCreateTexture(const char* filename);
-constant_buffer_id_t renderCreateConstantBuffer(size_t size, const void* data);
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
 } // extern "C" {

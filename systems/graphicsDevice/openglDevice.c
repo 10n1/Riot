@@ -431,7 +431,9 @@ void gfxUpdateConstantBuffer(graphics_t* device, constant_buffer_t* buffer, size
 void gfxBindConstantBufferToIndex(graphics_t* device, material_t* material, const char* bufferName, int index)
 {
     GLuint bufferIndex = glGetUniformBlockIndex(material->program, bufferName);
+    CheckGLError();
     glUniformBlockBinding(material->program, bufferIndex, index);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 

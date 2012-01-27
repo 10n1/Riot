@@ -16,6 +16,35 @@
 /* Internal headers */
 #include "../graphicsDevice/graphicsDevice.h"
 
+/*
+ * Define debugBreak
+ */
+#if defined( _MSC_VER )
+    #define debugBreak() __debugbreak()
+#elif defined( __GNUC__ )
+    #define debugBreak() __asm__( "int $3\n" : : )
+#else
+    #error Unsupported compiler
+#endif
+
+/*
+ * Define assert
+ */
+#ifndef assert
+    #define assert(condition)   \
+        do                      \
+        {                       \
+            if(!(condition))    \
+            {                   \
+                debugBreak();   \
+            }                   \
+        } while(__LINE__ == -1)
+        /* This causes warning 4127 with VC++ (conditional expression is constant) */
+    #if defined( _MSC_VER )
+        #pragma warning(disable:4127)
+    #endif /* defined( _MSC_VER ) */
+#endif
+
 namespace
 {
 
@@ -26,18 +55,23 @@ enum
 {
     kMaxMaterials = 16,
     kMaxMeshes = 16,
-    kMaxTextures = 16,
+    kMaxTextures = 16
 };
 struct render_t
 {
     graphics_t* graphics;
 
     vertex_shader_t*    vertexShaders[kMaxMaterials];
+    int                 numVertexShaders;
     pixel_shader_t*     pixelShaders[kMaxMaterials];
+    int                 numPixelShaders;
     material_t*         materials[kMaxMaterials];
+    int                 numMaterials;
     mesh_t*             meshes[kMaxMeshes];
+    int                 numMeshes;
     texture_t*          textures[kMaxTextures];
-    constant_buffer_t*  constantBuffers[1];
+    int                 numTextures;
+    constant_buffer_t*  constantBuffers[16];
     
 }* s_render;
 
@@ -79,24 +113,54 @@ void renderInit(graphics_t* graphics)
     memset(s_render, 0, sizeof(*s_render));
 
     /* Fill it out */
+    for(int ii=0; ii<16; ++ii)
+    {
+        s_render->constantBuffers[ii] = gfxCreateConstantBuffer(graphics, sizeof(float)*16, NULL);
+    }
 }
 void renderShutdown(void)
 {
+    for(int ii=0; ii<s_render->numVertexShaders; ++ii)
+        gfxDestroyVertexShader(s_render->vertexShaders[ii]);
+        
+    for(int ii=0; ii<s_render->numPixelShaders; ++ii)
+        gfxDestroyPixelShader(s_render->pixelShaders[ii]);
+        
+    for(int ii=0; ii<s_render->numMaterials; ++ii)
+        gfxDestroyMaterial(s_render->materials[ii]);
+        
+    for(int ii=0; ii<s_render->numMeshes; ++ii)
+        gfxDestroyMesh(s_render->meshes[ii]);
+        
+    for(int ii=0; ii<s_render->numTextures; ++ii)
+        gfxDestroyTexture(s_render->textures[ii]);
+    
+    free(s_render);
+    s_render = NULL;
 }
 
 vertex_shader_id_t renderCreateVertexShader(const char* filename)
 {
-    return 0;
+    assert(s_render->numVertexShaders < kMaxMaterials);
+    vertex_shader_id_t shaderId = s_render->numVertexShaders++;
+    s_render->vertexShaders[shaderId] = gfxCreateVertexShader(s_render->graphics, filename);
+    return shaderId;
 }
 
 pixel_shader_id_t renderCreatePixelShader(const char* filename)
 {
-    return 0;
+    assert(s_render->numPixelShaders < kMaxMaterials);
+    pixel_shader_id_t shaderId = s_render->numPixelShaders++;
+    s_render->pixelShaders[shaderId] = gfxCreatePixelShader(s_render->graphics, filename);
+    return shaderId;
 }
 
 material_id_t renderCreateMaterial(vertex_shader_id_t vertexShader, pixel_shader_id_t pixelShader)
 {
-    return 0;
+    assert(s_render->numMaterials < kMaxMaterials);
+    material_id_t materialId = s_render->numMaterials++;
+    s_render->materials[materialId] = gfxCreateMaterial(s_render->graphics, s_render->vertexShaders[vertexShader], s_render->pixelShaders[pixelShader]);
+    return materialId;
 }
 
 mesh_id_t renderCreateMesh( vertex_shader_id_t vertexShader,
@@ -108,15 +172,21 @@ mesh_id_t renderCreateMesh( vertex_shader_id_t vertexShader,
                             const void* vertices,
                             const void* indices)
 {
-    return 0;
+    assert(s_render->numMeshes < kMaxMeshes);
+    mesh_id_t meshId = s_render->numMeshes++;
+    s_render->meshes[meshId] = gfxCreateMesh(   s_render->graphics, 
+                                                s_render->vertexShaders[vertexShader], 
+                                                kVertexFormats[format], 
+                                                vertexCount, indexCount, 
+                                                vertexSize, indexSize, 
+                                                vertices, indices);
+    return meshId;
 }
 
 texture_id_t renderCreateTexture(const char* filename)
 {
-    return 0;
-}
-
-constant_buffer_id_t renderCreateConstantBuffer(size_t size, const void* data)
-{
-    return 0;
+    assert(s_render->numTextures < kMaxTextures);
+    texture_id_t textureId = s_render->numTextures++;
+    s_render->textures[textureId] = gfxCreateTexture(s_render->graphics, filename);
+    return textureId;
 }

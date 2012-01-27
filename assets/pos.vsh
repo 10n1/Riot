@@ -38,12 +38,17 @@
     #define END_SHADER out float4 vScreenPosition : SV_POSITION)
 #endif
 
-CONSTANT_BUFFER(PerFrame)
+CONSTANT_BUFFER(cbuffer0)
 {
     matrix  kViewProj;
 };
 
-CONSTANT_BUFFER(PerObject)
+//CONSTANT_BUFFER(cbuffer1)
+//{
+//    matrix  kView;
+//};
+
+CONSTANT_BUFFER(cbuffer2)
 {
     matrix kWorld;
 };

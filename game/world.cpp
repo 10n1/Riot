@@ -125,8 +125,8 @@ void World::Create(void)
     _woodTexture = gfxCreateTexture(_graphics, woodTexture);
 
     /* Constant buffers */
-    gfxBindConstantBufferToIndex(_graphics, _material, "PerFrame", 0);
-    gfxBindConstantBufferToIndex(_graphics, _material, "PerObject", 1);
+    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer0", 0);
+    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer2", 1);
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
     projMatrix = Matrix4Identity();
     _perFrameConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(projMatrix), &projMatrix);
