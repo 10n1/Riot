@@ -14,7 +14,7 @@
 /* Internal headers */
 #include "global.h"
 #include "vm.h"
-#include "graphicsDevice/graphicsDevice.h"
+//#include "graphicsDevice/graphicsDevice.h"
 #include "cJSON.h"
 #include "file.h"
 
@@ -45,13 +45,6 @@ const int kQuadIndices[] =
     0,2,1,
     2,3,1,
 };
-const vertex_element_desc_t kPosTexVertexFormat[] =
-{
-    { kGfxShaderInputPosition,  3 },
-    { kGfxShaderInputTexCoord0, 2 },
-    { kGfxShaderInputNull,      0 }, 
-};
-
 const material_properties_t   kMaterialProperties[kNUM_MATERIALS] =
 {
     { 2000.0f, 0.65f }, // Brick
@@ -214,57 +207,57 @@ void World::BuildBuilding(void)
     //    }
     //    xOffset *= -1.0f;
     //}
-//    int entityIndex = _numActiveEntities++;
-//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-//                            _woodTexture, _quadMesh, 
-//                            -10.0f, 7.5f, 
-//                            1.0f, 15.0f, 
-//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-//                            
-//    entityIndex = _numActiveEntities++;
-//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-//                            _woodTexture, _quadMesh, 
-//                            10.0f, 7.5f, 
-//                            1.0f, 15.0f, 
-//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-//                            
-//    entityIndex = _numActiveEntities++;
-//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-//                            _woodTexture, _quadMesh, 
-//                            0.0f, 7.5f, 
-//                            1.0f, 15.0f, 
-//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-//                            
-//    entityIndex = _numActiveEntities++;
-//    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-//                            _woodTexture, _quadMesh, 
-//                            0.0f, 15.5f, 
-//                            128.0f, 1.0f, 
-//                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-//
-//    int towerWidth = 64;
-//    float startX = -63.0f;
-//    float y = 16.5f;
-//    while(towerWidth)
-//    {
-//        int ii = 0;
-//        float x = startX;
-//        for(; ii < towerWidth; ++ii, x += 2.0f)
-//        {
-//            if(_numActiveEntities >= kMaxEntities)
-//                break;
-//            entityIndex = _numActiveEntities++;
-//            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-//                                    _brickTexture, _quadMesh, 
-//                                    x, y, 
-//                                    2.0f, 1.0f, 
-//                                    kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
-//            
-//        }
-//        y += 1.0f;
-//        startX += 1.0f;
-//        --towerWidth;
-//    }
+    int entityIndex = _numActiveEntities++;
+    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                            _woodTexture, _quadMesh, 
+                            -10.0f, 7.5f, 
+                            1.0f, 15.0f, 
+                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+                            
+    entityIndex = _numActiveEntities++;
+    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                            _woodTexture, _quadMesh, 
+                            10.0f, 7.5f, 
+                            1.0f, 15.0f, 
+                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+                            
+    entityIndex = _numActiveEntities++;
+    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                            _woodTexture, _quadMesh, 
+                            0.0f, 7.5f, 
+                            1.0f, 15.0f, 
+                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+                            
+    entityIndex = _numActiveEntities++;
+    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                            _woodTexture, _quadMesh, 
+                            0.0f, 15.5f, 
+                            128.0f, 1.0f, 
+                            kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
+
+    int towerWidth = 64;
+    float startX = -63.0f;
+    float y = 16.5f;
+    while(towerWidth)
+    {
+        int ii = 0;
+        float x = startX;
+        for(; ii < towerWidth; ++ii, x += 2.0f)
+        {
+            if(_numActiveEntities >= kMaxEntities)
+                break;
+            entityIndex = _numActiveEntities++;
+            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+                                    _brickTexture, _quadMesh, 
+                                    x, y, 
+                                    2.0f, 1.0f, 
+                                    kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
+            
+        }
+        y += 1.0f;
+        startX += 1.0f;
+        --towerWidth;
+    }
 }
 void World::Explosion(float x, float y, float radius, float force)
 {
@@ -319,7 +312,7 @@ void World::Render(void)
     //gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
     for(int ii=0; ii<_numActiveEntities; ++ii)
     {
-        //_activeEntities[ii].Render();
+        _activeEntities[ii].Render();
     }
 
     
