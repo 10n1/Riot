@@ -61,7 +61,9 @@ mesh_id_t renderCreateMesh( vertex_shader_id_t vertexShader,
                             const void* indices);
 texture_id_t renderCreateTexture(const char* filename);
 
-void renderSubmitDraw(  const float* viewProj,
+void renderSetViewProj(int index, const float* matrix);
+
+void renderSubmitDraw(  int view,
                         material_id_t material, 
                         texture_id_t texture, 
                         const float* worldMatrix,

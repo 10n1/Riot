@@ -14,7 +14,6 @@
 /* Internal headers */
 #include "global.h"
 #include "vm.h"
-//#include "graphicsDevice/graphicsDevice.h"
 #include "cJSON.h"
 #include "file.h"
 
@@ -113,20 +112,6 @@ void World::Create(void)
     _brickTexture = renderCreateTexture(brickTexture);
     _woodTexture = renderCreateTexture(woodTexture);
 
-    /* Constant buffers */
-//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer0", 0);
-//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer2", 1);
-//    gfxBindConstantBufferToIndex(_graphics, _material, "cbuffer1", 2);
-    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f);
-//    projMatrix = Matrix4Identity();
-//    _perFrameConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(projMatrix), &projMatrix);
-//    Matrix4 identity = Matrix4Identity();
-//    _perObjectConstantBuffer = gfxCreateConstantBuffer(_graphics, sizeof(identity), &identity);
-
-    /* Release shaders */
-//    gfxDestroyVertexShader(vertexShader);
-//    gfxDestroyPixelShader(pixelShader);
-
     /*
      * Game initialization
      */
@@ -143,8 +128,6 @@ void World::Reset(void)
     /*
      * Initialize
      */
-    //Entity::SetConstantBuffer(_perObjectConstantBuffer);
-    //Entity::SetGraphics(_graphics);
     memset(_activeEntities, 0, sizeof(_activeEntities));
     _numActiveEntities = 0;
     
@@ -183,30 +166,6 @@ void World::Reset(void)
 }
 void World::BuildBuilding(void)
 {
-    //float xOffset = -0.5f;
-    //for(float y = 0.5f; _numActiveEntities < kMaxEntities /*y <= 20.5f*/; y += 1.0f)
-    //{
-    //    for(float x = -19.0f; x <= 19.0f; x += 2.0f)
-    //    {
-    //        if(_numActiveEntities == kMaxEntities)
-    //            break;
-    //        int entityIndex = _numActiveEntities++;
-
-    //        if(y < 10.0f)
-    //            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-    //                                    _woodTexture, _quadMesh, 
-    //                                    x+xOffset, y, 
-    //                                    2.0f, 1.0f, 
-    //                                    kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
-    //        else
-    //            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
-    //                                    _brickTexture, _quadMesh, 
-    //                                    x+xOffset, y, 
-    //                                    2.0f, 1.0f, 
-    //                                    kMaterialProperties[kBrick].density, kMaterialProperties[kBrick].friction);
-    //    }
-    //    xOffset *= -1.0f;
-    //}
     int entityIndex = _numActiveEntities++;
     Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
@@ -309,24 +268,11 @@ void World::Render(void)
 
     /* Render bricks */
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
-    //gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(projMatrix), &projMatrix);
+    renderSetViewProj(1, &projMatrix.r0.x);
+    renderSetViewProj(0, &identity.r0.x);
     for(int ii=0; ii<_numActiveEntities; ++ii)
     {
         _activeEntities[ii].Render();
     }
-
-    
-//    gfxUpdateConstantBuffer(_graphics, _perFrameConstantBuffer, sizeof(identity), &identity);
-//    gfxUpdateConstantBuffer(_graphics, _perObjectConstantBuffer, sizeof(worldMatrix), &worldMatrix);
-//    gfxSetVSConstantBuffer(_graphics, _perFrameConstantBuffer, 0);
-//    gfxSetVSConstantBuffer(_graphics, _perObjectConstantBuffer, 1);
-//    gfxSetTexture(_graphics, _backgroundTexture);
-//    gfxDrawMesh(_graphics, _quadMesh);
-    
-    //renderSubmitDraw(&projMatrix.r0.x, _material, _backgroundTexture, &identity.r0.x, _quadMesh);
-    renderSubmitDraw(&identity.r0.x, _material, _backgroundTexture, &worldMatrix.r0.x, _quadMesh);
+    renderSubmitDraw(0, _material, _backgroundTexture, &worldMatrix.r0.x, _quadMesh);
 }
-//void World::SetGraphicsDevice(graphics_t* graphics)
-//{
-//    _graphics = graphics;
-//}

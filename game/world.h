@@ -12,7 +12,6 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-//#include "graphicsDevice/graphicsDevice.h"
 #include "renderEngine/renderEngine.h"
 #include "Box2D/Box2D.h"
 #include "entity.h"
@@ -49,8 +48,6 @@ public:
     void Update(float elapsedTime);
     void Render(void);
 
-    //void SetGraphicsDevice(graphics_t* graphics);
-
     void BuildBuilding(void);
     void Reset(void);
 
@@ -61,7 +58,6 @@ public:
 
 /* Members */
 private:
-    //graphics_t _graphics;
     mesh_id_t     _quadMesh;
     texture_id_t  _backgroundTexture;
     texture_id_t  _brickTexture;

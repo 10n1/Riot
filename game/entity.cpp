@@ -83,6 +83,6 @@ void Entity::Render(void)
     //gfxDrawMesh(s_graphics, _mesh);
 
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
-    renderSubmitDraw(&projMatrix.r0.x, 0, _texture, &worldMatrix.r0.x, _mesh);
+    renderSubmitDraw(1, 0, _texture, &worldMatrix.r0.x, _mesh);
 
 }

@@ -53,17 +53,18 @@ Internal Constants And types
 \*******************************************************************/
 enum
 {
-    kMaxMaterials = 16,
-    kMaxMeshes = 16,
-    kMaxTextures = 16,
-    kMaxCommands = 1024,
+    kMaxMaterials   = 16,
+    kMaxMeshes      = 16,
+    kMaxTextures    = 16,
+    kMaxCommands    = 1024,
+    kMaxViews       = 16,
     
     kConstantBufferSize = sizeof(float)*16
 };
 struct render_command_t
 {
     float           worldMatrix[16];
-    float           viewProj[16];
+    int             view;
     material_id_t   material;
     texture_id_t    texture;
     mesh_id_t       mesh;
@@ -83,6 +84,7 @@ struct render_t
     texture_t*          textures[kMaxTextures];
     int                 numTextures;
     constant_buffer_t*  constantBuffers[16];
+    float               viewMatrices[16][kMaxViews];
     
     render_command_t    renderCommands[kMaxCommands];
     int                 numRenderCommands;
@@ -216,7 +218,13 @@ texture_id_t renderCreateTexture(const char* filename)
     return textureId;
 }
 
-void renderSubmitDraw(  const float* viewProj,
+void renderSetViewProj(int index, const float* matrix)
+{
+    assert(index >= 0 && index < kMaxViews);
+    memcpy(&s_render->viewMatrices[index], matrix, sizeof(float)*16);
+}
+
+void renderSubmitDraw(  int view,
                         material_id_t material, 
                         texture_id_t texture, 
                         const float* worldMatrix,
@@ -227,8 +235,8 @@ void renderSubmitDraw(  const float* viewProj,
     command.texture = texture;
     command.material = material;
     command.mesh = mesh;
+    command.view = view;
     memcpy(command.worldMatrix, worldMatrix, sizeof(float)*16);
-    memcpy(command.viewProj, viewProj, sizeof(float)*16);
 }
 
 void renderFrame(void)
@@ -241,11 +249,11 @@ void renderFrame(void)
         const render_command_t& command = s_render->renderCommands[ii];
         gfxSetMaterial(graphics, s_render->materials[command.material]);
         
-    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer0", 0);
-    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer1", 1);
-    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer2", 1);
-    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer3", 3);
-        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[0], kConstantBufferSize, command.viewProj);
+        gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer0", 0);
+        gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer1", 1);
+        gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer2", 1);
+        gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer3", 3);
+        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[0], kConstantBufferSize, &s_render->viewMatrices[command.view]);
         gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[1], kConstantBufferSize, command.worldMatrix);
         gfxSetVSConstantBuffer(graphics, s_render->constantBuffers[0], 0);
         gfxSetVSConstantBuffer(graphics, s_render->constantBuffers[1], 1);
