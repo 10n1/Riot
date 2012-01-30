@@ -77,12 +77,7 @@ void Entity::Render(void)
     b2Vec2 pos = _physicsBody->GetPosition();
     worldMatrix.r3.x = pos.x;
     worldMatrix.r3.y = pos.y;
-    //gfxUpdateConstantBuffer(s_graphics, s_constBuffer, sizeof(worldMatrix), &worldMatrix);
 
-    //gfxSetTexture(s_graphics, _texture);
-    //gfxDrawMesh(s_graphics, _mesh);
-
-    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
     renderSubmitDraw(1, 0, _texture, &worldMatrix.r0.x, _mesh);
 
 }
