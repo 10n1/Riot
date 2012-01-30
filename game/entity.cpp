@@ -34,17 +34,13 @@ Internal functions
 /*******************************************************************\
 External variables
 \*******************************************************************/
-constant_buffer_t*   Entity::s_constBuffer  = NULL;
-graphics_t*          Entity::s_graphics     = NULL;
 
 /*******************************************************************\
 External functions
 \*******************************************************************/
 /* Members */
-void Entity::SetGraphics(graphics_t* graphics) { s_graphics = graphics; }
-void Entity::SetConstantBuffer(constant_buffer_t* constBuffer) { s_constBuffer = constBuffer; }
-void Entity::CreateEntity(  Entity* entity, b2World* world, 
-                            texture_t* texture, mesh_t* mesh,
+void Entity::CreateEntity(  Entity* entity, b2World* world,
+                            texture_id_t texture, mesh_id_t mesh,
                             float x, float y, 
                             float w, float h, 
                             float density, float friction)
@@ -81,8 +77,12 @@ void Entity::Render(void)
     b2Vec2 pos = _physicsBody->GetPosition();
     worldMatrix.r3.x = pos.x;
     worldMatrix.r3.y = pos.y;
-    gfxUpdateConstantBuffer(s_graphics, s_constBuffer, sizeof(worldMatrix), &worldMatrix);
+    //gfxUpdateConstantBuffer(s_graphics, s_constBuffer, sizeof(worldMatrix), &worldMatrix);
 
-    gfxSetTexture(s_graphics, _texture);
-    gfxDrawMesh(s_graphics, _mesh);
+    //gfxSetTexture(s_graphics, _texture);
+    //gfxDrawMesh(s_graphics, _mesh);
+
+    Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
+    renderSubmitDraw(&projMatrix.r0.x, 0, _texture, &worldMatrix.r0.x, _mesh);
+
 }

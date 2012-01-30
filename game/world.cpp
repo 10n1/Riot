@@ -77,8 +77,6 @@ World::World()
     , _backgroundTexture(NULL)
     , _brickTexture(NULL)
     , _material(NULL)
-    , _perFrameConstantBuffer(NULL)
-    , _perObjectConstantBuffer(NULL)
     , _box2d(NULL)
     , _numActiveEntities(0)
 {
@@ -332,7 +330,8 @@ void World::Render(void)
 //    gfxSetTexture(_graphics, _backgroundTexture);
 //    gfxDrawMesh(_graphics, _quadMesh);
     
-    renderSubmitDraw(&projMatrix.r0.x, _material, _backgroundTexture, &identity.r0.x, _quadMesh);
+    //renderSubmitDraw(&projMatrix.r0.x, _material, _backgroundTexture, &identity.r0.x, _quadMesh);
+    renderSubmitDraw(&identity.r0.x, _material, _backgroundTexture, &worldMatrix.r0.x, _quadMesh);
 }
 //void World::SetGraphicsDevice(graphics_t* graphics)
 //{

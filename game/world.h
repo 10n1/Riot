@@ -67,8 +67,6 @@ private:
     texture_id_t  _brickTexture;
     texture_id_t  _woodTexture;
     material_id_t _material;
-    constant_buffer_t*  _perFrameConstantBuffer;
-    constant_buffer_t*  _perObjectConstantBuffer;
     b2World*    _box2d;
     Entity      _activeEntities[kMaxEntities];
     int         _numActiveEntities;
