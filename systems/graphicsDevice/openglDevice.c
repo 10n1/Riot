@@ -23,6 +23,8 @@
 static GLenum   _glError = GL_NO_ERROR;
 #define CheckGLError() \
     _glError = glGetError(); \
+    if(_glError != GL_NO_ERROR) \
+        printf("%s\n", GetGLErrorString(_glError));\
     assert(_glError == GL_NO_ERROR)
 
 
@@ -74,6 +76,49 @@ static free_func_t*     gfx_free   = &free;
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
+static const char * GetGLErrorString(GLenum error)
+{
+	const char *str;
+	switch( error )
+	{
+		case GL_NO_ERROR:
+			str = "GL_NO_ERROR";
+			break;
+		case GL_INVALID_ENUM:
+			str = "GL_INVALID_ENUM";
+			break;
+		case GL_INVALID_VALUE:
+			str = "GL_INVALID_VALUE";
+			break;
+		case GL_INVALID_OPERATION:
+			str = "GL_INVALID_OPERATION";
+			break;		
+#if defined __gl_h_ || defined __gl3_h_
+		case GL_OUT_OF_MEMORY:
+			str = "GL_OUT_OF_MEMORY";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			str = "GL_INVALID_FRAMEBUFFER_OPERATION";
+			break;
+#endif
+#if defined __gl_h_
+		case GL_STACK_OVERFLOW:
+			str = "GL_STACK_OVERFLOW";
+			break;
+		case GL_STACK_UNDERFLOW:
+			str = "GL_STACK_UNDERFLOW";
+			break;
+		case GL_TABLE_TOO_LARGE:
+			str = "GL_TABLE_TOO_LARGE";
+			break;
+#endif
+		default:
+			str = "(ERROR: Unknown Error Enum)";
+			break;
+	}
+	return str;
+}
+
 static int RetryMessageBox(const char* header, const char* message)
 {
 #ifdef _WIN32
@@ -205,6 +250,7 @@ void gfxSetDepthTest(graphics_t* device, int test, int write)
     glDepthMask( write ? GL_TRUE : GL_FALSE);
     glDepthFunc(GL_LEQUAL);
     glDepthRange(0.0f, 1.0f);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 void gfxSetAlphaTest(graphics_t* device, int enable)
@@ -219,6 +265,7 @@ void gfxSetAlphaTest(graphics_t* device, int enable)
     {
         glDisable(GL_BLEND);
     }
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 
@@ -387,6 +434,7 @@ texture_t* gfxCreateTexture(graphics_t* device, const char* filename)
     glTexImage2D(GL_TEXTURE_2D, 0, components, width, height, 0, format, GL_UNSIGNED_BYTE, textureData);
     CheckGLError();
     glBindTexture(GL_TEXTURE_2D, 0);
+    CheckGLError();
 
     /* release texture data */
     stbi_image_free(textureData);
@@ -426,6 +474,7 @@ void gfxUpdateConstantBuffer(graphics_t* device, constant_buffer_t* buffer, size
     glBindBuffer(GL_UNIFORM_BUFFER, buffer->buffer);
     glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 void gfxBindConstantBufferToIndex(graphics_t* device, material_t* material, const char* bufferName, int index)
@@ -445,18 +494,21 @@ void gfxDestroyVertexShader(vertex_shader_t* shader)
 {
     glUseProgram(0);
     glDeleteShader(shader->shader);
+    CheckGLError();
     free(shader);
 }
 void gfxDestroyPixelShader(pixel_shader_t* shader)
 {
     glUseProgram(0);
     glDeleteShader(shader->shader);
+    CheckGLError();
     free(shader);
 }
 void gfxDestroyMaterial(material_t* material)
 {
     glUseProgram(0);
     glDeleteProgram(material->program);
+    CheckGLError();
     free(material);
 }
 void gfxDestroyMesh(mesh_t* mesh)
@@ -467,18 +519,21 @@ void gfxDestroyMesh(mesh_t* mesh)
     glDeleteVertexArrays(1, &mesh->inputLayout);
     glDeleteBuffers(1, &mesh->vertexBuffer);
     glDeleteBuffers(1, &mesh->indexBuffer);
+    CheckGLError();
     free(mesh);
 }
 void gfxDestroyTexture(texture_t* texture)
 {
     glBindTexture(GL_TEXTURE_2D, 0);
     glDeleteTextures(1, &texture->texture);
+    CheckGLError();
     free(texture);
 }
 void gfxDestroyConstantBuffer(constant_buffer_t* buffer)
 {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glDeleteBuffers(1, &buffer->buffer);
+    CheckGLError();
     free(buffer);
 }
 
@@ -492,22 +547,27 @@ void gfxSetMaterial(graphics_t* device, material_t* material)
 void gfxSetTexture(graphics_t* device, texture_t* texture)
 {
     glBindTexture(GL_TEXTURE_2D, texture->texture);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 void gfxSetVSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint32_t index)
 {
     glBindBufferBase(GL_UNIFORM_BUFFER, index, buffer->buffer);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 void gfxSetPSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint32_t index)
 {
     glBindBufferBase(GL_UNIFORM_BUFFER, index, buffer->buffer);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 void gfxDrawMesh(graphics_t* device, mesh_t* mesh)
 {
     glBindVertexArray(mesh->inputLayout);
+    CheckGLError();
     glDrawElements(GL_TRIANGLES, (GLsizei)mesh->indexCount, (mesh->indexSize == 2) ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, 0);
+    CheckGLError();
     UNUSED_PARAMETER(device);
 }
 

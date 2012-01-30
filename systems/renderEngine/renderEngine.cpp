@@ -129,7 +129,14 @@ void renderInit(graphics_t* graphics)
     /* Fill it out */
     for(int ii=0; ii<16; ++ii)
     {
-        s_render->constantBuffers[ii] = gfxCreateConstantBuffer(graphics, kConstantBufferSize, NULL);
+        float   matrix[16] =
+        {
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f,
+        };
+        s_render->constantBuffers[ii] = gfxCreateConstantBuffer(graphics, kConstantBufferSize, matrix);
     }
 }
 void renderShutdown(void)
@@ -176,7 +183,7 @@ material_id_t renderCreateMaterial(vertex_shader_id_t vertexShader, pixel_shader
     s_render->materials[materialId] = gfxCreateMaterial(s_render->graphics, s_render->vertexShaders[vertexShader], s_render->pixelShaders[pixelShader]);
     gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer0", 0);
     gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer1", 1);
-    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer2", 2);
+    gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer2", 1);
     gfxBindConstantBufferToIndex(s_render->graphics, s_render->materials[materialId], "cbuffer3", 3);
     return materialId;
 }
@@ -228,15 +235,24 @@ void renderFrame(void)
 {
     graphics_t* graphics = s_render->graphics;
     
-    gfxPresent(graphics);
     gfxClear(graphics);
     for(int ii=0; ii<s_render->numRenderCommands; ++ii)
     {
         const render_command_t& command = s_render->renderCommands[ii];
+        gfxSetMaterial(graphics, s_render->materials[command.material]);
+        
+    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer0", 0);
+    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer1", 1);
+    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer2", 1);
+    gfxBindConstantBufferToIndex(graphics, s_render->materials[command.material], "cbuffer3", 3);
         gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[0], kConstantBufferSize, command.viewProj);
-        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[2], kConstantBufferSize, command.worldMatrix);
+        gfxUpdateConstantBuffer(graphics, s_render->constantBuffers[1], kConstantBufferSize, command.worldMatrix);
+        gfxSetVSConstantBuffer(graphics, s_render->constantBuffers[0], 0);
+        gfxSetVSConstantBuffer(graphics, s_render->constantBuffers[1], 1);
         gfxSetTexture(graphics, s_render->textures[command.texture]);
         gfxDrawMesh(graphics, s_render->meshes[command.mesh]);
     }
     s_render->numRenderCommands = 0;
+    
+    gfxPresent(graphics);
 }

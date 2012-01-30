@@ -114,6 +114,7 @@ graphics_t* gfxCreate(void* window)
 void gfxPresent(graphics_t* device)
 {
     [(NSOpenGLContext*)device->context flushBuffer];
+    CheckGLError();
 }
 
 void gfxResize(graphics_t* device, int width, int height)
