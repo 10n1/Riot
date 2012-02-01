@@ -64,11 +64,11 @@ extern void cJSON_InitHooks(cJSON_Hooks* hooks);
 
 /* Supply a block of JSON, and this returns a cJSON object you can interrogate. Call cJSON_Delete when finished. */
 extern cJSON *cJSON_Parse(const char *value);
-/* Render a cJSON entity to text for transfer/storage. Free the char* when finished. */
+/* Render a cJSON BrickEntity to text for transfer/storage. Free the char* when finished. */
 extern char  *cJSON_Print(cJSON *item);
-/* Render a cJSON entity to text for transfer/storage without any formatting. Free the char* when finished. */
+/* Render a cJSON BrickEntity to text for transfer/storage without any formatting. Free the char* when finished. */
 extern char  *cJSON_PrintUnformatted(cJSON *item);
-/* Delete a cJSON entity and all subentities. */
+/* Delete a cJSON BrickEntity and all subentities. */
 extern void   cJSON_Delete(cJSON *c);
 
 /* Returns the number of items in an array (or object). */

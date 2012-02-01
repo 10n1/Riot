@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cJSON.c" />
-    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="brickentity.cpp" />
     <ClCompile Include="file.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scripting.cpp" />
@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cJSON.h" />
-    <ClInclude Include="entity.h" />
+    <ClInclude Include="brickentity.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="scripting.h" />

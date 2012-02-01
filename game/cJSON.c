@@ -259,7 +259,7 @@ cJSON *cJSON_Parse(const char *value)
 	return c;
 }
 
-/* Render a cJSON item/entity/structure to text. */
+/* Render a cJSON item/BrickEntity/structure to text. */
 char *cJSON_Print(cJSON *item)				{return print_value(item,0,1);}
 char *cJSON_PrintUnformatted(cJSON *item)	{return print_value(item,0,0);}
 

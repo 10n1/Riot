@@ -1,12 +1,12 @@
 /*
- * entity.h
+ * BrickEntity.h
  * Riot
  *
  * Created by Kyle Weicht on 1/22/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __Riot_entity_h__
-#define __Riot_entity_h__
+#ifndef __Riot_BrickEntity_h__
+#define __Riot_BrickEntity_h__
 
 /* C headers */
 /* C++ headers */
@@ -19,14 +19,14 @@
 External Constants And types
 \*******************************************************************/
 
-class Entity
+class BrickEntity
 {
 /* Methods */
 public:
     void Update(float elapsedTime);
     void Render(void);
 
-    static void CreateEntity(   Entity* entity, b2World* world,
+    static void CreateBrickEntity(   BrickEntity* BrickEntity, b2World* world,
                                 texture_id_t texture, mesh_id_t mesh,
                                 float x, float y, 
                                 float w, float h, 

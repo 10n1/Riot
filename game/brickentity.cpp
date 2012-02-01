@@ -1,12 +1,12 @@
 /*
- * entity.cpp
+ * BrickEntity.cpp
  * PROJECTNAME
  *
  * Created by Kyle Weicht on 1/22/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
 
-#include "entity.h"
+#include "BrickEntity.h"
 
 /* C headers */
 /* C++ headers */
@@ -39,15 +39,15 @@ External variables
 External functions
 \*******************************************************************/
 /* Members */
-void Entity::CreateEntity(  Entity* entity, b2World* world,
+void BrickEntity::CreateBrickEntity(  BrickEntity* BrickEntity, b2World* world,
                             texture_id_t texture, mesh_id_t mesh,
                             float x, float y, 
                             float w, float h, 
                             float density, float friction)
 {
     // Graphics components
-    entity->_texture = texture;
-    entity->_mesh = mesh;
+    BrickEntity->_texture = texture;
+    BrickEntity->_mesh = mesh;
 
     // Physics components
     b2BodyDef bodyDef;
@@ -56,21 +56,21 @@ void Entity::CreateEntity(  Entity* entity, b2World* world,
 
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
-    entity->_physicsBody = world->CreateBody(&bodyDef);
+    BrickEntity->_physicsBody = world->CreateBody(&bodyDef);
 
     dynamicBox.SetAsBox(w/2, h/2);
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = density;
     fixtureDef.friction = friction;
-    entity->_physicsBody->CreateFixture(&fixtureDef);
+    BrickEntity->_physicsBody->CreateFixture(&fixtureDef);
 
-    entity->_width = w;
-    entity->_height = h;
+    BrickEntity->_width = w;
+    BrickEntity->_height = h;
 }
-void Entity::Update(float elapsedTime)
+void BrickEntity::Update(float elapsedTime)
 {
 }
-void Entity::Render(void)
+void BrickEntity::Render(void)
 {
     Matrix4 worldMatrix = Matrix4RotationZ(_physicsBody->GetAngle());
     worldMatrix = Matrix4MatrixMultiply(Matrix4Scale(_width, _height, 1.0f), worldMatrix);

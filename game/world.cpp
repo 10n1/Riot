@@ -166,29 +166,29 @@ void World::Reset(void)
 }
 void World::BuildBuilding(void)
 {
-    int entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+    int BrickEntityIndex = _numActiveEntities++;
+    BrickEntity::CreateBrickEntity(   &_activeEntities[BrickEntityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             -10.0f, 7.5f, 
                             1.0f, 15.0f, 
                             kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
                             
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+    BrickEntityIndex = _numActiveEntities++;
+    BrickEntity::CreateBrickEntity(   &_activeEntities[BrickEntityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             10.0f, 7.5f, 
                             1.0f, 15.0f, 
                             kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
                             
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+    BrickEntityIndex = _numActiveEntities++;
+    BrickEntity::CreateBrickEntity(   &_activeEntities[BrickEntityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             0.0f, 7.5f, 
                             1.0f, 15.0f, 
                             kMaterialProperties[kWood].density, kMaterialProperties[kWood].friction);
                             
-    entityIndex = _numActiveEntities++;
-    Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+    BrickEntityIndex = _numActiveEntities++;
+    BrickEntity::CreateBrickEntity(   &_activeEntities[BrickEntityIndex], _box2d, 
                             _woodTexture, _quadMesh, 
                             0.0f, 15.5f, 
                             128.0f, 1.0f, 
@@ -205,8 +205,8 @@ void World::BuildBuilding(void)
         {
             if(_numActiveEntities >= kMaxEntities)
                 break;
-            entityIndex = _numActiveEntities++;
-            Entity::CreateEntity(   &_activeEntities[entityIndex], _box2d, 
+            BrickEntityIndex = _numActiveEntities++;
+            BrickEntity::CreateBrickEntity(   &_activeEntities[BrickEntityIndex], _box2d, 
                                     _brickTexture, _quadMesh, 
                                     x, y, 
                                     2.0f, 1.0f, 
@@ -262,14 +262,14 @@ void World::Resize(float width, float height)
 }
 void World::Render(void)
 {
-    Matrix4 identity = Matrix4Identity();
+    Matrix4 idBrickEntity = Matrix4Identity();
     Matrix4 worldMatrix  = Matrix4Scale(2.0f,2.0f,1.0f);
     /* Render background */
 
     /* Render bricks */
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
     renderSetViewProj(1, &projMatrix.r0.x);
-    renderSetViewProj(0, &identity.r0.x);
+    renderSetViewProj(0, &idBrickEntity.r0.x);
     for(int ii=0; ii<_numActiveEntities; ++ii)
     {
         _activeEntities[ii].Render();

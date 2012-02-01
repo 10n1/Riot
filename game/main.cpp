@@ -47,6 +47,7 @@ void TestScript(void)
     printf("...From C\n");
 }
 
+
 scriptingDeclareFunction(TestScript)
 void Initialize(void)
 {
@@ -57,6 +58,7 @@ void Initialize(void)
     scriptingRegisterFunction(TestScript);
     scriptingDoScript(  "print(\"Hello from Lua...\")\n"
                         "TestScript()\n");
+    scriptingDoScriptFile("assets/testlua.lua");
 
     char buffer[1024] = {0};    
     fileLoadAndRead(buffer, sizeof(buffer), "Assets/gameData.json");

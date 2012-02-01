@@ -4,20 +4,20 @@
     <ClCompile Include="timer.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="world.cpp" />
-    <ClCompile Include="entity.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="cJSON.c" />
     <ClCompile Include="file.c" />
+    <ClCompile Include="brickentity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="world.h" />
-    <ClInclude Include="entity.h" />
     <ClInclude Include="scripting.h" />
     <ClInclude Include="cJSON.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="brickentity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">

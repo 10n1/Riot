@@ -14,7 +14,7 @@
 /* Internal headers */
 #include "renderEngine/renderEngine.h"
 #include "Box2D/Box2D.h"
-#include "entity.h"
+#include "BrickEntity.h"
 
 /*******************************************************************\
 External Constants And types
@@ -64,7 +64,7 @@ private:
     texture_id_t  _woodTexture;
     material_id_t _material;
     b2World*    _box2d;
-    Entity      _activeEntities[kMaxEntities];
+    BrickEntity      _activeEntities[kMaxEntities];
     int         _numActiveEntities;
 };
 
