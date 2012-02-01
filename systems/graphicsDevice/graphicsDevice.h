@@ -19,7 +19,7 @@
 #define GFX_OPENGL  2
 
 #ifndef GFX_API
-    #define GFX_API GFX_OPENGL
+    #define GFX_API GFX_DIRECTX
 #endif
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
