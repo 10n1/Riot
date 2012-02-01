@@ -12,6 +12,7 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+#include "global.h"
 
 namespace
 {
@@ -44,7 +45,7 @@ int      Entity::s_numEntities  = 0;
 /*******************************************************************\
 External functions
 \*******************************************************************/
-static Entity* Entity::CreateEntity(void)
+Entity* Entity::CreateEntity(void)
 {
     if(s_entities == NULL)
     {
