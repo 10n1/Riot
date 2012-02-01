@@ -1,8 +1,8 @@
 {
     "gameData" : {
         "explosion" : {
-            "radius" : 15,
-            "force" : 200000
+            "radius" : 25,
+            "force" : 2000000
         }
     },
     "assets" : {

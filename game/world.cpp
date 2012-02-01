@@ -262,17 +262,17 @@ void World::Resize(float width, float height)
 }
 void World::Render(void)
 {
-    Matrix4 idBrickEntity = Matrix4Identity();
-    Matrix4 worldMatrix  = Matrix4Scale(2.0f,2.0f,1.0f);
-    /* Render background */
-
-    /* Render bricks */
+    Matrix4 identity = Matrix4Identity();
     Matrix4 projMatrix = Matrix4OrthographicOffCenterLH(-64.0f, 64.0f, 120.0f, -8.0f, -1.0f, 1.0f);
     renderSetViewProj(1, &projMatrix.r0.x);
-    renderSetViewProj(0, &idBrickEntity.r0.x);
+    renderSetViewProj(0, &identity.r0.x);
+    /* Render background */
+    Matrix4 worldMatrix  = Matrix4Scale(2.0f,2.0f,1.0f);
+    renderSubmitDraw(0, _material, _backgroundTexture, &worldMatrix.r0.x, _quadMesh);
+
+    /* Render bricks */
     for(int ii=0; ii<_numActiveEntities; ++ii)
     {
         _activeEntities[ii].Render();
     }
-    renderSubmitDraw(0, _material, _backgroundTexture, &worldMatrix.r0.x, _quadMesh);
 }

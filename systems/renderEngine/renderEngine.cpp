@@ -56,7 +56,7 @@ enum
     kMaxMaterials   = 16,
     kMaxMeshes      = 16,
     kMaxTextures    = 16,
-    kMaxCommands    = 1024,
+    kMaxCommands    = 1024*8,
     kMaxViews       = 16,
     
     kConstantBufferSize = sizeof(float)*16

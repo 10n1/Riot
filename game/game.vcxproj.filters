@@ -8,6 +8,7 @@
     <ClCompile Include="cJSON.c" />
     <ClCompile Include="file.c" />
     <ClCompile Include="brickentity.cpp" />
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vm.h" />
@@ -18,6 +19,7 @@
     <ClInclude Include="cJSON.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="brickentity.h" />
+    <ClInclude Include="entity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="assets">
