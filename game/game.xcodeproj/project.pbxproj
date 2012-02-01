@@ -12,16 +12,17 @@
 		27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27031D5D14CC835A00C804B9 /* OpenGL.framework */; };
 		27073BAF14CBFF9C004F0DFA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27073BAD14CBFF9C004F0DFA /* main.cpp */; };
 		272B0B6314CCE96600B63109 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 272B0B6114CCE96600B63109 /* entity.cpp */; };
-		27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */; };
+		274319C314D9FD1E00E7F63C /* brickentity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 274319C114D9FD1E00E7F63C /* brickentity.cpp */; };
+		274319C614D9FD8500E7F63C /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274319C514D9FD8500E7F63C /* libBox2D.a */; };
+		274319C814D9FD8A00E7F63C /* librenderEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274319C714D9FD8A00E7F63C /* librenderEngine.a */; };
+		274319CA14D9FD8D00E7F63C /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274319C914D9FD8D00E7F63C /* libsystemInterface.a */; };
+		274319CC14D9FD9000E7F63C /* libgraphicsDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 274319CB14D9FD9000E7F63C /* libgraphicsDevice.a */; };
+		274319CD14D9FDA200E7F63C /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE19D6B14CE67CF005BA5C2 /* liblua.a */; };
 		27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487ADF14CC01E400E15C1F /* CoreFoundation.framework */; };
 		27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE014CC01E400E15C1F /* Foundation.framework */; };
 		27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27487AE314CC01E900E15C1F /* Cocoa.framework */; };
-		CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031814CDC13700755BE3 /* libBox2D.a */; };
-		CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD07031A14CDC13900755BE3 /* libsystemInterface.a */; };
 		CD3E47BD14CF1087009BE07D /* file.c in Sources */ = {isa = PBXBuildFile; fileRef = CD3E47BC14CF1087009BE07D /* file.c */; };
-		CD3E47D914CF371D009BE07D /* librenderEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3E47D814CF371D009BE07D /* librenderEngine.a */; };
 		CDE19D6A14CE6784005BA5C2 /* scripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDE19D6814CE6784005BA5C2 /* scripting.cpp */; };
-		CDE19D6C14CE67CF005BA5C2 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE19D6B14CE67CF005BA5C2 /* liblua.a */; };
 		CDF9B9B014CE7AC100E9D1B3 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,12 @@
 		27073BAE14CBFF9C004F0DFA /* vm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm.h; sourceTree = "<group>"; };
 		272B0B6114CCE96600B63109 /* entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
 		272B0B6214CCE96600B63109 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entity.h; sourceTree = "<group>"; };
+		274319C114D9FD1E00E7F63C /* brickentity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brickentity.cpp; sourceTree = "<group>"; };
+		274319C214D9FD1E00E7F63C /* brickentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brickentity.h; sourceTree = "<group>"; };
+		274319C514D9FD8500E7F63C /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products/Debug/libBox2D.a"; sourceTree = "<group>"; };
+		274319C714D9FD8A00E7F63C /* librenderEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librenderEngine.a; path = /Users/kyle/development/Riot/systems/renderEngine/../../build/bin/librenderEngine.a; sourceTree = "<absolute>"; };
+		274319C914D9FD8D00E7F63C /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = "../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products/libsystemInterface.a"; sourceTree = "<group>"; };
+		274319CB14D9FD9000E7F63C /* libgraphicsDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphicsDevice.a; path = /Users/kyle/development/Riot/systems/graphicsDevice/../../build/bin/libgraphicsDevice.a; sourceTree = "<absolute>"; };
 		27487ADB14CC01D800E15C1F /* libgraphicsDevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgraphicsDevice.a; path = ../build/bin/libgraphicsDevice.a; sourceTree = "<group>"; };
 		27487ADC14CC01D800E15C1F /* libsystemInterface.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsystemInterface.a; path = ../build/bin/libsystemInterface.a; sourceTree = "<group>"; };
 		27487ADF14CC01E400E15C1F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -83,15 +90,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD3E47D914CF371D009BE07D /* librenderEngine.a in Frameworks */,
-				CDE19D6C14CE67CF005BA5C2 /* liblua.a in Frameworks */,
-				CD07031B14CDC13900755BE3 /* libsystemInterface.a in Frameworks */,
-				CD07031914CDC13700755BE3 /* libBox2D.a in Frameworks */,
+				274319CD14D9FDA200E7F63C /* liblua.a in Frameworks */,
+				274319CC14D9FD9000E7F63C /* libgraphicsDevice.a in Frameworks */,
+				274319CA14D9FD8D00E7F63C /* libsystemInterface.a in Frameworks */,
+				274319C814D9FD8A00E7F63C /* librenderEngine.a in Frameworks */,
+				274319C614D9FD8500E7F63C /* libBox2D.a in Frameworks */,
 				27031D5E14CC835A00C804B9 /* OpenGL.framework in Frameworks */,
 				27487AE414CC01E900E15C1F /* Cocoa.framework in Frameworks */,
 				27487AE114CC01E400E15C1F /* CoreFoundation.framework in Frameworks */,
 				27487AE214CC01E400E15C1F /* Foundation.framework in Frameworks */,
-				27487ADD14CC01D800E15C1F /* libgraphicsDevice.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +108,10 @@
 		27487ADA14CC01C800E15C1F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				274319CB14D9FD9000E7F63C /* libgraphicsDevice.a */,
+				274319C914D9FD8D00E7F63C /* libsystemInterface.a */,
+				274319C714D9FD8A00E7F63C /* librenderEngine.a */,
+				274319C514D9FD8500E7F63C /* libBox2D.a */,
 				CD3E47D814CF371D009BE07D /* librenderEngine.a */,
 				CDE19D6B14CE67CF005BA5C2 /* liblua.a */,
 				CD07031A14CDC13900755BE3 /* libsystemInterface.a */,
@@ -119,6 +130,8 @@
 		27C073E914CBFF47003B65D5 = {
 			isa = PBXGroup;
 			children = (
+				274319C114D9FD1E00E7F63C /* brickentity.cpp */,
+				274319C214D9FD1E00E7F63C /* brickentity.h */,
 				CD07031614CDC11500755BE3 /* assets */,
 				CDF9B9AE14CE7AC100E9D1B3 /* cJSON.c */,
 				CD3E47BC14CF1087009BE07D /* file.c */,
@@ -225,6 +238,7 @@
 				CDE19D6A14CE6784005BA5C2 /* scripting.cpp in Sources */,
 				CDF9B9B014CE7AC100E9D1B3 /* cJSON.c in Sources */,
 				CD3E47BD14CF1087009BE07D /* file.c in Sources */,
+				274319C314D9FD1E00E7F63C /* brickentity.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +353,8 @@
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products\"",
 					"\"$(SRCROOT)/../external/lua-5.2.0/src\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,6 +371,8 @@
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products/Debug\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-czmcbiqavqukiybxagaqygjchnef/Build/Products\"",
 					"\"$(SRCROOT)/../external/lua-5.2.0/src\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/riot-fayqmziamjezildiezplqmgnizix/Build/Products\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
