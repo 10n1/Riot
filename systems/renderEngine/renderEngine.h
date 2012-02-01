@@ -45,7 +45,7 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void renderInit(graphics_t* graphics);
+void renderInit(void* window);
 void renderShutdown(void);
 
 vertex_shader_id_t renderCreateVertexShader(const char* filename);
@@ -62,6 +62,7 @@ mesh_id_t renderCreateMesh( vertex_shader_id_t vertexShader,
 texture_id_t renderCreateTexture(const char* filename);
 
 void renderSetViewProj(int index, const float* matrix);
+void renderResize(int width, int height);
 
 void renderSubmitDraw(  int view,
                         material_id_t material, 

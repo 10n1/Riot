@@ -12,7 +12,6 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-//#include "graphicsDevice/graphicsDevice.h"
 #include "renderEngine/renderEngine.h"
 #include "Box2D/Box2D.h"
 

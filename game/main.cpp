@@ -13,7 +13,6 @@
 /* Internal headers */
 #include "global.h"
 #include "system/system.h"
-#include "graphicsDevice/graphicsDevice.h"
 #include "timer.h"
 #include "world.h"
 #include "scripting.h"
@@ -34,7 +33,6 @@ Internal variables
 system_t*   s_system = NULL;
 timer_t     s_timer;
 float       s_elapsedTime = 0.0f;
-graphics_t* s_graphics = NULL;
 World       s_world;
 int         s_windowWidth = 0;
 int         s_windowHeight = 0;
@@ -53,11 +51,7 @@ scriptingDeclareFunction(TestScript)
 void Initialize(void)
 {
     /* Global init */
-    s_graphics = gfxCreate(sysGetWindow(s_system));
-    gfxSetClearColor(s_graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
-    gfxSetDepthTest(s_graphics, 0, 0);
-    gfxSetAlphaTest(s_graphics, 1);
-    renderInit(s_graphics);
+    renderInit(sysGetWindow(s_system));
 
     scriptingInit();
     scriptingRegisterFunction(TestScript);
@@ -77,7 +71,6 @@ void Initialize(void)
     cJSON_Delete(s_root);
 
     /* Game init */
-    //s_world.SetGraphicsDevice(s_graphics);
     s_world.Create();
     timerInit(&s_timer);
 }
@@ -141,9 +134,7 @@ void Frame(void)
     /*
      * Render
      */
-    //gfxClear(s_graphics);
     s_world.Render();
-    //gfxPresent(s_graphics);
     renderFrame();
 }
 void Shutdown(void)
@@ -153,15 +144,11 @@ void Shutdown(void)
 
     /* Global shutdown */
     renderShutdown();
-    gfxDestroy(s_graphics);
     scriptingShutdown();
 }
 void Resize(int width, int height)
 {
-    if(s_graphics)
-    {
-        gfxResize(s_graphics, width, height);
-    }
+    renderResize(width, height);
     s_windowWidth = width;
     s_windowHeight = height;
 }

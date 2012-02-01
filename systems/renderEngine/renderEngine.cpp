@@ -121,8 +121,14 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void renderInit(graphics_t* graphics)
+void renderInit(void* window)
 {
+    /* Create graphics device */
+    graphics_t* graphics = gfxCreate(window);
+    gfxSetClearColor(graphics, 132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
+    gfxSetDepthTest(graphics, 0, 0);
+    gfxSetAlphaTest(graphics, 1);
+
     /* Allocate structure */
     s_render = (render_t*)malloc(sizeof(*s_render));
     memset(s_render, 0, sizeof(*s_render));
@@ -177,6 +183,7 @@ void renderShutdown(void)
     for(int ii=0; ii<kMaxViews; ++ii)
         gfxDestroyConstantBuffer(s_render->viewBuffers[ii]);
     
+    gfxDestroy(s_render->graphics);
     free(s_render);
     s_render = NULL;
 }
@@ -241,6 +248,13 @@ void renderSetViewProj(int index, const float* matrix)
 {
     assert(index >= 0 && index < kMaxViews);
     gfxUpdateConstantBuffer(s_render->graphics, s_render->viewBuffers[index], kConstantBufferSize, matrix);
+}
+void renderResize(int width, int height)
+{
+    if(s_render)
+    {
+        gfxResize(s_render->graphics, width, height);
+    }
 }
 
 void renderSubmitDraw(  int view,
