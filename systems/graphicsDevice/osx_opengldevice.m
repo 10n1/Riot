@@ -54,9 +54,7 @@ graphics_t* gfxCreate(void* window)
     
     NSOpenGLPixelFormatAttribute attributes[] = 
     {
-#if (MAC_OS_X_VERSION_MAX_ALLOWED == MAC_OS_X_VERSION_10_7) && 1
         NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
-#endif
         NSOpenGLPFAAccelerated,
         NSOpenGLPFANoRecovery,
         NSOpenGLPFADoubleBuffer,   

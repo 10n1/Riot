@@ -16,8 +16,8 @@
 /* C++ headers */
 /* External headers */
 #if defined(WIN32)
-    #include "glew/gl/glew.h"
-    #include "glew/gl/wglew.h"
+    #include "gl/glew.h"
+    #include "gl/wglew.h"
 #elif defined(__APPLE__)
     #include <OpenGL/OpenGL.h>
     #include <OpenGL/gl3.h>
