@@ -5,7 +5,7 @@ local action = _ACTION or ""
 solution "Lua"
 	location ( "Build/" .. action )
 	configurations { "Debug", "Release" }
-	platforms { "x32", "x64" }
+	platforms { "x64" }
 	
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )
