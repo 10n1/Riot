@@ -309,6 +309,7 @@ void sysPollSystemEvents(system_t* system)
 void sysStop(system_t* system)
 {
     PostQuitMessage(0);
+    UNUSED_PARAMETER(system);
 }
 void sysSetResizeCallback(system_t* system, resize_callback_t* callback)
 {

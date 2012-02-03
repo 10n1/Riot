@@ -25,5 +25,10 @@
 *.ilk
 *.dblite
 *.db
-./build
+*.lib
+*.res
+*.rc
 ipch
+build
+projects/vs2010
+projects/xcode4
