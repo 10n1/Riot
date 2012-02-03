@@ -7,6 +7,17 @@ solution "Riot"
     platforms { "x64" }
     targetdir("../build/bin");
     flags{ "Symbols", "NoMinimalRebuild", "ExtraWarnings", "NoExceptions", "NoPCH", "NoRTTI" }
+        includedirs { 
+            "../include", 
+            "../external/Box2D_v2.2.1", 
+            "../external/lua-5.2.0/src",
+        }
+        
+    configuration "Debug"
+        defines { "_DEBUG", "DEBUG" }
+    configuration "Release"
+        defines { "NDEBUG" }
+        flags { "OptimizeSpeed" }
     
     configuration "windows"
         buildoptions { "/MP" }
@@ -20,9 +31,13 @@ solution "Riot"
         objdir ( "../build/obj/game" )
         links { "RiotLib", "Box2D", "lua" }
         
-	configuration { "not xcode4" }
+        configuration { "not xcode4" }
             links { "RiotTest" }
- 
+        
+        configuration "windows"
+            libdirs { "$(DXSDK_DIR)lib/x64" }
+            links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
+            
         configuration { "windows", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
         configuration { "windows", "Release" }
@@ -66,10 +81,12 @@ solution "Riot"
             "$(DXSDK_DIR)include",
         }
         objdir ( "../build/obj/lib" )
-        links { "Box2D", "lua", "D3D11", "D3DX11", "DXGUID", "D3DCOMPILER" }
+        links { "Box2D", "lua" }
+        defines { "GLEW_STATIC" }
     
         configuration "windows"
             libdirs { "$(DXSDK_DIR)lib/x64" }
+            links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
         configuration "not macosx"
             excludes { "../**.m", "../**macosx**"}
         configuration "not windows"

@@ -15,6 +15,10 @@
     #define WIN32_LEAN_AND_MEAN
 #endif
 #include <Windows.h>
+#include <direct.h>
+#define getcwd _getcwd
+#define chdir _chdir
+
 /* C++ headers */
 /* External headers */
 /* Internal headers */
@@ -262,6 +266,9 @@ system_t* sysCreate(void)
     system->hinstance = hinstance;
     system->flags |= kSysRunning;
 
+    /* Set workign directory */
+    chdir(sysGetExecutableDirectory());
+
     return system;
 }
 void sysShutdown(system_t* system)
@@ -353,6 +360,23 @@ void sysGetWindowSize(system_t* system, int* width, int* height)
     GetClientRect(system->hwnd, &clientRect);
     *width = clientRect.right - clientRect.left;
     *height = clientRect.bottom - clientRect.top;
+}
+const char* sysGetExecutableDirectory(void)
+{
+    static char filename[256] = {0};
+    char* end = NULL;
+    GetModuleFileName(NULL, filename, sizeof(filename));
+
+    end = &filename[strlen(filename)];
+    while(end && *end != '\\' && *end != '/' )
+    {
+        --end;
+    }
+
+    ++end; /* Increment this so the trailing slash is part of the path */
+    *end = 0;
+
+    return filename;
 }
 sys_mb_return_e sysMessageBox(  system_t* system, 
                                 const char* header, 
