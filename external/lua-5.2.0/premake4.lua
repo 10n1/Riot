@@ -19,6 +19,6 @@ solution "Lua"
 	project "Lua"
 		kind "StaticLib"
 		language "C"
-		files { "src/**.h", "src/**.cpp" }
+		files { "src/**.h", "src/**.c" }
 		excludes { "src/lua.c", "src/luac.c" }
 		includedirs { "src" }

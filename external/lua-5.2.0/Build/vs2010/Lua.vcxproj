@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{1AE71711-0418-A946-BBD2-C30AA64512EA}</ProjectGuid>
+		<ProjectGuid>{5D1238C3-1B9B-6441-857F-51B1021888C0}</ProjectGuid>
 		<RootNamespace>Lua</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -126,6 +126,72 @@
 		<ClInclude Include="..\..\src\lundump.h" />
 		<ClInclude Include="..\..\src\lvm.h" />
 		<ClInclude Include="..\..\src\lzio.h" />
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\lapi.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lauxlib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lbaselib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lbitlib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lcode.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lcorolib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lctype.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ldblib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ldebug.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ldo.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ldump.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lfunc.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lgc.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\linit.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\liolib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\llex.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lmathlib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lmem.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\loadlib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lobject.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lopcodes.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\loslib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lparser.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lstate.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lstring.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lstrlib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ltable.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ltablib.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\ltm.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lundump.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lvm.c">
+		</ClCompile>
+		<ClCompile Include="..\..\src\lzio.c">
+		</ClCompile>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 	<ImportGroup Label="ExtensionTargets">
