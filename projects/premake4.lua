@@ -49,7 +49,7 @@ solution "Riot"
     project "RiotLib"
         kind        "StaticLib"
         language    "C++"
-        files { "../lib/**.*" }
+        files { "../include/**.*", "../lib/**.*" }
         includedirs { "../include", "../external/Box2D_v2.2.1", "../external/lua-5.2.0/src" }
         objdir ( "../build/obj/lib" )
         links { "Box2D", "lua" }
