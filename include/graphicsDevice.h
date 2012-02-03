@@ -1,12 +1,12 @@
 /*
  * graphicsDevice.h
- * graphicsDevice
+ * RiotLib
  *
  * Created by Kyle Weicht on 1/15/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __graphicsDevice_graphicsDevice_h__
-#define __graphicsDevice_graphicsDevice_h__
+#ifndef __RiotLib_graphicsDevice_h__
+#define __RiotLib_graphicsDevice_h__
 
 /* C headers */
 #include <stdint.h>
@@ -15,68 +15,62 @@
 /* External headers */
 /* Internal headers */
 
-#define GFX_DIRECTX 1
-#define GFX_OPENGL  2
-
-#ifndef GFX_API
-    #define GFX_API GFX_DIRECTX
-#endif
-
-#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
-extern "C" {
-#endif
-
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-typedef struct graphics_t           graphics_t;
-typedef struct mesh_t               mesh_t;
-typedef struct vertex_shader_t      vertex_shader_t;
-typedef struct pixel_shader_t       pixel_shader_t;
-typedef struct material_t           material_t;
-typedef struct texture_t            texture_t;
-typedef struct constant_buffer_t    constant_buffer_t;
-typedef enum
-{
-    kGfxShaderInputSlot0,
-    kGfxShaderInputSlot1,
-    kGfxShaderInputSlot2,
-    kGfxShaderInputSlot3,
-    kGfxShaderInputSlot4,
-    kGfxShaderInputSlot5,
-    kGfxShaderInputSlot6,
-    kGfxShaderInputSlot7,
-    kGfxShaderInputSlot8,
-    kGfxShaderInputSlot9,
-    kGfxShaderInputSlot10,
-    kGfxShaderInputSlot11,
-    kGfxShaderInputSlot12,
-    kGfxShaderInputSlot13,
-    kGfxShaderInputSlot14,
-    kGfxShaderInputSlot15,
-    
-    kGfxShaderInputPosition = kGfxShaderInputSlot0,
-    kGfxShaderInputNormal,
-    kGfxShaderInputColor,
-    kGfxShaderInputTexCoord0,
-    
-    kGfxShaderInputNull = -1
-} shader_input_slot_e;
+struct graphics_t;
+struct mesh_t;
+struct vertex_shader_t;
+struct pixel_shader_t;
+struct material_t;
+struct texture_t;
+struct constant_buffer_t;
 
-typedef struct vertex_element_desc_t
+namespace ShaderInputSlot
 {
-    shader_input_slot_e slot;
+    enum Enum
+    {
+        kSlot0,
+        kSlot1,
+        kSlot2,
+        kSlot3,
+        kSlot4,
+        kSlot5,
+        kSlot6,
+        kSlot7,
+        kSlot8,
+        kSlot9,
+        kSlot10,
+        kSlot11,
+        kSlot12,
+        kSlot13,
+        kSlot14,
+        kSlot15,
+
+        kPosition = kSlot0,
+        kNormal,
+        kColor,
+        kTexCoord0,
+
+        kGfxShaderInputNull = -1
+    };
+}
+
+struct vertex_element_desc_t
+{
+    ShaderInputSlot::Enum slot;
     uint32_t count;
-} vertex_element_desc_t;
+};
 
-typedef enum
+namespace GraphicsAPI
 {
-    kDirectX,
-    kOpenGL
-} gfx_api_e;
-
-typedef void* (malloc_func_t)(size_t);
-typedef void  (free_func_t)(void*);
+    enum Enum
+    {
+        kDirectX,
+        kOpenGL,
+        kNull
+    };
+}
 
 /*******************************************************************\
 External variables
@@ -85,56 +79,66 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-/* Graphics device managment */
-graphics_t* gfxCreate(void* window);
-void gfxDestroy(graphics_t* device);
-gfx_api_e gfxGetApi(void);
-void gfxSetMemoryFuncs(malloc_func_t* mallocFn, free_func_t* freeFn);
 
-/* Device contols */
-void gfxClear(graphics_t* device);
-void gfxPresent(graphics_t* device);
-void gfxResize(graphics_t* device, int width, int height);
+class GraphicsDevice
+{
+private:
+    GraphicsDevice();
+    GraphicsDevice(const GraphicsDevice& _device);
+    const GraphicsDevice& operator=(const GraphicsDevice& _device);
+    virtual ~GraphicsDevice() {}
 
-/* Pipeline management */
-void gfxSetClearColor(graphics_t* device, float r, float g, float b, float a, float depth);
-void gfxSetDepthTest(graphics_t* device, int test, int write);
-void gfxSetAlphaTest(graphics_t* device, int enable);
+public:
+    /* Graphics device managment */
+    virtual void Create(void* window)       = 0;
+    virtual void Destroy(void)              = 0;
+    virtual GraphicsAPI::Enum GetAPI(void)  = 0;
 
-/* Object creation */
-vertex_shader_t* gfxCreateVertexShader(graphics_t* device, const char* filename);
-pixel_shader_t* gfxCreatePixelShader(graphics_t* device, const char* filename);
-material_t* gfxCreateMaterial(graphics_t* device, vertex_shader_t* vertexShader, pixel_shader_t* pixelShader);
-mesh_t* gfxCreateMesh(graphics_t* device,
-                      vertex_shader_t* vertexShader,
-                      const vertex_element_desc_t* layout,
-                      uint32_t vertexCount,
-                      uint32_t indexCount,
-                      size_t vertexSize,
-                      size_t indexSize,
-                      const void* vertices,
-                      const void* indices);
-texture_t* gfxCreateTexture(graphics_t* device, const char* filename);
-constant_buffer_t* gfxCreateConstantBuffer(graphics_t* device, size_t size, const void* data);
+    /* Device contols */
+    virtual void Clear(void) = 0;
+    virtual void Present(void) = 0;
+    virtual void Resize(int width, int height) = 0;
+    
+    /* Pipeline management */
+    virtual void SetClearColor(float r, float g, float b, float a, float depth) = 0;
+    virtual void SetDepthTest(int test, int write) = 0;
+    virtual void SetAlphaTest(int enable) = 0;
 
-/* object controls */
-void gfxUpdateConstantBuffer(graphics_t* device, constant_buffer_t* buffer, size_t size, const void* data);
-void gfxBindConstantBufferToIndex(graphics_t* device, material_t* material, const char* bufferName, int index);
+    /* Object creation */
+    virtual vertex_shader_t* CreateVertexShader(const char* filename) = 0;
+    virtual pixel_shader_t* CreatePixelShader(const char* filename) = 0;
+    virtual material_t* CreateMaterial(vertex_shader_t* vertexShader, pixel_shader_t* pixelShader) = 0;
+    virtual mesh_t* CreateMesh( vertex_shader_t* vertexShader,
+                                const vertex_element_desc_t* layout,
+                                uint32_t vertexCount,
+                                uint32_t indexCount,
+                                size_t vertexSize,
+                                size_t indexSize,
+                                const void* vertices,
+                                const void* indices) = 0;
+    virtual texture_t* CreateTexture(const char* filename) = 0;
+    virtual constant_buffer_t* CreateConstantBuffer(size_t size, const void* data) = 0;
 
-/* Object destruction */
-void gfxDestroyVertexShader(vertex_shader_t* shader);
-void gfxDestroyPixelShader(pixel_shader_t* shader);
-void gfxDestroyMaterial(material_t* material);
-void gfxDestroyMesh(mesh_t* mesh);
-void gfxDestroyTexture(texture_t* texture);
-void gfxDestroyConstantBuffer(constant_buffer_t* buffer);
+    /* object controls */
+    virtual void UpdateConstantBuffer(constant_buffer_t* buffer, size_t size, const void* data) = 0;
+    virtual void BindConstantBufferToIndex(material_t* material, const char* bufferName, int index) = 0;
 
-/* Render controls */
-void gfxSetMaterial(graphics_t* device, material_t* material);
-void gfxSetTexture(graphics_t* device, texture_t* texture);
-void gfxSetVSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint32_t index);
-void gfxSetPSConstantBuffer(graphics_t* device, constant_buffer_t* buffer, uint32_t index);
-void gfxDrawMesh(graphics_t* device, mesh_t* mesh);
+    /* Object destruction */
+    virtual void DestroyVertexShader(vertex_shader_t* shader) = 0;
+    virtual void DestroyPixelShader(pixel_shader_t* shader) = 0;
+    virtual void DestroyMaterial(material_t* material) = 0;
+    virtual void DestroyMesh(mesh_t* mesh) = 0;
+    virtual void DestroyTexture(texture_t* texture) = 0;
+    virtual void DestroyConstantBuffer(constant_buffer_t* buffer) = 0;
+
+    /* Render controls */
+    virtual void SetMaterial(material_t* material) = 0;
+    virtual void SetTexture(texture_t* texture) = 0;
+    virtual void SetVSConstantBuffer(constant_buffer_t* buffer, uint32_t index) = 0;
+    virtual void SetPSConstantBuffer(constant_buffer_t* buffer, uint32_t index) = 0;
+    virtual void DrawMesh(mesh_t* mesh) = 0;
+};
+
 
 #ifndef GFX_API
     #define GFX_API GFX_OPENGL
@@ -143,11 +147,6 @@ void gfxDrawMesh(graphics_t* device, mesh_t* mesh);
         #undef GFX_API
         #define GFX_API GFX_OPENGL
     #endif
-#endif
-
-
-#ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
-} // extern "C" {
 #endif
 
 #endif /* include guard */

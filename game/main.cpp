@@ -13,12 +13,6 @@
 /* Internal headers */
 #include "global.h"
 #include "system.h"
-#include "timer.h"
-#include "world.h"
-#include "scripting.h"
-#include "cJSON.h"
-#include "file.h"
-#include "renderEngine.h"
 
 namespace
 {
@@ -49,6 +43,10 @@ int main(int, char*[])
 #ifdef _WIN32
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
 #endif
+
+    System::Init(0, 0, 0);
+
+    System::Shutdown();
 
     return 0;
 }
