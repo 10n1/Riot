@@ -9,9 +9,10 @@
 /* C headers */
 /* C++ headers */
 /* External headers */
+#include "UnitTest++.h"
 /* Internal headers */
 
 int main(int, char*[])
 {
-    return 0;
+    return UnitTest::RunAllTests();
 }

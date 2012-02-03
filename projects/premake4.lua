@@ -21,12 +21,6 @@ solution "Riot"
         
 	configuration { "not xcode4" }
             links { "RiotTest" }
-
-        configuration { "windows" }
-            postbuildcommands { "$(TargetDir)RiotTest.exe" }
-       
-        configuration { "gmake" }
-            postbuildcommands { "../../build/bin/RiotTest" }
  
         configuration { "windows", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
@@ -42,9 +36,22 @@ solution "Riot"
         kind        "ConsoleApp"
         language    "C++"
         files { "../test/**.*" }
-        includedirs { "../include" }
+        includedirs { "../include", "../external/UnitTest++/src" }
         objdir ( "../build/obj/test" )
-        links { "RiotLib" }
+        links { "RiotLib", "UnitTest++" }
+        
+        configurations { "Debug", "Release" }
+        
+        configuration { "windows" }
+            postbuildcommands { "$(TargetDir)RiotTest.exe" }
+       
+        configuration { "gmake" }
+            postbuildcommands { "../../build/bin/RiotTest" }
+        
+        configuration { "Debug" }
+            libdirs { "../external/UnitTest++/Debug" }
+        configuration { "Release" }
+            libdirs { "../external/UnitTest++/Release" }
         
     project "RiotLib"
         kind        "StaticLib"
