@@ -1,149 +1,97 @@
--- A solution contains projects, and defines the available configurations
+local action = _ACTION or ""
+
 solution "Riot"
+    location(action);
     configurations { "Debug", "Release" }
     platforms { "x64" }
-    flags { "ExtraWarnings", "NoExceptions", "NoPCH", "NoRTTI" }
-    
+    targetdir("../build/bin");
+    flags{ "Symbols", "NoMinimalRebuild", "ExtraWarnings", "NoExceptions", "NoPCH", "NoRTTI" }
+        includedirs { 
+            "../include", 
+            "../external/Box2D_v2.2.1", 
+            "../external/lua-5.2.0/src",
+        }
+        
     configuration "Debug"
-        defines { "DEBUG", "_DEBUG" }
-        flags { "Symbols", "NoMinimalRebuild" }
-        targetdir ("../build/bin/")
-        objdir("../build/obj/")
-
+        defines { "_DEBUG", "DEBUG" }
     configuration "Release"
         defines { "NDEBUG" }
-        flags { "OptimizeSpeed", "Symbols" }
-        targetdir ("../build/bin/")
-        objdir("../build/obj/")
-        
+        flags { "OptimizeSpeed" }
+    
     configuration "windows"
+        buildoptions { "/MP" }
         defines { "WIN32" }
-        buildoptions "/MP"
- 
--------------------------------------------
--- Internal
--------------------------------------------   
-    ---------------------------------------
-    -- Game
-    ---------------------------------------
-    project "game"
-        kind "ConsoleApp"
-        language "C++"
-        files { "../game/**.h", "../game/**.cpp", "../game/**.c", "../assets/**.*" }
-        includedirs { "../systems", "../external/Box2D_v2.2.1/", "../external/lua-5.2.0/src" }
-        location "../game"
-        debugdir("../build/bin/")
-        links { "graphicsDevice", "renderEngine", "systemInterface", "Box2D", "Lua" }
-        objdir("../build/obj/"..project().name)
 
-    configuration "windows"
-        buildoptions "/MP"
-        links { "d3d11", "d3dx11", "d3dcompiler", "dxguid" }
+    project "RiotGame"
+        kind        "ConsoleApp"
+        language    "C++"
+        files { "../game/**.*" }
+        includedirs { "../include" }
+        objdir ( "../build/obj/game" )
+        links { "RiotLib", "Box2D", "lua" }
         
-    configuration { "windows", "x64" }
-        libdirs { "$(DXSDK_DIR)Lib/x64" }
+        configuration { "not xcode4" }
+            links { "RiotTest" }
         
-    configuration { "windows", "x86" }
-        libdirs { "$(DXSDK_DIR)Lib/x86" }
-
-    configuration "macosx"
-        links { "Cocoa.framework", "OpenGL.framework", "AppKit.framework", "Foundation.framework", "CoreData.framework" }
-		
-    ---------------------------------------
-    -- Graphics device
-    ---------------------------------------
-    project "graphicsDevice"
-        kind "StaticLib"
-        language "C++"
-        files { "../systems/graphicsDevice/**.c", "../systems/graphicsDevice/**.h" }
-        includedirs { "../systems", "../systems/graphicsDevice/glew" }
-        location "../systems/graphicsDevice"
-        objdir("../build/obj/"..project().name)
-
-    configuration "windows"
+        configuration "windows"
+            libdirs { "$(DXSDK_DIR)lib/x64" }
+            links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
+            
+        configuration { "windows", "Debug" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
+        configuration { "windows", "Release" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
+            
+        configuration { "macosx", "Debug" }
+            libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Debug", "../external/lua-5.2.0/Build/gmake/bin/Debug" }
+        configuration { "macosx", "Release" }
+            libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Release", "../external/lua-5.2.0/Build/gmake/bin/Release" }
+            
+    project "RiotTest"
+        kind        "ConsoleApp"
+        language    "C++"
+        files { "../test/**.*" }
+        includedirs { "../include", "../external/UnitTest++/src" }
+        objdir ( "../build/obj/test" )
+        links { "RiotLib", "UnitTest++" }
+        
+        configurations { "Debug", "Release" }
+        
+        configuration { "windows" }
+            postbuildcommands { "$(TargetDir)RiotTest.exe" }
+       
+        configuration { "gmake" }
+            postbuildcommands { "../../build/bin/RiotTest" }
+        
+        configuration { "Debug" }
+            libdirs { "../external/UnitTest++/Debug" }
+        configuration { "Release" }
+            libdirs { "../external/UnitTest++/Release" }
+        
+    project "RiotLib"
+        kind        "StaticLib"
+        language    "C++"
+        files { "../include/**.*", "../lib/**.*" }
+        includedirs { 
+            "../include", 
+            "../lib/graphicsDevice/glew", 
+            "../external/Box2D_v2.2.1", 
+            "../external/lua-5.2.0/src",
+            "$(DXSDK_DIR)include",
+        }
+        objdir ( "../build/obj/lib" )
+        links { "Box2D", "lua" }
         defines { "GLEW_STATIC" }
-        includedirs { "$(DXSDK_DIR)include" }
-        links { "d3d11", "d3dx11", "d3dcompiler" }
-		excludes "../systems/graphicsDevice/**osx**"
-        
-    configuration { "windows", "x64" }
-        libdirs { "$(DXSDK_DIR)Lib/x64" }
-        
-    configuration { "windows", "x86" }
-        libdirs { "$(DXSDK_DIR)Lib/x86" }
-
-    configuration "macosx"
-        files { "../systems/graphicsDevice/**.m" }
-		excludes { "../systems/graphicsDevice/**windows**", "../systems/graphicsDevice/**directx**" }
-        links { "Cocoa.framework", "OpenGL.framework", "AppKit.framework", "Foundation.framework", "CoreData.framework" }
-		buildoptions { "-pedantic" }
-		
-        
-    ---------------------------------------
-    -- Render Engine
-    ---------------------------------------
-    project "renderEngine"
-        kind "StaticLib"
-        language "C++"
-        files { "../systems/renderEngine/**.cpp", "../systems/renderEngine/**.h" }
-        includedirs { "../systems" }
-        location "../systems/renderEngine"
-        links { "graphicsDevice" }
-        objdir("../build/obj/"..project().name)
- 
-    configuration "windows"
-        links { "d3d11", "d3dx11", "d3dcompiler" }
-        buildoptions "/MP"
-
-    configuration "macosx"
-        links { "Cocoa.framework", "OpenGL.framework", "AppKit.framework", "Foundation.framework", "CoreData.framework" }
-		buildoptions { "-pedantic" }
-        
-    ---------------------------------------
-    -- system
-    ---------------------------------------
-    project "systemInterface"
-        kind "StaticLib"
-        language "C++"
-        files { "../systems/system/**.c", "../systems/system/**.h" }
-        includedirs { "../systems" }
-        location "../systems/system"
-        objdir("../build/obj/"..project().name)
- 
-    configuration "windows"
-        links { "d3d11", "d3dx11", "d3dcompiler" }
-        buildoptions "/MP"
-		excludes "../systems/system/**osx**"
-
-    configuration "macosx"
-        files { "../systems/system/**.m" }
-		excludes { "../systems/system/**win32**" }
-        links { "Cocoa.framework", "OpenGL.framework", "AppKit.framework", "Foundation.framework", "CoreData.framework" }
-		buildoptions { "-pedantic" }
-
-
--------------------------------------------
--- External
--------------------------------------------
-    local action = _ACTION or ""
-    local box2ddir = "../external/Box2D_v2.2.1/"
     
-	project "Box2D"
-		kind "StaticLib"
-		language "C++"
-        location ( box2ddir.."Build/" .. action )
-		files { box2ddir.."Box2D/**.h", box2ddir.."Box2D/**.cpp" }
-		includedirs { box2ddir }
-        objdir("../build/obj/"..project().name)
+        configuration "windows"
+            libdirs { "$(DXSDK_DIR)lib/x64" }
+            links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
+        configuration "not macosx"
+            excludes { "../**.m", "../**macosx**"}
+        configuration "not windows"
+            excludes { "../**win32**" }
         
-        
-    local luadir = "../external/lua-5.2.0/"
-    
-	project "Lua"
-		kind "StaticLib"
-		language "C"
-        location ( luadir.."build/" )
-		files { luadir.."src/**.h", luadir.."src/**.c" }
-		includedirs { luadir.."src/" }
-        excludes { luadir.."src/lua.c", luadir.."src/luac.c" }
-        objdir("../build/obj/"..project().name)
+        configuration { "windows", "Debug" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
+        configuration { "windows", "Release" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }]

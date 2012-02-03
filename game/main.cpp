@@ -12,13 +12,13 @@
 /* External headers */
 /* Internal headers */
 #include "global.h"
-#include "system/system.h"
+#include "system.h"
 #include "timer.h"
 #include "world.h"
 #include "scripting.h"
 #include "cJSON.h"
 #include "file.h"
-#include "renderEngine/renderEngine.h"
+#include "renderEngine.h"
 
 namespace
 {
@@ -173,6 +173,8 @@ int main(int, char*[])
     s_system = sysCreate();
     sysSetResizeCallback(s_system, Resize);
     sysCreateWindow(s_system, 1024, 1024);
+
+    sysGetExecutableDirectory();
 
     /* Start main loop */
     Initialize();

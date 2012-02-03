@@ -12,7 +12,7 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-#include "renderEngine/renderEngine.h"
+#include "renderEngine.h"
 #include "Box2D/Box2D.h"
 
 /*******************************************************************\
