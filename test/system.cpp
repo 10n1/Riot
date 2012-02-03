@@ -27,12 +27,7 @@ TEST(SystemCreateWindow)
 {
     system_t* system = sysCreate();
     sysCreateWindow(system, 256, 256);
+    CHECK(sysGetWindow(system));
     sysShutdown(system);
 }
 
-TEST(SystemPollEvents)
-{
-    system_t* system = sysCreate();
-    sysPollSystemEvents(system);
-    sysShutdown(system);
-}

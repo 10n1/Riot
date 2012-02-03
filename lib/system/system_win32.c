@@ -330,9 +330,9 @@ int sysGetFlag(system_t* system, sys_flag_e flag)
 void sysSetFlag(system_t* system, sys_flag_e flag, int value)
 {
     if(value)
-        system->flags |= flag;
+        TurnFlagOn(&system->flags, flag);
     else
-        system->flags &= ~flag;
+        TurnFlagOff(&system->flags, flag);
 }
 int sysGetKeyState(system_t* system, sys_key_e key)
 {

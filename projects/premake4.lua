@@ -10,6 +10,7 @@ solution "Riot"
     
     configuration "windows"
         buildoptions { "/MP" }
+        defines { "WIN32" }
 
     project "RiotGame"
         kind        "ConsoleApp"
@@ -57,10 +58,18 @@ solution "Riot"
         kind        "StaticLib"
         language    "C++"
         files { "../include/**.*", "../lib/**.*" }
-        includedirs { "../include", "../external/Box2D_v2.2.1", "../external/lua-5.2.0/src" }
+        includedirs { 
+            "../include", 
+            "../lib/graphicsDevice/glew", 
+            "../external/Box2D_v2.2.1", 
+            "../external/lua-5.2.0/src",
+            "$(DXSDK_DIR)include",
+        }
         objdir ( "../build/obj/lib" )
-        links { "Box2D", "lua" }
+        links { "Box2D", "lua", "D3D11", "D3DX11", "DXGUID", "D3DCOMPILER" }
     
+        configuration "windows"
+            libdirs { "$(DXSDK_DIR)lib/x64" }
         configuration "not macosx"
             excludes { "../**.m", "../**macosx**"}
         configuration "not windows"
