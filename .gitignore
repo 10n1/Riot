@@ -25,5 +25,5 @@
 *.ilk
 *.dblite
 *.db
-build
+./build
 ipch
