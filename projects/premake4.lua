@@ -27,6 +27,11 @@ solution "Riot"
         configuration { "windows", "Release" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
             
+        configuration { "macosx", "Debug" }
+            libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Debug", "../external/lua-5.2.0/Build/gmake/bin/Debug" }
+        configuration { "macosx", "Release" }
+            libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Release", "../external/lua-5.2.0/Build/gmake/bin/Release" }
+            
     project "RiotTest"
         kind        "ConsoleApp"
         language    "C++"
