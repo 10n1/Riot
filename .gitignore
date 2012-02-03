@@ -32,3 +32,4 @@ ipch
 build
 projects/vs2010
 projects/xcode4
+projects/gmake

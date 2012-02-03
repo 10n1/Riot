@@ -19,9 +19,15 @@ solution "Riot"
         objdir ( "../build/obj/game" )
         links { "RiotLib", "Box2D", "lua" }
         
+	configuration { "not xcode4" }
+            links { "RiotTest" }
+
         configuration { "windows" }
             postbuildcommands { "$(TargetDir)RiotTest.exe" }
-        
+       
+        configuration { "gmake" }
+            postbuildcommands { "../../build/bin/RiotTest" }
+ 
         configuration { "windows", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
         configuration { "windows", "Release" }
