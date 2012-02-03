@@ -40,20 +40,41 @@ TEST(SystemWindowSize)
     CHECK(height == 0);
 }
 
+TEST(SystemCreateWindow)
+{   
+    System::Init(1, 128, 128);
+    CHECK(System::GetWindow());
+    CHECK(System::IsRunning());
+
+    int frame = 0;
+    while(System::IsRunning())
+    {
+        if(++frame == 10)
+        {
+            System::Stop();
+        }
+    }
+
+    System::Shutdown();
+}
+
 TEST(SystemInput)
 {
+    System::Init(0,0,0);
     for(int ii=0; ii<System::Key::kMAX_KEYS; ++ii)
     {
         System::Key::Enum key = (System::Key::Enum)ii;
         CHECK(System::GetKeyState(key) == 0);
     }
 
-    CHECK(System::GetMouseButtonState(System::Mouse::kLeft));
-    CHECK(System::GetMouseButtonState(System::Mouse::kRight));
-    CHECK(System::GetMouseButtonState(System::Mouse::kMiddle));
+    CHECK(System::GetMouseButtonState(System::Mouse::kLeft) == 0);
+    CHECK(System::GetMouseButtonState(System::Mouse::kRight) == 0);
+    CHECK(System::GetMouseButtonState(System::Mouse::kMiddle) == 0);
 
     int x, y;
     System::GetMousePosition(&x, &y);
     CHECK(x == 0);
     CHECK(y == 0);
+
+    System::Shutdown();
 }

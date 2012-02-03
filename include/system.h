@@ -261,7 +261,7 @@ namespace System
     // Input support
     int GetKeyState(Key::Enum key);
     int GetMouseButtonState(Mouse::Enum button);
-    int GetMousePosition(int* x, int* y);
+    void GetMousePosition(int* x, int* y);
 
     // Utility stuff
     void ChangeWorkingDir(const char* dir);
