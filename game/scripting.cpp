@@ -91,10 +91,10 @@ template<> void* GetLuaType<void*>(lua_State* L, int index)
 {
     return luaL_checkudata(L, index, NULL);
 }
-template<> int GetLuaType<int>(lua_State* L, int index)
-{
-    return (int)luaL_checkinteger(L, index);
-}
+//template<> int GetLuaType<int>(lua_State* L, int index)
+//{
+//    return (int)luaL_checkinteger(L, index);
+//}
 
 template<class T>
 void PushLuaType(lua_State* L, T param);
