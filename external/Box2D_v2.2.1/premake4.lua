@@ -6,6 +6,7 @@ local action = _ACTION or ""
 solution "Box2D"
 	location ( "Build/" .. action )
 	configurations { "Debug", "Release" }
+	platforms { "x64" }
 	
 	configuration "vs*"
 		defines { "_CRT_SECURE_NO_WARNINGS" }	
