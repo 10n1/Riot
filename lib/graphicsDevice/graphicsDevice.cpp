@@ -45,6 +45,9 @@ External functions
 \*******************************************************************/
 GraphicsDevice* GraphicsDevice::Create(GraphicsAPI::Enum api, void* window)
 {
+    if(window == NULL) // If theres no window, don't create an API
+        api = GraphicsAPI::kNull;
+
     GraphicsDevice* device = NULL;
 
     switch(api)
