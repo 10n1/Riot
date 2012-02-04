@@ -57,8 +57,19 @@ void Core::Init(const engine_params_t& params)
 
 int Core::Frame(void)
 {
+    /*
+     * System stuff first
+     */
     if(System::PollEvents() == 0)
         return 1;
+    
+    int width, height;
+    System::GetWindowSize(&width, &height);
+    if(width != _windowWidth || height != _windowHeight)
+    {
+        _graphicsDevice->Resize(width, height);
+        _windowWidth = width, _windowHeight = height;
+    }
 
     if(System::GetKeyState(System::Key::kEscape))
         return 1;

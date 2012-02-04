@@ -53,9 +53,9 @@ struct engine_params_t
 
         if(jsonGraphicsApi)
         {
-            if(stricmp("directx", jsonGraphicsApi->string))
+            if(stricmp("directx", jsonGraphicsApi->valuestring) == 0)
                 graphicsApi = GraphicsAPI::kDirectX;
-            else if(stricmp("opengl", jsonGraphicsApi->string))
+            else if(stricmp("opengl", jsonGraphicsApi->valuestring) == 0)
                 graphicsApi = GraphicsAPI::kOpenGL;
         }
     }
@@ -81,6 +81,8 @@ public:
 private:
     GraphicsDevice* _graphicsDevice;
     int             _frameNumber;
+    int             _windowWidth;
+    int             _windowHeight;
 };
 
 #endif /* include guard */
