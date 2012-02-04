@@ -15,5 +15,8 @@
 
 TEST(GraphicsDeviceCreate)
 {
-    GraphicsDevice* device = NULL;
+    GraphicsDevice* device = GraphicsDevice::Create(GraphicsAPI::kNull, NULL);
+    CHECK(device);
+    CHECK(device->GetAPI() == GraphicsAPI::kNull);
+    device->Destroy();
 }

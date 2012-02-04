@@ -52,7 +52,7 @@ namespace ShaderInputSlot
         kColor,
         kTexCoord0,
 
-        kGfxShaderInputNull = -1
+        kNull = -1
     };
 }
 
@@ -82,14 +82,15 @@ External functions
 
 class GraphicsDevice
 {
-private:
-    GraphicsDevice();
+protected:
+    GraphicsDevice() { }
     GraphicsDevice(const GraphicsDevice& _device);
     const GraphicsDevice& operator=(const GraphicsDevice& _device);
     virtual ~GraphicsDevice() {}
 
 public:
     /* Graphics device managment */
+    static GraphicsDevice* Create(GraphicsAPI::Enum api, void* window);
     virtual void Create(void* window)       = 0;
     virtual void Destroy(void)              = 0;
     virtual GraphicsAPI::Enum GetAPI(void)  = 0;
