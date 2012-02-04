@@ -76,6 +76,7 @@ int RetryMessageBox(const char* header, const char* message)
     /*Clean up the strings */
     CFRelease( header_ref );
     CFRelease( message_ref );
+    CFRelease( buttonText );
 
     /*Convert the result */
     if(result == kCFUserNotificationDefaultResponse)
@@ -114,7 +115,7 @@ File::File(const char* filename, const char* mode)
     : _file(NULL)
 {
     char workingDirectory[256];
-    int result = kOk;
+    int result;
     strncpy(_filename, filename, sizeof(_filename));
     do
     {  
