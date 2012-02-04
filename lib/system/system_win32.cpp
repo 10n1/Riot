@@ -254,7 +254,7 @@ void* GetWindow(void)
 {
     return s_hwnd;
 }
-void PollEvents(void)
+int PollEvents(void)
 {
     MSG msg = {0};
     while(PeekMessage(&msg, NULL, 0, 0,PM_REMOVE))
@@ -267,6 +267,8 @@ void PollEvents(void)
     {
         System::Stop();
     }
+
+    return s_running;
 }
 void GetWindowSize(int* width, int* height)
 {

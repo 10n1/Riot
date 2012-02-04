@@ -1,6 +1,6 @@
 /*
- * graphicsDevice_Null.cpp
- * PROJECTNAME
+ * graphicsDevice_null.cpp
+ * RiotLib
  *
  * Created by Kyle Weicht on 2/3/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
@@ -26,6 +26,12 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
+int meshIndex           = 0;
+int vertexShaderIndex   = 0;
+int pixelShaderIndex    = 0;
+int materialIndex       = 0;
+int textureIndex        = 0;
+int constantBuferIndex  = 0;
 
 /*******************************************************************\
 Internal functions
@@ -86,17 +92,17 @@ void GraphicsDeviceNull::SetAlphaTest(int enable)
 vertex_shader_t* GraphicsDeviceNull::CreateVertexShader(const char* filename)
 {
     printf("%s called with parameter: %s", __FUNCTION__, filename);
-    return NULL;
+    return (vertex_shader_t*)++vertexShaderIndex;
 }
 pixel_shader_t* GraphicsDeviceNull::CreatePixelShader(const char* filename)
 {
     printf("%s called with parameter: %s", __FUNCTION__, filename);
-    return NULL;
+    return (pixel_shader_t*)++pixelShaderIndex;
 }
 material_t* GraphicsDeviceNull::CreateMaterial(vertex_shader_t* vertexShader, pixel_shader_t* pixelShader)
 {
     printf("%s called with parameters: 0x%p, 0x%p", vertexShader, pixelShader);
-    return NULL;
+    return (material_t*)++materialIndex;
 }
 mesh_t* GraphicsDeviceNull::CreateMesh( vertex_shader_t* vertexShader,
                                         const vertex_element_desc_t* layout,
@@ -120,17 +126,17 @@ mesh_t* GraphicsDeviceNull::CreateMesh( vertex_shader_t* vertexShader,
     printf("IndexSize: %d\n", indexSize);
     printf("Vertices: %p\n", vertices);
     printf("indices: %p\n", indices);
-    return NULL;
+    return (mesh_t*)++meshIndex;
 }
 texture_t* GraphicsDeviceNull::CreateTexture(const char* filename)
 {
     printf("%s called with parameter: %s", __FUNCTION__, filename);
-    return NULL;
+    return (texture_t*)++textureIndex;
 }
 constant_buffer_t* GraphicsDeviceNull::CreateConstantBuffer(size_t size, const void* data)
 {
     printf("%s called with size: %d and data %p", __FUNCTION__, size, data);
-    return NULL;
+    return (constant_buffer_t*)++constantBuferIndex;
 }
 
 /* object controls */

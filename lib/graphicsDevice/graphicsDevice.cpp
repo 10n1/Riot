@@ -12,8 +12,11 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
-#include "global.h"
 #include "graphicsDevice_null.h"
+#ifdef _WIN32
+    #include "graphicsDevice_directx.h"
+#endif
+#include "global.h"
 
 namespace
 {
@@ -46,6 +49,7 @@ GraphicsDevice* GraphicsDevice::Create(GraphicsAPI::Enum api, void* window)
     switch(api)
     {
     case GraphicsAPI::kNull: device = new GraphicsDeviceNull(); break;
+    case GraphicsAPI::kDirectX: device = new GraphicsDeviceDirectX(); break;
     default:
         assert(0);
     }

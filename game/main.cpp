@@ -13,6 +13,7 @@
 /* Internal headers */
 #include "global.h"
 #include "system.h"
+#include "graphicsDevice.h"
 
 namespace
 {
@@ -44,7 +45,15 @@ int main(int, char*[])
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
 #endif
 
-    System::Init(0, 0, 0);
+    System::Init(1, 0, 0);
+
+    GraphicsDevice* device = GraphicsDevice::Create(GraphicsAPI::kNull, NULL);
+    
+    while(System::PollEvents())
+    {
+        device->Clear();
+        device->Present();
+    }
 
     System::Shutdown();
 

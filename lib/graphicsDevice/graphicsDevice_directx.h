@@ -1,17 +1,20 @@
 /*
- * graphicsDevice_null.h
+ * graphicsDevice_directx.h
  * RiotLib
  *
  * Created by Kyle Weicht on 1/15/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __RiotLib_graphicsDevice_null_h__
-#define __RiotLib_graphicsDevice_null_h__
+#ifndef __RiotLib_graphicsDevice_directx_h__
+#define __RiotLib_graphicsDevice_directx_h__
 
 /* C headers */
 #include <stdint.h>
 #include <stddef.h>
 /* C++ headers */
+#include <D3D11.h>
+#include <D3DX11.h>
+#include <D3Dcompiler.h>
 /* External headers */
 /* Internal headers */
 #include "graphicsDevice.h"
@@ -19,6 +22,37 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
+struct vertex_shader_t
+{
+    ID3D11VertexShader* shader;
+    ID3DBlob*           shaderBlob;
+};
+struct pixel_shader_t
+{
+    ID3D11PixelShader* shader;
+};
+struct material_t
+{
+    ID3D11VertexShader* vertexShader;
+    ID3D11PixelShader*  pixelShader;    
+};
+struct mesh_t
+{
+    ID3D11InputLayout*  inputLayout;
+    ID3D11Buffer*       vertexBuffer;
+    ID3D11Buffer*       indexBuffer;
+    uint32_t            indexStride;
+    uint32_t            vertexStride;
+    uint32_t            indexCount;
+};
+struct texture_t
+{
+    ID3D11ShaderResourceView*   resourceView;
+};
+struct constant_buffer_t
+{
+    ID3D11Buffer*   buffer;
+};
 
 /*******************************************************************\
 External variables
@@ -27,8 +61,7 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-
-class GraphicsDeviceNull : public GraphicsDevice
+class GraphicsDeviceDirectX : public GraphicsDevice
 {
 public:
     /* Graphics device managment */
@@ -79,6 +112,29 @@ public:
     void SetVSConstantBuffer(constant_buffer_t* buffer, uint32_t index);
     void SetPSConstantBuffer(constant_buffer_t* buffer, uint32_t index);
     void DrawMesh(mesh_t* mesh);
+
+private:
+    char                    _vsProfile[20];
+    char                    _psProfile[20];
+    ID3D11Device*           _device;
+    ID3D11DeviceContext*    _context;
+    IDXGISwapChain*         _swapChain;
+    ID3D11RenderTargetView* _renderTargetView;
+    ID3D11DepthStencilView* _depthStencilView;
+    ID3D11Texture2D*        _depthStencilResource;
+    ID3D11RasterizerState*  _solidRasterState;
+    ID3D11SamplerState*     _linearSamplerState;
+
+    ID3D11DepthStencilState*    _depthWriteTest;
+    ID3D11DepthStencilState*    _depthNoWriteTest;
+    ID3D11DepthStencilState*    _depthWriteNoTest;
+    ID3D11DepthStencilState*    _depthNoWriteNoTest;
+
+    ID3D11BlendState*   _blendAlpha;
+    ID3D11BlendState*   _blendNoAlpha;
+
+    float   _clearColor[4];
+    float   _depthClear;
 };
 
 

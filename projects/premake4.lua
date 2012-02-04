@@ -36,12 +36,14 @@ solution "Riot"
         
         configuration "windows"
             libdirs { "$(DXSDK_DIR)lib/x64" }
-            links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
+            links { "d3d11", "dxguid", "d3dcompiler", "OpenGL32" }
             
         configuration { "windows", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
+            links { "d3dx11d" }
         configuration { "windows", "Release" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
+            links { "d3dx11" }
             
         configuration { "macosx", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Debug", "../external/lua-5.2.0/Build/gmake/bin/Debug" }
@@ -56,7 +58,16 @@ solution "Riot"
         objdir ( "../build/obj/test" )
         links { "RiotLib", "UnitTest++" }
         
-        configurations { "Debug", "Release" }
+        configuration "windows"
+            libdirs { "$(DXSDK_DIR)lib/x64" }
+            links { "d3d11", "dxguid", "d3dcompiler", "OpenGL32" }
+            
+        configuration { "windows", "Debug" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
+            links { "d3dx11d" }
+        configuration { "windows", "Release" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
+            links { "d3dx11" }
         
         configuration { "windows" }
             postbuildcommands { "$(TargetDir)RiotTest.exe" }

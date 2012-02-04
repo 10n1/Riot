@@ -18,7 +18,6 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-struct graphics_t;
 struct mesh_t;
 struct vertex_shader_t;
 struct pixel_shader_t;
