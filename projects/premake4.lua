@@ -96,6 +96,7 @@ solution "Riot"
         defines { "GLEW_STATIC" }
     
         configuration "windows"
+            defines { "_CRT_SECURE_NO_WARNINGS" }
             libdirs { "$(DXSDK_DIR)lib/x64" }
             links { "d3d11", "d3dx11", "dxguid", "d3dcompiler", "OpenGL32" }
         configuration "not macosx"
