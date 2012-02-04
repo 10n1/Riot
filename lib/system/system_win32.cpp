@@ -152,6 +152,10 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
     case WM_MBUTTONUP:
         SetMouseState((int)wParam);
         return 0;
+    /* Window close */
+    case WM_CLOSE:
+        PostQuitMessage(0);
+        break;
     }
 
     return DefWindowProc(hWnd, message, wParam, lParam);

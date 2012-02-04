@@ -12,11 +12,19 @@
 #include "UnitTest++.h"
 /* Internal headers */
 #include "graphicsDevice.h"
+#include "system.h"
 
-TEST(GraphicsDeviceCreate)
+TEST(GraphicsCreateNull)
 {
     GraphicsDevice* device = GraphicsDevice::Create(GraphicsAPI::kNull, NULL);
     CHECK(device);
     CHECK(device->GetAPI() == GraphicsAPI::kNull);
     device->Destroy();
+}
+
+TEST(GraphicsCreateDirectX)
+{
+    /*  Not gonna test DirectX and OpenGL
+        because in Debug mode, creating 
+        them takes a bit too much time */
 }

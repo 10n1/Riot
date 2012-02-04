@@ -45,16 +45,21 @@ int main(int, char*[])
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
 #endif
 
-    System::Init(1, 0, 0);
+    System::Init(1, 1024, 768);
 
-    GraphicsDevice* device = GraphicsDevice::Create(GraphicsAPI::kNull, NULL);
+    GraphicsDevice* device = GraphicsDevice::Create(GraphicsAPI::kOpenGL, System::GetWindow());
     
+    device->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 0.0f);
     while(System::PollEvents())
     {
         device->Clear();
         device->Present();
+
+        if(System::GetKeyState(System::Key::kEscape))
+            System::Stop();
     }
 
+    device->Destroy();
     System::Shutdown();
 
     return 0;

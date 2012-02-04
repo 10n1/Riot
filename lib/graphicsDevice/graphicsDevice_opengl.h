@@ -1,21 +1,25 @@
 /*
- * graphicsDevice_directx.h
+ * graphicsDevice_opengl.h
  * RiotLib
  *
  * Created by Kyle Weicht on 1/15/2012.
  * Copyright (c) 2012 Kyle Weicht. All rights reserved.
  */
-#ifndef __RiotLib_graphicsDevice_directx_h__
-#define __RiotLib_graphicsDevice_directx_h__
+#ifndef __RiotLib_graphicsDevice_opengl_h__
+#define __RiotLib_graphicsDevice_opengl_h__
 
 /* C headers */
 #include <stdint.h>
 #include <stddef.h>
 /* C++ headers */
-#include <D3D11.h>
-#include <D3DX11.h>
-#include <D3Dcompiler.h>
 /* External headers */
+#if defined(WIN32)
+    #include "glew/gl/glew.h"
+    #include "glew/gl/wglew.h"
+#elif defined(__APPLE__)
+    #include <OpenGL/OpenGL.h>
+    #include <OpenGL/gl3.h>
+#endif
 /* Internal headers */
 #include "graphicsDevice.h"
 
@@ -30,7 +34,8 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-class GraphicsDeviceDirectX : public GraphicsDevice
+
+class GraphicsDeviceOpenGL : public GraphicsDevice
 {
 public:
     /* Graphics device managment */
@@ -81,29 +86,15 @@ public:
     void SetVSConstantBuffer(constant_buffer_t* buffer, uint32_t index);
     void SetPSConstantBuffer(constant_buffer_t* buffer, uint32_t index);
     void DrawMesh(mesh_t* mesh);
+    
+#ifdef WIN32
+    HDC     _dc;
+    HGLRC   _rc;
+#else
+    void*   _context;
+    void*   _pixelFormat;
+#endif
 
-private:
-    char                    _vsProfile[20];
-    char                    _psProfile[20];
-    ID3D11Device*           _device;
-    ID3D11DeviceContext*    _context;
-    IDXGISwapChain*         _swapChain;
-    ID3D11RenderTargetView* _renderTargetView;
-    ID3D11DepthStencilView* _depthStencilView;
-    ID3D11Texture2D*        _depthStencilResource;
-    ID3D11RasterizerState*  _solidRasterState;
-    ID3D11SamplerState*     _linearSamplerState;
-
-    ID3D11DepthStencilState*    _depthWriteTest;
-    ID3D11DepthStencilState*    _depthNoWriteTest;
-    ID3D11DepthStencilState*    _depthWriteNoTest;
-    ID3D11DepthStencilState*    _depthNoWriteNoTest;
-
-    ID3D11BlendState*   _blendAlpha;
-    ID3D11BlendState*   _blendNoAlpha;
-
-    float   _clearColor[4];
-    float   _depthClear;
 };
 
 

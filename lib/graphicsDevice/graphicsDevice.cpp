@@ -16,6 +16,7 @@
 #ifdef _WIN32
     #include "graphicsDevice_directx.h"
 #endif
+#include "graphicsDevice_opengl.h"
 #include "global.h"
 
 namespace
@@ -48,8 +49,17 @@ GraphicsDevice* GraphicsDevice::Create(GraphicsAPI::Enum api, void* window)
 
     switch(api)
     {
-    case GraphicsAPI::kNull: device = new GraphicsDeviceNull(); break;
-    case GraphicsAPI::kDirectX: device = new GraphicsDeviceDirectX(); break;
+    case GraphicsAPI::kNull:    
+        device = new GraphicsDeviceNull(); 
+        break;
+    case GraphicsAPI::kDirectX:
+#ifdef _WIN32 // if this isn't Windows, DirectX just falls through to OpenGL
+        device = new GraphicsDeviceDirectX(); 
+        break;
+#endif
+    case GraphicsAPI::kOpenGL:  
+        device = new GraphicsDeviceOpenGL(); 
+        break;
     default:
         assert(0);
     }

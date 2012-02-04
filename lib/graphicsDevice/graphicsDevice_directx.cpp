@@ -15,7 +15,7 @@
 /* Internal headers */
 #include "global.h"
 
-#define gfx_malloc_and_zero(pointer, type) pointer = (type)malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
+#define malloc_and_zero(pointer, type) pointer = (type)malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
 
 namespace
 {
@@ -103,6 +103,37 @@ const char* GetSemanticNameFromIndex(ShaderInputSlot::Enum slot)
 }
 
 } // anonymous namespace
+struct vertex_shader_t
+{
+    ID3D11VertexShader* shader;
+    ID3DBlob*           shaderBlob;
+};
+struct pixel_shader_t
+{
+    ID3D11PixelShader* shader;
+};
+struct material_t
+{
+    ID3D11VertexShader* vertexShader;
+    ID3D11PixelShader*  pixelShader;    
+};
+struct mesh_t
+{
+    ID3D11InputLayout*  inputLayout;
+    ID3D11Buffer*       vertexBuffer;
+    ID3D11Buffer*       indexBuffer;
+    uint32_t            indexStride;
+    uint32_t            vertexStride;
+    uint32_t            indexCount;
+};
+struct texture_t
+{
+    ID3D11ShaderResourceView*   resourceView;
+};
+struct constant_buffer_t
+{
+    ID3D11Buffer*   buffer;
+};
 
 /*******************************************************************\
 External variables
@@ -135,6 +166,11 @@ void GraphicsDeviceDirectX::Create(void* window)
     GetClientRect(hwnd, &clientRect);
     width = clientRect.right - clientRect.left;
     height = clientRect.bottom - clientRect.top;
+
+    /*
+     * Zero out self
+     */
+    memset( (char*)this + sizeof(void*) , 0, sizeof(this)-sizeof(void*));
 
     /*
      * Create swap chain description
@@ -222,6 +258,7 @@ void GraphicsDeviceDirectX::Create(void* window)
     _context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     
     /* samplers */
+    memset(&samplerDesc, 0, sizeof(samplerDesc));
     samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
     samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -436,7 +473,7 @@ vertex_shader_t* GraphicsDeviceDirectX::CreateVertexShader(const char* filename)
     assert(SUCCEEDED(hr));
 
     /* Create new shader */
-    gfx_malloc_and_zero(shader, vertex_shader_t*);
+    malloc_and_zero(shader, vertex_shader_t*);
     shader->shader      = vertexShader;
     shader->shaderBlob  = vertexShaderBlob;
 
@@ -459,7 +496,7 @@ pixel_shader_t* GraphicsDeviceDirectX::CreatePixelShader(const char* filename)
     assert(SUCCEEDED(hr));
 
     /* Create new shader */
-    gfx_malloc_and_zero(shader, pixel_shader_t*);
+    malloc_and_zero(shader, pixel_shader_t*);
     shader->shader  = pixelShader;
 
     return shader;
@@ -469,7 +506,7 @@ material_t* GraphicsDeviceDirectX::CreateMaterial(vertex_shader_t* vertexShader,
     material_t* material = NULL;
 
     /* Allocate material */
-    gfx_malloc_and_zero(material, material_t*);    
+    malloc_and_zero(material, material_t*);    
     material->vertexShader  = vertexShader->shader;
     material->pixelShader   = pixelShader->shader;
     material->vertexShader->AddRef();
@@ -543,7 +580,7 @@ mesh_t* GraphicsDeviceDirectX::CreateMesh( vertex_shader_t* vertexShader,
     assert(SUCCEEDED(hr));
 
     /* create mesh object */
-    gfx_malloc_and_zero(mesh, mesh_t*);
+    malloc_and_zero(mesh, mesh_t*);
     mesh->vertexBuffer = vertexBuffer;
     mesh->indexBuffer  = indexBuffer;
     mesh->inputLayout  = inputLayout;
@@ -563,7 +600,7 @@ texture_t* GraphicsDeviceDirectX::CreateTexture(const char* filename)
     assert(SUCCEEDED(hr));
 
     /* allocate texture */
-    gfx_malloc_and_zero(texture, texture_t*);
+    malloc_and_zero(texture, texture_t*);
     texture->resourceView = resourceView;
 
     return texture;
@@ -586,7 +623,7 @@ constant_buffer_t* GraphicsDeviceDirectX::CreateConstantBuffer(size_t size, cons
     assert(SUCCEEDED(hr));
 
     /* allocate buffer */
-    gfx_malloc_and_zero(constantBuffer, constant_buffer_t*);
+    malloc_and_zero(constantBuffer, constant_buffer_t*);
     constantBuffer->buffer = buffer;
 
     return constantBuffer;
