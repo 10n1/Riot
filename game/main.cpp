@@ -51,11 +51,11 @@ int main(int, char*[])
 #endif
     cJSON* coreJson = cJSON_Parse(kEngineJson);
     engine_params_t params(coreJson);
-    cJSON_Delete(coreJson);
 
 
     Core core;
-    core.Init(params);
+    core.Init(coreJson);
+    cJSON_Delete(coreJson);
 
     while(1)
     {

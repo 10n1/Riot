@@ -16,6 +16,14 @@
 #include "cJSON.h"
 #include "graphicsDevice.h"
 
+#define INT_FROM_JSON(json, objectName)                         \
+    {                                                           \
+        cJSON* _json_ = cJSON_GetObjectItem(json, #objectName); \
+        if(_json_)                                              \
+            objectName = _json_->valueint;                      \
+    }
+
+
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
@@ -36,18 +44,12 @@ struct engine_params_t
     {
         if(json == NULL)
             return;
-            
-        cJSON* jsonCreateWindow = cJSON_GetObjectItem(json, "createWindow");
-        cJSON* jsonWindowWidth = cJSON_GetObjectItem(json, "windowWidth");
-        cJSON* jsonWindowHeight = cJSON_GetObjectItem(json, "windowHeight");
-        cJSON* jsonGraphicsApi = cJSON_GetObjectItem(json, "graphicsApi");
 
-        if(jsonCreateWindow)
-            createWindow = jsonCreateWindow->valueint;
-        if(jsonWindowWidth)
-            windowWidth = jsonWindowWidth->valueint;
-        if(jsonWindowHeight)
-            windowHeight = jsonWindowHeight->valueint;
+        INT_FROM_JSON(json, createWindow);
+        INT_FROM_JSON(json, windowWidth);
+        INT_FROM_JSON(json, windowHeight);
+        
+        cJSON* jsonGraphicsApi = cJSON_GetObjectItem(json, "graphicsApi");
 
         if(jsonGraphicsApi)
         {
