@@ -1,12 +1,12 @@
 /*
  *  system.h
- *  graphicsDevice
+ *  RiotLib
  *
  *  Created by Kyle C Weicht on 1/16/12..
  *  Copyright (c) 2012 Kyle C Weicht. All rights reserved.
  */
-#ifndef graphicsDevice_system_h
-#define graphicsDevice_system_h
+#ifndef __RiotLib_system_h
+#define __RiotLib_system_h
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */
 extern "C" {

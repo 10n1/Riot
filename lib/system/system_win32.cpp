@@ -261,15 +261,14 @@ void* GetWindow(void)
 int PollEvents(void)
 {
     MSG msg = {0};
-    while(PeekMessage(&msg, NULL, 0, 0,PM_REMOVE))
+    while(PeekMessage(&msg, NULL, 0, 0,PM_NOREMOVE))
 	{
+        if(!GetMessage(&msg, NULL, 0, 0))
+        {
+            System::Stop();
+        }
 		TranslateMessage(&msg);
         DispatchMessage(&msg);
-    }
-
-    if(msg.message == WM_QUIT)
-    {
-        System::Stop();
     }
 
     return s_running;

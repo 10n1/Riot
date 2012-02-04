@@ -170,7 +170,7 @@ void GraphicsDeviceDirectX::Create(void* window)
     /*
      * Zero out self
      */
-    memset( (char*)this + sizeof(void*) , 0, sizeof(this)-sizeof(void*));
+    memset( (char*)this + sizeof(void*) , 0, sizeof(*this)-sizeof(void*));
 
     /*
      * Create swap chain description
