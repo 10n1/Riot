@@ -24,6 +24,12 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
+const char kEngineJson[] = 
+"{\n"
+"   \"createWindow\" : true,\n"
+"   \"windowWidth\"  : 1280,\n"
+"   \"windowHeight\" : 720\n"
+"}\n";
 
 /*******************************************************************\
 Internal functions
@@ -43,12 +49,18 @@ int main(int, char*[])
 #ifdef _WIN32
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
 #endif
+    cJSON* coreJson = cJSON_Parse(kEngineJson);
+    engine_params_t params(coreJson);
+    cJSON_Delete(coreJson);
+
 
     Core core;
-    core.Init(true);
+    core.Init(params);
 
-    while(core.Frame() == 0)
+    while(1)
     {
+        if(core.Frame())
+            break;
     }
 
     core.Shutdown();

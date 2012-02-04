@@ -40,14 +40,14 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void Core::Init(bool createWindow)
+void Core::Init(const engine_params_t& params)
 {
     /* Zero out self */
     memset(this, 0, sizeof(*this));
 
     /* Initialize subsystems */
-    System::Init(createWindow, 1280, 800);
-    _graphicsDevice = GraphicsDevice::Create(GraphicsAPI::kDirectX, System::GetWindow());
+    System::Init(params.createWindow, params.windowWidth, params.windowHeight);
+    _graphicsDevice = GraphicsDevice::Create(params.graphicsApi, System::GetWindow());
 
     /* Engine initialization */
     _frameNumber = 0;
@@ -58,6 +58,9 @@ void Core::Init(bool createWindow)
 int Core::Frame(void)
 {
     if(System::PollEvents() == 0)
+        return 1;
+
+    if(System::GetKeyState(System::Key::kEscape))
         return 1;
 
     // Rendering
