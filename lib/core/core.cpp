@@ -15,6 +15,7 @@
 /* Internal headers */
 #include "system.h"
 #include "renderEngine.h"
+#include "camera.h"
 
 namespace
 {
@@ -26,8 +27,11 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-static mesh_id_t    _mesh = -1;
-static texture_id_t _texture = -1;
+static mesh_id_t    _quadMesh = -1;
+static mesh_id_t    _cubeMesh = -1;
+static texture_id_t _cubeTexture = -1;
+static texture_id_t _grassTexture = -1;
+static camera_t     _camera;
 
 /*******************************************************************\
 Internal functions
@@ -57,8 +61,14 @@ void Core::Init(const engine_params_t& params)
     /* Engine initialization */
     _frameNumber = 0;
 
-    _mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
-    _texture = RenderEngine::CreateTexture("assets/ground.png");
+    _quadMesh = RenderEngine::CreateMesh("assets/quadMesh.json");
+    _cubeMesh = RenderEngine::CreateMesh("assets/cubeMesh.json");
+    _grassTexture = RenderEngine::CreateTexture("assets/grass.png");
+    _cubeTexture = RenderEngine::CreateTexture("assets/test.png");
+
+    camInit(&_camera);
+
+    _camera.position.y += 0.25f;
 }
 
 int Core::Frame(void)
@@ -69,6 +79,7 @@ int Core::Frame(void)
     if(System::PollEvents() == 0)
         return 1;
     
+    RenderEngine::SetWorldProjectionType(ProjectionType::kPerspective);
     int width, height;
     System::GetWindowSize(&width, &height);
     if(width != _windowWidth || height != _windowHeight)
@@ -80,9 +91,38 @@ int Core::Frame(void)
     if(System::GetKeyState(System::Key::kEscape))
         return 1;
 
-    RenderEngine::SetWorldProjectionType(ProjectionType::kOrthographic);
-    RenderEngine::SetWorldViewMatrix(Matrix4Identity());
-    RenderEngine::Render(1, Matrix4Identity(), _mesh, _texture);
+    // Camera controls
+    if(System::GetKeyState(System::Key::kUp))
+        camRotateX(&_camera, -0.001f);
+    if(System::GetKeyState(System::Key::kDown))
+        camRotateX(&_camera, +0.001f);
+    if(System::GetKeyState(System::Key::kLeft))
+        camRotateY(&_camera, -0.001f);
+    if(System::GetKeyState(System::Key::kRight))
+        camRotateY(&_camera, +0.001f);
+
+    if(System::GetKeyState(System::Key::kW))
+        camTranslateZ(&_camera, 0.005f);
+    if(System::GetKeyState(System::Key::kS))
+        camTranslateZ(&_camera, -0.005f);
+        
+    if(System::GetKeyState(System::Key::kA))
+        camTranslateX(&_camera, -0.005f);
+    if(System::GetKeyState(System::Key::kD))
+        camTranslateX(&_camera, +0.005f);
+        
+    if(System::GetKeyState(System::Key::kSpace))
+        camTranslateY(&_camera, +0.005f);
+    if(System::GetKeyState(System::Key::kC))
+        camTranslateY(&_camera, -0.005f);
+
+    RenderEngine::SetWorldViewMatrix(camGetViewMatrix(&_camera));
+
+    // Ground
+    Matrix4 worldMatrix = Matrix4RotationX(DegToRad(90.0f));
+    worldMatrix = Matrix4MatrixMultiply(worldMatrix, Matrix4Scale(500.0f, 500.0f, 500.0f));
+    RenderEngine::Render(1, worldMatrix, _quadMesh, _grassTexture);
+    RenderEngine::Render(1, Matrix4Identity(), _cubeMesh, _cubeTexture);
 
     RenderEngine::Frame();
 

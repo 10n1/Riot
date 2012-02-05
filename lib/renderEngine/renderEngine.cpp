@@ -252,8 +252,9 @@ mesh_id_t CreateMesh(const char* filename)
     StringHash extensionHash(extension);
     if(extensionHash.hash == StringHash("json").hash)
     {
-        char fileBuffer[1024*8];
-        FileLoadAndRead(fileBuffer, sizeof(fileBuffer), filename);
+        char fileBuffer[1024*8] = {0};
+        int bytesRead = FileLoadAndRead(fileBuffer, sizeof(fileBuffer), filename);
+        fileBuffer[bytesRead] = '\0';
         cJSON* objectRoot = cJSON_Parse(fileBuffer);
         INT_FROM_JSON(objectRoot, vertexCount);
         INT_FROM_JSON(objectRoot, indexCount);

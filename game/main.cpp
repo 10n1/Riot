@@ -28,8 +28,8 @@ Internal variables
 const char kEngineJson[] = 
 "{\n"
 "   \"createWindow\" : true,\n"
-"   \"windowWidth\"  : 1280,\n"
-"   \"windowHeight\" : 720,\n"
+"   \"windowWidth\"  : 1024,\n"
+"   \"windowHeight\" : 768,\n"
 "   \"graphicsApi\"  : \"directx\"\n"
 "}\n";
 
