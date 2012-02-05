@@ -29,7 +29,7 @@ const char kEngineJson[] =
 "   \"createWindow\" : true,\n"
 "   \"windowWidth\"  : 1280,\n"
 "   \"windowHeight\" : 720,\n"
-"   \"graphicsApi\"  : \"directx\"\n"
+"   \"graphicsApi\"  : \"opengl\"\n"
 "}\n";
 
 /*******************************************************************\

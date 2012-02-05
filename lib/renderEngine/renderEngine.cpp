@@ -127,6 +127,8 @@ void Init(const render_engine_params_t& params)
 {
     _graphicsDevice = GraphicsDevice::Create((GraphicsAPI::Enum)params.graphicsApi, System::GetWindow());
     _graphicsDevice->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 0.0f);
+    _graphicsDevice->SetDepthTest(0, 0);
+    _graphicsDevice->SetAlphaTest(1);
     _graphicsDevice->Clear();
 
     // Create the material
@@ -143,7 +145,10 @@ void Init(const render_engine_params_t& params)
     _worldConstBuffer = _graphicsDevice->CreateConstantBuffer(sizeof(Matrix4), &ident);
 
     _graphicsDevice->SetVSConstantBuffer(_viewProjConstBuffer, 0);
-    _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 0);
+    _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 1);
+
+    // Create temp texture
+    _textures.Add(_graphicsDevice->CreateTexture("assets/ground.png"), "assets/ground.png");
 
     _numRenderCommands = 0;
 }
@@ -154,6 +159,13 @@ void Shutdown(void)
         _graphicsDevice->DestroyMesh(_meshes[ii]);
     for(int ii=0; ii<_textures.activeItems(); ++ii)
         _graphicsDevice->DestroyTexture(_textures[ii]);
+
+        
+    _graphicsDevice->DestroyConstantBuffer(_viewProjConstBuffer);
+    _graphicsDevice->DestroyConstantBuffer(_worldConstBuffer);
+    _graphicsDevice->DestroyMaterial(_material);
+    _graphicsDevice->DestroyVertexShader(_vertexShader);
+    _graphicsDevice->DestroyPixelShader(_pixelShader);
 
     _meshes.Empty();
     _textures.Empty();
@@ -173,11 +185,23 @@ void Frame(void)
     _graphicsDevice->Present();
     _graphicsDevice->Clear();
 
+    Matrix4 ident = Matrix4Identity();
+    Render(ident, ident, 0, 0);
+
     // Render
     for(int ii=0; ii<_numRenderCommands; ++ii)
     {
         const render_command_t& command = _renderCommands[ii];
+        _graphicsDevice->SetMaterial(_material);
+        _graphicsDevice->UpdateConstantBuffer(_viewProjConstBuffer, sizeof(Matrix4), &command.viewProj);
+        _graphicsDevice->UpdateConstantBuffer(_worldConstBuffer, sizeof(Matrix4), &command.world);
+        _graphicsDevice->SetVSConstantBuffer(_viewProjConstBuffer, 0);
+        _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 0);
+        _graphicsDevice->SetTexture(_textures[command.texture]);
+        _graphicsDevice->DrawMesh(_meshes[command.mesh]);
     }
+
+    _numRenderCommands = 0;
 }
 
 mesh_id_t CreateMesh(const char* filename)
