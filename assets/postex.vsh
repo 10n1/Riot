@@ -43,12 +43,7 @@ CONSTANT_BUFFER(cbuffer0)
     matrix  kViewProj;
 };
 
-//CONSTANT_BUFFER(cbuffer1)
-//{
-//    matrix  kView;
-//};
-
-CONSTANT_BUFFER(cbuffer2)
+CONSTANT_BUFFER(cbuffer1)
 {
     matrix kWorld;
 };

@@ -27,7 +27,6 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
-class GraphicsDevice;
 
 struct engine_params_t
 {
@@ -79,7 +78,6 @@ public:
     int frameNumber(void) const { return _frameNumber; }
 /* Members */
 private:
-    GraphicsDevice* _graphicsDevice;
     int             _frameNumber;
     int             _windowWidth;
     int             _windowHeight;

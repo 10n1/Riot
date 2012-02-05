@@ -14,7 +14,7 @@
 /* External headers */
 /* Internal headers */
 #include "system.h"
-#include "graphicsDevice.h"
+#include "renderEngine.h"
 
 namespace
 {
@@ -47,12 +47,15 @@ void Core::Init(const engine_params_t& params)
 
     /* Initialize subsystems */
     System::Init(params.createWindow, params.windowWidth, params.windowHeight);
-    _graphicsDevice = GraphicsDevice::Create(params.graphicsApi, System::GetWindow());
+
+    render_engine_params_t renderParams;
+    renderParams.graphicsApi = params.graphicsApi;
+    RenderEngine::Init(renderParams);
 
     /* Engine initialization */
     _frameNumber = 0;
-    _graphicsDevice->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 0.0f);
-    _graphicsDevice->Clear();
+
+    RenderEngine::CreateMesh("Thisisatest.json");
 }
 
 int Core::Frame(void)
@@ -67,16 +70,14 @@ int Core::Frame(void)
     System::GetWindowSize(&width, &height);
     if(width != _windowWidth || height != _windowHeight)
     {
-        _graphicsDevice->Resize(width, height);
+        RenderEngine::Resize(width, height);
         _windowWidth = width, _windowHeight = height;
     }
 
     if(System::GetKeyState(System::Key::kEscape))
         return 1;
 
-    // Rendering
-    _graphicsDevice->Present();
-    _graphicsDevice->Clear();
+    RenderEngine::Frame();
 
     _frameNumber++;
     return 0;
@@ -85,6 +86,6 @@ int Core::Frame(void)
 void Core::Shutdown(void)
 {
     /* Destroy subsystems */
-    _graphicsDevice->Destroy();
+    RenderEngine::Shutdown();
     System::Shutdown();
 }

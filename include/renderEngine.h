@@ -13,6 +13,7 @@
 /* C++ headers */
 /* External headers */
 /* Internal headers */
+#include "vm.h"
 
 /*******************************************************************\
 External Constants And types
@@ -29,16 +30,13 @@ struct render_engine_params_t
     int graphicsApi;
 };
 
-namespace VertexFormat
+struct render_command_t
 {
-    enum Enum
-    {
-        kPosTex,
-        kPosNormTex,
-
-        kMAX_VERTEX_FORMATS
-    };
-}
+    Matrix4         viewProj;
+    Matrix4         world;
+    mesh_id_t       mesh;
+    texture_id_t    texture;
+};
 
 /*******************************************************************\
 External variables
@@ -52,18 +50,14 @@ namespace RenderEngine
     void Init(const render_engine_params_t& params);
     void Shutdown(void);
 
-    vertex_shader_id_t CreateVertexShader(const char* filename);
-    pixel_shader_id_t CreatePixelShader(const char* filename);
-    material_id_t CreateMaterial(vertex_shader_id_t vertexShader, pixel_shader_id_t pixelShader);
-    mesh_id_t CreateMesh(   vertex_shader_id_t vertexShader,
-                            VertexFormat::Enum format,
-                            uint32_t vertexCount,
-                            uint32_t indexCount,
-                            size_t vertexSize,
-                            size_t indexSize,
-                            const void* vertices,
-                            const void* indices);
+    void Resize(int width, int height);
+
+    void Frame(void);
+
+    mesh_id_t CreateMesh(const char* filename);
     texture_id_t CreateTexture(const char* filename);
+
+    void Render(const Matrix4& viewProj, const Matrix4& world, mesh_id_t mesh, texture_id_t texture);
 };
 
 #endif /* include guard */

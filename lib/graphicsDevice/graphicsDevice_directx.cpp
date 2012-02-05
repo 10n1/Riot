@@ -14,6 +14,7 @@
 /* External headers */
 /* Internal headers */
 #include "global.h"
+#include "file.h"
 
 #define malloc_and_zero(pointer, type) pointer = (type)malloc(sizeof(*pointer)); memset(pointer, 0, sizeof(*pointer))
 
@@ -46,7 +47,6 @@ ID3DBlob* CompileShader(const char* filename, const char* profile)
     uint32_t    compileFlags    = 0;
     HRESULT     hr              = S_OK;
     int         messageBoxResult= 0;
-    FILE*       shaderFile      = NULL;
     size_t      bytesRead       = 0;
 
     memset(buffer, 0, sizeof(buffer));
@@ -57,10 +57,10 @@ ID3DBlob* CompileShader(const char* filename, const char* profile)
 
     do
     {
-        shaderFile = fopen(filename, "r");
-        bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), shaderFile);
+        File shaderFile(filename, "r");
+        bytesRead = shaderFile.Read(buffer, sizeof(buffer[0]), sizeof(buffer));
         buffer[bytesRead] = '\0';
-        fclose(shaderFile);
+        shaderFile.Close();
         /* compile the shader */
         hr = D3DX11CompileFromMemory(   buffer,         /* Shader code */
                                         sizeof(buffer), /* Shader length */

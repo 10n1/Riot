@@ -26,7 +26,7 @@ solution "Riot"
     project "RiotGame"
         kind        "ConsoleApp"
         language    "C++"
-        files { "../game/**.*" }
+        files { "../game/**.*", "../assets/**.*" }
         includedirs { "../include" }
         objdir ( "../build/obj/game" )
         links { "RiotLib", "Box2D", "lua" }

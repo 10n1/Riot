@@ -15,8 +15,20 @@
 /* Internal headers */
 
 /*******************************************************************\
-External Constants And types
 \*******************************************************************/
+unsigned int CalculateFNV(const char* str)
+{
+  const size_t length = strlen(str) + 1;
+  unsigned int hash = 2166136261u;
+  for (size_t i=0; i<length; ++i)
+  {
+    hash ^= *str++;
+    hash *= 16777619u;
+  }
+ 
+  return hash;
+}
+
 template <unsigned int N, unsigned int I>
 struct FnvHash
 {
@@ -35,10 +47,14 @@ struct FnvHash<N, 1>
     }
 };
 
-
 struct StringHash
 {
 public:
+    inline StringHash()
+        : hash(0)
+    {
+        string[0] = '\0';
+    }
     template <unsigned int N>
     inline StringHash(const char (&str)[N])
         : hash(FnvHash<N, N>::Hash(str))
@@ -47,6 +63,15 @@ public:
         strcpy(string, str);
 #endif
     }
+    inline StringHash(const char* str)
+        : hash(CalculateFNV(str))
+    {
+#if (defined(_DEBUG) || defined(_DEBUG))  && !defined(NDEBUG)
+        strcpy(string, str);
+#endif
+    }
+
+    bool operator==(const StringHash& _hash) { return hash == _hash.hash; }
 
     unsigned int    hash;
 #if (defined(_DEBUG) || defined(_DEBUG))  && !defined(NDEBUG)
@@ -54,13 +79,5 @@ public:
 #endif
 };
 
-
-/*******************************************************************\
-External variables
-\*******************************************************************/
-
-/*******************************************************************\
-External functions
-\*******************************************************************/
 
 #endif /* include guard */
