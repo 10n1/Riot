@@ -55,7 +55,7 @@ void Core::Init(const engine_params_t& params)
     /* Engine initialization */
     _frameNumber = 0;
 
-    RenderEngine::CreateMesh("Thisisatest.json");
+    RenderEngine::CreateMesh("assets/quadMesh.json");
 }
 
 int Core::Frame(void)

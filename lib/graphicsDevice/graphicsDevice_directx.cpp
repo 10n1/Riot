@@ -248,6 +248,7 @@ void GraphicsDeviceDirectX::Create(void* window)
      */
 
     /* rasterizer */
+    ZeroMemory(&rasterDesc, sizeof(rasterDesc));
     rasterDesc.CullMode = D3D11_CULL_BACK;
     rasterDesc.FillMode = D3D11_FILL_SOLID;
     rasterDesc.DepthClipEnable = TRUE;
@@ -385,6 +386,7 @@ void GraphicsDeviceDirectX::Resize(int width, int height)
     SAFE_RELEASE(backBuffer);
 
     /* Depth stencil texture */
+    ZeroMemory(&depthTextureDesc, sizeof(depthTextureDesc));
     depthTextureDesc.Width              = width;
     depthTextureDesc.Height             = height;
     depthTextureDesc.MipLevels          = 1;
@@ -400,6 +402,7 @@ void GraphicsDeviceDirectX::Resize(int width, int height)
     assert(SUCCEEDED(hr));
 
     /* Depth stencil view */
+    ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
     depthStencilDesc.Format = depthTextureDesc.Format;
     depthStencilDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
     depthStencilDesc.Texture2D.MipSlice = 0;

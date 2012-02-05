@@ -33,7 +33,7 @@ External Constants And types
 #if defined( _MSC_VER )
     #define debugBreak() __debugbreak()
 #elif defined( __GNUC__ )
-    #define debugBreak() __asm__( "int $3\n" : : )
+    #define debugBreak() __asm__( "int $3  : : )
 #else
     #error Unsupported compiler
 #endif

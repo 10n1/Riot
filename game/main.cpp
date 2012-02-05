@@ -13,6 +13,7 @@
 /* Internal headers */
 #include "global.h"
 #include "core.h"
+#include "renderEngine.h"
 
 namespace
 {

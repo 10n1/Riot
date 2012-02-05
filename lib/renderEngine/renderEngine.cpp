@@ -17,7 +17,7 @@
 #include "utility.h"
 #include "global.h"
 #include "cJSON.h"
-
+#include "file.h"
 
 #define INT_FROM_JSON(json, objectName)                         \
     {                                                           \
@@ -126,7 +126,7 @@ namespace RenderEngine
 void Init(const render_engine_params_t& params)
 {
     _graphicsDevice = GraphicsDevice::Create((GraphicsAPI::Enum)params.graphicsApi, System::GetWindow());
-    _graphicsDevice->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 0.0f);
+    _graphicsDevice->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 1.0f);
     _graphicsDevice->SetDepthTest(0, 0);
     _graphicsDevice->SetAlphaTest(1);
     _graphicsDevice->Clear();
@@ -182,7 +182,6 @@ void Resize(int width, int height)
 void Frame(void)
 {
     // Rendering
-    _graphicsDevice->Present();
     _graphicsDevice->Clear();
 
     Matrix4 ident = Matrix4Identity();
@@ -196,12 +195,14 @@ void Frame(void)
         _graphicsDevice->UpdateConstantBuffer(_viewProjConstBuffer, sizeof(Matrix4), &command.viewProj);
         _graphicsDevice->UpdateConstantBuffer(_worldConstBuffer, sizeof(Matrix4), &command.world);
         _graphicsDevice->SetVSConstantBuffer(_viewProjConstBuffer, 0);
-        _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 0);
+        _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 1);
         _graphicsDevice->SetTexture(_textures[command.texture]);
         _graphicsDevice->DrawMesh(_meshes[command.mesh]);
     }
 
     _numRenderCommands = 0;
+
+    _graphicsDevice->Present();
 }
 
 mesh_id_t CreateMesh(const char* filename)
@@ -243,7 +244,9 @@ mesh_id_t CreateMesh(const char* filename)
     StringHash extensionHash(extension);
     if(extensionHash.hash == StringHash("json").hash)
     {
-        cJSON* objectRoot = cJSON_Parse(tempJson);
+        char fileBuffer[1024*8];
+        FileLoadAndRead(fileBuffer, sizeof(fileBuffer), filename);
+        cJSON* objectRoot = cJSON_Parse(fileBuffer);
         INT_FROM_JSON(objectRoot, vertexCount);
         INT_FROM_JSON(objectRoot, indexCount);
         INT_FROM_JSON(objectRoot, vertexSize);
