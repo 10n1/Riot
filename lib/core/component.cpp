@@ -40,5 +40,5 @@ External functions
 \*******************************************************************/
 void RenderComponent::Update(void)
 {
-    RenderEngine::Render(1, TransformGetMatrix(_entity->transform()), _mesh, _texture);
+    RenderEngine::Render(_worldView, TransformGetMatrix(_entity->transform()), _mesh, _texture);
 }

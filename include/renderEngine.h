@@ -67,7 +67,7 @@ namespace RenderEngine
     texture_id_t CreateTexture(const char* filename);
 
     void SetWorldViewMatrix(const Matrix4& view);
-    void SetWorldProjectionType(ProjectionType::Enum type);
+    void SetWorldProjectionType(ProjectionType::Enum type, float bottom = -0.5f, float top = 0.5f);
 
     void Render(int worldView, const Matrix4& world, mesh_id_t mesh, texture_id_t texture);
 };

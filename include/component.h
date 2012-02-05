@@ -43,6 +43,7 @@ public:
 public:
     mesh_id_t       _mesh;
     texture_id_t    _texture;
+    int             _worldView;
 };
 
 /*******************************************************************\

@@ -29,13 +29,7 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-static mesh_id_t    _quadMesh = -1;
-static mesh_id_t    _cubeMesh = -1;
-static texture_id_t _cubeTexture = -1;
-static texture_id_t _grassTexture = -1;
 static camera_t     _camera;
-
-static Entity       _entity;
 
 /*******************************************************************\
 Internal functions
@@ -65,19 +59,7 @@ void Core::Init(const engine_params_t& params)
     /* Engine initialization */
     _frameNumber = 0;
 
-    _quadMesh = RenderEngine::CreateMesh("assets/quadMesh.json");
-    _cubeMesh = RenderEngine::CreateMesh("assets/cubeMesh.json");
-    _grassTexture = RenderEngine::CreateTexture("assets/grass.png");
-    _cubeTexture = RenderEngine::CreateTexture("assets/test.png");
-
-    RenderComponent* render = new RenderComponent(&_entity);
-    render->_mesh = _cubeMesh;
-    render->_texture = _cubeTexture;
-    _entity.AddComponent(render);
-
     camInit(&_camera);
-
-    _camera.position.y += 0.25f;
 }
 
 int Core::Frame(void)
@@ -88,7 +70,7 @@ int Core::Frame(void)
     if(System::PollEvents() == 0)
         return 1;
     
-    RenderEngine::SetWorldProjectionType(ProjectionType::kPerspective);
+    RenderEngine::SetWorldProjectionType(ProjectionType::kOrthographic, -8.0f, 120.0f);
     int width, height;
     System::GetWindowSize(&width, &height);
     if(width != _windowWidth || height != _windowHeight)
@@ -128,12 +110,6 @@ int Core::Frame(void)
     RenderEngine::SetWorldViewMatrix(camGetViewMatrix(&_camera));
 
     // Ground
-    Matrix4 worldMatrix = Matrix4RotationX(DegToRad(90.0f));
-    worldMatrix = Matrix4MatrixMultiply(worldMatrix, Matrix4Scale(500.0f, 500.0f, 500.0f));
-    RenderEngine::Render(1, worldMatrix, _quadMesh, _grassTexture);
-    //RenderEngine::Render(1, Matrix4Identity(), _cubeMesh, _cubeTexture);
-
-    _entity.Update();
     RenderEngine::Frame();
 
     _frameNumber++;

@@ -44,6 +44,11 @@ Entity::Entity()
     , _id(++s_entityId)
 {
 }
+Entity::~Entity()
+{
+    for(int ii=0; ii<_numComponents; ++ii)
+        delete _components[ii];
+}
 void Entity::AddComponent(Component* component)
 {
     _components[_numComponents++] = component;

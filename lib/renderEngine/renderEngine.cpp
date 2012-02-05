@@ -111,6 +111,8 @@ constant_buffer_t*                      _worldViewConstBuffer;
 Matrix4                                 _worldProjMatrix;
 Matrix4                                 _uiViewProjMatrix;
 constant_buffer_t*                      _uiViewConstBuffer;
+float                                   _orthographicBottom;
+float                                   _orthographicTop;
 
 /*******************************************************************\
 Internal functions
@@ -131,7 +133,7 @@ namespace RenderEngine
 void Init(const render_engine_params_t& params)
 {
     _graphicsDevice = GraphicsDevice::Create((GraphicsAPI::Enum)params.graphicsApi, System::GetWindow());
-    _graphicsDevice->SetClearColor(0.67f, 0.23f, 0.15f, 1.0f, 1.0f);
+    _graphicsDevice->SetClearColor(132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
     _graphicsDevice->SetDepthTest(0, 0);
     _graphicsDevice->SetAlphaTest(1);
     _graphicsDevice->Clear();
@@ -191,7 +193,10 @@ void Resize(int width, int height)
     }
     else
     {
-        _worldProjMatrix = _uiViewProjMatrix;
+        float h = _orthographicTop-_orthographicBottom;
+        float l = -(h*aspectRatio)/2;
+        float r = (h*aspectRatio)/2;
+        _worldProjMatrix = Matrix4OrthographicOffCenterLH(l, r, _orthographicTop, _orthographicBottom, -1.0f, 1.0f);
     }
     _graphicsDevice->UpdateConstantBuffer(_uiViewConstBuffer, sizeof(_uiViewProjMatrix), &_uiViewProjMatrix);
 }
@@ -202,9 +207,15 @@ void SetWorldViewMatrix(const Matrix4& view)
     _graphicsDevice->UpdateConstantBuffer(_worldViewConstBuffer, sizeof(_worldViewProjMatrix), &_worldViewProjMatrix);
 }
 
-void SetWorldProjectionType(ProjectionType::Enum type)
+void SetWorldProjectionType(ProjectionType::Enum type, float bottom, float top)
 {
     _worldProjType = type;
+
+    if(type == ProjectionType::kOrthographic)
+    {
+        _orthographicBottom = bottom;
+        _orthographicTop = top;
+    }
 }
 
 void Frame(void)
@@ -232,6 +243,10 @@ void Frame(void)
 
 mesh_id_t CreateMesh(const char* filename)
 {
+    // First check if it exists
+    if(_meshes.GetIndex(filename) != -1)
+        return _meshes.GetIndex(filename);
+
     // Get the extension
     const char* findExt = filename;
     const char* extension = 0;
@@ -299,6 +314,9 @@ mesh_id_t CreateMesh(const char* filename)
 }
 texture_id_t CreateTexture(const char* filename)
 {
+    if(_textures.GetIndex(filename) != -1)
+        return _textures.GetIndex(filename);
+
     texture_id_t texture = _textures.Add(_graphicsDevice->CreateTexture(filename), filename);
     return texture;
 }

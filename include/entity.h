@@ -24,10 +24,12 @@ class Entity
 /* Methods */
 public:
     Entity();
+    ~Entity();
 
     void AddComponent(Component* component);
     void Update(void);
 
+    void SetTransform(const Transform& transform) { _transform = transform; }
     const Transform& transform() const { return _transform; }
     int id() const { return _id; }
 
