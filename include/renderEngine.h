@@ -32,11 +32,20 @@ struct render_engine_params_t
 
 struct render_command_t
 {
-    Matrix4         viewProj;
     Matrix4         world;
+    int             worldView;
     mesh_id_t       mesh;
     texture_id_t    texture;
 };
+
+namespace ProjectionType
+{
+    enum Enum
+    {
+        kOrthographic,
+        kPerspective,
+    };
+}
 
 /*******************************************************************\
 External variables
@@ -57,7 +66,10 @@ namespace RenderEngine
     mesh_id_t CreateMesh(const char* filename);
     texture_id_t CreateTexture(const char* filename);
 
-    void Render(const Matrix4& viewProj, const Matrix4& world, mesh_id_t mesh, texture_id_t texture);
+    void SetWorldViewMatrix(const Matrix4& view);
+    void SetWorldProjectionType(ProjectionType::Enum type);
+
+    void Render(int worldView, const Matrix4& world, mesh_id_t mesh, texture_id_t texture);
 };
 
 #endif /* include guard */

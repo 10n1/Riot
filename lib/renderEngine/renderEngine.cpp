@@ -104,8 +104,13 @@ pixel_shader_t*                         _pixelShader;
 material_t*                             _material;
 render_command_t                        _renderCommands[kMaxRenderCommands];
 int                                     _numRenderCommands;
-constant_buffer_t*                      _viewProjConstBuffer;
 constant_buffer_t*                      _worldConstBuffer;
+ProjectionType::Enum                    _worldProjType = ProjectionType::kOrthographic;
+Matrix4                                 _worldViewProjMatrix;
+constant_buffer_t*                      _worldViewConstBuffer;
+Matrix4                                 _worldProjMatrix;
+Matrix4                                 _uiViewProjMatrix;
+constant_buffer_t*                      _uiViewConstBuffer;
 
 /*******************************************************************\
 Internal functions
@@ -141,14 +146,11 @@ void Init(const render_engine_params_t& params)
 
     // Create constant buffers
     Matrix4 ident = Matrix4Identity();
-    _viewProjConstBuffer = _graphicsDevice->CreateConstantBuffer(sizeof(Matrix4), &ident);
+    _worldViewConstBuffer = _graphicsDevice->CreateConstantBuffer(sizeof(Matrix4), &ident);
+    _uiViewConstBuffer = _graphicsDevice->CreateConstantBuffer(sizeof(Matrix4), &ident);
     _worldConstBuffer = _graphicsDevice->CreateConstantBuffer(sizeof(Matrix4), &ident);
 
-    _graphicsDevice->SetVSConstantBuffer(_viewProjConstBuffer, 0);
     _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 1);
-
-    // Create temp texture
-    _textures.Add(_graphicsDevice->CreateTexture("assets/ground.png"), "assets/ground.png");
 
     _numRenderCommands = 0;
 }
@@ -161,7 +163,8 @@ void Shutdown(void)
         _graphicsDevice->DestroyTexture(_textures[ii]);
 
         
-    _graphicsDevice->DestroyConstantBuffer(_viewProjConstBuffer);
+    _graphicsDevice->DestroyConstantBuffer(_worldViewConstBuffer);
+    _graphicsDevice->DestroyConstantBuffer(_uiViewConstBuffer);
     _graphicsDevice->DestroyConstantBuffer(_worldConstBuffer);
     _graphicsDevice->DestroyMaterial(_material);
     _graphicsDevice->DestroyVertexShader(_vertexShader);
@@ -177,6 +180,31 @@ void Shutdown(void)
 void Resize(int width, int height)
 {
     _graphicsDevice->Resize(width, height);
+    float aspectRatio = width/(float)height;
+
+    _uiViewProjMatrix = Matrix4OrthographicLH(aspectRatio, 1.0f, -1.0f, 1.0f);
+    //_uiViewProjMatrix = Matrix4Identity();
+
+    if(_worldProjType == ProjectionType::kPerspective)
+    {
+        _worldProjMatrix = Matrix4PerspectiveFovLH(DegToRad(50.0f), aspectRatio, 0.1f, 1000.0f);
+    }
+    else
+    {
+        _worldProjMatrix = _uiViewProjMatrix;
+    }
+    _graphicsDevice->UpdateConstantBuffer(_uiViewConstBuffer, sizeof(_uiViewProjMatrix), &_uiViewProjMatrix);
+}
+
+void SetWorldViewMatrix(const Matrix4& view)
+{
+    _worldViewProjMatrix = Matrix4MatrixMultiply(view, _worldProjMatrix);
+    _graphicsDevice->UpdateConstantBuffer(_worldViewConstBuffer, sizeof(_worldViewProjMatrix), &_worldViewProjMatrix);
+}
+
+void SetWorldProjectionType(ProjectionType::Enum type)
+{
+    _worldProjType = type;
 }
 
 void Frame(void)
@@ -184,18 +212,15 @@ void Frame(void)
     // Rendering
     _graphicsDevice->Clear();
 
-    Matrix4 ident = Matrix4Identity();
-    Render(ident, ident, 0, 0);
-
     // Render
     for(int ii=0; ii<_numRenderCommands; ++ii)
     {
         const render_command_t& command = _renderCommands[ii];
-        _graphicsDevice->SetMaterial(_material);
-        _graphicsDevice->UpdateConstantBuffer(_viewProjConstBuffer, sizeof(Matrix4), &command.viewProj);
         _graphicsDevice->UpdateConstantBuffer(_worldConstBuffer, sizeof(Matrix4), &command.world);
-        _graphicsDevice->SetVSConstantBuffer(_viewProjConstBuffer, 0);
-        _graphicsDevice->SetVSConstantBuffer(_worldConstBuffer, 1);
+        if(command.worldView)
+            _graphicsDevice->SetVSConstantBuffer(_worldViewConstBuffer, 0);
+        else
+            _graphicsDevice->SetVSConstantBuffer(_uiViewConstBuffer, 0);
         _graphicsDevice->SetTexture(_textures[command.texture]);
         _graphicsDevice->DrawMesh(_meshes[command.mesh]);
     }
@@ -216,23 +241,6 @@ mesh_id_t CreateMesh(const char* filename)
             extension = findExt+1;
         findExt++;
     }
-
-    const char tempJson[] = 
-    "{\n"
-    "   \"vertexCount\" : 4,\n"
-    "   \"indexCount\"  : 6,\n"
-    "   \"vertexSize\"  : 20,\n"
-    "   \"indexSize\"   : 2,\n"
-    "   \"vertices\"    : [\n"
-    "       -0.5, -0.5, 0.0,   0.0, 1.0,\n"
-    "        0.5, -0.5, 0.0,   1.0, 1.0,\n"
-    "       -0.5,  0.5, 0.0,   0.0, 0.0,\n"
-    "        0.5,  0.5, 0.0,   1.0, 0.0\n"
-    "   ],\n"
-    "   \"indices\"     : [\n"
-    "       0, 2, 1,    \n"
-    "       2, 3, 1 ]\n"
-    "}\n";
 
     int     vertexCount;
     int     indexCount;
@@ -294,11 +302,11 @@ texture_id_t CreateTexture(const char* filename)
     return texture;
 }
 
-void Render(const Matrix4& viewProj, const Matrix4& world, mesh_id_t mesh, texture_id_t texture)
+void Render(int worldView, const Matrix4& world, mesh_id_t mesh, texture_id_t texture)
 {
     int index = _numRenderCommands++;
     render_command_t& command = _renderCommands[index];
-    command.viewProj = viewProj;
+    command.worldView = worldView;
     command.world = world;
     command.mesh = mesh;
     command.texture = texture;

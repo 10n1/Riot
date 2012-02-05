@@ -26,6 +26,8 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
+static mesh_id_t    _mesh = -1;
+static texture_id_t _texture = -1;
 
 /*******************************************************************\
 Internal functions
@@ -55,7 +57,8 @@ void Core::Init(const engine_params_t& params)
     /* Engine initialization */
     _frameNumber = 0;
 
-    RenderEngine::CreateMesh("assets/quadMesh.json");
+    _mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
+    _texture = RenderEngine::CreateTexture("assets/ground.png");
 }
 
 int Core::Frame(void)
@@ -76,6 +79,10 @@ int Core::Frame(void)
 
     if(System::GetKeyState(System::Key::kEscape))
         return 1;
+
+    RenderEngine::SetWorldProjectionType(ProjectionType::kOrthographic);
+    RenderEngine::SetWorldViewMatrix(Matrix4Identity());
+    RenderEngine::Render(1, Matrix4Identity(), _mesh, _texture);
 
     RenderEngine::Frame();
 
