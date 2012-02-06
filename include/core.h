@@ -15,6 +15,7 @@
 /* Internal headers */
 #include "cJSON.h"
 #include "graphicsDevice.h"
+#include "camera.h"
 
 #define INT_FROM_JSON(json, objectName)                         \
     {                                                           \
@@ -27,6 +28,7 @@
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
+class b2World;
 
 struct engine_params_t
 {
@@ -78,9 +80,11 @@ public:
     int frameNumber(void) const { return _frameNumber; }
 /* Members */
 private:
-    int             _frameNumber;
-    int             _windowWidth;
-    int             _windowHeight;
+    int         _frameNumber;
+    int         _windowWidth;
+    int         _windowHeight;
+    camera_t    _camera;
+    b2World*    _box2d;
 };
 
 #endif /* include guard */

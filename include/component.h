@@ -18,6 +18,8 @@
 External Constants And types
 \*******************************************************************/
 class Entity;
+class b2Body;
+class b2World;
 
 class Component
 {
@@ -44,6 +46,22 @@ public:
     mesh_id_t       _mesh;
     texture_id_t    _texture;
     int             _worldView;
+};
+class PhysicsComponent : public Component
+{
+/* Methods */
+public:
+    PhysicsComponent(Entity* entity) : Component(entity) {}
+
+    static void Initialize(void);
+    static void Shutdown(void) { delete _world; }
+
+    void Update(void);
+
+/* Members */
+public:
+    static b2World* _world;
+    b2Body*         _physicsBody;
 };
 
 /*******************************************************************\

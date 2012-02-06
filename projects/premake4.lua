@@ -56,7 +56,7 @@ solution "Riot"
         files { "../test/**.*" }
         includedirs { "../include", "../external/UnitTest++/src" }
         objdir ( "../build/obj/test" )
-        links { "RiotLib", "UnitTest++" }
+        links { "RiotLib", "UnitTest++", "Box2d" }
         
         configuration "windows"
             libdirs { "$(DXSDK_DIR)lib/x64" }

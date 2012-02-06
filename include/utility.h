@@ -53,7 +53,9 @@ public:
     inline StringHash()
         : hash(0)
     {
+#if (defined(_DEBUG) || defined(_DEBUG))  && !defined(NDEBUG)
         string[0] = '\0';
+#endif
     }
     template <unsigned int N>
     inline StringHash(const char (&str)[N])

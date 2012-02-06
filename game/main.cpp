@@ -10,12 +10,14 @@
 #include <stdio.h>
 /* C++ headers */
 /* External headers */
+#include "box2d/box2d.h"
 /* Internal headers */
 #include "global.h"
 #include "core.h"
 #include "renderEngine.h"
 #include "entity.h"
 #include "component.h"
+#include "timer.h"
 
 namespace
 {
@@ -36,13 +38,16 @@ const char kEngineJson[] =
 "}\n";
 
 Entity  _background;
-Entity  _bricks[1024*8];
+Entity  _bricks[1024*4];
+timer_t _timer;
 
 /*******************************************************************\
 Internal functions
 \*******************************************************************/
 void Initialize(void)
 {
+    timerInit(&_timer);
+
     RenderComponent* render = new RenderComponent(&_background);
     render->_mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
     render->_texture = RenderEngine::CreateTexture("assets/ground.png");
@@ -66,13 +71,29 @@ void Initialize(void)
         float x = startX;
         for(; ii < towerWidth; ++ii, x += 2.0f)
         {
+            // Physics
+            PhysicsComponent* physics = new PhysicsComponent(&_bricks[brickIndex]);
+            b2BodyDef bodyDef;
+            b2FixtureDef fixtureDef;
+            b2PolygonShape dynamicBox;
+
+            bodyDef.type = b2_dynamicBody;
+            bodyDef.position.Set(x, y);
+            physics->_physicsBody = PhysicsComponent::_world->CreateBody(&bodyDef);
+
+            dynamicBox.SetAsBox(1.0f, 0.5f);
+            fixtureDef.shape = &dynamicBox;
+            fixtureDef.density = 1.0f;
+            fixtureDef.friction = 0.65f;
+            physics->_physicsBody->CreateFixture(&fixtureDef);
+            _bricks[brickIndex].AddComponent(physics);
+
+            // Render
             render = new RenderComponent(&_bricks[brickIndex]);
             render->_mesh = RenderEngine::CreateMesh("assets/brickMesh.json");
             render->_texture = RenderEngine::CreateTexture("assets/brick.png");
             render->_worldView = 1;
             _bricks[brickIndex].AddComponent(render);
-            Transform t = { QuaternionZero(), { x, y, 0.0f } };
-            _bricks[brickIndex].SetTransform(t);
 
             brickIndex++;
         }
@@ -85,7 +106,9 @@ void Initialize(void)
 void Frame(void)
 {
     _background.Update();
+    float elapsedTime = timerGetDeltaTime(&_timer);
 
+    PhysicsComponent::_world->Step(elapsedTime, 10, 3);
     for(int ii=0; ii<ARRAY_LENGTH(_bricks); ++ii)
     {
         _bricks[ii].Update();
@@ -124,6 +147,8 @@ int main(int, char*[])
     }
 
     core.Shutdown();
+
+    PhysicsComponent::Shutdown();
 
     return 0;
 }

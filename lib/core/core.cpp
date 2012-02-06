@@ -15,9 +15,9 @@
 /* Internal headers */
 #include "system.h"
 #include "renderEngine.h"
-#include "camera.h"
 #include "entity.h"
 #include "component.h"
+#include "Box2D/Box2D.h"
 
 namespace
 {
@@ -29,7 +29,6 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-static camera_t     _camera;
 
 /*******************************************************************\
 Internal functions
@@ -60,6 +59,9 @@ void Core::Init(const engine_params_t& params)
     _frameNumber = 0;
 
     camInit(&_camera);
+
+    /* Initialize components */
+    PhysicsComponent::Initialize();
 }
 
 int Core::Frame(void)
@@ -118,6 +120,7 @@ int Core::Frame(void)
 
 void Core::Shutdown(void)
 {
+    delete _box2d;
     /* Destroy subsystems */
     RenderEngine::Shutdown();
     System::Shutdown();
