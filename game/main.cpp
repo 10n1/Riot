@@ -40,6 +40,7 @@ const char kEngineJson[] =
 Entity  _background;
 Entity  _bricks[1024*4];
 timer_t _timer;
+int     _activeBricks = 0;
 
 /*******************************************************************\
 Internal functions
@@ -96,6 +97,7 @@ void Initialize(void)
             _bricks[brickIndex].AddComponent(render);
 
             brickIndex++;
+            _activeBricks++;
         }
         y += 1.0f;
         startX += 1.0f;
@@ -109,9 +111,21 @@ void Frame(void)
     float elapsedTime = timerGetDeltaTime(&_timer);
 
     PhysicsComponent::_world->Step(elapsedTime, 10, 3);
-    for(int ii=0; ii<ARRAY_LENGTH(_bricks); ++ii)
+
+    for(int ii=0; ii<_activeBricks; ++ii)
     {
         _bricks[ii].Update();
+    }
+    
+    static int frameCount = 0;
+    static float frameTime = 0.0f;
+    frameCount++;
+    frameTime+= elapsedTime;
+    if(frameTime > 1.0f)
+    {
+        printf("FPS: %d\n", frameCount);
+        frameCount = 0;
+        frameTime -= 1.0f;
     }
 }
 
