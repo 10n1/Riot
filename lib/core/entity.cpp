@@ -51,6 +51,7 @@ Entity::~Entity()
 }
 void Entity::AddComponent(Component* component)
 {
+    component->_entity = this;
     _components[_numComponents++] = component;
 }
 void Entity::Update(void)

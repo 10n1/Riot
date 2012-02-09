@@ -49,13 +49,13 @@ void Initialize(void)
 {
     timerInit(&_timer);
 
-    RenderComponent* render = new RenderComponent(&_background);
+    RenderComponent* render = new RenderComponent();
     render->_mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
     render->_texture = RenderEngine::CreateTexture("assets/ground.png");
     render->_worldView = 0;
     _background.AddComponent(render);
 
-    render = new RenderComponent(&_bricks[0]);
+    render = new RenderComponent();
     render->_mesh = RenderEngine::CreateMesh("assets/brickMesh.json");
     render->_texture = RenderEngine::CreateTexture("assets/brick.png");
     render->_worldView = 1;
@@ -73,7 +73,7 @@ void Initialize(void)
         for(; ii < towerWidth; ++ii, x += 2.0f)
         {
             // Physics
-            PhysicsComponent* physics = new PhysicsComponent(&_bricks[brickIndex]);
+            PhysicsComponent* physics = new PhysicsComponent();
             b2BodyDef bodyDef;
             b2FixtureDef fixtureDef;
             b2PolygonShape dynamicBox;
@@ -90,7 +90,7 @@ void Initialize(void)
             _bricks[brickIndex].AddComponent(physics);
 
             // Render
-            render = new RenderComponent(&_bricks[brickIndex]);
+            render = new RenderComponent();
             render->_mesh = RenderEngine::CreateMesh("assets/brickMesh.json");
             render->_texture = RenderEngine::CreateTexture("assets/brick.png");
             render->_worldView = 1;

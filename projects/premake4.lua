@@ -31,9 +31,6 @@ solution "Riot"
         objdir ( "../build/obj/game" )
         links { "RiotLib", "Box2D", "lua" }
         
-        configuration { "not xcode4" }
-            links { "RiotTest" }
-        
         configuration "windows"
             libdirs { "$(DXSDK_DIR)lib/x64" }
             links { "d3d11", "dxguid", "d3dcompiler", "OpenGL32" }
@@ -49,36 +46,6 @@ solution "Riot"
             libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Debug", "../external/lua-5.2.0/Build/gmake/bin/Debug" }
         configuration { "macosx", "Release" }
             libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Release", "../external/lua-5.2.0/Build/gmake/bin/Release" }
-            
-    project "RiotTest"
-        kind        "ConsoleApp"
-        language    "C++"
-        files { "../test/**.*" }
-        includedirs { "../include", "../external/UnitTest++/src" }
-        objdir ( "../build/obj/test" )
-        links { "RiotLib", "UnitTest++", "Box2d" }
-        
-        configuration "windows"
-            libdirs { "$(DXSDK_DIR)lib/x64" }
-            links { "d3d11", "dxguid", "d3dcompiler", "OpenGL32" }
-            
-        configuration { "windows", "Debug" }
-            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
-            links { "d3dx11d" }
-        configuration { "windows", "Release" }
-            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
-            links { "d3dx11" }
-        
-        configuration { "windows" }
-            postbuildcommands { "$(TargetDir)RiotTest.exe" }
-       
-        configuration { "gmake" }
-            postbuildcommands { "../../build/bin/RiotTest" }
-        
-        configuration { "Debug" }
-            libdirs { "../external/UnitTest++/Debug" }
-        configuration { "Release" }
-            libdirs { "../external/UnitTest++/Release" }
         
     project "RiotLib"
         kind        "StaticLib"

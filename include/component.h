@@ -25,20 +25,19 @@ class Component
 {
 /* Methods */
 public:
-    Component(Entity* entity) : _entity(entity) { }
     virtual ~Component() { }
     virtual void Update(void) = 0;
 
 /* Members */
 protected:
     Entity* _entity;
+    friend class Entity;
 };
 
 class RenderComponent : public Component
 {
 /* Methods */
 public:
-    RenderComponent(Entity* entity) : Component(entity) {}
     void Update(void);
 
 /* Members */
@@ -51,7 +50,6 @@ class PhysicsComponent : public Component
 {
 /* Methods */
 public:
-    PhysicsComponent(Entity* entity) : Component(entity) {}
 
     static void Initialize(void);
     static void Shutdown(void) { delete _world; }
