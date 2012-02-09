@@ -69,3 +69,24 @@ void PhysicsComponent::Update(void)
 
     _entity->SetTransform(t);
 }
+void CameraComponent::Update(void)
+{
+    Matrix4 viewMatrix;
+    Matrix3 temp;
+    Vector3 x, y, z;
+
+    const Transform& transform = _entity->transform();
+    temp = QuaternionGetMatrix(transform.orientation);
+    viewMatrix = Matrix4FromMatrix3(temp);
+
+    temp = Matrix3Transpose(temp);
+    x = temp.r0;
+    y = temp.r1;
+    z = temp.r2;
+
+    viewMatrix.r3.x = -Vector3DotProduct(x, transform.position);
+    viewMatrix.r3.y = -Vector3DotProduct(y, transform.position);
+    viewMatrix.r3.z = -Vector3DotProduct(z, transform.position);
+
+    RenderEngine::SetWorldViewMatrix(viewMatrix);
+}

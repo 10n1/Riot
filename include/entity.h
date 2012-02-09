@@ -34,7 +34,7 @@ public:
     int id() const { return _id; }
 
 /* Members */
-private:
+public:
     Transform   _transform;
     int         _id;
     Component*  _components[128];

@@ -61,6 +61,15 @@ public:
     static b2World* _world;
     b2Body*         _physicsBody;
 };
+class CameraComponent : public Component
+{
+/* Methods */
+public:
+    void Update(void);
+
+/* Members */
+public:
+};
 
 /*******************************************************************\
 External variables

@@ -53,10 +53,10 @@ void Initialize(void)
     render->_mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
     render->_texture = RenderEngine::CreateTexture("assets/ground.png");
     render->_worldView = 0;
-    _background.AddComponent(render);
+    //_background.AddComponent(render);
 
     render = new RenderComponent();
-    render->_mesh = RenderEngine::CreateMesh("assets/brickMesh.json");
+    render->_mesh = RenderEngine::CreateMesh("assets/QuadMesh.json");
     render->_texture = RenderEngine::CreateTexture("assets/brick.png");
     render->_worldView = 1;
     _bricks[0].AddComponent(render);
@@ -73,29 +73,30 @@ void Initialize(void)
         for(; ii < towerWidth; ++ii, x += 2.0f)
         {
             // Physics
-            PhysicsComponent* physics = new PhysicsComponent();
-            b2BodyDef bodyDef;
-            b2FixtureDef fixtureDef;
-            b2PolygonShape dynamicBox;
-
-            bodyDef.type = b2_dynamicBody;
-            bodyDef.position.Set(x, y);
-            physics->_physicsBody = PhysicsComponent::_world->CreateBody(&bodyDef);
-
-            dynamicBox.SetAsBox(1.0f, 0.5f);
-            fixtureDef.shape = &dynamicBox;
-            fixtureDef.density = 1.0f;
-            fixtureDef.friction = 0.65f;
-            physics->_physicsBody->CreateFixture(&fixtureDef);
-            _bricks[brickIndex].AddComponent(physics);
+            //PhysicsComponent* physics = new PhysicsComponent();
+            //b2BodyDef bodyDef;
+            //b2FixtureDef fixtureDef;
+            //b2PolygonShape dynamicBox;
+            //
+            //bodyDef.type = b2_dynamicBody;
+            //bodyDef.position.Set(x, y);
+            //physics->_physicsBody = PhysicsComponent::_world->CreateBody(&bodyDef);
+            //
+            //dynamicBox.SetAsBox(1.0f, 0.5f);
+            //fixtureDef.shape = &dynamicBox;
+            //fixtureDef.density = 1.0f;
+            //fixtureDef.friction = 0.65f;
+            //physics->_physicsBody->CreateFixture(&fixtureDef);
+            //_bricks[brickIndex].AddComponent(physics);
 
             // Render
             render = new RenderComponent();
-            render->_mesh = RenderEngine::CreateMesh("assets/brickMesh.json");
+            render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
             render->_texture = RenderEngine::CreateTexture("assets/brick.png");
             render->_worldView = 1;
             _bricks[brickIndex].AddComponent(render);
-
+            _bricks[brickIndex]._transform.position.x = x;
+            _bricks[brickIndex]._transform.position.y = y;
             brickIndex++;
             _activeBricks++;
         }

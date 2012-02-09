@@ -72,7 +72,8 @@ int Core::Frame(void)
     if(System::PollEvents() == 0)
         return 1;
     
-    RenderEngine::SetWorldProjectionType(ProjectionType::kOrthographic, -8.0f, 120.0f);
+    //RenderEngine::SetWorldProjectionType(ProjectionType::kOrthographic, -8.0f, 120.0f);
+    RenderEngine::SetWorldProjectionType(ProjectionType::kPerspective);
     int width, height;
     System::GetWindowSize(&width, &height);
     if(width != _windowWidth || height != _windowHeight)
@@ -95,19 +96,19 @@ int Core::Frame(void)
         camRotateY(&_camera, +0.001f);
 
     if(System::GetKeyState(System::Key::kW))
-        camTranslateZ(&_camera, 0.005f);
+        camTranslateZ(&_camera, 0.05f);
     if(System::GetKeyState(System::Key::kS))
-        camTranslateZ(&_camera, -0.005f);
+        camTranslateZ(&_camera, -0.05f);
         
     if(System::GetKeyState(System::Key::kA))
-        camTranslateX(&_camera, -0.005f);
+        camTranslateX(&_camera, -0.05f);
     if(System::GetKeyState(System::Key::kD))
-        camTranslateX(&_camera, +0.005f);
+        camTranslateX(&_camera, +0.05f);
         
     if(System::GetKeyState(System::Key::kSpace))
-        camTranslateY(&_camera, +0.005f);
+        camTranslateY(&_camera, +0.05f);
     if(System::GetKeyState(System::Key::kC))
-        camTranslateY(&_camera, -0.005f);
+        camTranslateY(&_camera, -0.05f);
 
     RenderEngine::SetWorldViewMatrix(camGetViewMatrix(&_camera));
 

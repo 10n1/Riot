@@ -134,7 +134,7 @@ void Init(const render_engine_params_t& params)
 {
     _graphicsDevice = GraphicsDevice::Create((GraphicsAPI::Enum)params.graphicsApi, System::GetWindow());
     _graphicsDevice->SetClearColor(132/255.0f,194/255.0f,232/255.0f,255/255.0f, 1.0f);
-    _graphicsDevice->SetDepthTest(0, 0);
+    _graphicsDevice->SetDepthTest(1,1);
     _graphicsDevice->SetAlphaTest(1);
     _graphicsDevice->Clear();
 
