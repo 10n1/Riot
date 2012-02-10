@@ -39,8 +39,10 @@ const char kEngineJson[] =
 
 Entity  _background;
 Entity  _bricks[1024*4];
+Entity  _ground;
 timer_t _timer;
 int     _activeBricks = 0;
+Entity  _camera;
 
 /*******************************************************************\
 Internal functions
@@ -99,24 +101,52 @@ void Initialize(void)
             _bricks[brickIndex]._transform.position.y = y;
             brickIndex++;
             _activeBricks++;
+
+            //if(brickIndex == 50)
+            //{
+            //    FirstPersonController* fps = new FirstPersonController();
+            //    fps->_cameraSpeed = 10.0f;
+            //    fps->_lookSpeed = 1.0f;
+            //    _bricks[brickIndex].AddComponent(fps);
+            //}
         }
         y += 1.0f;
         startX += 1.0f;
         --towerWidth;
     }
+
+    // Create plane
+    render = new RenderComponent();
+    render->_mesh = RenderEngine::CreateMesh("assets/quadmesh.json");
+    render->_texture = RenderEngine::CreateTexture("assets/grass.png");
+    render->_worldView = 1;
+    _ground.AddComponent(render);
+    _ground._transform.orientation = QuatRotationX(DegToRad(90.0f));
+    _ground._transform.scale = 100.0f;
+
+    CameraComponent* camComp = new CameraComponent();
+    _camera.AddComponent(camComp);
+    _camera._transform.position.y += 10.0f;
+    _camera._transform.position.z -= 100.0f;
+    FirstPersonController* fps = new FirstPersonController();
+    fps->_cameraSpeed = 10.0f;
+    fps->_lookSpeed = 1.0f;
+    _camera.AddComponent(fps);
 }
 
 void Frame(void)
 {
-    _background.Update();
     float elapsedTime = timerGetDeltaTime(&_timer);
+    _background.Update(elapsedTime);
 
     PhysicsComponent::_world->Step(elapsedTime, 10, 3);
 
     for(int ii=0; ii<_activeBricks; ++ii)
     {
-        _bricks[ii].Update();
+        _bricks[ii].Update(elapsedTime);
     }
+    _ground.Update(elapsedTime);
+    _camera.Update(elapsedTime);
     
     static int frameCount = 0;
     static float frameTime = 0.0f;

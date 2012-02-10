@@ -54,10 +54,10 @@ void Entity::AddComponent(Component* component)
     component->_entity = this;
     _components[_numComponents++] = component;
 }
-void Entity::Update(void)
+void Entity::Update(float elapsedTime)
 {
     for(int ii=0; ii<_numComponents; ++ii)
     {
-        _components[ii]->Update();
+        _components[ii]->Update(elapsedTime);
     }
 }

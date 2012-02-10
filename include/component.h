@@ -26,7 +26,7 @@ class Component
 /* Methods */
 public:
     virtual ~Component() { }
-    virtual void Update(void) = 0;
+    virtual void Update(float elapsedTime) = 0;
 
 /* Members */
 protected:
@@ -38,7 +38,7 @@ class RenderComponent : public Component
 {
 /* Methods */
 public:
-    void Update(void);
+    void Update(float elapsedTime);
 
 /* Members */
 public:
@@ -54,7 +54,7 @@ public:
     static void Initialize(void);
     static void Shutdown(void) { delete _world; }
 
-    void Update(void);
+    void Update(float elapsedTime);
 
 /* Members */
 public:
@@ -65,10 +65,24 @@ class CameraComponent : public Component
 {
 /* Methods */
 public:
-    void Update(void);
+    void Update(float elapsedTime);
 
 /* Members */
 public:
+};
+
+class FirstPersonController : public Component
+{
+/* Methods */
+public:
+    void Update(float elapsedTime);
+
+/* Members */
+public:
+    float _cameraSpeed;
+    float _lookSpeed;
+    int   _mouseX;
+    int   _mouseY;
 };
 
 /*******************************************************************\

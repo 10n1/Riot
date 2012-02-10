@@ -110,7 +110,7 @@ int Core::Frame(void)
     if(System::GetKeyState(System::Key::kC))
         camTranslateY(&_camera, -0.05f);
 
-    RenderEngine::SetWorldViewMatrix(camGetViewMatrix(&_camera));
+    //RenderEngine::SetWorldViewMatrix(camGetViewMatrix(&_camera));
 
     // Ground
     RenderEngine::Frame();

@@ -1339,7 +1339,7 @@ typedef struct Transform_t
 {
     Quaternion  orientation;
     Vector3     position;
-    float       __padding;
+    float       scale;
 } Transform;
 
 INLINE Transform TransformZero(void)
@@ -1347,6 +1347,7 @@ INLINE Transform TransformZero(void)
     Transform t;
     t.orientation = QuaternionZero();
     t.position  = Vector3Zero();
+    t.scale = 1.0f;
     return t;
 }
 
@@ -1380,8 +1381,52 @@ INLINE Matrix4 TransformGetMatrix(TRANSFORM_INPUT t)
         {     2*(xz+yw),     2*(yz-xw), 1 - 2*(xx+yy), 0.0f },
         {  t.position.x,  t.position.y,  t.position.z, 1.0f },
     };
+    if(t.scale != 1.0f)
+    {
+        ret.r0.x *= t.scale;
+        ret.r0.y *= t.scale;
+        ret.r0.z *= t.scale;
+        ret.r1.x *= t.scale;
+        ret.r1.y *= t.scale;
+        ret.r1.z *= t.scale;
+        ret.r2.x *= t.scale;
+        ret.r2.y *= t.scale;
+        ret.r2.z *= t.scale;
+    }
     #endif
     return ret;
+}
+
+INLINE void TransformTranslateX(Transform* transform, float t)
+{
+    Vector3 x = QuaternionGetXAxis(transform->orientation);
+    x = Vector3MulScalar(x, t);
+    transform->position = Vector3Add(transform->position, x);
+}
+INLINE void TransformTranslateY(Transform* transform, float t)
+{
+    Vector3 y = {0.0f, 1.0f, 0.0f};
+    y = Vector3MulScalar(y, t);
+    transform->position = Vector3Add(transform->position, y);
+}
+INLINE void TransformTranslateZ(Transform* transform, float t)
+{
+    Vector3 z = QuaternionGetZAxis(transform->orientation);
+    z = Vector3MulScalar(z, t);
+    transform->position = Vector3Add(transform->position, z);
+}
+
+INLINE void TransformRotateX(Transform* transform, float r)
+{
+    Vector3 xAxis = {1.0f, 0.0f, 0.0f};
+    Quaternion q = QuatFromAxisAngle(xAxis, r);
+    transform->orientation = QuaternionQuaternionMul(transform->orientation, q);
+}
+INLINE void TransformRotateY(Transform* transform, float r)
+{
+    Vector3 yAxis = {0.0f, 1.0f, 0.0f};
+    Quaternion q = QuatFromAxisAngle(yAxis, r);
+    transform->orientation = QuaternionQuaternionMul(q, transform->orientation);
 }
 
 #ifdef __cplusplus /* If this is a C++ compiler, use C linkage */

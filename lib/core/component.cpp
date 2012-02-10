@@ -14,6 +14,7 @@
 /* Internal headers */
 #include "entity.h"
 #include "Box2D/Box2D.h"
+#include "system.h"
 
 namespace
 {
@@ -40,7 +41,7 @@ b2World* PhysicsComponent::_world = NULL;
 /*******************************************************************\
 External functions
 \*******************************************************************/
-void RenderComponent::Update(void)
+void RenderComponent::Update(float elapsedTime)
 {
     RenderEngine::Render(_worldView, TransformGetMatrix(_entity->transform()), _mesh, _texture);
 }
@@ -58,7 +59,7 @@ void PhysicsComponent::Initialize(void)
     groundBox.SetAsBox(128.0f, 4.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 }
-void PhysicsComponent::Update(void)
+void PhysicsComponent::Update(float elapsedTime)
 {
     Matrix4 worldMatrix = Matrix4RotationZ(_physicsBody->GetAngle());
 
@@ -69,7 +70,7 @@ void PhysicsComponent::Update(void)
 
     _entity->SetTransform(t);
 }
-void CameraComponent::Update(void)
+void CameraComponent::Update(float elapsedTime)
 {
     Matrix4 viewMatrix;
     Matrix3 temp;
@@ -89,4 +90,40 @@ void CameraComponent::Update(void)
     viewMatrix.r3.z = -Vector3DotProduct(z, transform.position);
 
     RenderEngine::SetWorldViewMatrix(viewMatrix);
+}
+void FirstPersonController::Update(float elapsedTime)
+{
+    int mouseX;
+    int mouseY;
+    System::GetMousePosition(&mouseX, &mouseY);
+    int deltaX = mouseX - _mouseX;
+    int deltaY = mouseY - _mouseY;
+    _mouseX = mouseX;
+    _mouseY = mouseY;
+
+    float speed = elapsedTime * _cameraSpeed;
+    float lookSpeed = elapsedTime * _lookSpeed;
+    if(System::GetKeyState(System::Key::kUp) || deltaY < 0)
+        TransformRotateX(&_entity->_transform, -lookSpeed);
+    if(System::GetKeyState(System::Key::kDown) || deltaY > 0)
+        TransformRotateX(&_entity->_transform, +lookSpeed);
+    if(System::GetKeyState(System::Key::kLeft) || deltaX < 0)
+        TransformRotateY(&_entity->_transform, -lookSpeed);
+    if(System::GetKeyState(System::Key::kRight) || deltaX > 0)
+        TransformRotateY(&_entity->_transform, +lookSpeed);
+
+    if(System::GetKeyState(System::Key::kW))
+        TransformTranslateZ(&_entity->_transform, speed);
+    if(System::GetKeyState(System::Key::kS))
+        TransformTranslateZ(&_entity->_transform, -speed);
+        
+    if(System::GetKeyState(System::Key::kA))
+        TransformTranslateX(&_entity->_transform, -speed);
+    if(System::GetKeyState(System::Key::kD))
+        TransformTranslateX(&_entity->_transform, +speed);
+        
+    if(System::GetKeyState(System::Key::kSpace))
+        TransformTranslateY(&_entity->_transform, +speed);
+    if(System::GetKeyState(System::Key::kC))
+        TransformTranslateY(&_entity->_transform, -speed);
 }

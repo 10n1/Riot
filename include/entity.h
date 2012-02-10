@@ -27,7 +27,7 @@ public:
     ~Entity();
 
     void AddComponent(Component* component);
-    void Update(void);
+    void Update(float elapsedTime);
 
     void SetTransform(const Transform& transform) { _transform = transform; }
     const Transform& transform() const { return _transform; }
