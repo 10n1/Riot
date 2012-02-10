@@ -139,7 +139,7 @@ void Initialize(void)
                 //fps->_cameraSpeed = 10.0f;
                 //fps->_lookSpeed = 1.0f;
                 //_bricks[brickIndex].AddComponent(fps);
-                _bricks[brickIndex].AddComponent(new CameraComponent);
+                //_bricks[brickIndex].AddComponent(new CameraComponent);
             }
         }
         y += 1.0f;
@@ -156,14 +156,14 @@ void Initialize(void)
     _ground._transform.orientation = QuatRotationX(DegToRad(90.0f));
     _ground._transform.scale = 100.0f;
 
-    //CameraComponent* camComp = new CameraComponent();
-    //_camera.AddComponent(camComp);
-    //_camera._transform.position.y += 10.0f;
-    //_camera._transform.position.z -= 100.0f;
-    //FirstPersonController* fps = new FirstPersonController();
-    //fps->_cameraSpeed = 10.0f;
-    //fps->_lookSpeed = 1.0f;
-    //_camera.AddComponent(fps);
+    CameraComponent* camComp = new CameraComponent();
+    _camera.AddComponent(camComp);
+    _camera._transform.position.y += 10.0f;
+    _camera._transform.position.z -= 100.0f;
+    FirstPersonController* fps = new FirstPersonController();
+    fps->_cameraSpeed = 10.0f;
+    fps->_lookSpeed = 1.0f;
+    _camera.AddComponent(fps);
 }
 
 void Frame(void)
