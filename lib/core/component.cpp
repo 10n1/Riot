@@ -68,7 +68,7 @@ void PhysicsComponent::Initialize(void)
 
     /****************/
     {
-        btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.),btScalar(1.0f),btScalar(50.)));
+        btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(500.),btScalar(1.0f),btScalar(500.)));
         btTransform groundTransform;
         groundTransform.setIdentity();
         groundTransform.setOrigin(btVector3(0, -1.0f, 0.0f));
@@ -124,6 +124,8 @@ void FirstPersonController::Update(float elapsedTime)
     _mouseY = mouseY;
 
     float speed = elapsedTime * _cameraSpeed;
+    if(System::GetKeyState(System::Key::kShift))
+        speed *= 3.0f;
     float lookSpeed = elapsedTime * _lookSpeed;
     if(System::GetKeyState(System::Key::kUp) || deltaY < 0)
         TransformRotateX(&_entity->_transform, -lookSpeed);

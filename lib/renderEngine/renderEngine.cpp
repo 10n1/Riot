@@ -190,7 +190,7 @@ void Resize(int width, int height)
 
     if(_worldProjType == ProjectionType::kPerspective)
     {
-        _worldProjMatrix = Matrix4PerspectiveFovLH(DegToRad(50.0f), aspectRatio, 0.1f, 1000.0f);
+        _worldProjMatrix = Matrix4PerspectiveFovLH(DegToRad(50.0f), aspectRatio, 0.1f, 100000.0f);
     }
     else
     {
@@ -306,13 +306,8 @@ mesh_id_t CreateMesh(const char* filename)
         vertices = new unsigned char[vertexSize*vertexCount];
         indices = new unsigned char[indexSize*indexCount];
 
-        size_t count = fread(vertices, vertexSize, vertexCount, file);
-        count = fread(indices, indexSize, indexCount, file);
-        if(count != indexCount)
-        {
-            int eof = feof(file);
-            int error = ferror(file);
-        }
+        fread(vertices, vertexSize, vertexCount, file);
+        fread(indices, indexSize, indexCount, file);
         fclose(file);
 
         struct vert

@@ -67,7 +67,7 @@ void Initialize(void)
     int brickIndex = 0;
     int towerWidth = 64;
     float startX = -63.0f;
-    float y = 16.5f;
+    float y = 0.5f;
     while(towerWidth)
     {
         int ii = 0;
@@ -93,7 +93,8 @@ void Initialize(void)
                 //physics->_physicsBody->CreateFixture(&fixtureDef);
                 //_bricks[brickIndex].AddComponent(physics);
 #endif
-                btCollisionShape* colShape = new btBoxShape(btVector3(0.5f, 0.5f, 0.5f));
+                float omar = 0.5f;
+                btCollisionShape* colShape = new btBoxShape(btVector3(omar, omar, omar));
 
                 /// Create Dynamic Objects
                 btTransform startTransform;
@@ -123,7 +124,7 @@ void Initialize(void)
             // Render
             render = new RenderComponent();
             render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
-            //render->_mesh = RenderEngine::CreateMesh("assets/tree.sdkmesh.colony");
+            //render->_mesh = RenderEngine::CreateMesh("assets/factory.sdkmesh.colony");
             //render->_texture = RenderEngine::CreateTexture("assets/treediffuse.png");
             render->_texture = RenderEngine::CreateTexture("assets/brick.png");
             render->_worldView = 1;
@@ -139,7 +140,6 @@ void Initialize(void)
                 //fps->_cameraSpeed = 10.0f;
                 //fps->_lookSpeed = 1.0f;
                 //_bricks[brickIndex].AddComponent(fps);
-                //_bricks[brickIndex].AddComponent(new CameraComponent);
             }
         }
         y += 1.0f;
@@ -147,6 +147,7 @@ void Initialize(void)
         --towerWidth;
     }
 
+    //_bricks[brickIndex-5].AddComponent(new CameraComponent);
     // Create plane
     render = new RenderComponent();
     render->_mesh = RenderEngine::CreateMesh("assets/quadmesh.json");
