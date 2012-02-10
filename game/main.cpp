@@ -140,7 +140,7 @@ void Frame(void)
     float elapsedTime = timerGetDeltaTime(&_timer);
     _background.Update(elapsedTime);
 
-    PhysicsComponent::_world->Step(elapsedTime, 10, 3);
+    PhysicsComponent::_dynamicsWorld->stepSimulation(elapsedTime, 10);
 
     for(int ii=0; ii<_activeBricks; ++ii)
     {

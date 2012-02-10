@@ -11,6 +11,7 @@ solution "Riot"
             "../include", 
             "../external/Box2D_v2.2.1", 
             "../external/lua-5.2.0/src",
+            "../external/bullet-2.79/src",
         }
         
     configuration "Debug"
@@ -32,15 +33,15 @@ solution "Riot"
         links { "RiotLib", "Box2D", "lua" }
         
         configuration "windows"
-            libdirs { "$(DXSDK_DIR)lib/x64" }
+            libdirs { "$(DXSDK_DIR)lib/x64", "../external/bullet-2.79/lib"  }
             links { "d3d11", "dxguid", "d3dcompiler", "OpenGL32" }
             
         configuration { "windows", "Debug" }
-            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
-            links { "d3dx11d" }
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug"}
+            links { "d3dx11d", "BulletDynamics_x64_debug", "BulletCollision_x64_debug" }
         configuration { "windows", "Release" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
-            links { "d3dx11" }
+            links { "d3dx11",  "BulletDynamics_x64", "BulletCollision_x64" }
             
         configuration { "macosx", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/gmake/bin/Debug", "../external/lua-5.2.0/Build/gmake/bin/Debug" }

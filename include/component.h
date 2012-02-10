@@ -13,13 +13,12 @@
 /* External headers */
 /* Internal headers */
 #include "renderEngine.h"
+#include "btBulletDynamicsCommon.h"
 
 /*******************************************************************\
 External Constants And types
 \*******************************************************************/
 class Entity;
-class b2Body;
-class b2World;
 
 class Component
 {
@@ -52,14 +51,19 @@ class PhysicsComponent : public Component
 public:
 
     static void Initialize(void);
-    static void Shutdown(void) { delete _world; }
+    static void Shutdown(void) { }
 
     void Update(float elapsedTime);
 
 /* Members */
 public:
-    static b2World* _world;
-    b2Body*         _physicsBody;
+	static btDefaultCollisionConfiguration*    _collisionConfiguration;
+	static btCollisionDispatcher*              _dispatcher;
+	static btBroadphaseInterface*              _overlappingPairCache;
+	static btSequentialImpulseConstraintSolver*_solver;
+	static btDiscreteDynamicsWorld*            _dynamicsWorld;
+
+    btRigidBody* _body;
 };
 class CameraComponent : public Component
 {

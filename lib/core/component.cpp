@@ -13,7 +13,6 @@
 /* External headers */
 /* Internal headers */
 #include "entity.h"
-#include "Box2D/Box2D.h"
 #include "system.h"
 
 namespace
@@ -36,7 +35,11 @@ Internal functions
 /*******************************************************************\
 External variables
 \*******************************************************************/
-b2World* PhysicsComponent::_world = NULL;
+btDefaultCollisionConfiguration*    PhysicsComponent::_collisionConfiguration;
+btCollisionDispatcher*              PhysicsComponent::_dispatcher;
+btBroadphaseInterface*              PhysicsComponent::_overlappingPairCache;
+btSequentialImpulseConstraintSolver*PhysicsComponent::_solver;
+btDiscreteDynamicsWorld*            PhysicsComponent::_dynamicsWorld;
 
 /*******************************************************************\
 External functions
@@ -47,26 +50,31 @@ void RenderComponent::Update(float elapsedTime)
 }
 void PhysicsComponent::Initialize(void)
 {
-    // World
-    _world = new b2World(b2Vec2(0.0f, -9.8f));
-    _world->SetAllowSleeping(true);
+	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+	_collisionConfiguration = new btDefaultCollisionConfiguration();
 
-    // Ground
-    b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, -4.0f);
-    b2Body* groundBody = _world->CreateBody(&groundBodyDef);
-    b2PolygonShape groundBox;
-    groundBox.SetAsBox(128.0f, 4.0f);
-    groundBody->CreateFixture(&groundBox, 0.0f);
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	_dispatcher = new	btCollisionDispatcher(_collisionConfiguration);
+
+	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
+	_overlappingPairCache = new btDbvtBroadphase();
+
+	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	_solver = new btSequentialImpulseConstraintSolver;
+
+	_dynamicsWorld = new btDiscreteDynamicsWorld(_dispatcher,_overlappingPairCache,_solver,_collisionConfiguration);
+
+	_dynamicsWorld->setGravity(btVector3(0,-10,0));
 }
 void PhysicsComponent::Update(float elapsedTime)
 {
-    Matrix4 worldMatrix = Matrix4RotationZ(_physicsBody->GetAngle());
+    btTransform bulletTransform;
+    _body->getMotionState()->getWorldTransform(bulletTransform);
 
-    b2Vec2 pos = _physicsBody->GetPosition();
-    Quaternion q = QuatRotationZ(_physicsBody->GetAngle());
-
-    Transform t = { q, {pos.x, pos.y, 0.0f} };
+    Transform t;
+    t.orientation = Vector4FromArray(bulletTransform.getRotation());
+    t.position = Vector3FromArray(bulletTransform.getOrigin());
+    t.scale = 1.0f;
 
     _entity->SetTransform(t);
 }
