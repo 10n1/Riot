@@ -65,6 +65,20 @@ void PhysicsComponent::Initialize(void)
 	_dynamicsWorld = new btDiscreteDynamicsWorld(_dispatcher,_overlappingPairCache,_solver,_collisionConfiguration);
 
 	_dynamicsWorld->setGravity(btVector3(0,-10,0));
+
+    /****************/
+    {
+        btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.),btScalar(1.0f),btScalar(50.)));
+        btTransform groundTransform;
+        groundTransform.setIdentity();
+        groundTransform.setOrigin(btVector3(0, -1.0f, 0.0f));
+
+        btDefaultMotionState* motionState = new btDefaultMotionState(groundTransform);
+        btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motionState, groundShape, btVector3(0,0,0));
+        btRigidBody* body = new btRigidBody(rbInfo);
+
+        _dynamicsWorld->addRigidBody(body);
+    }
 }
 void PhysicsComponent::Update(float elapsedTime)
 {
