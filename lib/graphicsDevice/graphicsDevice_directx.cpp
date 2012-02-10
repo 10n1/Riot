@@ -249,7 +249,7 @@ void GraphicsDeviceDirectX::Create(void* window)
 
     /* rasterizer */
     ZeroMemory(&rasterDesc, sizeof(rasterDesc));
-    rasterDesc.CullMode = D3D11_CULL_NONE;
+    rasterDesc.CullMode = D3D11_CULL_BACK;
     rasterDesc.FillMode = D3D11_FILL_SOLID;
     rasterDesc.DepthClipEnable = TRUE;
     hr = _device->CreateRasterizerState(&rasterDesc, &_solidRasterState);
