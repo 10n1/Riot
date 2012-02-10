@@ -94,8 +94,8 @@ void Initialize(void)
             // Render
             render = new RenderComponent();
             //render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
-            render->_mesh = RenderEngine::CreateMesh("assets/drone.sdkmesh.colony");
-            render->_texture = RenderEngine::CreateTexture("assets/droneDiffuse.png");
+            render->_mesh = RenderEngine::CreateMesh("assets/tree.sdkmesh.colony");
+            render->_texture = RenderEngine::CreateTexture("assets/treediffuse.png");
             render->_worldView = 1;
             _bricks[brickIndex].AddComponent(render);
             _bricks[brickIndex]._transform.position.x = x;
