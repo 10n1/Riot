@@ -96,8 +96,8 @@ void FirstPersonController::Update(float elapsedTime)
     int mouseX;
     int mouseY;
     System::GetMousePosition(&mouseX, &mouseY);
-    int deltaX = mouseX - _mouseX;
-    int deltaY = mouseY - _mouseY;
+    int deltaX = 0; // mouseX - _mouseX;
+    int deltaY = 0; // mouseY - _mouseY;
     _mouseX = mouseX;
     _mouseY = mouseY;
 

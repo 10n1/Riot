@@ -34,7 +34,7 @@ const char kEngineJson[] =
 "   \"createWindow\" : true,\n"
 "   \"windowWidth\"  : 1024,\n"
 "   \"windowHeight\" : 768,\n"
-"   \"graphicsApi\"  : \"directx\"\n"
+"   \"graphicsApi\"  : \"opengl\"\n"
 "}\n";
 
 Entity  _background;
@@ -93,8 +93,9 @@ void Initialize(void)
 
             // Render
             render = new RenderComponent();
-            render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
-            render->_texture = RenderEngine::CreateTexture("assets/brick.png");
+            //render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
+            render->_mesh = RenderEngine::CreateMesh("assets/drone.sdkmesh.colony");
+            render->_texture = RenderEngine::CreateTexture("assets/droneDiffuse.jpg");
             render->_worldView = 1;
             _bricks[brickIndex].AddComponent(render);
             _bricks[brickIndex]._transform.position.x = x;

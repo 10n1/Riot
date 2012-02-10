@@ -88,6 +88,7 @@ const vertex_element_desc_t kVertexFormats[][16] =
 {
     { /* kVtxFmtPosTex */
         { ShaderInputSlot::kPosition,  3 },
+        { ShaderInputSlot::kNormal,    3 },
         { ShaderInputSlot::kTexCoord0, 2 },
         { ShaderInputSlot::kNull,      0 },
     },
@@ -139,7 +140,7 @@ void Init(const render_engine_params_t& params)
     _graphicsDevice->Clear();
 
     // Create the material
-    _vertexShader = _graphicsDevice->CreateVertexShader("assets/postex.vsh");
+    _vertexShader = _graphicsDevice->CreateVertexShader("assets/posnormtex.vsh");
     _pixelShader = _graphicsDevice->CreatePixelShader("assets/tex.psh");
     _material = _graphicsDevice->CreateMaterial(_vertexShader, _pixelShader);
 
@@ -257,12 +258,12 @@ mesh_id_t CreateMesh(const char* filename)
         findExt++;
     }
 
-    int     vertexCount;
-    int     indexCount;
-    int     vertexSize;
-    int     indexSize;
-    void*   vertices;
-    void*   indices;
+    unsigned int vertexCount;
+    unsigned int indexCount;
+    unsigned int vertexSize;
+    unsigned int indexSize;
+    void*       vertices;
+    void*       indices;
 
     StringHash extensionHash(extension);
     if(extensionHash.hash == StringHash("json").hash)
@@ -294,8 +295,39 @@ mesh_id_t CreateMesh(const char* filename)
 
         cJSON_Delete(objectRoot);
     }
-    else
+    else if(extensionHash.hash == StringHash("colony").hash)
     {
+        FILE* file = fopen(filename, "rb");
+        fread(&vertexCount, sizeof(vertexCount), 1, file);
+        fread(&indexCount, sizeof(indexCount), 1, file);
+        fread(&vertexSize, sizeof(vertexSize), 1, file);
+        fread(&indexSize, sizeof(indexSize), 1, file);
+
+        vertices = new unsigned char[vertexSize*vertexCount];
+        indices = new unsigned char[indexSize*indexCount];
+
+        size_t count = fread(vertices, vertexSize, vertexCount, file);
+        count = fread(indices, indexSize, indexCount, file);
+        if(count != indexCount)
+        {
+            int eof = feof(file);
+            int error = ferror(file);
+        }
+        fclose(file);
+
+        struct vert
+        {
+            float pos[3];
+            float norm[3];
+            float tex[2];
+        };
+        vert* resizeVert = (vert*)vertices;
+        for(int ii=0; ii < vertexCount; ++ii, ++resizeVert)
+        {
+            resizeVert->pos[0] *= 100.0f;
+            resizeVert->pos[1] *= 100.0f;
+            resizeVert->pos[2] *= 100.0f;
+        }
     }
 
     mesh_id_t mesh = _meshes.Add(_graphicsDevice->CreateMesh(   _vertexShader,
