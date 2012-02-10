@@ -34,7 +34,7 @@ const char kEngineJson[] =
 "   \"createWindow\" : true,\n"
 "   \"windowWidth\"  : 1024,\n"
 "   \"windowHeight\" : 768,\n"
-"   \"graphicsApi\"  : \"opengl\"\n"
+"   \"graphicsApi\"  : \"directx\"\n"
 "}\n";
 
 Entity  _background;
@@ -119,7 +119,7 @@ void Initialize(void)
     // Create plane
     render = new RenderComponent();
     render->_mesh = RenderEngine::CreateMesh("assets/quadmesh.json");
-    render->_texture = RenderEngine::CreateTexture("assets/grass.png");
+    render->_texture = RenderEngine::CreateTexture("assets/grass.jpg");
     render->_worldView = 1;
     _ground.AddComponent(render);
     _ground._transform.orientation = QuatRotationX(DegToRad(90.0f));
