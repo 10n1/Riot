@@ -126,6 +126,7 @@ void FirstPersonController::Update(float elapsedTime)
     float speed = elapsedTime * _cameraSpeed;
     if(System::GetKeyState(System::Key::kShift))
         speed *= 3.0f;
+
     float lookSpeed = elapsedTime * _lookSpeed;
     if(System::GetKeyState(System::Key::kUp) || deltaY < 0)
         TransformRotateX(&_entity->_transform, -lookSpeed);

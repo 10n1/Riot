@@ -65,7 +65,7 @@ void Initialize(void)
 
     // Create bricks
     int brickIndex = 0;
-    int towerWidth = 64;
+    int towerWidth = 32;
     float startX = -63.0f;
     float y = 0.5f;
     while(towerWidth)
@@ -126,9 +126,10 @@ void Initialize(void)
             render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
             //render->_mesh = RenderEngine::CreateMesh("assets/factory.sdkmesh.colony");
             //render->_texture = RenderEngine::CreateTexture("assets/treediffuse.png");
-            render->_texture = RenderEngine::CreateTexture("assets/brick.png");
+            render->_texture = RenderEngine::CreateTexture("assets/factorydiffuse.png");
             render->_worldView = 1;
-            _bricks[brickIndex].AddComponent(render);
+            //if(brickIndex == 30)
+                _bricks[brickIndex].AddComponent(render);
             _bricks[brickIndex]._transform.position.x = x;
             _bricks[brickIndex]._transform.position.y = y;
             brickIndex++;
