@@ -24,7 +24,6 @@ Internal Constants And types
 /*******************************************************************\
 Internal variables
 \*******************************************************************/
-static int  s_entityId = 0;
 
 /*******************************************************************\
 Internal functions
@@ -39,25 +38,3 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-Entity::Entity()
-    : _transform(TransformZero())
-    , _id(++s_entityId)
-{
-}
-Entity::~Entity()
-{
-    for(int ii=0; ii<_numComponents; ++ii)
-        delete _components[ii];
-}
-void Entity::AddComponent(Component* component)
-{
-    component->_entity = this;
-    _components[_numComponents++] = component;
-}
-void Entity::Update(float elapsedTime)
-{
-    for(int ii=0; ii<_numComponents; ++ii)
-    {
-        _components[ii]->Update(elapsedTime);
-    }
-}

@@ -61,7 +61,6 @@ void Core::Init(const engine_params_t& params)
     camInit(&_camera);
 
     /* Initialize components */
-    PhysicsComponent::Initialize();
 }
 
 int Core::Frame(void)

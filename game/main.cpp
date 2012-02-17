@@ -37,12 +37,12 @@ const char kEngineJson[] =
 "   \"graphicsApi\"  : \"directx\"\n"
 "}\n";
 
-Entity  _background;
-Entity  _bricks[1024*4];
-Entity  _ground;
 timer_t _timer;
-int     _activeBricks = 0;
-Entity  _camera;
+EntitySystem*   _entitySystem = NULL;
+RenderComponent*    _renderComponent = NULL;
+PhysicsComponent*   _physicsComponent = NULL;
+CameraComponent*    _cameraComponent = NULL;
+FirstPersonComponent*   _firstPersonComponent = NULL;
 
 /*******************************************************************\
 Internal functions
@@ -51,136 +51,93 @@ void Initialize(void)
 {
     timerInit(&_timer);
 
-    RenderComponent* render = new RenderComponent();
-    render->_mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
-    render->_texture = RenderEngine::CreateTexture("assets/ground.png");
-    render->_worldView = 0;
-    //_background.AddComponent(render);
+    _entitySystem = new EntitySystem();
+    _renderComponent = new RenderComponent();
+    _physicsComponent = new PhysicsComponent();
+    _cameraComponent = new CameraComponent();
+    _firstPersonComponent = new FirstPersonComponent();
 
-    render = new RenderComponent();
-    render->_mesh = RenderEngine::CreateMesh("assets/QuadMesh.json");
-    render->_texture = RenderEngine::CreateTexture("assets/brick.png");
-    render->_worldView = 1;
-    _bricks[0].AddComponent(render);
+    /* Create background object */
+    //int backgroundEntity = _entitySystem->CreateEntity();
+    RenderComponentParams renderParams;
+    renderParams.mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
+    renderParams.texture = RenderEngine::CreateTexture("assets/ground.png");
+    renderParams.worldView = 0;
+    int renderComponent;// = _renderComponent->CreateComponent(&renderParams);
+    
+    //_entitySystem->AttachComponent(backgroundEntity, _renderComponent, renderComponent);
 
+    // Create ground
+    int groundEntity = _entitySystem->CreateEntity();
+    renderParams.texture = RenderEngine::CreateTexture("assets/grass.jpg");
+    renderParams.worldView = 1;
+    renderComponent = _renderComponent->CreateComponent(&renderParams);
+    _entitySystem->AttachComponent(groundEntity, _renderComponent, renderComponent);
+    _entitySystem->GetEntity(groundEntity)->transform.orientation = QuatRotationX(DegToRad(90.0f));
+    _entitySystem->GetEntity(groundEntity)->transform.scale = 100.0f;
+
+    // Create camera
+    int cameraEntity = _entitySystem->CreateEntity();
+    int cameraComponent = _cameraComponent->CreateComponent(NULL);
+    int firstPersonComponent = _firstPersonComponent->CreateComponent(NULL);
+    _entitySystem->AttachComponent(cameraEntity, _cameraComponent, cameraComponent);
+    _entitySystem->AttachComponent(cameraEntity, _firstPersonComponent, firstPersonComponent);
+    Entity* entity = _entitySystem->GetEntity(cameraEntity);
+    entity->transform.position.x = -30;
+    entity->transform.position.y = 15;
+    entity->transform.position.z = -50;
     // Create bricks
     int brickIndex = 0;
     int towerWidth = 32;
     float startX = -63.0f;
     float y = 0.5f;
+    renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
+    renderParams.texture = RenderEngine::CreateTexture("assets/brick.png");
     while(towerWidth)
     {
         int ii = 0;
         float x = startX;
         for(; ii < towerWidth; ++ii, x += 2.0f)
         {
-            // Physics
-            {
-#if 0
-                //PhysicsComponent* physics = new PhysicsComponent();
-                //b2BodyDef bodyDef;
-                //b2FixtureDef fixtureDef;
-                //b2PolygonShape dynamicBox;
-                //
-                //bodyDef.type = b2_dynamicBody;
-                //bodyDef.position.Set(x, y);
-                //physics->_physicsBody = PhysicsComponent::_world->CreateBody(&bodyDef);
-                //
-                //dynamicBox.SetAsBox(1.0f, 0.5f);
-                //fixtureDef.shape = &dynamicBox;
-                //fixtureDef.density = 1.0f;
-                //fixtureDef.friction = 0.65f;
-                //physics->_physicsBody->CreateFixture(&fixtureDef);
-                //_bricks[brickIndex].AddComponent(physics);
-#endif
-                float omar = 0.5f;
-                btCollisionShape* colShape = new btBoxShape(btVector3(omar, omar, omar));
-
-                /// Create Dynamic Objects
-                btTransform startTransform;
-                startTransform.setIdentity();
-
-                btScalar	mass(1.f);
-
-                //rigidbody is dynamic if and only if mass is non zero, otherwise static
-                bool isDynamic = (mass != 0.f);
-
-                btVector3 localInertia(0,0,0);
-                if (isDynamic)
-                    colShape->calculateLocalInertia(mass,localInertia);
-
-                startTransform.setOrigin(btVector3(x,y,0));
-
-                //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-                btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-                btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
-                PhysicsComponent* physics = new PhysicsComponent();
-                physics->_body = new btRigidBody(rbInfo);
-
-                PhysicsComponent::_dynamicsWorld->addRigidBody(physics->_body);
-                _bricks[brickIndex].AddComponent(physics);
-            }
-
-            // Render
-            render = new RenderComponent();
-            render->_mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
-            //render->_mesh = RenderEngine::CreateMesh("assets/factory.sdkmesh.colony");
-            //render->_texture = RenderEngine::CreateTexture("assets/treediffuse.png");
-            render->_texture = RenderEngine::CreateTexture("assets/factorydiffuse.png");
-            render->_worldView = 1;
-            //if(brickIndex == 30)
-                _bricks[brickIndex].AddComponent(render);
-            _bricks[brickIndex]._transform.position.x = x;
-            _bricks[brickIndex]._transform.position.y = y;
-            brickIndex++;
-            _activeBricks++;
-
-            if(brickIndex == 50)
-            {
-                //FirstPersonController* fps = new FirstPersonController();
-                //fps->_cameraSpeed = 10.0f;
-                //fps->_lookSpeed = 1.0f;
-                //_bricks[brickIndex].AddComponent(fps);
-            }
+            int brickEntity = _entitySystem->CreateEntity();
+            PhysicsComponentParams params;
+            params.halfHeight = 0.5f;
+            params.halfWidth = 0.5f;
+            params.halflength = 0.5f;
+            params.mass = 1.0f;
+            params.transform = TransformZero();
+            params.transform.position.x = x;
+            params.transform.position.y = y;
+            int physicsComponent = _physicsComponent->CreateComponent(&params);
+            int renderComponent = _renderComponent->CreateComponent(&renderParams);
+            _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
+            _entitySystem->AttachComponent(brickEntity, _renderComponent, renderComponent);
         }
         y += 1.0f;
         startX += 1.0f;
         --towerWidth;
     }
-
-    //_bricks[brickIndex-5].AddComponent(new CameraComponent);
-    // Create plane
-    render = new RenderComponent();
-    render->_mesh = RenderEngine::CreateMesh("assets/quadmesh.json");
-    render->_texture = RenderEngine::CreateTexture("assets/grass.jpg");
-    render->_worldView = 1;
-    _ground.AddComponent(render);
-    _ground._transform.orientation = QuatRotationX(DegToRad(90.0f));
-    _ground._transform.scale = 100.0f;
-
-    CameraComponent* camComp = new CameraComponent();
-    _camera.AddComponent(camComp);
-    _camera._transform.position.y += 10.0f;
-    _camera._transform.position.z -= 100.0f;
-    FirstPersonController* fps = new FirstPersonController();
-    fps->_cameraSpeed = 10.0f;
-    fps->_lookSpeed = 1.0f;
-    _camera.AddComponent(fps);
 }
 
 void Frame(void)
 {
     float elapsedTime = timerGetDeltaTime(&_timer);
-    _background.Update(elapsedTime);
 
-    PhysicsComponent::_dynamicsWorld->stepSimulation(elapsedTime, 10);
-
-    for(int ii=0; ii<_activeBricks; ++ii)
-    {
-        _bricks[ii].Update(elapsedTime);
-    }
-    _ground.Update(elapsedTime);
-    _camera.Update(elapsedTime);
+    // Read
+    _renderComponent->Read();
+    _physicsComponent->Read();
+    _firstPersonComponent->Read();
+    _cameraComponent->Read();
+    // Update
+    _renderComponent->Update(elapsedTime);
+    _physicsComponent->Update(elapsedTime);
+    _firstPersonComponent->Update(elapsedTime);
+    _cameraComponent->Update(elapsedTime);
+    // Write
+    _renderComponent->Write();
+    _physicsComponent->Write();
+    _firstPersonComponent->Write();
+    _cameraComponent->Write();
     
     static int frameCount = 0;
     static float frameTime = 0.0f;
@@ -227,7 +184,11 @@ int main(int, char*[])
 
     core.Shutdown();
 
-    PhysicsComponent::Shutdown();
+    delete _renderComponent;
+    delete _entitySystem;
+    delete _physicsComponent;
+    delete _cameraComponent;
+    delete _firstPersonComponent;
 
     return 0;
 }

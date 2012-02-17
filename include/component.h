@@ -20,73 +20,203 @@ External Constants And types
 \*******************************************************************/
 class Entity;
 
+enum ComponentType
+{
+    TypeRender,
+    TypePhysics,
+    TypeFirstPerson,
+    TypeCamera,
+
+    TypeNull = -1
+};
+
+struct ComponentParams
+{
+};
+
 class Component
 {
 /* Methods */
 public:
+    Component() : numActive(0) { }
     virtual ~Component() { }
-    virtual void Update(float elapsedTime) = 0;
+    virtual int CreateComponent(ComponentParams* params)
+    {
+        return numActive++;
+    }
+    virtual void Read(void) { }
+    virtual void Update(float elapsedTime) { }
+    virtual void Write(void) { }
+    void AttachToEntity(int index, Entity* entity)
+    {
+        entities[index] = entity;
+    }
+    virtual ComponentType Type(void) { return TypeNull; }
 
 /* Members */
 protected:
-    Entity* _entity;
-    friend class Entity;
+    Entity* entities[1024];
+    int     numActive;
 };
 
+/*--------------------Render Component----------------*/
+struct RenderComponentParams : public ComponentParams
+{
+    mesh_id_t       mesh;
+    texture_id_t    texture;
+    int             worldView;
+};
 class RenderComponent : public Component
 {
 /* Methods */
 public:
+    int CreateComponent(ComponentParams* params)
+    {
+        int index = Component::CreateComponent(params);
+
+        RenderComponentParams* renderParams = (RenderComponentParams*)params;
+        mesh[index] = renderParams->mesh;
+        texture[index] = renderParams->texture;
+        worldView[index] = renderParams->worldView;
+
+        return index;
+    }
     void Update(float elapsedTime);
+    virtual ComponentType Type(void) { return TypeRender; }
 
 /* Members */
-public:
-    mesh_id_t       _mesh;
-    texture_id_t    _texture;
-    int             _worldView;
+protected:
+    mesh_id_t       mesh[1024];
+    texture_id_t    texture[1024];
+    int             worldView[1024];
 };
+
+/*--------------------Physics Component----------------*/
+struct PhysicsComponentParams : public ComponentParams
+{
+    Transform transform;
+    float mass;
+    float halfWidth;
+    float halfHeight;
+    float halflength;
+};
+
 class PhysicsComponent : public Component
 {
 /* Methods */
 public:
+    PhysicsComponent()
+    {
+        ///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+        _collisionConfiguration = new btDefaultCollisionConfiguration();
 
-    static void Initialize(void);
-    static void Shutdown(void) { }
+        ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+        _dispatcher = new	btCollisionDispatcher(_collisionConfiguration);
 
+        ///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
+        _overlappingPairCache = new btDbvtBroadphase();
+
+        ///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+        _solver = new btSequentialImpulseConstraintSolver;
+
+        _dynamicsWorld = new btDiscreteDynamicsWorld(_dispatcher,_overlappingPairCache,_solver,_collisionConfiguration);
+
+        _dynamicsWorld->setGravity(btVector3(0,-10,0));
+
+        /****************/
+        {
+            btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(500.),btScalar(1.0f),btScalar(500.)));
+            btTransform groundTransform;
+            groundTransform.setIdentity();
+            groundTransform.setOrigin(btVector3(0, -1.0f, 0.0f));
+
+            btDefaultMotionState* motionState = new btDefaultMotionState(groundTransform);
+            btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motionState, groundShape, btVector3(0,0,0));
+            btRigidBody* body = new btRigidBody(rbInfo);
+
+            _dynamicsWorld->addRigidBody(body);
+        }
+    }
+    int CreateComponent(ComponentParams* params)
+    {
+        int index = Component::CreateComponent(params);
+
+        PhysicsComponentParams* physicsParams = (PhysicsComponentParams*)params;
+
+        
+        btTransform startTransform;
+        startTransform.setIdentity();
+
+        btCollisionShape* colShape = new btBoxShape(btVector3(physicsParams->halfWidth, physicsParams->halfHeight, physicsParams->halflength));;
+        btScalar	mass(physicsParams->mass);
+
+        //rigidbody is dynamic if and only if mass is non zero, otherwise static
+        bool isDynamic = (mass != 0.f);
+
+        btVector3 localInertia(0,0,0);
+        if (isDynamic)
+            colShape->calculateLocalInertia(mass,localInertia);
+
+        startTransform.setOrigin(btVector3(physicsParams->transform.position.x, physicsParams->transform.position.y, physicsParams->transform.position.z));
+
+        //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+        btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+        btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
+
+        bodies[index] = new btRigidBody(rbInfo);
+        _dynamicsWorld->addRigidBody(bodies[index]);
+
+        return index;
+    }
     void Update(float elapsedTime);
+    void Write(void);
+    virtual ComponentType Type(void) { return TypePhysics; }
 
 /* Members */
-public:
-	static btDefaultCollisionConfiguration*    _collisionConfiguration;
-	static btCollisionDispatcher*              _dispatcher;
-	static btBroadphaseInterface*              _overlappingPairCache;
-	static btSequentialImpulseConstraintSolver*_solver;
-	static btDiscreteDynamicsWorld*            _dynamicsWorld;
+protected:
+	btDefaultCollisionConfiguration*    _collisionConfiguration;
+	btCollisionDispatcher*              _dispatcher;
+	btBroadphaseInterface*              _overlappingPairCache;
+	btSequentialImpulseConstraintSolver*_solver;
+	btDiscreteDynamicsWorld*            _dynamicsWorld;
 
-    btRigidBody* _body;
+    btRigidBody* bodies[1024];
 };
+
+
+
+/*--------------------FirstPerson Component----------------*/
+class FirstPersonComponent : public Component
+{
+/* Methods */
+public:
+    int CreateComponent(ComponentParams* params)
+    {
+        return Component::CreateComponent(params);
+    }
+    void Update(float elapsedTime);
+    void Write(void);
+    virtual ComponentType Type(void) { return TypeFirstPerson; }
+
+/* Members */
+protected:
+    Transform newTransforms[1024];
+};
+
+/*--------------------Camera Component----------------*/
 class CameraComponent : public Component
 {
 /* Methods */
 public:
+    int CreateComponent(ComponentParams* params)
+    {
+        return Component::CreateComponent(params);
+    }
     void Update(float elapsedTime);
+    virtual ComponentType Type(void) { return TypeCamera; }
 
 /* Members */
-public:
-};
-
-class FirstPersonController : public Component
-{
-/* Methods */
-public:
-    void Update(float elapsedTime);
-
-/* Members */
-public:
-    float _cameraSpeed;
-    float _lookSpeed;
-    int   _mouseX;
-    int   _mouseY;
+protected:
 };
 
 /*******************************************************************\
