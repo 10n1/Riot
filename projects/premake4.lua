@@ -94,4 +94,4 @@ solution "Riot"
         configuration { "windows", "Debug" }
             libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Debug", "../external/lua-5.2.0/Build/vs2010/bin/Debug" }
         configuration { "windows", "Release" }
-            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }]
+            libdirs { "../external/Box2D_v2.2.1/Build/vs2010/bin/Release", "../external/lua-5.2.0/Build/vs2010/bin/Release" }
