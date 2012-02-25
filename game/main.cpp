@@ -96,7 +96,8 @@ void Initialize(void)
     int towerWidth = 32;
     float startX = -63.0f;
     float y = 0.5f;
-    renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
+    //renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
+    renderParams.mesh = RenderEngine::CreateMesh("assets/drone.sdkmesh.colony");
     renderParams.texture = RenderEngine::CreateTexture("assets/brick.png");
     while(towerWidth)
     {

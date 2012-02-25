@@ -319,12 +319,24 @@ mesh_id_t CreateMesh(const char* filename)
             float norm[3];
             float tex[2];
         };
+        float minHeight = 100.0f;
+        float maxHeight = -100.0f;
         vert* resizeVert = (vert*)vertices;
         for(int ii=0; ii < vertexCount; ++ii, ++resizeVert)
         {
-            resizeVert->pos[0] *= 100.0f;
-            resizeVert->pos[1] *= 100.0f;
-            resizeVert->pos[2] *= 100.0f;
+            if(resizeVert->pos[1] < minHeight)
+                minHeight = resizeVert->pos[1];
+            if(resizeVert->pos[1] > maxHeight)
+                maxHeight = resizeVert->pos[1];
+        }
+        float difference = maxHeight-minHeight;
+        float scale = 1.0f/difference;
+        resizeVert = (vert*)vertices;
+        for(int ii=0; ii < vertexCount; ++ii, ++resizeVert)
+        {
+            resizeVert->pos[0] *= scale;
+            resizeVert->pos[1] *= scale;
+            resizeVert->pos[2] *= scale;
         }
     }
 
