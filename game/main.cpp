@@ -19,9 +19,11 @@
 #include "component.h"
 #include "timer.h"
 #include "terrain.h"
+#include "perlin.h"
 
 float* _terrainHeights = NULL;
 const int terrainSize = 512;
+extern Perlin perlin;
 namespace
 {
 
@@ -96,8 +98,8 @@ void Initialize(void)
     int towerWidth = 32;
     float startX = -63.0f;
     float y = 0.5f;
-    //renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
-    renderParams.mesh = RenderEngine::CreateMesh("assets/drone.sdkmesh.colony");
+    renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
+    //renderParams.mesh = RenderEngine::CreateMesh("assets/drone.sdkmesh.colony");
     renderParams.texture = RenderEngine::CreateTexture("assets/brick.png");
     while(towerWidth)
     {
@@ -125,6 +127,24 @@ void Initialize(void)
         y += 1.0f;
         startX += 1.0f;
         --towerWidth;
+    }
+
+    for(int ii=0; ii<1024*4; ++ii)
+    {
+        float x = rand()/(float)RAND_MAX * terrainSize;
+        float z = rand()/(float)RAND_MAX * terrainSize;
+        float y = perlin.Get(x/terrainSize, z/terrainSize);
+        float scale = 10.0f;
+        int treeEntity = _entitySystem->CreateEntity();
+        Transform& t = _entitySystem->GetEntity(treeEntity)->transform;
+        t.position.x = x;
+        t.position.y = y;
+        t.position.z = z;
+        t.scale = scale;
+        renderParams.mesh = RenderEngine::CreateMesh("assets/tree.sdkmesh.colony");
+        renderParams.texture = RenderEngine::CreateTexture("assets/treediffuse.png");
+        int renderComponent = _renderComponent->CreateComponent(&renderParams);
+        _entitySystem->AttachComponent(treeEntity, _renderComponent, renderComponent);
     }
 }
 
