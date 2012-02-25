@@ -49,20 +49,19 @@ void RenderComponent::Update(float elapsedTime)
 
 void PhysicsComponent::Update(float elapsedTime)
 {
-    _dynamicsWorld->stepSimulation(elapsedTime, 10);
+    //_dynamicsWorld->stepSimulation(elapsedTime, 10);
 }
 void PhysicsComponent::Write(void)
 {
     for(int ii=0; ii<numActive; ++ii)
     {
-        btTransform bulletTransform;
-        bodies[ii]->getMotionState()->getWorldTransform(bulletTransform);
-        Transform t;
-        t.orientation = Vector4FromArray(bulletTransform.getRotation());
-        t.position = Vector3FromArray(bulletTransform.getOrigin());
-        t.scale = 1.0f;
-
-        entities[ii]->transform = t;
+        //btTransform bulletTransform;
+        //bodies[ii]->getMotionState()->getWorldTransform(bulletTransform);
+        //Transform t;
+        //t.orientation = Vector4FromArray(bulletTransform.getRotation());
+        //t.position = Vector3FromArray(bulletTransform.getOrigin());
+        //t.scale = 1.0f;
+        entities[ii]->transform = transforms[ii];
     }
 }
 
