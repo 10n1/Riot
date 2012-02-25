@@ -3,6 +3,7 @@
 #include <memory>
 #include <stdlib.h>
 #include "renderEngine.h"
+#include "perlin.h"
 
 struct vert
 {
@@ -13,6 +14,7 @@ struct vert
 
 int CreateTerrain(int size)
 {
+    Perlin perlin(4,2,100,100);
     size_t vertexSize = sizeof(vert);
     size_t indexSize = sizeof(unsigned int);
     size_t vertexCount = size*size;
@@ -26,17 +28,17 @@ int CreateTerrain(int size)
     {
         for(int yy=0; yy<size; ++yy)
         {
+            float height = rand() / (float)RAND_MAX;
+            height = perlin.Get(xx/(float)size,yy/(float)size);
             vert* v = &vertices[yy*size + xx];
             v->pos[0] = xx;
-            v->pos[1] = 0.0f;
-            v->pos[1] = rand() / (float)RAND_MAX;
-            //v->pos[1] = xx%2 ? 1.0f : 0.0f;
+            v->pos[1] = height;
             v->pos[2] = yy;
             v->norm[0] = 0.0f;
             v->norm[1] = 1.0f;
             v->norm[2] = 0.0f;
-            v->tex[0] = xx/(float)size;
-            v->tex[1] = yy/(float)size;
+            v->tex[0] = xx/(size/2.0f) * 2.0f;
+            v->tex[1] = yy/(size/2.0f) * 2.0f;
         }
     }
 

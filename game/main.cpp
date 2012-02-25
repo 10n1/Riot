@@ -61,7 +61,7 @@ void Initialize(void)
     /* Create background object */
     //int backgroundEntity = _entitySystem->CreateEntity();
     RenderComponentParams renderParams;
-    renderParams.mesh = CreateTerrain(128);// RenderEngine::CreateMesh("assets/quadMesh.json");
+    renderParams.mesh = CreateTerrain(512);// RenderEngine::CreateMesh("assets/quadMesh.json");
     renderParams.texture = RenderEngine::CreateTexture("assets/ground.png");
     renderParams.worldView = 0;
     int renderComponent;// = _renderComponent->CreateComponent(&renderParams);
