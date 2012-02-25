@@ -179,7 +179,10 @@ void Shutdown(void)
     _graphicsDevice = NULL;
     _numRenderCommands = 0;
 }
-
+GraphicsDevice* GetGfxDevice(void)
+{
+    return _graphicsDevice;
+}
 void Resize(int width, int height)
 {
     _graphicsDevice->Resize(width, height);
@@ -337,6 +340,26 @@ mesh_id_t CreateMesh(const char* filename)
     delete [] vertices;
     delete [] indices;
 
+    return mesh;
+}
+mesh_id_t CreateMesh(   uint32_t vertexCount,
+                        uint32_t indexCount,
+                        size_t vertexSize,
+                        size_t indexSize,
+                        const void* vertices,
+                        const void* indices)
+{
+    static int count = 0;
+    char meshName[256];
+    sprintf(meshName, "%ld", vertexCount ^ indexCount ^ vertexSize ^ indexSize ^ count++);
+    mesh_id_t mesh = _meshes.Add(_graphicsDevice->CreateMesh(   _vertexShader,
+                                                                kVertexFormats[0],
+                                                                vertexCount,
+                                                                indexCount,
+                                                                vertexSize, 
+                                                                indexSize,
+                                                                vertices,
+                                                                indices), meshName);
     return mesh;
 }
 texture_id_t CreateTexture(const char* filename)

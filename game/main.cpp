@@ -18,6 +18,7 @@
 #include "entity.h"
 #include "component.h"
 #include "timer.h"
+#include "terrain.h"
 
 namespace
 {
@@ -60,7 +61,7 @@ void Initialize(void)
     /* Create background object */
     //int backgroundEntity = _entitySystem->CreateEntity();
     RenderComponentParams renderParams;
-    renderParams.mesh = RenderEngine::CreateMesh("assets/quadMesh.json");
+    renderParams.mesh = CreateTerrain(128);// RenderEngine::CreateMesh("assets/quadMesh.json");
     renderParams.texture = RenderEngine::CreateTexture("assets/ground.png");
     renderParams.worldView = 0;
     int renderComponent;// = _renderComponent->CreateComponent(&renderParams);
@@ -73,8 +74,8 @@ void Initialize(void)
     renderParams.worldView = 1;
     renderComponent = _renderComponent->CreateComponent(&renderParams);
     _entitySystem->AttachComponent(groundEntity, _renderComponent, renderComponent);
-    _entitySystem->GetEntity(groundEntity)->transform.orientation = QuatRotationX(DegToRad(90.0f));
-    _entitySystem->GetEntity(groundEntity)->transform.scale = 100.0f;
+    //_entitySystem->GetEntity(groundEntity)->transform.orientation = QuatRotationX(DegToRad(90.0f));
+    //_entitySystem->GetEntity(groundEntity)->transform.scale = 100.0f;
 
     // Create camera
     int cameraEntity = _entitySystem->CreateEntity();

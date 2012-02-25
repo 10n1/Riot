@@ -63,7 +63,15 @@ namespace RenderEngine
 
     void Frame(void);
 
+    GraphicsDevice* GetGfxDevice(void);
+
     mesh_id_t CreateMesh(const char* filename);
+    mesh_id_t CreateMesh(   uint32_t vertexCount,
+                            uint32_t indexCount,
+                            size_t vertexSize,
+                            size_t indexSize,
+                            const void* vertices,
+                            const void* indices);
     texture_id_t CreateTexture(const char* filename);
 
     void SetWorldViewMatrix(const Matrix4& view);
