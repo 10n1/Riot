@@ -12,9 +12,25 @@ struct vert
     float tex[2];
 };
 
-int CreateTerrain(int size)
+float* GenerateTerrain(int size)
 {
     Perlin perlin(4,2,100,100);
+    float* heights = new float[size*size];
+
+    for(int xx=0; xx<size; ++xx)
+    {
+        for(int yy=0; yy<size; ++yy)
+        {
+            float height = rand() / (float)RAND_MAX;
+            heights[yy*size + xx] = perlin.Get(xx/(float)size,yy/(float)size);
+        }
+    }
+
+    return heights;
+}
+
+int GenerateTerrainMesh(float* heights, int size)
+{
     size_t vertexSize = sizeof(vert);
     size_t indexSize = sizeof(unsigned int);
     size_t vertexCount = size*size;
@@ -28,17 +44,16 @@ int CreateTerrain(int size)
     {
         for(int yy=0; yy<size; ++yy)
         {
-            float height = rand() / (float)RAND_MAX;
-            height = perlin.Get(xx/(float)size,yy/(float)size);
             vert* v = &vertices[yy*size + xx];
             v->pos[0] = xx;
-            v->pos[1] = height;
+            v->pos[1] = heights[yy*size + xx];
             v->pos[2] = yy;
             v->norm[0] = 0.0f;
             v->norm[1] = 1.0f;
             v->norm[2] = 0.0f;
-            v->tex[0] = xx/(size/2.0f) * 2.0f;
-            v->tex[1] = yy/(size/2.0f) * 2.0f;
+            float textureResolution = 4;
+            v->tex[0] = xx/(size/textureResolution) * textureResolution;
+            v->tex[1] = yy/(size/textureResolution) * textureResolution;
         }
     }
 
@@ -63,6 +78,9 @@ int CreateTerrain(int size)
         }
     }
 
-    return RenderEngine::CreateMesh(vertexCount, indexCount, vertexSize, indexSize, vertices, indices);
+    int mesh = RenderEngine::CreateMesh(vertexCount, indexCount, vertexSize, indexSize, vertices, indices);
+    delete [] vertices;
+    delete [] indices;
+    return mesh;
 }
 

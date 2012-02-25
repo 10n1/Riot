@@ -20,6 +20,8 @@
 #include "timer.h"
 #include "terrain.h"
 
+float* _terrainHeights = NULL;
+const int terrainSize = 256;
 namespace
 {
 
@@ -51,6 +53,7 @@ Internal functions
 void Initialize(void)
 {
     timerInit(&_timer);
+    _terrainHeights = GenerateTerrain(terrainSize);
 
     _entitySystem = new EntitySystem();
     _renderComponent = new RenderComponent();
@@ -58,11 +61,12 @@ void Initialize(void)
     _cameraComponent = new CameraComponent();
     _firstPersonComponent = new FirstPersonComponent();
 
+
     /* Create background object */
     //int backgroundEntity = _entitySystem->CreateEntity();
     RenderComponentParams renderParams;
-    renderParams.mesh = CreateTerrain(512);// RenderEngine::CreateMesh("assets/quadMesh.json");
-    renderParams.texture = RenderEngine::CreateTexture("assets/ground.png");
+    renderParams.mesh =GenerateTerrainMesh(_terrainHeights, terrainSize);// RenderEngine::CreateMesh("assets/quadMesh.json");
+    renderParams.texture = 0;
     renderParams.worldView = 0;
     int renderComponent;// = _renderComponent->CreateComponent(&renderParams);
     
@@ -84,9 +88,9 @@ void Initialize(void)
     _entitySystem->AttachComponent(cameraEntity, _cameraComponent, cameraComponent);
     _entitySystem->AttachComponent(cameraEntity, _firstPersonComponent, firstPersonComponent);
     Entity* entity = _entitySystem->GetEntity(cameraEntity);
-    entity->transform.position.x = -30;
-    entity->transform.position.y = 15;
-    entity->transform.position.z = -50;
+    entity->transform.position.x = terrainSize/2;
+    entity->transform.position.y = 50;
+    entity->transform.position.z = terrainSize/2-50.0f;
     // Create bricks
     int brickIndex = 0;
     int towerWidth = 32;
@@ -109,6 +113,9 @@ void Initialize(void)
             params.transform = TransformZero();
             params.transform.position.x = x;
             params.transform.position.y = y;
+            params.transform.position.y += 100.0f;
+            params.transform.position.x += terrainSize/2;
+            params.transform.position.z += terrainSize/2;
             int physicsComponent = _physicsComponent->CreateComponent(&params);
             int renderComponent = _renderComponent->CreateComponent(&renderParams);
             _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
@@ -190,6 +197,7 @@ int main(int, char*[])
     delete _physicsComponent;
     delete _cameraComponent;
     delete _firstPersonComponent;
+    delete _terrainHeights;
 
     return 0;
 }

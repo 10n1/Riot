@@ -49,19 +49,25 @@ void RenderComponent::Update(float elapsedTime)
 
 void PhysicsComponent::Update(float elapsedTime)
 {
-    //_dynamicsWorld->stepSimulation(elapsedTime, 10);
+#if PHYSICS_ENABLED
+    _dynamicsWorld->stepSimulation(elapsedTime, 10);
+#endif
 }
 void PhysicsComponent::Write(void)
 {
     for(int ii=0; ii<numActive; ++ii)
     {
-        //btTransform bulletTransform;
-        //bodies[ii]->getMotionState()->getWorldTransform(bulletTransform);
-        //Transform t;
-        //t.orientation = Vector4FromArray(bulletTransform.getRotation());
-        //t.position = Vector3FromArray(bulletTransform.getOrigin());
-        //t.scale = 1.0f;
+#if PHYSICS_ENABLED
+        btTransform bulletTransform;
+        bodies[ii]->getMotionState()->getWorldTransform(bulletTransform);
+        Transform t;
+        t.orientation = Vector4FromArray(bulletTransform.getRotation());
+        t.position = Vector3FromArray(bulletTransform.getOrigin());
+        t.scale = 1.0f;
+        entities[ii]->transform = t;
+#else
         entities[ii]->transform = transforms[ii];
+#endif
     }
 }
 
