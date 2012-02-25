@@ -14,6 +14,7 @@
 /* Internal headers */
 #include "entity.h"
 #include "system.h"
+#include "perlin.h"
 
 namespace
 {
@@ -70,7 +71,7 @@ void PhysicsComponent::Write(void)
 #endif
     }
 }
-
+extern Perlin perlin;
 void FirstPersonComponent::Update(float elapsedTime)
 {
     Transform& transform = newTransforms[0];
@@ -107,6 +108,12 @@ void FirstPersonComponent::Update(float elapsedTime)
         TransformTranslateY(&transform, +speed);
     if(System::GetKeyState(System::Key::kC))
         TransformTranslateY(&transform, -speed);
+
+    if(transform.position.x > 0.0f && transform.position.x < terrainSize
+       && transform.position.z > 0.0f && transform.position.z < terrainSize)
+    {
+        transform.position.y = perlin.Get(transform.position.x/terrainSize,transform.position.z/terrainSize) + 2.0f;
+    }
 }
 void FirstPersonComponent::Write(void)
 {

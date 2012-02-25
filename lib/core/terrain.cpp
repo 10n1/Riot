@@ -12,9 +12,10 @@ struct vert
     float tex[2];
 };
 
+Perlin perlin(4,2,100,100);
+
 float* GenerateTerrain(int size)
 {
-    Perlin perlin(4,2,100,100);
     float* heights = new float[size*size];
 
     for(int xx=0; xx<size; ++xx)

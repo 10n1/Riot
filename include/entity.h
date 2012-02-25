@@ -77,8 +77,8 @@ public:
 public:
     int             numEntities;
     int             numNodes;
-    Entity          entities[1024];
-    EntityDataNode  nodes[1024*8];
+    Entity          entities[MAX_ENTITIES];
+    EntityDataNode  nodes[MAX_ENTITIES*8];
 };
 
 /*******************************************************************\

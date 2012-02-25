@@ -21,7 +21,7 @@
 #include "terrain.h"
 
 float* _terrainHeights = NULL;
-const int terrainSize = 256;
+const int terrainSize = 512;
 namespace
 {
 
@@ -112,7 +112,7 @@ void Initialize(void)
             params.mass = 1.0f;
             params.transform = TransformZero();
             params.transform.position.x = x;
-            params.transform.position.y = y;
+            params.transform.position.y = y*2;
             params.transform.position.y += 100.0f;
             params.transform.position.x += terrainSize/2;
             params.transform.position.z += terrainSize/2;

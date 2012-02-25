@@ -25,6 +25,8 @@ External Constants And types
 \*******************************************************************/
 class Entity;
 
+enum { MAX_ENTITIES = 1024*16 };
+
 enum ComponentType
 {
     TypeRender,
@@ -60,7 +62,7 @@ public:
 
 /* Members */
 protected:
-    Entity* entities[1024];
+    Entity* entities[MAX_ENTITIES];
     int     numActive;
 };
 
@@ -91,9 +93,9 @@ public:
 
 /* Members */
 protected:
-    mesh_id_t       mesh[1024];
-    texture_id_t    texture[1024];
-    int             worldView[1024];
+    mesh_id_t       mesh[MAX_ENTITIES];
+    texture_id_t    texture[MAX_ENTITIES];
+    int             worldView[MAX_ENTITIES];
 };
 
 /*--------------------Physics Component----------------*/
@@ -154,6 +156,7 @@ public:
 
             btDefaultMotionState* motionState = new btDefaultMotionState(groundTransform);
             btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motionState, groundShape, btVector3(0,0,0));
+            rbInfo.m_friction = 1.0f;
             btRigidBody* body = new btRigidBody(rbInfo);
             _dynamicsWorld->addRigidBody(body);
 #endif
@@ -206,9 +209,9 @@ protected:
     btSequentialImpulseConstraintSolver*_solver;
     btDiscreteDynamicsWorld*            _dynamicsWorld;
 
-    btRigidBody* bodies[1024];
+    btRigidBody* bodies[MAX_ENTITIES];
 #else
-    Transform transforms[1024];
+    Transform transforms[MAX_ENTITIES];
 #endif
     
 };
@@ -230,7 +233,7 @@ public:
 
 /* Members */
 protected:
-    Transform newTransforms[1024];
+    Transform newTransforms[MAX_ENTITIES];
 };
 
 /*--------------------Camera Component----------------*/
