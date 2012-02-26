@@ -164,6 +164,8 @@ void Initialize(void)
         {
             for(int zz=minZ; zz <= maxZ; zz++)
             {
+                if(xx > minX && xx < maxX && zz > minZ && zz < maxZ)
+                    continue;
                 int brickEntity = _entitySystem->CreateEntity();
                 PhysicsComponentParams params;
                 params.halfHeight = 0.5f;
