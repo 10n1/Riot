@@ -24,6 +24,8 @@
 float* _terrainHeights = NULL;
 const int terrainSize = 512;
 extern Perlin perlin;
+
+#define TERRAIN_INDEX(x,z) _terrainHeights[x+z*terrainSize]
 namespace
 {
 
@@ -57,12 +59,30 @@ void Initialize(void)
     timerInit(&_timer);
     _terrainHeights = GenerateTerrain(terrainSize);
 
-    float minX = terrainSize/2 - 25.0f;
-    float minZ = terrainSize/2 - 25.0f;
-    float maxX = minX+25.0f;
-    float maxZ = minZ+25.0f;
+    int buildingSize = 10;
+    int minX = terrainSize/2 - buildingSize/2;
+    int minZ = terrainSize/2 - buildingSize/2;
+    int maxX = minX+buildingSize;
+    int maxZ = minZ+buildingSize;
 
     float avgHeight = 0.0f;
+    int count = 0;
+    for(int xx=minX; xx <= maxX; xx++)
+    {
+        for(int zz=minZ; zz <= maxZ; zz++)
+        {
+            avgHeight += TERRAIN_INDEX(xx,zz);
+            count++;
+        }
+    }
+    avgHeight /= count;
+    for(int xx=minX; xx <= maxX; xx++)
+    {
+        for(int zz=minZ; zz <= maxZ; zz++)
+        {
+            TERRAIN_INDEX(xx,zz) = avgHeight;
+        }
+    }
 
     _entitySystem = new EntitySystem();
     _renderComponent = new RenderComponent();
@@ -98,7 +118,7 @@ void Initialize(void)
     _entitySystem->AttachComponent(cameraEntity, _firstPersonComponent, firstPersonComponent);
     Entity* entity = _entitySystem->GetEntity(cameraEntity);
     entity->transform.position.x = terrainSize/2;
-    entity->transform.position.y = 50;
+    entity->transform.position.y = avgHeight+10.0f;
     entity->transform.position.z = terrainSize/2-50.0f;
     // Create bricks
     int brickIndex = 0;
@@ -136,10 +156,37 @@ void Initialize(void)
         --towerWidth;
     }
 
+    // Building bricks
+    for(int xx=minX; xx <= maxX; xx++)
+    {
+        for(int zz=minZ; zz <= maxZ; zz++)
+        {
+            int brickEntity = _entitySystem->CreateEntity();
+            PhysicsComponentParams params;
+            params.halfHeight = 0.5f;
+            params.halfWidth = 0.5f;
+            params.halflength = 0.5f;
+            params.mass = 1.0f;
+            params.transform = TransformZero();
+            params.transform.position.x = xx;
+            params.transform.position.y = avgHeight+0.5f;
+            params.transform.position.z = zz;
+            int physicsComponent = _physicsComponent->CreateComponent(&params);
+            int renderComponent = _renderComponent->CreateComponent(&renderParams);
+            _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
+            _entitySystem->AttachComponent(brickEntity, _renderComponent, renderComponent);
+        }
+    }
+
     for(int ii=0; ii<1024*4; ++ii)
     {
         float x = rand()/(float)RAND_MAX * terrainSize;
         float z = rand()/(float)RAND_MAX * terrainSize;
+        while(x > minX && x < maxX && z > minZ && z < maxZ)
+        {
+            x = rand()/(float)RAND_MAX * terrainSize;
+            z = rand()/(float)RAND_MAX * terrainSize;
+        }
         float y = perlin.Get(x/terrainSize, z/terrainSize);
         float scale = 10.0f;
         int treeEntity = _entitySystem->CreateEntity();

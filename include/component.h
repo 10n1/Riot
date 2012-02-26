@@ -8,7 +8,7 @@
 #ifndef __RiotLib_component_h__
 #define __RiotLib_component_h__
 
-#define PHYSICS_ENABLED 0
+#define PHYSICS_ENABLED 1
 
 /* C headers */
 /* C++ headers */
@@ -227,7 +227,7 @@ public:
     {
         for(int ii=0;ii<MAX_ENTITIES; ++ii)
         {
-            flying[ii] = 0;
+            flying[ii] = 1;
         }
     }
     int CreateComponent(ComponentParams* params)
