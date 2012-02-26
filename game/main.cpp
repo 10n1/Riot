@@ -57,6 +57,13 @@ void Initialize(void)
     timerInit(&_timer);
     _terrainHeights = GenerateTerrain(terrainSize);
 
+    float minX = terrainSize/2 - 25.0f;
+    float minZ = terrainSize/2 - 25.0f;
+    float maxX = minX+25.0f;
+    float maxZ = minZ+25.0f;
+
+    float avgHeight = 0.0f;
+
     _entitySystem = new EntitySystem();
     _renderComponent = new RenderComponent();
     _physicsComponent = new PhysicsComponent();

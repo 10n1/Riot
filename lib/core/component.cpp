@@ -103,13 +103,16 @@ void FirstPersonComponent::Update(float elapsedTime)
         TransformTranslateX(&transform, -speed);
     if(System::GetKeyState(System::Key::kD))
         TransformTranslateX(&transform, +speed);
-        
+
     if(System::GetKeyState(System::Key::kSpace))
         TransformTranslateY(&transform, +speed);
     if(System::GetKeyState(System::Key::kC))
         TransformTranslateY(&transform, -speed);
+        
+    if(System::GetKeyState(System::Key::kF))
+        flying[0] = !flying[0];
 
-    if(transform.position.x > 0.0f && transform.position.x < terrainSize
+    if(flying[0] == 0 && transform.position.x > 0.0f && transform.position.x < terrainSize
        && transform.position.z > 0.0f && transform.position.z < terrainSize)
     {
         transform.position.y = perlin.Get(transform.position.x/terrainSize,transform.position.z/terrainSize) + 2.0f;

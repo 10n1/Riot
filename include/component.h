@@ -8,7 +8,7 @@
 #ifndef __RiotLib_component_h__
 #define __RiotLib_component_h__
 
-#define PHYSICS_ENABLED 1
+#define PHYSICS_ENABLED 0
 
 /* C headers */
 /* C++ headers */
@@ -223,6 +223,13 @@ class FirstPersonComponent : public Component
 {
 /* Methods */
 public:
+    FirstPersonComponent()
+    {
+        for(int ii=0;ii<MAX_ENTITIES; ++ii)
+        {
+            flying[ii] = 0;
+        }
+    }
     int CreateComponent(ComponentParams* params)
     {
         return Component::CreateComponent(params);
@@ -234,6 +241,7 @@ public:
 /* Members */
 protected:
     Transform newTransforms[MAX_ENTITIES];
+    float flying[MAX_ENTITIES];
 };
 
 /*--------------------Camera Component----------------*/
