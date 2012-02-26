@@ -12,7 +12,7 @@ struct vert
     float tex[2];
 };
 
-Perlin perlin(4,2,100,500);
+Perlin perlin(4,2,50,250);
 
 float* GenerateTerrain(int size)
 {

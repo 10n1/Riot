@@ -76,9 +76,9 @@ void Initialize(void)
         }
     }
     avgHeight /= count;
-    for(int xx=minX; xx <= maxX; xx++)
+    for(int xx=minX-1; xx <= maxX+1; xx++)
     {
-        for(int zz=minZ; zz <= maxZ; zz++)
+        for(int zz=minZ-1; zz <= maxZ+1; zz++)
         {
             TERRAIN_INDEX(xx,zz) = avgHeight;
         }
@@ -157,25 +157,30 @@ void Initialize(void)
     }
 
     // Building bricks
-    for(int xx=minX; xx <= maxX; xx++)
+    float level = avgHeight+0.5f;
+    for(int y=0; y < 3; ++y)
     {
-        for(int zz=minZ; zz <= maxZ; zz++)
+        for(int xx=minX; xx <= maxX; xx++)
         {
-            int brickEntity = _entitySystem->CreateEntity();
-            PhysicsComponentParams params;
-            params.halfHeight = 0.5f;
-            params.halfWidth = 0.5f;
-            params.halflength = 0.5f;
-            params.mass = 1.0f;
-            params.transform = TransformZero();
-            params.transform.position.x = xx;
-            params.transform.position.y = avgHeight+0.5f;
-            params.transform.position.z = zz;
-            int physicsComponent = _physicsComponent->CreateComponent(&params);
-            int renderComponent = _renderComponent->CreateComponent(&renderParams);
-            _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
-            _entitySystem->AttachComponent(brickEntity, _renderComponent, renderComponent);
+            for(int zz=minZ; zz <= maxZ; zz++)
+            {
+                int brickEntity = _entitySystem->CreateEntity();
+                PhysicsComponentParams params;
+                params.halfHeight = 0.5f;
+                params.halfWidth = 0.5f;
+                params.halflength = 0.5f;
+                params.mass = 1.0f;
+                params.transform = TransformZero();
+                params.transform.position.x = xx;
+                params.transform.position.y = level;
+                params.transform.position.z = zz;
+                int physicsComponent = _physicsComponent->CreateComponent(&params);
+                int renderComponent = _renderComponent->CreateComponent(&renderParams);
+                _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
+                _entitySystem->AttachComponent(brickEntity, _renderComponent, renderComponent);
+            }
         }
+        level += 1.0f;
     }
 
     for(int ii=0; ii<1024*4; ++ii)
