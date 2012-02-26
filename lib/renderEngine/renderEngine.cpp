@@ -225,6 +225,7 @@ void SetWorldProjectionType(ProjectionType::Enum type, float bottom, float top)
 void Frame(void)
 {
     // Rendering
+    _graphicsDevice->Present();
     _graphicsDevice->Clear();
 
     // Render
@@ -242,7 +243,6 @@ void Frame(void)
 
     _numRenderCommands = 0;
 
-    _graphicsDevice->Present();
 }
 
 mesh_id_t CreateMesh(const char* filename)

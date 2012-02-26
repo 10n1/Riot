@@ -116,7 +116,7 @@ void Initialize(void)
             params.transform = TransformZero();
             params.transform.position.x = x;
             params.transform.position.y = y*2;
-            params.transform.position.y += 100.0f;
+            params.transform.position.y += 300.0f;
             params.transform.position.x += terrainSize/2;
             params.transform.position.z += terrainSize/2;
             int physicsComponent = _physicsComponent->CreateComponent(&params);
