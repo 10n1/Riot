@@ -149,6 +149,10 @@ void GraphicsDeviceNull::BindConstantBufferToIndex(material_t* material, const c
 {
     printf("%s called with bufferName: %s and index: %d\n", __FUNCTION__, bufferName, index);
 }
+void GraphicsDeviceNull::UpdateMeshData(mesh_t* mesh, const void* vertices)
+{
+    printf("Updating mesh %p with data %p\n", mesh, vertices);
+}
 
 /* Object destruction */
 void GraphicsDeviceNull::DestroyVertexShader(vertex_shader_t* shader)

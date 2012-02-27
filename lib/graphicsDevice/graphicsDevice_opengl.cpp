@@ -101,6 +101,8 @@ struct mesh_t
     GLuint      inputLayout;
     uint32_t    indexSize;
     uint32_t    indexCount;
+    uint32_t    vertexSize;
+    uint32_t    vertexCount;
 };
 struct texture_t
 {
@@ -340,7 +342,7 @@ mesh_t* GraphicsDeviceOpenGL::CreateMesh( vertex_shader_t* vertexShader,
     /* vertex buffer */
     glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     CheckGLError();
-    glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(vertexSize*vertexCount), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(vertexSize*vertexCount), vertices, GL_DYNAMIC_DRAW);
     CheckGLError();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     CheckGLError();
@@ -382,6 +384,8 @@ mesh_t* GraphicsDeviceOpenGL::CreateMesh( vertex_shader_t* vertexShader,
     mesh->inputLayout   = vao;
     mesh->indexSize     = (uint32_t)indexSize;
     mesh->indexCount    = indexCount;
+    mesh->vertexCount   = (uint32_t)vertexCount;
+    mesh->vertexSize    = (uint32_t)vertexSize;
 
     return mesh;
 }
@@ -465,6 +469,12 @@ void GraphicsDeviceOpenGL::BindConstantBufferToIndex(material_t* material, const
 {
     GLuint bufferIndex = glGetUniformBlockIndex(material->program, bufferName);
     glUniformBlockBinding(material->program, bufferIndex, index);
+}
+void GraphicsDeviceOpenGL::UpdateMeshData(mesh_t* mesh, const void* vertices)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(mesh->vertexSize*mesh->vertexCount), vertices, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 /* Object destruction */

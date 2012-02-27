@@ -64,6 +64,7 @@ public:
     /* object controls */
     void UpdateConstantBuffer(constant_buffer_t* buffer, size_t size, const void* data);
     void BindConstantBufferToIndex(material_t* material, const char* bufferName, int index);
+    void UpdateMeshData(mesh_t* mesh, const void* vertices);
 
     /* Object destruction */
     void DestroyVertexShader(vertex_shader_t* shader);

@@ -117,6 +117,7 @@ public:
                                 const void* vertices,
                                 const void* indices) = 0;
     virtual texture_t* CreateTexture(const char* filename) = 0;
+    virtual void UpdateMeshData(mesh_t* mesh, const void* vertices) = 0;
     virtual constant_buffer_t* CreateConstantBuffer(size_t size, const void* data) = 0;
 
     /* object controls */

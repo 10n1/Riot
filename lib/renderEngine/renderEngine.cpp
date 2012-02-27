@@ -354,6 +354,10 @@ mesh_id_t CreateMesh(const char* filename)
 
     return mesh;
 }
+void UpdateMeshData(mesh_id_t mesh, const void* vertices)
+{
+    _graphicsDevice->UpdateMeshData(_meshes[mesh], vertices);
+}
 mesh_id_t CreateMesh(   uint32_t vertexCount,
                         uint32_t indexCount,
                         size_t vertexSize,

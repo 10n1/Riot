@@ -125,6 +125,7 @@ struct mesh_t
     uint32_t            indexStride;
     uint32_t            vertexStride;
     uint32_t            indexCount;
+    uint32_t            vertexCount;
 };
 struct texture_t
 {
@@ -538,17 +539,19 @@ mesh_t* GraphicsDeviceDirectX::CreateMesh( vertex_shader_t* vertexShader,
     DXGI_FORMAT                 layoutFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
 
     /* vertex buffer */
-    bufferDesc.Usage            = D3D11_USAGE_IMMUTABLE;
+    bufferDesc.Usage            = D3D11_USAGE_DYNAMIC;
     bufferDesc.ByteWidth        = (UINT)(vertexSize*vertexCount);
     bufferDesc.BindFlags        = D3D11_BIND_VERTEX_BUFFER;
-    bufferDesc.CPUAccessFlags   = 0;
+    bufferDesc.CPUAccessFlags   = D3D11_CPU_ACCESS_WRITE;
     initData.pSysMem            = vertices;
     hr = _device->CreateBuffer(&bufferDesc, &initData, &vertexBuffer);
     assert(SUCCEEDED(hr));
     
     /* index buffer */
+    bufferDesc.Usage            = D3D11_USAGE_IMMUTABLE;
     bufferDesc.ByteWidth        = (UINT)(indexSize*indexCount);
     bufferDesc.BindFlags        = D3D11_BIND_INDEX_BUFFER;
+    bufferDesc.CPUAccessFlags   = 0;
     initData.pSysMem            = indices;
     hr = _device->CreateBuffer(&bufferDesc, &initData, &indexBuffer);
     assert(SUCCEEDED(hr));
@@ -590,6 +593,7 @@ mesh_t* GraphicsDeviceDirectX::CreateMesh( vertex_shader_t* vertexShader,
     mesh->indexCount   = (uint32_t)indexCount;
     mesh->vertexStride = (uint32_t)vertexSize;
     mesh->indexStride  = (uint32_t)indexSize;
+    mesh->vertexCount  = (uint32_t)vertexCount;
 
     return mesh;
 }
@@ -630,6 +634,13 @@ constant_buffer_t* GraphicsDeviceDirectX::CreateConstantBuffer(size_t size, cons
     constantBuffer->buffer = buffer;
 
     return constantBuffer;
+}
+void GraphicsDeviceDirectX::UpdateMeshData(mesh_t* mesh, const void* vertices)
+{  
+    D3D11_MAPPED_SUBRESOURCE mappedResource;
+    _context->Map(mesh->vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+    memcpy(mappedResource.pData, vertices, mesh->vertexStride*mesh->vertexCount);
+    _context->Unmap(mesh->vertexBuffer, 0);
 }
 
 /* object controls */

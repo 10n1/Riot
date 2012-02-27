@@ -10,6 +10,11 @@
 
 #define PHYSICS_ENABLED 1
 
+#ifdef _DEBUG
+#undef PHYSICS_ENABLED
+#define PHYSICS_ENABLED 0
+#endif
+
 /* C headers */
 /* C++ headers */
 /* External headers */
@@ -110,6 +115,7 @@ struct PhysicsComponentParams : public ComponentParams
 
 extern float* _terrainHeights;
 extern const int terrainSize;
+extern const int terrainHeight;
 
 class PhysicsComponent : public Component
 {
@@ -148,7 +154,7 @@ public:
 
             _dynamicsWorld->addRigidBody(body);
 #else
-            btCollisionShape* groundShape = new btHeightfieldTerrainShape(terrainSize, terrainSize, _terrainHeights, 1.0f, -100.0f, 100.0f, 1, PHY_FLOAT, false);
+            btCollisionShape* groundShape = new btHeightfieldTerrainShape(terrainSize, terrainSize, _terrainHeights, 1.0f, -terrainHeight, terrainHeight, 1, PHY_FLOAT, false);
             
             btTransform groundTransform;
             groundTransform.setIdentity();
@@ -260,12 +266,19 @@ public:
 protected:
 };
 
-/*******************************************************************\
-External variables
-\*******************************************************************/
+/*--------------------Dig Component----------------*/
+class DigComponent : public Component
+{
+/* Methods */
+public:
+    int CreateComponent(ComponentParams* params)
+    {
+        return Component::CreateComponent(params);
+    }
+    void Update(float elapsedTime);
+    virtual ComponentType Type(void) { return TypeCamera; }
 
-/*******************************************************************\
-External functions
-\*******************************************************************/
-
+/* Members */
+protected:
+};
 #endif /* include guard */

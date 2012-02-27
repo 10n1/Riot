@@ -72,6 +72,7 @@ namespace RenderEngine
                             size_t indexSize,
                             const void* vertices,
                             const void* indices);
+    void UpdateMeshData(mesh_id_t mesh, const void* vertices);
     texture_id_t CreateTexture(const char* filename);
 
     void SetWorldViewMatrix(const Matrix4& view);

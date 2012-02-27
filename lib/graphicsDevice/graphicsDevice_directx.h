@@ -62,6 +62,7 @@ public:
                                 const void* indices);
     texture_t* CreateTexture(const char* filename);
     constant_buffer_t* CreateConstantBuffer(size_t size, const void* data);
+    void UpdateMeshData(mesh_t* mesh, const void* vertices);
 
     /* object controls */
     void UpdateConstantBuffer(constant_buffer_t* buffer, size_t size, const void* data);

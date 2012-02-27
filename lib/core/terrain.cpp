@@ -12,7 +12,8 @@ struct vert
     float tex[2];
 };
 
-Perlin perlin(4,2,50,250);
+extern const int terrainHeight;
+Perlin perlin(4,2,terrainHeight,230);
 
 float* GenerateTerrain(int size)
 {
@@ -30,7 +31,7 @@ float* GenerateTerrain(int size)
     return heights;
 }
 
-int GenerateTerrainMesh(float* heights, int size)
+int GenerateTerrainMesh(float* heights, int size, void** outVertices)
 {
     size_t vertexSize = sizeof(vert);
     size_t indexSize = sizeof(unsigned int);
@@ -80,7 +81,12 @@ int GenerateTerrainMesh(float* heights, int size)
     }
 
     int mesh = RenderEngine::CreateMesh(vertexCount, indexCount, vertexSize, indexSize, vertices, indices);
-    delete [] vertices;
+    if(outVertices)
+    {
+        *outVertices = vertices;
+    }
+    else
+        delete [] vertices;
     delete [] indices;
     return mesh;
 }

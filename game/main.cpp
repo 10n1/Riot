@@ -20,12 +20,15 @@
 #include "timer.h"
 #include "terrain.h"
 #include "perlin.h"
+#include "system.h"
 
 float* _terrainHeights = NULL;
 const int terrainSize = 512;
+const int terrainHeight = 250;
 extern Perlin perlin;
+void* terrainVertices = NULL;
+int terrainMesh = 0;
 
-#define TERRAIN_INDEX(x,z) _terrainHeights[x+z*terrainSize]
 namespace
 {
 
@@ -50,6 +53,8 @@ RenderComponent*    _renderComponent = NULL;
 PhysicsComponent*   _physicsComponent = NULL;
 CameraComponent*    _cameraComponent = NULL;
 FirstPersonComponent*   _firstPersonComponent = NULL;
+DigComponent*           _digComponent = NULL;
+int groundEntity = 0;
 
 /*******************************************************************\
 Internal functions
@@ -61,7 +66,7 @@ void Initialize(void)
 
     int buildingSize = 10;
     int minX = terrainSize/2 - buildingSize/2;
-    int minZ = terrainSize/2 - buildingSize/2;
+    int minZ = terrainSize/2 - buildingSize/2 + 25;
     int maxX = minX+buildingSize;
     int maxZ = minZ+buildingSize;
 
@@ -89,12 +94,13 @@ void Initialize(void)
     _physicsComponent = new PhysicsComponent();
     _cameraComponent = new CameraComponent();
     _firstPersonComponent = new FirstPersonComponent();
+    _digComponent = new DigComponent();
 
-
+    terrainMesh = GenerateTerrainMesh(_terrainHeights, terrainSize, &terrainVertices);
     /* Create background object */
     //int backgroundEntity = _entitySystem->CreateEntity();
     RenderComponentParams renderParams;
-    renderParams.mesh =GenerateTerrainMesh(_terrainHeights, terrainSize);// RenderEngine::CreateMesh("assets/quadMesh.json");
+    renderParams.mesh = terrainMesh;// RenderEngine::CreateMesh("assets/quadMesh.json");
     renderParams.texture = 0;
     renderParams.worldView = 0;
     int renderComponent;// = _renderComponent->CreateComponent(&renderParams);
@@ -102,7 +108,7 @@ void Initialize(void)
     //_entitySystem->AttachComponent(backgroundEntity, _renderComponent, renderComponent);
 
     // Create ground
-    int groundEntity = _entitySystem->CreateEntity();
+    groundEntity = _entitySystem->CreateEntity();
     renderParams.texture = RenderEngine::CreateTexture("assets/grass.jpg");
     renderParams.worldView = 1;
     renderComponent = _renderComponent->CreateComponent(&renderParams);
@@ -114,15 +120,17 @@ void Initialize(void)
     int cameraEntity = _entitySystem->CreateEntity();
     int cameraComponent = _cameraComponent->CreateComponent(NULL);
     int firstPersonComponent = _firstPersonComponent->CreateComponent(NULL);
+    int digComponent = _digComponent->CreateComponent(NULL);
     _entitySystem->AttachComponent(cameraEntity, _cameraComponent, cameraComponent);
     _entitySystem->AttachComponent(cameraEntity, _firstPersonComponent, firstPersonComponent);
+    _entitySystem->AttachComponent(cameraEntity, _digComponent, digComponent);
     Entity* entity = _entitySystem->GetEntity(cameraEntity);
     entity->transform.position.x = terrainSize/2;
     entity->transform.position.y = avgHeight+10.0f;
     entity->transform.position.z = terrainSize/2-50.0f;
     // Create bricks
     int brickIndex = 0;
-    int towerWidth = 32;
+    int towerWidth = 0;
     float startX = -63.0f;
     float y = 0.5f;
     renderParams.mesh = RenderEngine::CreateMesh("assets/cubemesh.json");
@@ -145,7 +153,7 @@ void Initialize(void)
             params.transform.position.y = y*2;
             params.transform.position.y += 300.0f;
             params.transform.position.x += terrainSize/2;
-            params.transform.position.z += terrainSize/2;
+            params.transform.position.z += terrainSize/2 + 30;
             int physicsComponent = _physicsComponent->CreateComponent(&params);
             int renderComponent = _renderComponent->CreateComponent(&renderParams);
             _entitySystem->AttachComponent(brickEntity, _physicsComponent, physicsComponent);
@@ -223,6 +231,7 @@ void Frame(void)
     _physicsComponent->Update(elapsedTime);
     _firstPersonComponent->Update(elapsedTime);
     _cameraComponent->Update(elapsedTime);
+    _digComponent->Update(elapsedTime);
     // Write
     _renderComponent->Write();
     _physicsComponent->Write();
@@ -238,6 +247,23 @@ void Frame(void)
         printf("FPS: %d\n", frameCount);
         frameCount = 0;
         frameTime -= 1.0f;
+    }
+
+    if(System::GetKeyState(System::Key::kG))
+    {
+        struct vert
+        {
+            float pos[3];
+            float norm[3];
+            float tex[2];
+        };
+    
+        vert* verts = (vert*)terrainVertices;
+        for(int ii=0; ii<terrainSize*terrainSize; ++ii)
+        {
+            verts[ii].pos[1] = _terrainHeights[ii] = -terrainHeight+1;
+        }
+        RenderEngine::UpdateMeshData(terrainMesh, verts);
     }
 }
 
@@ -280,6 +306,10 @@ int main(int, char*[])
     delete _cameraComponent;
     delete _firstPersonComponent;
     delete _terrainHeights;
+    delete _digComponent;
+
+    if(terrainVertices)
+        delete [] terrainVertices;
 
     return 0;
 }

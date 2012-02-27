@@ -15,6 +15,7 @@
 #include "entity.h"
 #include "system.h"
 #include "perlin.h"
+#include "terrain.h"
 
 namespace
 {
@@ -143,4 +144,45 @@ void CameraComponent::Update(float elapsedTime)
     viewMatrix.r3.z = -Vector3DotProduct(z, transform.position);
 
     RenderEngine::SetWorldViewMatrix(viewMatrix);
+}
+
+extern int terrainMesh;
+extern void* terrainVertices;
+
+void DigComponent::Update(float elapsedTime)
+{
+    static int down = 0;
+    if(System::GetKeyState(System::Key::kR))
+    {
+        if(down != 0)
+            return;
+
+        struct vert
+        {
+            float pos[3];
+            float norm[3];
+            float tex[2];
+        };
+
+        vert* vertices = (vert*)terrainVertices;
+
+        float x = entities[0]->transform.position.x;
+        float z = entities[0]->transform.position.z;
+
+        int nearestVertX = x;
+        int nearestVertZ = z;
+        for(int xx=x-1.0f; xx <= x+1.0f; ++xx)
+        {
+            for(int zz=z-1.0f; zz <= z+1.0f; ++zz)
+            {
+                float height = TERRAIN_INDEX(xx, zz) - 1.0f;
+                TERRAIN_INDEX(xx, zz) = vertices[xx+zz*terrainSize].pos[1] = height;
+            }
+        }
+
+        RenderEngine::UpdateMeshData(terrainMesh, vertices);
+        down = 1;
+    }
+    else
+        down = 0;
 }
