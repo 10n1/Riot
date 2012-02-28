@@ -124,6 +124,7 @@ Internal functions
 /*******************************************************************\
 External variables
 \*******************************************************************/
+extern Matrix4 _projMatrix;
 
 /*******************************************************************\
 External functions
@@ -194,6 +195,7 @@ void Resize(int width, int height)
     if(_worldProjType == ProjectionType::kPerspective)
     {
         _worldProjMatrix = Matrix4PerspectiveFovLH(DegToRad(50.0f), aspectRatio, 0.1f, 100000.0f);
+        _projMatrix = _worldProjMatrix;
     }
     else
     {

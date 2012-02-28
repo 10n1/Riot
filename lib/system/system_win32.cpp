@@ -53,12 +53,19 @@ Internal functions
 void SetMouseState(unsigned int button)
 {
     s_mouseState = 0;
+#if 1
     if(button & MK_LBUTTON)
         s_mouseState |= Mouse::kLeft;
     if(button & MK_RBUTTON)
         s_mouseState |= Mouse::kRight;
     if(button & MK_MBUTTON)
         s_mouseState |= Mouse::kMiddle;
+#else
+    if(button & RI_MOUSE_BUTTON_1_DOWN)
+        s_mouseState |= Mouse::kLeft;
+
+#endif
+
 }
 
 static void SetKeyState(uint8_t key, uint8_t state)
@@ -169,6 +176,9 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
                 raw->data.mouse.ulExtraInformation);
 
             OutputDebugString(szTempOutput);
+
+            
+            //SetMouseState((int)raw->data.mouse.ulButtons);
         } 
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
@@ -310,7 +320,7 @@ void Init(int window, int windowWidth, int windowHeight)
     RAWINPUTDEVICE Rid[1];
     Rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC; 
     Rid[0].usUsage = HID_USAGE_GENERIC_MOUSE; 
-    Rid[0].dwFlags = RIDEV_NOLEGACY;   
+    Rid[0].dwFlags = 0;   
     Rid[0].hwndTarget = hwnd;
     RegisterRawInputDevices(Rid, 1, sizeof(Rid[0]));
 }

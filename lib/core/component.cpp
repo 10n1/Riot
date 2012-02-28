@@ -40,6 +40,8 @@ Internal functions
 /*******************************************************************\
 External variables
 \*******************************************************************/
+Matrix4 _viewMatrix;
+Matrix4 _projMatrix;
 
 /*******************************************************************\
 External functions
@@ -76,6 +78,25 @@ void PhysicsComponent::Write(void)
     }
 }
 extern Perlin perlin;
+
+Vector3 CalculatePickRay(float x, float y)
+{
+    Vector4 coord;
+    coord.x = ((2.0f*x)/1024)-1;
+    coord.y = -(((2.0f*y)/1024)-1);
+    coord.z = 1.0f;
+    coord.w = 1.0f;
+
+    coord.x /= _projMatrix.r0.x;
+    coord.y /= _projMatrix.r1.y;
+    
+    Matrix4 viewInverse = Matrix4Inverse(_viewMatrix);
+
+    coord = Vector4MulScalar(coord, 10000.0f);
+    coord = Matrix4VectorMultiply(viewInverse, coord);
+
+    return Vector3FromVector4(coord);
+}
 void FirstPersonComponent::Update(float elapsedTime)
 {
     Transform& transform = newTransforms[0];
@@ -89,7 +110,7 @@ void FirstPersonComponent::Update(float elapsedTime)
     if(System::GetKeyState(System::Key::kShift))
         speed *= 3.0f;
 
-    float lookSpeed = elapsedTime * 1.0f;
+    float lookSpeed = elapsedTime * 3.0f;
     if(System::GetKeyState(System::Key::kUp) || deltaY < 0)
         TransformRotateX(&transform, -lookSpeed);
     if(System::GetKeyState(System::Key::kDown) || deltaY > 0)
@@ -123,8 +144,13 @@ void FirstPersonComponent::Update(float elapsedTime)
         transform.position.y = perlin.Get(transform.position.x/terrainSize,transform.position.z/terrainSize) + 2.0f;
     }
 
-    if(deltaX || deltaY)
+    if(System::GetMouseButtonState(System::Mouse::kLeft))
     {
+        Vector3 ray = CalculatePickRay(512.0f, 768.0f/2);
+
+        char buffer[256];
+        sprintf(buffer, "X: %f Y: %f Z: %f\n", ray.x, ray.y, ray.z);
+        OutputDebugString(buffer);
     }
 }
 void FirstPersonComponent::Write(void)
@@ -152,6 +178,8 @@ void CameraComponent::Update(float elapsedTime)
     viewMatrix.r3.z = -Vector3DotProduct(z, transform.position);
 
     RenderEngine::SetWorldViewMatrix(viewMatrix);
+
+    _viewMatrix = viewMatrix;
 }
 
 extern int terrainMesh;

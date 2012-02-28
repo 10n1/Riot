@@ -292,8 +292,8 @@ int main(void)
 
     Initialize();
 
-    ShowCursor(false);
-    SetCapture((HWND)System::GetWindow());
+    //ShowCursor(false);
+    //SetCapture((HWND)System::GetWindow());
     while(1)
     {
         Frame();
@@ -302,8 +302,8 @@ int main(void)
             break;
     }
 
-    ShowCursor(true);
-    ReleaseCapture();
+    //ShowCursor(true);
+    //ReleaseCapture();
 
     core.Shutdown();
 
