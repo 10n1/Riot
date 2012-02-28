@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdio.h>
 /* C++ headers */
 #define WIN32_LEAN_AND_MEAN 1
 #include <Windows.h>
@@ -43,6 +44,8 @@ int         s_running   = 0;
 int         s_mouseX    = 0;
 int         s_mouseY    = 0;
 int         s_mouseState = 0;
+int         s_mouseDeltaX = 0;
+int         s_mouseDeltaY = 0;
 
 /*******************************************************************\
 Internal functions
@@ -121,6 +124,54 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
 {
     switch (message) 
     {
+    case WM_INPUT: 
+    {
+        static int tmp = 0;
+        UINT dwSize = 40;
+        static BYTE lpb[40];
+
+        //GetRawInputData((HRAWINPUT)lParam, RID_INPUT, 
+        //    lpb, &dwSize, sizeof(RAWINPUTHEADER));
+
+        RAWINPUT rawBuff;
+        UINT size = sizeof(rawBuff);
+        GetRawInputBuffer(&rawBuff, &size, sizeof(RAWINPUTHEADER));
+
+        //RAWINPUT* raw = (RAWINPUT*)lpb;
+
+        RAWINPUT* raw = &rawBuff;
+        if (raw->header.dwType == RIM_TYPEMOUSE) 
+        {
+            int xPosRelative = raw->data.mouse.lLastX;
+            int yPosRelative = raw->data.mouse.lLastY;
+
+            if(xPosRelative != 0 || yPosRelative != 0)
+            {
+            //    debugBreak();
+            }
+
+            s_mouseDeltaX = xPosRelative ;
+            s_mouseDeltaY = yPosRelative ;
+            printf("Old X: %d New X: %d\nOld Y: %d New Y: %d\nDeltaX: %d Delta Y %d\n", s_mouseX, xPosRelative, s_mouseY, yPosRelative, s_mouseDeltaX, s_mouseDeltaY);
+            s_mouseX = xPosRelative;
+            s_mouseY = yPosRelative;
+
+            char szTempOutput[1024];
+            sprintf(szTempOutput, TEXT("%d Mouse: usFlags=%04x ulButtons=%04x usButtonFlags=%04x usButtonData=%04x ulRawButtons=%04x lLastX=%04x lLastY=%04x ulExtraInformation=%04x\r\n"), 
+                tmp++,
+                raw->data.mouse.usFlags, 
+                raw->data.mouse.ulButtons, 
+                raw->data.mouse.usButtonFlags, 
+                raw->data.mouse.usButtonData, 
+                raw->data.mouse.ulRawButtons, 
+                raw->data.mouse.lLastX, 
+                raw->data.mouse.lLastY, 
+                raw->data.mouse.ulExtraInformation);
+
+            OutputDebugString(szTempOutput);
+        } 
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
     /* Keyboard input */
     case WM_KEYDOWN:
     case WM_SYSKEYDOWN:
@@ -140,9 +191,24 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
     /* Mouse input */
     case WM_MOUSEMOVE:
         {
-            POINTS pos = MAKEPOINTS(lParam);
-            s_mouseX = pos.x;
-            s_mouseY = pos.y;
+            //POINTS pos = MAKEPOINTS(lParam);
+            //s_mouseDeltaX = pos.x - s_mouseX ;
+            //s_mouseDeltaY = pos.y - s_mouseY ;
+            //printf("Old X: %d New X: %d\nOld Y: %d New Y: %d\nDeltaX: %d Delta Y %d\n", s_mouseX, pos.x, s_mouseY, pos.y, s_mouseDeltaX, s_mouseDeltaY);
+            //s_mouseX = pos.x;
+            //s_mouseY = pos.y;
+            //
+            //
+            //RECT rect;
+            //GetWindowRect((HWND)System::GetWindow(), &rect);
+            //SetCursorPos(s_mouseX + rect.left, s_mouseY + rect.top);
+            ////RECT rect;
+            ////GetWindowRect((HWND)System::GetWindow(), &rect);
+            ////SetCursorPos(rect.left + 512, rect.top + 768/2);
+            ////
+            ////s_mouseX = rect.left + 512;
+            ////s_mouseY = rect.top + 768/2;
+            //return 0;
         }
     case WM_LBUTTONDOWN:
     case WM_RBUTTONDOWN:
@@ -231,11 +297,26 @@ void Init(int window, int windowWidth, int windowHeight)
     ShowWindow(hwnd, SW_SHOWNORMAL);
 
     s_hwnd = hwnd;
+    //SetCapture((HWND)System::GetWindow());
 
+    // Register for WM_INPUT
+    #ifndef HID_USAGE_PAGE_GENERIC
+    #define HID_USAGE_PAGE_GENERIC         ((USHORT) 0x01)
+    #endif
+    #ifndef HID_USAGE_GENERIC_MOUSE
+    #define HID_USAGE_GENERIC_MOUSE        ((USHORT) 0x02)
+    #endif
+    
+    RAWINPUTDEVICE Rid[1];
+    Rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC; 
+    Rid[0].usUsage = HID_USAGE_GENERIC_MOUSE; 
+    Rid[0].dwFlags = RIDEV_NOLEGACY;   
+    Rid[0].hwndTarget = hwnd;
+    RegisterRawInputDevices(Rid, 1, sizeof(Rid[0]));
 }
 void Shutdown(void)
 {
-    CloseWindow(s_hwnd);
+    CloseWindow(s_hwnd); 
     UnregisterClass(kClassName, s_hinstance);
 
     // Zero out variables
@@ -312,6 +393,12 @@ void GetMousePosition(int* x, int* y)
 
     *x = s_mouseX;
     *y = s_mouseY;
+}
+void GetMouseDelta(int* x, int* y)
+{
+    *x = s_mouseDeltaX;
+    *y = s_mouseDeltaY;
+    s_mouseDeltaX = s_mouseDeltaY = 0;
 }
 
 // Utility stuff

@@ -8,6 +8,7 @@
 
 /* C headers */
 #include <stdio.h>
+#include <Windows.h>
 /* C++ headers */
 /* External headers */
 #include "box2d/box2d.h"
@@ -24,7 +25,7 @@
 
 float* _terrainHeights = NULL;
 const int terrainSize = 512;
-const int terrainHeight = 250;
+const int terrainHeight = 50;
 extern Perlin perlin;
 void* terrainVertices = NULL;
 int terrainMesh = 0;
@@ -276,7 +277,7 @@ External variables
 /*******************************************************************\
 External functions
 \*******************************************************************/
-int main(int, char*[])
+int main(void)
 {
 #ifdef _WIN32
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_16_DF );
@@ -290,6 +291,9 @@ int main(int, char*[])
     cJSON_Delete(coreJson);
 
     Initialize();
+
+    ShowCursor(false);
+    SetCapture((HWND)System::GetWindow());
     while(1)
     {
         Frame();
@@ -297,6 +301,9 @@ int main(int, char*[])
         if(core.Frame())
             break;
     }
+
+    ShowCursor(true);
+    ReleaseCapture();
 
     core.Shutdown();
 

@@ -9,6 +9,8 @@
 #include "component.h"
 
 /* C headers */
+#include <stdio.h>
+#include <Windows.h>
 /* C++ headers */
 /* External headers */
 /* Internal headers */
@@ -16,6 +18,7 @@
 #include "system.h"
 #include "perlin.h"
 #include "terrain.h"
+
 
 namespace
 {
@@ -78,8 +81,9 @@ void FirstPersonComponent::Update(float elapsedTime)
     Transform& transform = newTransforms[0];
     transform = entities[0]->transform;
 
-    int deltaX = 0; // mouseX - _mouseX;
-    int deltaY = 0; // mouseY - _mouseY;
+    int deltaX = 0;
+    int deltaY = 0;
+    System::GetMouseDelta(&deltaX, &deltaY);
 
     float speed = elapsedTime * 10.0f;
     if(System::GetKeyState(System::Key::kShift))
@@ -117,6 +121,10 @@ void FirstPersonComponent::Update(float elapsedTime)
        && transform.position.z > 0.0f && transform.position.z < terrainSize)
     {
         transform.position.y = perlin.Get(transform.position.x/terrainSize,transform.position.z/terrainSize) + 2.0f;
+    }
+
+    if(deltaX || deltaY)
+    {
     }
 }
 void FirstPersonComponent::Write(void)

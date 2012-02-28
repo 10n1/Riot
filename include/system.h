@@ -133,6 +133,7 @@ namespace System
     int GetKeyState(Key::Enum key);
     int GetMouseButtonState(Mouse::Enum button);
     void GetMousePosition(int* x, int* y);
+    void GetMouseDelta(int* x, int* y);
 
     // Utility stuff
     void ChangeWorkingDir(const char* dir);
