@@ -54,6 +54,9 @@ void RenderComponent::Update(float elapsedTime)
     }
 }
 
+#if PHYSICS_ENABLED
+btDiscreteDynamicsWorld* s_dynamicsWorld;
+#endif
 void PhysicsComponent::Update(float elapsedTime)
 {
 #if PHYSICS_ENABLED
@@ -105,6 +108,8 @@ void FirstPersonComponent::Update(float elapsedTime)
     int deltaX = 0;
     int deltaY = 0;
     System::GetMouseDelta(&deltaX, &deltaY);
+    deltaX = 0;
+    deltaY = 0;
 
     float speed = elapsedTime * 10.0f;
     if(System::GetKeyState(System::Key::kShift))
@@ -144,14 +149,31 @@ void FirstPersonComponent::Update(float elapsedTime)
         transform.position.y = perlin.Get(transform.position.x/terrainSize,transform.position.z/terrainSize) + 2.0f;
     }
 
+    static bool click = false;
     if(System::GetMouseButtonState(System::Mouse::kLeft))
     {
+        if(click == true)
+            return;
+
+        click = true;
         Vector3 ray = CalculatePickRay(512.0f, 768.0f/2);
 
         char buffer[256];
         sprintf(buffer, "X: %f Y: %f Z: %f\n", ray.x, ray.y, ray.z);
         OutputDebugString(buffer);
+
+        const Transform& transform = entities[0]->transform;        
+        btVector3 btRayFrom = btVector3(transform.position.x, transform.position.y, transform.position.z);
+        btVector3 btRayTo = btVector3(ray.x, ray.y, ray.z);
+        btCollisionWorld::ClosestRayResultCallback rayCallback(btRayFrom,btRayTo);
+        s_dynamicsWorld->rayTest(btRayFrom, btRayTo, rayCallback);
+        if (rayCallback.hasHit())
+        {
+            OutputDebugString("Hit!\n");
+        }
     }
+    else
+        click = false;
 }
 void FirstPersonComponent::Write(void)
 {

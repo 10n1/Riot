@@ -159,7 +159,7 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
 
             s_mouseDeltaX = xPosRelative ;
             s_mouseDeltaY = yPosRelative ;
-            printf("Old X: %d New X: %d\nOld Y: %d New Y: %d\nDeltaX: %d Delta Y %d\n", s_mouseX, xPosRelative, s_mouseY, yPosRelative, s_mouseDeltaX, s_mouseDeltaY);
+            //printf("Old X: %d New X: %d\nOld Y: %d New Y: %d\nDeltaX: %d Delta Y %d\n", s_mouseX, xPosRelative, s_mouseY, yPosRelative, s_mouseDeltaX, s_mouseDeltaY);
             s_mouseX = xPosRelative;
             s_mouseY = yPosRelative;
 
@@ -175,7 +175,7 @@ static LRESULT CALLBACK MainWndProc( HWND hWnd, UINT message, WPARAM wParam, LPA
                 raw->data.mouse.lLastY, 
                 raw->data.mouse.ulExtraInformation);
 
-            OutputDebugString(szTempOutput);
+            //OutputDebugString(szTempOutput);
 
             
             //SetMouseState((int)raw->data.mouse.ulButtons);

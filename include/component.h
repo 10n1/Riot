@@ -116,6 +116,9 @@ struct PhysicsComponentParams : public ComponentParams
 extern float* _terrainHeights;
 extern const int terrainSize;
 extern const int terrainHeight;
+#if PHYSICS_ENABLED
+extern btDiscreteDynamicsWorld* s_dynamicsWorld;
+#endif
 
 class PhysicsComponent : public Component
 {
@@ -139,6 +142,7 @@ public:
         _dynamicsWorld = new btDiscreteDynamicsWorld(_dispatcher,_overlappingPairCache,_solver,_collisionConfiguration);
 
         _dynamicsWorld->setGravity(btVector3(0,-10,0));
+        s_dynamicsWorld = _dynamicsWorld;
 
         /****************/
         {
